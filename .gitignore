@@ -1,0 +1,16 @@
+# Built packages. The repository holds the sources they are built from; keeping
+# the zips as well doubles the size and invites editing the wrong copy.
+*.zip
+
+# Spare copies made while working. If one of them ever matters it should be a
+# commit, not a file named "— копия".
+*— копия*
+*- копия*
+*.bak
+*.orig
+*.removed-in-*
+
+# Notes and captures from debugging sessions.
+*.log
+*.diff
+*.mp4

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ProductStrategies>
+
+    
+
+    
+
+    <ProductStrategy name="STRATEGY_PHONE">
+        <AttributesGroup streamType="AUDIO_STREAM_VOICE_CALL" volumeGroup="voice_call">
+            <Attributes> <Usage value="AUDIO_USAGE_VOICE_COMMUNICATION" /> </Attributes>
+        </AttributesGroup>
+        <AttributesGroup streamType="AUDIO_STREAM_BLUETOOTH_SCO" volumeGroup="bluetooth_sco">
+            <Attributes> <Flags value="AUDIO_FLAG_SCO" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    <ProductStrategy name="STRATEGY_SONIFICATION">
+        <AttributesGroup streamType="AUDIO_STREAM_RING" volumeGroup="ring">
+            <Attributes> <Usage value="AUDIO_USAGE_NOTIFICATION_TELEPHONY_RINGTONE" /> </Attributes>
+        </AttributesGroup>
+        <AttributesGroup streamType="AUDIO_STREAM_ALARM" volumeGroup="alarm">
+            <Attributes> <Usage value="AUDIO_USAGE_ALARM" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    <ProductStrategy name="STRATEGY_ENFORCED_AUDIBLE">
+        <AttributesGroup streamType="AUDIO_STREAM_ENFORCED_AUDIBLE" volumeGroup="enforced_audible">
+            <Attributes> <Flags value="AUDIO_FLAG_AUDIBILITY_ENFORCED" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    <ProductStrategy name="STRATEGY_ACCESSIBILITY">
+        <AttributesGroup streamType="AUDIO_STREAM_ACCESSIBILITY" volumeGroup="accessibility">
+            <Attributes> <Usage value="AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    <ProductStrategy name="STRATEGY_SONIFICATION_RESPECTFUL">
+        <AttributesGroup streamType="AUDIO_STREAM_NOTIFICATION" volumeGroup="notification">
+            <Attributes> <Usage value="AUDIO_USAGE_NOTIFICATION" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_NOTIFICATION_COMMUNICATION_REQUEST" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_NOTIFICATION_COMMUNICATION_INSTANT" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_NOTIFICATION_COMMUNICATION_DELAYED" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_NOTIFICATION_EVENT" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    <ProductStrategy name="STRATEGY_MEDIA">
+         <AttributesGroup streamType="AUDIO_STREAM_MUSIC" volumeGroup="music">
+            <Attributes> <Usage value="AUDIO_USAGE_MEDIA" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_GAME" /> </Attributes>
+            <Attributes />
+        </AttributesGroup>
+        <!--
+            v5.1: ASSISTANT moved here from the music group above.
+
+            Navigators do not agree on how to announce themselves. The well-behaved ones declare
+            ASSISTANCE_NAVIGATION_GUIDANCE. A second group speaks as ASSISTANT - the same usage a
+            voice assistant uses - and until now those landed in the music group, mixed with the
+            music, attenuated by the music curve and ducked as if they were music. That is one of
+            the "every navigator does its own thing" cases, and it is closed here.
+
+            The cost, stated plainly: a voice assistant's replies now follow the system index
+            rather than the music index. On a head unit that is the better default - a reply, like
+            a prompt, should be heard over the music rather than blended into it.
+
+            🔴 The third group cannot be caught here at all: navigators that announce plain MEDIA
+            are, to the policy engine, indistinguishable from a music player. Only a per-package
+            list can separate those, which is what /system/config/NaviApp.ini is for.
+        -->
+        <AttributesGroup streamType="AUDIO_STREAM_SYSTEM" volumeGroup="system">
+            <Attributes> <Usage value="AUDIO_USAGE_ASSISTANCE_SONIFICATION" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE" /> </Attributes>
+            <Attributes> <Usage value="AUDIO_USAGE_ASSISTANT" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    <ProductStrategy name="STRATEGY_DTMF">
+        <AttributesGroup streamType="AUDIO_STREAM_DTMF" volumeGroup="dtmf">
+            <Attributes> <Usage value="AUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    
+    <ProductStrategy name="STRATEGY_TRANSMITTED_THROUGH_SPEAKER">
+        <AttributesGroup streamType="AUDIO_STREAM_TTS" volumeGroup="tts">
+            <Attributes> <Flags value="AUDIO_FLAG_BEACON" /> </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+    
+    <ProductStrategy name="STRATEGY_REROUTING">
+        <AttributesGroup streamType="AUDIO_STREAM_REROUTING" volumeGroup="rerouting">
+            <Attributes />
+        </AttributesGroup>
+    </ProductStrategy>
+
+    
+    <ProductStrategy name="STRATEGY_PATCH">
+        <AttributesGroup streamType="AUDIO_STREAM_PATCH" volumeGroup="patch">
+            <Attributes />
+        </AttributesGroup>
+    </ProductStrategy>
+
+    
+    <ProductStrategy name="STRATEGY_FM">
+        <AttributesGroup streamType="AUDIO_STREAM_FM" volumeGroup="fm">
+            <Attributes>
+                <Bundle key="STRATEGY_FM" value="1" />
+            </Attributes>
+        </AttributesGroup>
+    </ProductStrategy>
+
+</ProductStrategies>

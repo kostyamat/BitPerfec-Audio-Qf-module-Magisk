@@ -1,0 +1,6 @@
+id=BitPerfect.module
+name=BitPerfect Universal Audio Engine
+version=v5.3-Universal
+versionCode=503
+author=Kostyantyn Matviyevskyy aka kostyamat & Antigravity (c)2026
+description=Bit-to-bit audio for QF001/K706. v5.3 fixes hardware detection - the sound processor is now read from the correct character of the MCU code (BU32107 / BD37534 / AK7738 / AK7604) and cross-checked against the platform's own persist.sys.qf.arm.use.i2s, so analogue BD units finally get the 16-bit profile instead of a 24-bit I2S one; the previous test read the control-panel byte and was true on every unit. Also: the watchdog now verifies the audio path is alive rather than that policies merely loaded, and the module no longer rewrites your start-up volume slider.

@@ -1,0 +1,8 @@
+persist.qf.arm.default.volume=15
+persist.vendor.audio_hal.period_size=240
+ro.vendor.audio.sdk.fluencetype=none
+audio.offload.disable=1
+persist.audio.hifi.enable=1
+persist.vendor.audio.hifi=true
+aaudio.mmap_policy=2
+aaudio.mmap_exclusive_policy=2
