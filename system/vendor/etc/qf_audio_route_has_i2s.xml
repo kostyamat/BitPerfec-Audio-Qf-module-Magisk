@@ -83,7 +83,7 @@
                 <ctl name="HPL EAR Sel" val="HPL" />
                 <ctl name="HPL Mixer DACLHPL Switch" val="1" />
                 <ctl name="HPR Mixer DACRHPR Switch" val="1" />
-		<ctl name="VBC_MIXER0_DAC0" val="NOT_MIX" />
+		<ctl name="VBC_MIXER0_DAC0" val="INTERCHANGE" />
                 <ctl name="Speaker Function" val="1" />
                 <ctl name="Speaker1 Function" val="1" />
             </on>
