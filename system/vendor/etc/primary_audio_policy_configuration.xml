@@ -3,7 +3,6 @@
     <attachedDevices>
         <item>Speaker</item>
         <item>Built-In Mic</item>
-        <item>Built-In Back Mic</item>
         <item>Fm Record Device</item>
         <item>Telephony Rx</item>
     </attachedDevices>
@@ -42,12 +41,12 @@
 		<mixPort name="primary input" role="sink">
 			<profile name="" format="AUDIO_FORMAT_PCM_16_BIT"					 
 							 samplingRates="48000"
-							 channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_FRONT_BACK"/>
+							 channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
 		</mixPort>
         <mixPort name="recognition input" role="sink">
             <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                      samplingRates="48000"
-                     channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_FRONT_BACK"/>
+                     channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
         </mixPort>
         <mixPort name="fm input" role="sink">
             <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
