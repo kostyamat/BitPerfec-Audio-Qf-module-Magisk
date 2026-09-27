@@ -24,7 +24,7 @@
 	</playback>
 	<record>
 		<recognition channels="1" period_size="960" period_count="2" format="0" rate="48000" card="sprdphone-sc2730"  device="0"/>
-		<mm_normal channels="2" period_size="1920" period_count="4" format="0" start_threshold="1920" rate="48000" card="sprdphone-sc2730"  device="2"/>
+		<mm_normal channels="1" period_size="960" period_count="4" format="0" start_threshold="960" rate="48000" card="sprdphone-sc2730"  device="0"/>
 		
 		<mmap_noirq channels="2" period_size="960" period_count="2" format="0" rate="48000" card="sprdphone-sc2730"  device="1"/>
 		<modem_ul channels="1" rate="8000" period_size="160" period_count="2" format="0" stop_threshold="-1" card="sprdphone-sc2730"  device="5"/>

@@ -78,10 +78,23 @@
         </headset-mic>
         <speaker device="0x2">
             <on>
-                <ctl name="aw881xx_mode_switch" val="spk" />
+                <ctl name="HP mix mode" val="0" />
+                <ctl name="DAC LRCLK Select" val="invert"/>
+                <ctl name="HPL EAR Sel" val="HPL" />
+                <ctl name="HPL Mixer DACLHPL Switch" val="1" />
+                <ctl name="HPR Mixer DACRHPR Switch" val="1" />
+		<ctl name="VBC_MIXER0_DAC0" val="NOT_MIX" />
+                <ctl name="Speaker Function" val="1" />
+                <ctl name="Speaker1 Function" val="1" />
             </on>
             <off>
-                <ctl name="aw881xx_mode_switch" val="Off" />
+                <ctl name="Speaker Function" val="0" />
+                <ctl name="Speaker1 Function" val="0" />
+		<ctl name="VBC_MIXER0_DAC0" val="NOT_MIX" />
+                <ctl name="DAC LRCLK Select" val="normal"/>
+                <ctl name="HPL Mixer DACLHPL Switch" val="0" />
+                <ctl name="HPR Mixer DACRHPR Switch" val="0" />
+                <ctl name="HPL EAR Sel" val="EAR" />
             </off>
         </speaker>
         <headphone3p device="0x8">

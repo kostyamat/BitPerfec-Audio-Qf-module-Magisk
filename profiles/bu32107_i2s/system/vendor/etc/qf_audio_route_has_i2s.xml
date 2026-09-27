@@ -571,7 +571,7 @@
     <!-- sync controls , async todo kenrel use dummy  be. -->
     <be_switch>
         <!--  if there is anyone of 0x1, 0x2, 0x4, 0x8, we must exec on ctl, and once is enough-->
-        <codec_p device00="0x1,0x4,0x8">
+        <codec_p device00="0x1,0x2,0x4,0x8">
             <on>
                 <ctl name="ag_iis0_ext_sel" val="enable"/>
                 <ctl name="S_NORMAL_AP01_P_CODEC SWITCH" val="1"/>
