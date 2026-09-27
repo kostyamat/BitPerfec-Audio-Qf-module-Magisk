@@ -6,7 +6,7 @@ log_msg() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] [up:$(cat /proc/uptime | awk '{print $1}')s] $1" >> "$LOGFILE"
 }
 
-log_msg "=== BitPerfect Universal v5.3 Service Starting ==="
+log_msg "=== BitPerfect Universal v5.4 Service Starting ==="
 
 MCU_VER=$(resetprop persist.sys.qf.mcu.version 2>/dev/null)
 HW_CODE=$(echo "$MCU_VER" | awk -F'.' '{print $NF}')
@@ -148,7 +148,9 @@ resetprop persist.qf.arm.default.volume 15
 
     log_msg "Early boot watchdog completed. Final verification..."
     cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
-    media volume --stream 3 --set 15 2>/dev/null
+    if [ "$(get_music_vol)" != "15" ]; then
+        media volume --stream 3 --set 15 2>/dev/null
+    fi
     resetprop persist.qf.arm.default.volume 15
 
     # Suspend/Resume detector (wake-up watchdog)
@@ -169,7 +171,9 @@ resetprop persist.qf.arm.default.volume 15
                 fi
                 resetprop persist.qf.arm.default.volume 15
                 cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
-                media volume --stream 3 --set 15 2>/dev/null
+                if [ "$(get_music_vol)" != "15" ]; then
+                    media volume --stream 3 --set 15 2>/dev/null
+                fi
             fi
         fi
     done
