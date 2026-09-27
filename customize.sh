@@ -220,10 +220,12 @@ if [ "$USE_I2S" = "yes" ]; then
     ui_print "- Профіль: 24-bit 48kHz Hi-Fi Bit-to-Bit"
     cp -rf "$MODPATH/profiles/bu32107_i2s/system/"* "$MODPATH/system/"
     drop_route qf_double_bt_audio_route_noi2s.xml
+    drop_route qf_audio_route_no_i2s.xml
 else
     ui_print "- Профіль: 16-bit Safe BitPerfect (без шуму)"
     cp -rf "$MODPATH/profiles/bd37544_noi2s/system/"* "$MODPATH/system/"
     drop_route qf_double_bt_audio_route_i2s.xml
+    drop_route qf_audio_route_has_i2s.xml
 fi
 
 ui_print "- Застосування спільних політик навігації та регулювання..."

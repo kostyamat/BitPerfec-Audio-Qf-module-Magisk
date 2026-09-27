@@ -155,15 +155,5 @@ resetprop persist.qf.arm.default.volume 15
                     ;;
             esac
         fi
-
-        NAVI_ACTIVE=$(getprop persist.sys.navi_state)
-        if [ "$NAVI_ACTIVE" != "true" ]; then
-            CURR_VOL=$(media volume --stream 3 --get 2>/dev/null | grep "volume is" | awk '{print $4}')
-            if [ "$CURR_VOL" = "9" ]; then
-                log_msg "Sleep/Wakeup volume drop to 9 detected! Restoring to 15..."
-                media volume --stream 3 --set 15 2>/dev/null
-                resetprop persist.qf.arm.default.volume 15
-            fi
-        fi
     done
 ) &
