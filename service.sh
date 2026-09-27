@@ -123,13 +123,19 @@ resetprop persist.qf.arm.default.volume 15
         log_msg "Audio path is healthy."
     fi
 
-    WATCH_UNTIL=$(($(date +%s) + 25))
+    get_music_vol() {
+        dumpsys audio 2>/dev/null | grep -A 5 "STREAM_MUSIC:" | grep "streamVolume:" | head -n 1 | cut -d: -f2
+    }
+
+    # Lightweight boot guard: check volume for ~15 seconds using native dumpsys audio (0 JVM starts)
+    WATCH_UNTIL=$(($(date +%s) + 15))
     while [ $(date +%s) -lt $WATCH_UNTIL ]; do
-        CURR_VOL=$(media volume --stream 3 --get 2>/dev/null | grep "volume is" | awk '{print $4}')
+        CURR_VOL=$(get_music_vol)
         if [ -n "$CURR_VOL" ] && [ "$CURR_VOL" != "15" ]; then
             NAVI_ACTIVE=$(getprop persist.sys.navi_state)
             if [ "$NAVI_ACTIVE" != "true" ]; then
                 log_msg "Detected volume drop to $CURR_VOL! Restoring to 15..."
+                cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
                 media volume --stream 3 --set 15 2>/dev/null
                 resetprop persist.qf.arm.default.volume 15
             fi
@@ -137,23 +143,34 @@ resetprop persist.qf.arm.default.volume 15
         if [ "$HAS_I2S" = "yes" ]; then
             tinymix "VBC_IIS_MST_WIDTH_SET" WD_24BIT 2>/dev/null
         fi
-        sleep 0.3
+        sleep 1.5
     done
 
     log_msg "Early boot watchdog completed. Final verification..."
+    cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
     media volume --stream 3 --set 15 2>/dev/null
     resetprop persist.qf.arm.default.volume 15
 
+    # Suspend/Resume detector (wake-up watchdog)
+    # Detects wake-up by monotonic time leap during deep sleep without background polling or VM calls
+    LAST_TIME=$(date +%s)
     while true; do
         sleep 3
-        if [ "$HAS_I2S" = "yes" ]; then
-            CURRENT_WIDTH=$(tinymix "VBC_IIS_MST_WIDTH_SET" 2>/dev/null)
-            case "$CURRENT_WIDTH" in
-                *">WD_16BIT"*)
-                    log_msg "ALSA mixer reset to 16-bit detected! Restoring WD_24BIT..."
+        NOW_TIME=$(date +%s)
+        DIFF=$((NOW_TIME - LAST_TIME))
+        LAST_TIME=$NOW_TIME
+
+        if [ $DIFF -gt 12 ]; then
+            IS_ACC_OFF=$(getprop sys.qf.is.acc.on)
+            if [ "$IS_ACC_OFF" != "false" ]; then
+                log_msg "Wake-up from sleep detected (time delta: ${DIFF}s). Restoring unity gain and 24-bit I2S..."
+                if [ "$HAS_I2S" = "yes" ]; then
                     tinymix "VBC_IIS_MST_WIDTH_SET" WD_24BIT 2>/dev/null
-                    ;;
-            esac
+                fi
+                resetprop persist.qf.arm.default.volume 15
+                cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
+                media volume --stream 3 --set 15 2>/dev/null
+            fi
         fi
     done
 ) &
