@@ -15,8 +15,8 @@
         </mixPort>
         <mixPort name="fast" role="source"
                 flags="AUDIO_OUTPUT_FLAG_FAST">
-            <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                     samplingRates="8000,11025,12000,16000,22050,24000,32000,44100,48000"
+            <profile name="" format="AUDIO_FORMAT_PCM_8_24_BIT"
+                     samplingRates="48000"
                      channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
         </mixPort>
         <mixPort name="primary input" role="sink">
@@ -38,7 +38,7 @@
     <devicePorts>
         <!-- Output devices declaration, i.e. Sink DEVICE PORT -->
         <devicePort tagName="Speaker" role="sink" type="AUDIO_DEVICE_OUT_SPEAKER">
-            <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+            <profile name="" format="AUDIO_FORMAT_PCM_8_24_BIT"
                      samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
         </devicePort>
         <devicePort tagName="Wired Headset" type="AUDIO_DEVICE_OUT_WIRED_HEADSET" role="sink">
