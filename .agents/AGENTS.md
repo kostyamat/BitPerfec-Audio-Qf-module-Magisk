@@ -41,12 +41,29 @@ effect out of the chip? If yes, it is wrong here even when it sounds better.
 
 ## What this project is
 
-Two things under one name, and they must not be confused:
+Two things under one name, **in one repository** — the app ships inside the module, so they are
+released together. The repo is public by intent; the owner, 30.09.2026: *«бітперфект — моя візитка»*.
 
-| | what | where |
-|---|---|---|
-| **the module** | `BitPerfect.module` — a Magisk module that radically changes the audio path of the QF/K706 platform | `D:\My_K706_Magisk_Modules\BitPerfect2\`, its own git repo, remote `git@github.com:kostyamat/BitPerfec-Audio-Qf-module-Magisk.git`, branch `v5.4-repaired` |
-| **the app** | `com.radiorubka.bitperfect` — a live editor for the platform's AGDSP parameters: filters on and off, microphone gain per mode, applied by restarting `audioserver` | this repository |
+```
+BitPerfec-Audio-Qf-module-Magisk/        branch v5.4-repaired
+├─ .agents/            these notes — they cover BOTH halves
+├─ control-app/        the Android app, com.radiorubka.bitperfect
+├─ META-INF/  common/  profiles/  system/    ┐
+├─ customize.sh  module.prop                 │  the Magisk module payload
+├─ service.sh  system.prop                   ┘
+└─ README.md
+```
+
+| | what |
+|---|---|
+| **the module** | `BitPerfect.module` — a Magisk module that radically changes the audio path of the QF/K706 platform |
+| **the app** | `com.radiorubka.bitperfect` — a live editor for the platform's AGDSP parameters: filters on and off, microphone gain per mode, applied by restarting `audioserver`. Delivered **inside the module**, in `priv-app`, because it needs `android.uid.system` |
+
+🔴 **The release zip is assembled by hand and must contain exactly seven entries:** `META-INF`,
+`common`, `profiles`, `system`, `customize.sh`, `module.prop`, `service.sh`. ⚠️ `.agents/` and
+`control-app/` are **sources, not payload** — zipping the whole folder would ship them to every owner
+and bloat the module. There is no build script yet; writing one is worth doing before the next
+release, precisely so this cannot be got wrong by hand.
 
 Both are led by one session. The owner, 29–30.09.2026: *«так, це ти і модуль твій»*.
 
