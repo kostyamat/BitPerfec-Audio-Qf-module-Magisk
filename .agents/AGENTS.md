@@ -124,11 +124,21 @@ second writer of level — one was cleared out of this path on 27.08 precisely t
 
 ## Where the knowledge is
 
-Platform facts live in the `qf-platform` skill, never copied into this repo:
-`10-BITPERFECT-MODULE.md` (the module itself, §7 routes, §12 AGDSP), `08-VOLUME-AND-SOURCES.md`,
-`09-NAVIGATION-AND-BITPERFECT.md`, `05-AUDIO-PATH.md`, `02-MCU.md`. The live copy is
-`wDSP\.agents\platform\` — anything added carries a provenance mark (🔬 read · 📻 measured ·
-🧩 inferred · ❓ unverified).
+🔴 **The `qf-platform` skill is the canon** — the owner's ruling of 30.09.2026. Everything else is a
+mirror, and a mirror is maintained by whoever owns the subject:
+
+| file | subject | live mirror |
+|---|---|---|
+| `09-NAVIGATION-AND-BITPERFECT.md` | navigation, ducking, what BitPerfect does to them | **`.agents/platform/` here** |
+| `10-BITPERFECT-MODULE.md` | the module itself — §7 routes, §12 AGDSP | **`.agents/platform/` here** |
+| `08-VOLUME-AND-SOURCES.md` | the per-source volume model, the AK hub | `wDSP\.agents\platform\` |
+| `05-AUDIO-PATH.md`, `02-MCU.md`, the rest | shared | `wDSP\.agents\platform\` |
+
+Edit the mirror you own, then copy it to the skill — **never the other way round**, and never copy
+blind: check first that the destination has no lines the source lacks (`diff` after normalising
+CRLF), or the copy destroys somebody's work. Everything added carries a provenance mark
+(🔬 read · 📻 measured · 🧩 inferred · ❓ unverified), and a guess written as a fact is worse than no
+note at all.
 
 The decompiled platform is in `D:\De-compiled\`. The UI style is the `automotive-hyper-ui` skill,
 borrowed from the Gemini store (canon:
