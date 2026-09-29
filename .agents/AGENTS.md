@@ -1,5 +1,44 @@
 # BitPerfect Control — rules in force
 
+## 0. 🔴 The doctrine — every other rule here serves it
+
+The owner, 30.09.2026, in his words:
+
+> *«суть бітперфекта — ми забираємо з любого плеєра звук в максимальній якості, не допускаємо його
+> ослаблення, присідання чи зміни АЧХ до виходу на BU32107, з асемплом/ресемплом до 24/48 (це
+> максимум, що дозволяють штатні налаштування тактового генератора та мікросхеми на цьому апараті),
+> регулювання звуку та ефекти суто на рівні BU32107. Вона для цього і існує.»*
+
+What follows from it, and what every change is measured against:
+
+1. **Nothing attenuates, compresses or shapes the signal before the chip.** No digital gain, no EQ,
+   no dynamics in the Android path. Volume and effects belong to **BU32107**, which exists for that.
+2. **24-bit / 48 kHz is the target**, up- or resampled to it. That is the ceiling the stock clock
+   generator and the chips on this unit allow — not a preference.
+3. **Output sits at 0 dB, always.** The owner: *«я хочу щоб флінжер видав на вихід на ДСП весь звук
+   до останнього кванта»*. This is why `persist.qf.arm.default.volume=15` is pinned — see
+   `qf-platform`, `09-NAVIGATION-AND-BITPERFECT.md` §13. 🔴 Removing that pin drops the base to the
+   fallback 9 and leaves the digital path at −16 dB for good after the first navigation prompt.
+4. **Special modes may deviate, briefly.** Calls, navigation and ducking are allowed to switch rate
+   or depth while they last — preferably resampling back to 24/48. A transient, intentional
+   attenuation is not a breach of the doctrine; a permanent one is.
+5. **BD units are held to the same target.** Gemini confirms 24/48 on the DAC/CPU that carries
+   BD37xxx over analogue — same conditions, the route simply is not I2S.
+
+📻 **Verified on the bench 30.09.2026**, and this is the shape to keep:
+
+```
+HAL format: 0x4 (AUDIO_FORMAT_PCM_8_24_BIT)   on primary AND fast
+Sample rate: 48000 Hz                          on both
+VBC_IIS_MST_WIDTH_SET: WD_16BIT >WD_24BIT      24-bit selected on the bus
+G db on the music track at index 15: 0         unity, nothing lost
+```
+
+⇒ Before any change to the audio path, ask: does it attenuate, resample away from 24/48, or move an
+effect out of the chip? If yes, it is wrong here even when it sounds better.
+
+---
+
 ## What this project is
 
 Two things under one name, and they must not be confused:
