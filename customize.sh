@@ -1,10 +1,21 @@
 ##########################################################################################
-# BitPerfect Universal v5.3 Installer
+# BitPerfect Universal Installer
+#
+# 🔴 The version is READ from module.prop, never written here. A hardcoded string in this
+# banner said "v5.3" while module.prop said v5.4 and the zip in the release folder was named
+# "v5.4.1" - three labels, three different answers, and the unit could confirm none of them.
+# Whatever prints the version must derive it from the one place that ships with the module.
 ##########################################################################################
 : "${MODPATH:=${0%/*}}"
 
+MODVER=$(grep -m1 '^version=' "$MODPATH/module.prop" 2>/dev/null | cut -d= -f2)
+MODCODE=$(grep -m1 '^versionCode=' "$MODPATH/module.prop" 2>/dev/null | cut -d= -f2)
+[ -z "$MODVER" ] && MODVER="UNKNOWN"
+[ -z "$MODCODE" ] && MODCODE="?"
+
 ui_print "***************************************************"
-ui_print "       BitPerfect Universal Audio Engine v5.3      "
+ui_print "       BitPerfect Universal Audio Engine           "
+ui_print "       $MODVER (versionCode $MODCODE)"
 ui_print "          for QF001 / K706 Platform                "
 ui_print "***************************************************"
 
@@ -80,7 +91,7 @@ umount /data/local/tmp/vraw_snap 2>/dev/null
 rmdir /data/local/tmp/vraw_snap 2>/dev/null
 
 {
-    echo "# taken before BitPerfect v5.3 was applied, $(date)"
+    echo "# taken before BitPerfect $MODVER (versionCode $MODCODE) was applied, $(date)"
     echo "# mcu: $(getprop persist.sys.qf.mcu.version)"
     echo "# configuration files came from: $ORIGIN"
     echo
