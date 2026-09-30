@@ -10,7 +10,7 @@
 remote `git@github.com:kostyamat/BitPerfec-Audio-Qf-module-Magisk.git` (публічний — *«бітперфект моя
 візитка»*). Застосунок у `control-app/`, документація в `.agents/`.
 
-**Попереду origin на 5 комітів — не запушені.** Пуш лише за наказом, лише з WSL.
+**Попереду origin на 7 комітів — не запушені.** Пуш лише за наказом, лише з WSL.
 
 **Стенд** `192.168.1.242:9876`: v5.4 (вантаж «v5.4.1»), `QFPhone` Дж, `audio.debug=true` — лишити.
 
@@ -30,7 +30,8 @@ remote `git@github.com:kostyamat/BitPerfec-Audio-Qf-module-Magisk.git` (публ
 - маска `FRONT_BACK` у політиці **не допомогла** — `in_device:0x80000004`. HAL обирає мікрофон
   **параметром AGDSP** (`set_voice_mic with audio param`, `get_voice_mic_select param_id:0 1`);
 - `sprd_aec_on=1` у FIFO — прийнято, HAL мовчить, **луна та сама** (слово власника).
-- рінгтон: `system_server` грає на `STREAM_ALARM`/`USAGE_ALARM`, `G db −18` — індекс alarm = 9.
+- рінгтон: `system_server` грає на `STREAM_ALARM`, `G db −18` через індекс alarm 9 → `092be40`
+  піднімає до 15 **один раз** (рішення власника: повзунок лишається). На стенді 15, ребутом не звірено.
 
 🔴 **Наступний крок:** в `audio_structure.xml` для `Handsfree` (режими 7–14) — `aec_enable`/
 `aec_switch` і вибір мікрофона; прибрати блоб у `/data/vendor/local/media/audio_params/`, рестарт
@@ -48,5 +49,4 @@ audioserver, **новий** дзвінок. Під час дзвінка рес�
 1. **Тембр «глухіше і пласкіше»**: параметри AGDSP не загублені (змінено лише мікрофонний гейн
    `0x03→0x04`), ефекти однакові, криві змінені навмисно. Лишився шар маршрутів — у 4.18 їх **не
    було зовсім**, брались заводські. Підміняти на заводський і слухати?
-2. Рінгтон: індекс alarm до 15 чи `FULL_SCALE` на alarm?
-3. Чи пушити.
+2. Чи пушити.
