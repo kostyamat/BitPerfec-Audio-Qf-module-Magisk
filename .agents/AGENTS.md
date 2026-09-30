@@ -97,18 +97,10 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 - Commit after every verified step; **push only on the owner's order**, and only from WSL.
 - Do not grant permissions over adb.
 
-## Traps that have already cost time here
+## Traps
 
-- 🪤 **Byte deltas that equal the line count are CRLF, not content.** Normalise (`tr -d '\r'`)
-  before diffing or comparing sizes of module files.
-- 🪤 **After `adb reboot`, wait on `uptime`, not `sys.boot_completed`** — `adbd` outlives the request
-  and the first poll reads the previous boot's `1`.
-- 🪤 **`adb shell grep 'a\|b'` silently returns nothing** under MSYS. Use `MSYS_NO_PATHCONV=1` and
-  verify an empty result with a second, simpler command before believing it.
-- 🪤 **An unset `sys.*.vol` reads back as its `persist.sys.*_volume` default** on every call. That is
-  the "volume reset itself" bug; there is no reset code.
-- 🪤 **Volume is per source, not per Android stream**, and a write only reaches the MCU while its
-  type matches `sys.current.vol.type`.
+Eleven of them, each with the measurement that found it — **`.agents/PRACTICE.md`**. Read it before
+driving adb, git or the knowledge mirrors; every one cost time already.
 
 ## Dependencies
 
@@ -125,21 +117,8 @@ second writer of level — one was cleared out of this path on 27.08 precisely t
 ## Where the knowledge is
 
 🔴 **The `qf-platform` skill is the canon** — the owner's ruling of 30.09.2026. Everything else is a
-mirror, and a mirror is maintained by whoever owns the subject:
+mirror, maintained by whoever owns the subject; edit your own mirror, then copy it to the skill,
+**never the other way round**, and never blind.
 
-| file | subject | live mirror |
-|---|---|---|
-| `09-NAVIGATION-AND-BITPERFECT.md` | navigation, ducking, what BitPerfect does to them | **`.agents/platform/` here** |
-| `10-BITPERFECT-MODULE.md` | the module itself — §7 routes, §12 AGDSP | **`.agents/platform/` here** |
-| `08-VOLUME-AND-SOURCES.md` | the per-source volume model, the AK hub | `wDSP\.agents\platform\` |
-| `05-AUDIO-PATH.md`, `02-MCU.md`, the rest | shared | `wDSP\.agents\platform\` |
-
-Edit the mirror you own, then copy it to the skill — **never the other way round**, and never copy
-blind: check first that the destination has no lines the source lacks (`diff` after normalising
-CRLF), or the copy destroys somebody's work. Everything added carries a provenance mark
-(🔬 read · 📻 measured · 🧩 inferred · ❓ unverified), and a guess written as a fact is worse than no
-note at all.
-
-The decompiled platform is in `D:\De-compiled\`. The UI style is the `automotive-hyper-ui` skill,
-borrowed from the Gemini store (canon:
-`C:\Users\kosty\.gemini\config\skills\automotive-hyper-ui\SKILL.md`).
+Which mirror lives where, and the rest of the map — **`.agents/PRACTICE.md`**.
+What is in `.agents/` at all — **`.agents/INDEX.md`**.
