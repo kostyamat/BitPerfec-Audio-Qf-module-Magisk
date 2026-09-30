@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"D:/My_K706_Magisk_Modules/BitPerfect2/.claude/precompact.sh\"",
+            "timeout": 15,
+            "statusMessage": "Знімок стану перед компактом"
+          }
+        ]
+      }
+    ]
+  }
+}

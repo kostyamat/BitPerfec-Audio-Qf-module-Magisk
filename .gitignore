@@ -14,3 +14,4 @@
 *.log
 *.diff
 *.mp4
+/.agents/.compact-state
