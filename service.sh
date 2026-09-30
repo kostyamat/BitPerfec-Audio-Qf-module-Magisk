@@ -38,6 +38,15 @@ log_msg "Detected MCU: $MCU_VER (sound chip: $SOUND_CHIP, tuner: $RADIO_CHIP, I2
 
 resetprop persist.qf.arm.default.volume 15
 
+# The platform re-derives that property from car.config at every boot - see common/bp_carconfig.sh.
+. "$MODPATH/common/bp_carconfig.sh"
+bp_pin_music_volume
+case $? in
+    0) log_msg "car.config music_volume already 15." ;;
+    2) log_msg "car.config music_volume set to 15 (was: $BP_LINE); takes effect on next boot." ;;
+    *) log_msg "car.config music_volume not found - left alone." ;;
+esac
+
 # --- persist.sys.main_volume is NOT ours to touch. Do not add it back. ---
 #
 # v5.0 wrote `persist.sys.main_volume 15` and `sys.media.vol 15`, on the assumption that they were
@@ -121,23 +130,6 @@ resetprop persist.qf.arm.default.volume 15
     sleep 3
     if check_path_alive; then
         log_msg "Audio path is healthy."
-    fi
-
-    # --- the alarm stream: raise it to unity ONCE, then leave it to the owner ---
-    #
-    # Measured 30.09.2026: Telecom on this firmware plays the incoming-call ringtone as
-    # STREAM_ALARM / USAGE_ALARM, not as a ring. The stored index was 9 - the platform fallback,
-    # saved before persist.qf.arm.default.volume was pinned - and the alarm curve at 9 is -17.8 dB.
-    # Ring and music sat at 15, so the ringtone played 18 dB under everything else.
-    #
-    # Once, not every boot: unlike music, the alarm index is a comfort control the owner is meant
-    # to keep. A module cannot tell the stale fallback from a deliberate 9 by the number alone (see
-    # main_volume above), so it sets the baseline on first boot and never touches it again.
-    ALARM_MARK=/data/adb/BitPerfect.alarm_unity
-    if [ ! -f "$ALARM_MARK" ]; then
-        media volume --stream 4 --set 15 2>/dev/null
-        log_msg "Alarm stream raised to unity once (index 15); from now on it is the owner's setting."
-        touch "$ALARM_MARK"
     fi
 
     get_music_vol() {

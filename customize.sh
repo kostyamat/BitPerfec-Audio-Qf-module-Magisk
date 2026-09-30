@@ -242,6 +242,15 @@ fi
 ui_print "- Застосування спільних політик навігації та регулювання..."
 cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
 
+# Platform default volume -> unity, so the first boot after install already comes up at 0 dB.
+. "$MODPATH/common/bp_carconfig.sh"
+bp_pin_music_volume
+case $? in
+    0) ui_print "- car.config: music_volume already 15" ;;
+    2) ui_print "- car.config: music_volume -> 15 (backup: $BP_CARCONFIG_BAK)" ;;
+    *) ui_print "- car.config: music_volume not found, left alone" ;;
+esac
+
 # v5.1: the NXP branch used to do `setprop persist.sys.navi_volume 15` here. Removed.
 #
 # That property is the STREAM_SYSTEM index - it IS the navigation prompt's whole loudness. Writing
