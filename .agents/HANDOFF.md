@@ -18,24 +18,22 @@ remote `git@github.com:kostyamat/BitPerfec-Audio-Qf-module-Magisk.git` (публ
 
 ## ✅ Зроблено (живе до коміту/пушу)
 
-- Передачу прийнято, контракт `C:\APPS_Contacts\wDSP--BitPerfect\` — пункти 1, 3, 6 закриті.
-- Зіткнення оверлеїв усунуто **і доведено ребутом**: політику дає тільки BitPerfect.
-- `223d7f0` — повернуто `AUDIO_CHANNEL_IN_FRONT_BACK` у `primary input` і `recognition input`
-  (три копії, як у 4.18). Перевірено дзвінком: не шкодить, але й не вирішує.
-- `4a6fb87` — інсталятор друкує версію з `module.prop`. Канон = скіл; дзеркала `09` і `10` тут.
+- `223d7f0` `FRONT_BACK` на входах — дзвінком: не шкодить, не вирішує. Політику дає лише BitPerfect.
 
 ## ⏳ У роботі — точний наступний крок
 
-**Дзвінок 30.09 03:57 (вхідний на стенд) закрив дві гіпотези:**
-- маска `FRONT_BACK` у політиці **не допомогла** — `in_device:0x80000004`. HAL обирає мікрофон
-  **параметром AGDSP** (`set_voice_mic with audio param`, `get_voice_mic_select param_id:0 1`);
-- `sprd_aec_on=1` у FIFO — прийнято, HAL мовчить, **луна та сама** (слово власника).
-- рінгтон: `system_server` грає на `STREAM_ALARM`, `G db −18` через індекс alarm 9 → `092be40`
-  піднімає до 15 **один раз** (рішення власника: повзунок лишається). На стенді 15, ребутом не звірено.
+**Дзвінок 30.09 03:57:** `in_device:0x80000004` — мікрофон обирає параметр AGDSP, не політика;
+FIFO `sprd_aec_on=1` не діє; рінгтон Telecom = `STREAM_ALARM`, −18 dB.
 
-🔴 **Наступний крок:** в `audio_structure.xml` для `Handsfree` (режими 7–14) — `aec_enable`/
-`aec_switch` і вибір мікрофона; прибрати блоб у `/data/vendor/local/media/audio_params/`, рестарт
-audioserver, **новий** дзвінок. Під час дзвінка рестарт не можна — обірве.
+🔴 **Що кардинально змінилось (30.09, з git Дж):** до `c25dee4` (29.09) їхній модуль возив СВОЮ
+політику v3.0; з нею дзвінок ішов на **Earpiece → AGDSP Handset (0–6)**: `Clarity_switch=1`,
+`ul_ns_limit=0x258`. У нашій політиці Earpiece немає → **Handsfree (7–14)**: Clarity 0, ns_limit 0.
+Друге: входи в нас лише 48 кГц (у v3.0 — 8…48), а бібліотечний AEC месенджерів імовірно 8/16 кГц.
+**Наступний крок:** A/B — політику v3.0 дослівно в гілку, ребут, дзвінок + WhatsApp + Telegram.
+
+⚠️ **`092be40` не діє:** `QFSleepWakeup` на кожному пробудженні ставить music/system/notif/alarm =
+`persist.qf.arm.default.volume`, а `ConfigInfoManagerService` на старті пише його з `car.config`
+`music_volume=9`. Корінь — `music_volume`, а не індекс.
 
 ⚠️ **BD-профіль** без `Built-In Back Mic` — доробити за зразком BU (`devicePort` + два `route`).
 
