@@ -10,7 +10,7 @@
 remote `git@github.com:kostyamat/BitPerfec-Audio-Qf-module-Magisk.git` (публічний — *«бітперфект моя
 візитка»*). Застосунок у `control-app/`, документація в `.agents/`.
 
-**Запушено до `9209d79`** (30.09, з WSL). Пуш лише за наказом, лише з WSL.
+**Запушено до `9209d79`**; далі — ні. Пуш лише за наказом, лише з WSL.
 
 **Стенд** `192.168.1.242:9876`: v5.4 (вантаж «v5.4.1»), `QFPhone` Дж, `audio.debug=true` — лишити.
 
@@ -31,9 +31,8 @@ FIFO `sprd_aec_on=1` не діє; рінгтон Telecom = `STREAM_ALARM`, −18
 Друге: входи в нас лише 48 кГц (у v3.0 — 8…48), а бібліотечний AEC месенджерів імовірно 8/16 кГц.
 **Наступний крок:** A/B — політику v3.0 дослівно в гілку, ребут, дзвінок + WhatsApp + Telegram.
 
-⚠️ **`092be40` не діє:** `QFSleepWakeup` на кожному пробудженні ставить music/system/notif/alarm =
-`persist.qf.arm.default.volume`, а `ConfigInfoManagerService` на старті пише його з `car.config`
-`music_volume=9`. Корінь — `music_volume`, а не індекс.
+✅ Гучність за замовчуванням — `dbf1f61`: `car.config music_volume=15` (платформа сама ставить
+music/notif/alarm = 15 на кожному пробудженні). Два ребути на стенді ок; інсталятор не проганявся.
 
 ⚠️ **BD-профіль** без `Built-In Back Mic` — доробити за зразком BU (`devicePort` + два `route`).
 
