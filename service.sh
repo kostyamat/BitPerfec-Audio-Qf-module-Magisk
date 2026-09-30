@@ -123,6 +123,23 @@ resetprop persist.qf.arm.default.volume 15
         log_msg "Audio path is healthy."
     fi
 
+    # --- the alarm stream: raise it to unity ONCE, then leave it to the owner ---
+    #
+    # Measured 30.09.2026: Telecom on this firmware plays the incoming-call ringtone as
+    # STREAM_ALARM / USAGE_ALARM, not as a ring. The stored index was 9 - the platform fallback,
+    # saved before persist.qf.arm.default.volume was pinned - and the alarm curve at 9 is -17.8 dB.
+    # Ring and music sat at 15, so the ringtone played 18 dB under everything else.
+    #
+    # Once, not every boot: unlike music, the alarm index is a comfort control the owner is meant
+    # to keep. A module cannot tell the stale fallback from a deliberate 9 by the number alone (see
+    # main_volume above), so it sets the baseline on first boot and never touches it again.
+    ALARM_MARK=/data/adb/BitPerfect.alarm_unity
+    if [ ! -f "$ALARM_MARK" ]; then
+        media volume --stream 4 --set 15 2>/dev/null
+        log_msg "Alarm stream raised to unity once (index 15); from now on it is the owner's setting."
+        touch "$ALARM_MARK"
+    fi
+
     get_music_vol() {
         dumpsys audio 2>/dev/null | grep -A 5 "STREAM_MUSIC:" | grep "streamVolume:" | head -n 1 | cut -d: -f2
     }
