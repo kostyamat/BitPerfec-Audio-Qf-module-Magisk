@@ -65,6 +65,7 @@ mirror, maintained by whoever owns the subject.
 |---|---|---|
 | `09-NAVIGATION-AND-BITPERFECT.md` | navigation, ducking, what BitPerfect does to them | **`.agents/platform/` here** |
 | `10-BITPERFECT-MODULE.md` | the module itself — §7 routes, §12 AGDSP | **`.agents/platform/` here** |
+| `22-WATCHING-PROPERTIES.md` | watching properties without polling | **`.agents/platform/` here** |
 | `08-VOLUME-AND-SOURCES.md` | the per-source volume model, the AK hub | `wDSP\.agents\platform\` |
 | `05-AUDIO-PATH.md`, `02-MCU.md`, the rest | shared | `wDSP\.agents\platform\` |
 

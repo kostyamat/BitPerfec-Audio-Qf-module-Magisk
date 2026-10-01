@@ -10,6 +10,7 @@
 | `CONTROLLABLE_PARAMETERS.md` | designing the app. The register of what can be controlled on this platform, with a recommendation per row | English |
 | `platform/09-NAVIGATION-AND-BITPERFECT.md` | navigation, ducking, prompt levels | English |
 | `platform/10-BITPERFECT-MODULE.md` | the module: routes (§7), AGDSP parameters (§12) | English |
+| `platform/22-WATCHING-PROPERTIES.md` | watching a property without polling — which method works (measured with a control) | English |
 
 Everything else about the platform is in the **`qf-platform` skill**, which is the canon — not in
 this repository. The contract with wDSP and the calling line is
