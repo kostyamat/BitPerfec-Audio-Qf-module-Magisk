@@ -16,13 +16,17 @@
 bp_repush_mcu_level() {
     BP_MCU_WHY=""
     [ "$(getprop sys.mute.state)" = "true" ] && { BP_MCU_WHY="global mute on"; return 1; }
-    [ "$(getprop sys.qf.call_state)" = "true" ] && { BP_MCU_WHY="call in progress"; return 1; }
+    # A call by ANY of three signs: the flag is written by the dialer app and a stock BT dialer may
+    # not write it; the volume type and channel 5 come from the MCU service itself (wDSP, #1143).
+    [ "$(getprop sys.qf.call_state)" = "true" ] && { BP_MCU_WHY="call in progress (call_state)"; return 1; }
+    [ "$(getprop sys.current.vol.type)" = "btcall_type" ] && { BP_MCU_WHY="call in progress (btcall_type)"; return 1; }
     # The MCU's own answer, cross-checked with the platform's mirror; disagreement = do nothing.
     BP_MCU_CH=$(service call mcu_service 14 2>/dev/null | sed -n 's/.*Parcel(00000000 \([0-9a-f]*\).*/\1/p')
     [ -n "$BP_MCU_CH" ] || { BP_MCU_WHY="mcu_service did not answer"; return 1; }
     BP_MCU_CH=$((0x$BP_MCU_CH))
     BP_PROP_CH=$(getprop sys.qf.sound.channel)
     [ "$BP_MCU_CH" = "$BP_PROP_CH" ] || { BP_MCU_WHY="channel mismatch: mcu $BP_MCU_CH, prop $BP_PROP_CH"; return 1; }
+    [ "$BP_MCU_CH" = "5" ] && { BP_MCU_WHY="call in progress (channel 5)"; return 1; }
     service call mcu_service 15 i32 "$BP_MCU_CH" >/dev/null 2>&1 || { BP_MCU_WHY="RPC_SetChannel failed"; return 1; }
     log -t BitPerfect "MCU level re-pushed on channel $BP_MCU_CH ($1)"
     return 0
