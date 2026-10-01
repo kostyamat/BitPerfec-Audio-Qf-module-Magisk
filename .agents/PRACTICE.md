@@ -39,6 +39,12 @@ the file saying 60, reboot → 60. A direct write looks fine all session and the
 at the session's `cwd`, so the guard silently does nothing. Check yourself with `get_session`, never
 with `pwd`. 📻 30.09, cost a wrong "I have moved".
 
+🪤 **An experiment that cannot fail proves nothing.** Before calling a result a refutation, ask
+whether the setup could have produced the other answer at all. 📻 Hit twice here: changing
+`persist.qf.arm.default.volume` at runtime (it is read once, in the `AudioService` constructor),
+and re-selecting MCU channel 4 while it was already 4 — which cannot tell "type is never set" from
+"type is set only on a real change". The real change (4→2→4, #1073) did set it.
+
 🪤 **Commit messages from PowerShell go through `-F <file>`, never `-m`.** A multi-line `-m` with
 quotes inside breaks apart into pathspecs and the commit fails halfway.
 
