@@ -40,6 +40,7 @@ resetprop persist.qf.arm.default.volume 15
 
 # The platform re-derives that property from car.config at every boot - see common/bp_carconfig.sh.
 . "$MODPATH/common/bp_carconfig.sh"
+. "$MODPATH/common/bp_mcu_level.sh"
 bp_pin_music_volume
 case $? in
     0) log_msg "car.config music_volume already 15." ;;
@@ -132,6 +133,13 @@ esac
         log_msg "Audio path is healthy."
     fi
 
+    # MCU gain -> the live source's level, once per boot (contract BOOT_AUDIO_STATE, B-bis).
+    if bp_repush_mcu_level boot; then
+        log_msg "MCU level re-pushed on channel $BP_MCU_CH (boot)."
+    else
+        log_msg "MCU level not re-pushed at boot: $BP_MCU_WHY."
+    fi
+
     get_music_vol() {
         dumpsys audio 2>/dev/null | grep -A 5 "STREAM_MUSIC:" | grep "streamVolume:" | head -n 1 | cut -d: -f2
     }
@@ -182,6 +190,13 @@ esac
                 cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
                 if [ "$(get_music_vol)" != "15" ]; then
                     media volume --stream 3 --set 15 2>/dev/null
+                fi
+                # Let QFSleepWakeup finish its own wake-up volume pass first.
+                sleep 5
+                if bp_repush_mcu_level wake; then
+                    log_msg "MCU level re-pushed on channel $BP_MCU_CH (wake)."
+                else
+                    log_msg "MCU level not re-pushed at wake: $BP_MCU_WHY."
                 fi
             fi
         fi
