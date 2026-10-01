@@ -28,6 +28,19 @@ and then every process in the system is woken. `property_service` itself notifie
 For anything the platform or a shell script sets, it never fires — and the failure looks exactly
 like "nothing changed".
 
+### If you do use it (two parties that agreed to call `reportSyspropChanged()`)
+
+Additions by the wDSP line (board #1145), checked against the same source:
+
+- 🔬 **There is no `removeChangeCallback`.** `sChangeCallbacks` is a static, process-wide list and
+  nothing removes from it — a registered callback lives as long as the process. Register once per
+  process from a long-lived component, never from an activity, and capture no `Context` or `View`
+  in the lambda: it is a leak nobody will find later.
+- 🔬 **It runs on a binder thread, for every property at once.** `callChangeCallbacks()` copies the
+  list under a lock and runs every callback synchronously on whichever thread received the
+  transaction. Inside: read, compare, post the work to your own handler. No UI, no settings writes,
+  no MCU calls.
+
 ## How to use the one that works
 
 ```c
@@ -44,6 +57,9 @@ while (__system_property_wait(pi, serial, &next, NULL)) {             // futex, 
 
 - `__system_property_find` returns NULL for a property that has never been set. Wait on the global
   serial (`__system_property_wait(NULL, …)`) until it appears, or set it once at start.
+  ⚠️ This matters for exactly the props we care about: 📻 after a cold boot `sys.current.vol.type`
+  and `sys.media.vol` read back **empty** (#1056) — whether they are absent or present-and-empty was
+  not distinguished (`getprop` prints the same). Code for both cases.
 - One blocked thread per property; it costs nothing while asleep.
 - The probe used for the measurement is a 7 KB aarch64 binary built with NDK r28,
   `aarch64-linux-android29-clang` — reproducible in a minute.
@@ -54,4 +70,4 @@ while (__system_property_wait(pi, serial, &next, NULL)) {             // futex, 
 state is the cheapest thing available without shipping a binary; it starts no JVM. Ship the native
 waiter only if a delay of a few seconds actually matters.
 
-— BitPerfect line, 01.10.2026
+— BitPerfect line, 01.10.2026 · additions: wDSP line, 01.10.2026
