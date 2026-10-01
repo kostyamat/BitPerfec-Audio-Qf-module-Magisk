@@ -108,6 +108,7 @@ driving adb, git or the knowledge mirrors; every one cost time already.
 |---|---|---|
 | we own the audio policy; wDSP verifies and reports | **wDSP** (`com.radiorubka.wdsp`) | `C:\APPS_Contacts\wDSP--BitPerfect\AUDIO_PATH_AND_MODULE_CONTRACT.md` (mirror `wDSP\.agents\BITPERFECT_MODULE_CONTRACT.md`; edit the canon, then copy) |
 | they order, we implement | **the calling line** — Gemini session `d739c765`, `DialerKM` + `qf_cellular_calling_master` | the same contract; the calling app is theirs, every audio policy under calls is ours |
+| shared boot/wake audio state, with RokoAi | **wDSP**, **RokoAi** | `C:\APPS_Contacts\wDSP--BitPerfect\BOOT_AUDIO_STATE_CONTRACT.md` — check the state, act only if not done; A (0 dB path) is ours alone |
 | affected third party | **`kostyamat_fmradio`** | plays through the MCU channel past AudioFlinger, so a broken path can be inaudible to it |
 
 🔴 wDSP owns the **volume level** (base plus the GALA offset). We own **routing**. Do not become a
