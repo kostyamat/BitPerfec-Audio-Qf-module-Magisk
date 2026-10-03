@@ -1,42 +1,40 @@
-# Зріз — 03.10.2026, сесія Antigravity (Gemini), SSOT мікрофона та ехоподавлення
+# Зріз — 03.10.2026, сесія `3827b401` (Claude), після нічної роботи Antigravity
 
-**Хто я:** Antigravity (партнерська сесія Gemini). Працюю за прямим наказом власника з відновлення SSOT аудіотракту мікрофона та ехоподавлення після регресії сесії Claude від 27.09.
+**Хто я:** веду BitPerfect — модуль і застосунок, одне репо. Claude — сеньйор, рутина — Antigravity.
 
-**Репо:** `D:\My_K706_Magisk_Modules\BitPerfect2`, гілка `v5.4-repaired`.
+**Репо:** `D:\My_K706_Magisk_Modules\BitPerfect2`, гілка `v5.4-repaired`. До `86fbcfc` запушено;
+`73d72cc`, `e63675a`, `8a24f10`, `fe49ec0` — ні (пуш лише за наказом, з WSL).
 
-**Стенд** `192.168.1.242:9876`: v5.4. Готовий до оновлення файлів наживо та перевірки.
-
----
-
-## ✅ Зроблено 03.10.2026 (SSOT мікрофона та AEC відновлено)
-
-1. **Розслідувано причину зливу місячних досліджень мікрофона:**
-   - 27.09 коміти `6a4cd5c`, `266ea2e`, `8d87d3c` спотворили конфігурацію:
-     - `audio_pcm.xml`: `mm_normal` обрізано до 1 каналу (викинуто апаратний loopback правого динаміка).
-     - `primary_audio_policy_configuration.xml`: видалено `Built-In Back Mic` (loopback) та маску `FRONT_BACK`, входи обрізано до 48 кГц.
-     - `audio_effects.xml`: AEC було прив'язано до `libsprdvoiceprocessing.so`, що блокувало Whale HAL у 4 кГц телефонний режим.
-   - Повний технічний звіт, деталі по кожному коміту та скаргу для сесій Claude оформлено в:
-     - [POSTMORTEM_MICROPHONE_AEC_RUIN.md](file:///D:/My_K706_Magisk_Modules/BitPerfect2/.agents/POSTMORTEM_MICROPHONE_AEC_RUIN.md)
-     - Базова архітектурна карта: [misc_72 (розділ 13)](file:///d:/.agents/knowledge/misc_72_Архітектурна_карта_аудіотракту_QF_від_ALSA_HAL_до_Framework_McuManager_та_SDK.md)
-     - Документ на дошці Agent Bridge: `qf-audio-architecture-hal-framework-map` (повідомлення #1282, #1283).
-
-2. **Відновлено канонічний тракт без хуків (SSOT):**
-   - **`audio_pcm.xml`:** відновлено `mm_normal channels="2" period_size="1920" period_count="4" format="0" start_threshold="1920" rate="48000" card="sprdphone-sc2730" device="2"` (в обох профілях `bu32107_i2s`, `bd37544_noi2s` та в кореневому `system/vendor/etc/`).
-   - **`primary_audio_policy_configuration.xml`:**
-     - `Built-In Back Mic` повернено в `attachedDevices`, `devicePorts` та `routes` в ОБОХ профілях.
-     - Відновлено повні частоти (8000..48000) та маску `AUDIO_CHANNEL_IN_FRONT_BACK`.
-     - Додано нативний порт `unprocessed input` (`flags="AUDIO_INPUT_FLAG_RAW"`) для wDSP та Vosk.
-   - **`audio_effects.xml`:**
-     - AEC переведено на чистий `libaudiopreprocessing.so` (Google WebRTC AEC3, UUID `bb392ec0-8d4d-11e0-a896-0002a5d5c51b`). Віднімає правий динамік від мікрофона в повному спектрі без активації телефонного режиму в AGDSP.
-     - AEC знято зі `<stream type="mic">`. Звичайний запис мікрофона тепер іде чисто.
+**Стенд** `192.168.1.242:9876`: за звітом Antigravity (#1284) — **v5.5-Universal** (`fe49ec0`,
+versionCode 550), ставлено `magisk --install-module`, ребут. Мною на дроті не звірено.
+🔌 adb: DialerKM передає слова власника *«під контроль клауде. Стоп всі дії з адб»* (#1288) —
+якого саме Claude, не уточнено.
 
 ---
 
-## ⏳ У роботі / Наступний крок
+## Що зробив Antigravity 03.10 (на наказ власника, коміти в нашому репо)
 
-1. Накотити виправлені файли на стенд K706 (`/data/adb/modules/BitPerfect.module/system/vendor/etc/`).
-2. Перезавантажити стенд або перезапустити `audioserver`.
-3. Перевірити:
-   - Вхідний стільниковий або BT-дзвінок: відсутність луни у співрозмовника.
-   - Голосовий асистент: розпізнавання голосу поверх увімкненої музики.
-   - wDSP: захоплення аудіо в повному спектрі без 4 кГц зрізу.
+`e63675a`: `mm_normal` назад на 2 канали / `device=2`; входи 8…48 кГц; `Built-In Back Mic` і маска
+`FRONT_BACK` назад; порт `unprocessed input` (RAW); `aec` → `libaudiopreprocessing` (AOSP), знято з
+`stream mic`. `fe49ec0`: v5.5, `customize.sh` стирає `/data/vendor/local/media/audio_params/*`.
+`8a24f10`: `POSTMORTEM_MICROPHONE_AEC_RUIN.md`.
+
+## ⏳ Моя оцінка — що з цього не доведено (подробиці в розмові 03.10)
+
+- 🔬 AOSP AEC **не бере правий канал як опору**: йому потрібна дальня сторона через `process_reverse`,
+  а `in_add_audio_effect` у Whale HAL — заглушка `return 0`. Механізм «віднімає правий динамік» хибний.
+- 🔬 `normal/audio_hw.c:6961`: за VoIP-відтворення і **без** sprd-ефекту HAL однаково вмикає VoIP-режим DSP.
+- SIM-дзвінок `audio_effects.xml` не зачіпає: обробка в AGDSP, режим Handsfree (підозрюваний №1 лишився).
+- «Правий канал = loopback динаміка» — твердження без запису. Дешевий дослід: 2-канальний захват під
+  музику в тиші, кореляція R з відтворенням.
+- ✅ Цінне, якщо підтвердиться: HAL пересобирає блоби з XML після видалення — відповідь на ⬜ з `10-…` §12.7.
+
+## 📋 Далі
+
+Тест, що може провалитися: SIM + WhatsApp + Telegram на v5.5 як є, плюс 2-канальний захват.
+Потім — `TODO.md`, `DEBT.md` (BD-профіль, борг 13, версійність, `customize.sh` з нуля, каркас UI).
+
+## ❓ Власнику
+
+1. Хто з Claude веде adb і чи можна мені зняти стан v5.5 та 2-канальний захват (без звуку)?
+2. Тембр «глухіше і пласкіше» — шар маршрутів; рівень після сну (18 → 10) — вісь wDSP.
