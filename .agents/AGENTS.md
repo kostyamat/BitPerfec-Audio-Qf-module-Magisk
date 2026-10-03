@@ -115,7 +115,7 @@ driving adb, git or the knowledge mirrors; every one cost time already.
 without fighting it, and **substitutes** what calls need from it when BitPerfect is absent — on BU32107
 (I2S) units and on BD37xxx (analog) units alike. So every call fix that lands here (today: the I2S
 clock in the `voice` route section, `64b4c9f`) is also owed to the calling line in a form that works
-without this module and never collides with it. Agree the mechanism with them; do not ship it twice.
+without this module and never collides with it — agreed with them, never shipped twice.
 
 🔴 wDSP owns the **volume level** (base plus the GALA offset). We own **routing**. Do not become a
 second writer of level — one was cleared out of this path on 27.08 precisely to stop a race.
