@@ -14,7 +14,7 @@ adb вільний (#1291). 💣 Скидання оновлень 05:38 вла�
 
 ## 🧪 Перед тестовим дзвінком
 `adb shell am force-stop com.radiorubka.wdsp` — інакше DSP падає (доки нема фіксу wDSP).
-Знімання: `%TEMP%\mic\call_probe.sh` → `/data/local/tmp/` (дзвонить на 1200 через Telecom явно).
+Знімання: `.agents/tools/call_probe.sh` → `/data/local/tmp/`, `sh … <тека>` (1200 через Telecom).
 Ознаки здоров'я в лозі: немає `dsp timeout`, є `name:Audio\Handset\NB1|WB1`.
 
 ## ✅ Доведено 03.10 (дзвінки на 1200, власник: «звук є»)
