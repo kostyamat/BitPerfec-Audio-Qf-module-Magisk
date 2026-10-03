@@ -41,14 +41,19 @@
 		</mixPort>
 		<mixPort name="primary input" role="sink">
 			<profile name="" format="AUDIO_FORMAT_PCM_16_BIT"					 
-							 samplingRates="48000"
+							 samplingRates="8000,11025,12000,16000,22050,24000,32000,44100,48000"
 							 channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_FRONT_BACK"/>
 		</mixPort>
         <mixPort name="recognition input" role="sink">
             <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                     samplingRates="48000"
+                     samplingRates="8000,11025,12000,16000,22050,24000,32000,44100,48000"
                      channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_FRONT_BACK"/>
         </mixPort>
+		<mixPort name="unprocessed input" role="sink" flags="AUDIO_INPUT_FLAG_RAW">
+			<profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+							 samplingRates="48000,16000"
+							 channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
+		</mixPort>
         <mixPort name="fm input" role="sink">
             <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                      samplingRates="8000,11025,12000,16000,22050,24000,32000,44100,48000"
@@ -131,6 +136,7 @@
         <route type="mix" sink="BT SCO Car Kit" sources="primary output,mmap_no_irq_out,fast"/>
         <route type="mix" sink="primary input" sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic,USB Device In,USB Headset In,Telephony Rx,mmap_no_irq_in"/>
         <route type="mix" sink="recognition input" sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,USB Headset In,USB Device In"/>
+        <route type="mix" sink="unprocessed input" sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,USB Headset In,USB Device In"/>
         <route type="mix" sink="fm input" sources="Fm Record Device"/>
         <route type="mix" sink="USB Device Out" sources="primary output,mmap_no_irq_out,fast"/>
         <route type="mix" sink="USB Headset Out" sources="primary output,mmap_no_irq_out,fast"/>
