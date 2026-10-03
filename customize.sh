@@ -232,6 +232,10 @@ if [ "$USE_I2S" = "yes" ]; then
     cp -rf "$MODPATH/profiles/bu32107_i2s/system/"* "$MODPATH/system/"
     drop_route qf_double_bt_audio_route_noi2s.xml
     drop_route qf_audio_route_no_i2s.xml
+    # 🔴 The factory has_i2s route is the one that works (as in 4.18). v5.4 shipped a foreign variant
+    # whose speaker voip/voice_playback took the AEC reference from the FM I2S input instead of the
+    # DAC loopback: wild echo on calls. Remove it from an upgraded install too.
+    drop_route qf_audio_route_has_i2s.xml
 else
     ui_print "- Профіль: 16-bit Safe BitPerfect (без шуму)"
     cp -rf "$MODPATH/profiles/bd37544_noi2s/system/"* "$MODPATH/system/"
