@@ -36,9 +36,10 @@ fi
 
 log_msg "Detected MCU: $MCU_VER (sound chip: $SOUND_CHIP, tuner: $RADIO_CHIP, I2S: $HAS_I2S)"
 
-# The same capability list the installer wrote, for apps that cannot read /data/adb.
+# sys.bitperfect.enabled: 1 only after THIS boot has proven the policies are loaded and the path is
+# alive (below); 0 until then. The calling module refuses to work without it.
 # Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
-[ -f "$MODPATH/capabilities" ] && resetprop sys.bitperfect.caps "$(paste -sd, "$MODPATH/capabilities")"
+resetprop sys.bitperfect.enabled 0
 
 resetprop persist.qf.arm.default.volume 15
 
@@ -86,13 +87,17 @@ esac
 
     sleep 2
     IS_NEW_POLICY=$(dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" | grep "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE")
+    POLICY_OK=no
     if [ -z "$IS_NEW_POLICY" ]; then
         log_msg "WARNING: audioserver started with old policies! Restarting audioserver now..."
         killall audioserver 2>/dev/null || pkill -9 audioserver
         sleep 2
         log_msg "audioserver restarted. New PID: $(pidof audioserver)"
+        dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
+            | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE" && POLICY_OK=yes
     else
         log_msg "Policies are loaded."
+        POLICY_OK=yes
     fi
 
     # --- and separately: is the path underneath them actually alive? ---
@@ -133,9 +138,18 @@ esac
     }
 
     sleep 3
-    if check_path_alive; then
+    PATH_OK=no
+    check_path_alive && PATH_OK=yes
+    # A stranded stream restarts audioserver; give it one more look once that has settled.
+    [ "$PATH_OK" = "no" ] && sleep 3 && check_path_alive && PATH_OK=yes
+    if [ "$PATH_OK" = "yes" ]; then
         log_msg "Audio path is healthy."
+        if [ "$POLICY_OK" = "yes" ]; then
+            resetprop sys.bitperfect.enabled 1
+            log_msg "sys.bitperfect.enabled=1 (policies loaded, path alive)."
+        fi
     fi
+    [ "$(getprop sys.bitperfect.enabled)" = "1" ] || log_msg "sys.bitperfect.enabled stays 0 (policy: $POLICY_OK)."
 
     # MCU gain -> the live source's level, once per boot (contract BOOT_AUDIO_STATE, B-bis).
     if bp_repush_mcu_level boot; then

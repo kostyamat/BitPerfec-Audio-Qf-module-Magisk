@@ -242,15 +242,12 @@ fi
 ui_print "- Застосування спільних політик навігації та регулювання..."
 cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
 
-# What this install provides to the calling module - one capability per line. The calling module
-# checks a line, never our version, and substitutes only what is missing. Contract:
-# C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
-{
-    echo audio_policy
-    [ "$USE_I2S" = "yes" ] && echo voice_i2s_clock
-} > "$MODPATH/capabilities"
+# Calls run only on top of BitPerfect: every audio policy and route for calls lives here, the calling
+# module ships none and refuses to work without sys.bitperfect.enabled=1 (set by service.sh).
+# Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
+rm -f "$MODPATH/capabilities" /data/adb/modules/BitPerfect.module/capabilities
 if [ -d /data/adb/modules/qf_cellular_calling_master ] || [ -d /data/adb/modules_update/qf_cellular_calling_master ]; then
-    ui_print "- Модуль дзвінків знайдено: маршрути дзвінків дає BitPerfect ($(tr '\n' ' ' < "$MODPATH/capabilities"))"
+    ui_print "- Модуль дзвінків знайдено: аудіополітику й маршрути дзвінків дає BitPerfect"
 fi
 
 # Platform default volume -> unity, so the first boot after install already comes up at 0 dB.
