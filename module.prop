@@ -1,6 +1,6 @@
 id=BitPerfect.module
 name=BitPerfect Universal Audio Engine
-version=v5.4-Universal
-versionCode=504
+version=v5.5-Universal
+versionCode=550
 author=Kostyantyn Matviyevskyy aka kostyamat & Antigravity (c)2026
-description=Bit-to-bit audio for QF001/K706. v5.4 repairs TTS playback by restoring physical SC2730 DAC speaker switches, expands audio policy formats and sample rates (16-bit + 24-bit 8..48kHz) across fast, primary input/output, and Speaker, routes normal and recognition mic capture to unprocessed ALSA device 0 without DSP lock, adds qf_audio_route_has_i2s.xml, and stops the background volume watchdog from fighting system audio controls.
+description=Bit-to-bit audio for QF001/K706. v5.5 establishes SSOT: restores 2-channel ALSA capture with stereo hardware speaker loopback on AuxMIC, maps AEC to Google WebRTC AEC3 (Fullband echo cancellation without 4kHz telephone cutoff), restores Built-In Back Mic and full input sample rates (8..48kHz), and adds dedicated RAW unprocessed input for wDSP/Vosk.

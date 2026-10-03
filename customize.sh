@@ -268,6 +268,9 @@ if [ "$RADIO_CHIP" = "4" ]; then
     ui_print "  Якщо підказки навігації тонуть - підніміть їх у налаштуваннях гучності."
 fi
 
+ui_print "- Очищення застарілого кешу блобів AGDSP у /data..."
+rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
+
 ui_print "- Встановлення прав доступу..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/config" 0 0 0755 0644
