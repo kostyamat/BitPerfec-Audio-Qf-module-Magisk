@@ -113,9 +113,9 @@ driving adb, git or the knowledge mirrors; every one cost time already.
 
 🔴 **The calling module must stand alone** (owner, 03.10.2026): it works with BitPerfect installed
 without fighting it, and **substitutes** what calls need from it when BitPerfect is absent — on BU32107
-(I2S) units and on BD37xxx (analog) units alike. So every call fix that lands here (today: the I2S
-clock in the `voice` route section, `64b4c9f`) is also owed to the calling line in a form that works
-without this module and never collides with it — agreed with them, never shipped twice.
+(I2S) and BD37xxx (analog) units alike. Every call fix that lands here (today: the I2S
+clock in the `voice` route, `64b4c9f`) is also owed to the calling line in a form that works
+without this module and never collides with it, agreed with them, shipped once.
 
 🔴 wDSP owns the **volume level** (base plus the GALA offset). We own **routing**. Do not become a
 second writer of level — one was cleared out of this path on 27.08 precisely to stop a race.
