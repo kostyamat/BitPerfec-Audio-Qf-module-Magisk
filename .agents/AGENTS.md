@@ -111,11 +111,10 @@ driving adb, git or the knowledge mirrors; every one cost time already.
 | shared boot/wake audio state, with RokoAi | **wDSP**, **RokoAi** | `C:\APPS_Contacts\wDSP--BitPerfect\BOOT_AUDIO_STATE_CONTRACT.md` — check the state, act only if not done; A (0 dB path) is ours alone |
 | affected third party | **`kostyamat_fmradio`** | plays through the MCU channel past AudioFlinger, so a broken path can be inaudible to it |
 
-🔴 **The calling module must stand alone** (owner, 03.10.2026): it works with BitPerfect installed
-without fighting it, and **substitutes** what calls need from it when BitPerfect is absent — on BU32107
-(I2S) and BD37xxx (analog) units alike. Every call fix that lands here (today: the I2S
-clock in the `voice` route, `64b4c9f`) is also owed to the calling line in a form that works
-without this module and never collides with it, agreed with them, shipped once.
+🔴 **Calls run only on top of BitPerfect** (owner, 03.10.2026): policies, routes and AGDSP for calls
+live here alone; the calling module ships none and says «Без BitPerfect не працюю» at install and on
+a call. Our signal: `sys.bitperfect.enabled=1`, set each boot after policies and path are verified.
+Contract `C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md`.
 
 🔴 wDSP owns the **volume level** (base plus the GALA offset). We own **routing**. Do not become a
 second writer of level — one was cleared out of this path on 27.08 precisely to stop a race.
