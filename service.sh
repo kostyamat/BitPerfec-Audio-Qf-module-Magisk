@@ -36,6 +36,10 @@ fi
 
 log_msg "Detected MCU: $MCU_VER (sound chip: $SOUND_CHIP, tuner: $RADIO_CHIP, I2S: $HAS_I2S)"
 
+# The same capability list the installer wrote, for apps that cannot read /data/adb.
+# Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
+[ -f "$MODPATH/capabilities" ] && resetprop sys.bitperfect.caps "$(paste -sd, "$MODPATH/capabilities")"
+
 resetprop persist.qf.arm.default.volume 15
 
 # The platform re-derives that property from car.config at every boot - see common/bp_carconfig.sh.

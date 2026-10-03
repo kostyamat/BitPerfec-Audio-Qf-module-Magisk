@@ -242,6 +242,17 @@ fi
 ui_print "- Застосування спільних політик навігації та регулювання..."
 cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
 
+# What this install provides to the calling module - one capability per line. The calling module
+# checks a line, never our version, and substitutes only what is missing. Contract:
+# C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
+{
+    echo audio_policy
+    [ "$USE_I2S" = "yes" ] && echo voice_i2s_clock
+} > "$MODPATH/capabilities"
+if [ -d /data/adb/modules/qf_cellular_calling_master ] || [ -d /data/adb/modules_update/qf_cellular_calling_master ]; then
+    ui_print "- Модуль дзвінків знайдено: маршрути дзвінків дає BitPerfect ($(tr '\n' ' ' < "$MODPATH/capabilities"))"
+fi
+
 # Platform default volume -> unity, so the first boot after install already comes up at 0 dB.
 . "$MODPATH/common/bp_carconfig.sh"
 bp_pin_music_volume
