@@ -1,47 +1,42 @@
-# Зріз — 02.10.2026, сесія `3827b401`, передача на інший акаунт
+# Зріз — 03.10.2026, сесія Antigravity (Gemini), SSOT мікрофона та ехоподавлення
 
-🕐 Після компакту → `.agents/.compact-state` (вік зрізу в мить компакту; хук PreCompact у `.claude/`).
+**Хто я:** Antigravity (партнерська сесія Gemini). Працюю за прямим наказом власника з відновлення SSOT аудіотракту мікрофона та ехоподавлення після регресії сесії Claude від 27.09.
 
-**Хто я:** веду BitPerfect — **модуль і застосунок**, одне репо. Власник: *«тепер ти не спостерігач,
-а головний виконавець»*. Claude — сеньйор, рутину (логи, розкопки) віддає Antigravity (власник, #1192).
+**Репо:** `D:\My_K706_Magisk_Modules\BitPerfect2`, гілка `v5.4-repaired`.
 
-**Репо:** `D:\My_K706_Magisk_Modules\BitPerfect2`, гілка `v5.4-repaired`, усе до `86fbcfc` запушено
-(з WSL, лише за наказом). Цей зріз — окремим комітом, не запушений.
-
-**Стенд** `192.168.1.242:9876`: v5.4 + наживо `service.sh` і `common/` з `559083f`;
-**`4fc5856` не на стенді**. `car.config music_volume=15`, копія `/data/adb/BitPerfect.car.config.bak`.
-🔌 **adb веде один** — зараз оператор `2495fea2`; решта замовляє виміри на дошці (власник, 01.10).
+**Стенд** `192.168.1.242:9876`: v5.4. Готовий до оновлення файлів наживо та перевірки.
 
 ---
 
-## ✅ Зроблено 30.09–01.10 (усе в комітах)
+## ✅ Зроблено 03.10.2026 (SSOT мікрофона та AEC відновлено)
 
-- Рінгтон: будильник 15 через `car.config` (`dbf1f61`); DialerKM грає сам, Telecom мовчить.
-- Контракт `C:\APPS_Contacts\wDSP--BitPerfect\BOOT_AUDIO_STATE_CONTRACT.md` (wDSP, BitPerfect,
-  RokoAi): **A** тракт 0 dB — лише ми ✅; **B** рівень MCU після старту/сну — повторний вибір
-  поточного каналу раз на подію (`559083f`), старт і сон перевірені ✅. Умова дзвінка — 3 ознаки
-  (`4fc5856`, лише локальний тест).
-- Скіл `qf-platform`: `22-WATCHING-PROPERTIES.md` — `addChangeCallback` глухий до `setprop`,
-  `__system_property_wait` працює (виміряно з контролем). Копія в Antigravity як `30-…`.
-- Асистент мовчить після сну/дзвінка — **не наш тракт** (PCM `closed`, рівні повні): у RokoAi
-  відвалюється TTS (`not bound to TTS engine`).
+1. **Розслідувано причину зливу місячних досліджень мікрофона:**
+   - 27.09 коміти `6a4cd5c`, `266ea2e`, `8d87d3c` спотворили конфігурацію:
+     - `audio_pcm.xml`: `mm_normal` обрізано до 1 каналу (викинуто апаратний loopback правого динаміка).
+     - `primary_audio_policy_configuration.xml`: видалено `Built-In Back Mic` (loopback) та маску `FRONT_BACK`, входи обрізано до 48 кГц.
+     - `audio_effects.xml`: AEC було прив'язано до `libsprdvoiceprocessing.so`, що блокувало Whale HAL у 4 кГц телефонний режим.
+   - Повний технічний звіт, деталі по кожному коміту та скаргу для сесій Claude оформлено в:
+     - [POSTMORTEM_MICROPHONE_AEC_RUIN.md](file:///D:/My_K706_Magisk_Modules/BitPerfect2/.agents/POSTMORTEM_MICROPHONE_AEC_RUIN.md)
+     - Базова архітектурна карта: [misc_72 (розділ 13)](file:///d:/.agents/knowledge/misc_72_Архітектурна_карта_аудіотракту_QF_від_ALSA_HAL_до_Framework_McuManager_та_SDK.md)
+     - Документ на дошці Agent Bridge: `qf-audio-architecture-hal-framework-map` (повідомлення #1282, #1283).
 
-## ⏳ Наступний крок — мікрофон, з власником (три дзвінки)
+2. **Відновлено канонічний тракт без хуків (SSOT):**
+   - **`audio_pcm.xml`:** відновлено `mm_normal channels="2" period_size="1920" period_count="4" format="0" start_threshold="1920" rate="48000" card="sprdphone-sc2730" device="2"` (в обох профілях `bu32107_i2s`, `bd37544_noi2s` та в кореневому `system/vendor/etc/`).
+   - **`primary_audio_policy_configuration.xml`:**
+     - `Built-In Back Mic` повернено в `attachedDevices`, `devicePorts` та `routes` в ОБОХ профілях.
+     - Відновлено повні частоти (8000..48000) та маску `AUDIO_CHANNEL_IN_FRONT_BACK`.
+     - Додано нативний порт `unprocessed input` (`flags="AUDIO_INPUT_FLAG_RAW"`) для wDSP та Vosk.
+   - **`audio_effects.xml`:**
+     - AEC переведено на чистий `libaudiopreprocessing.so` (Google WebRTC AEC3, UUID `bb392ec0-8d4d-11e0-a896-0002a5d5c51b`). Віднімає правий динамік від мікрофона в повному спектрі без активації телефонного режиму в AGDSP.
+     - AEC знято зі `<stream type="mic">`. Звичайний запис мікрофона тепер іде чисто.
 
-🔴 До 29.09 модуль дзвінків возив **свою** політику v3.0 (`QF_Cellular_Calling` `9c38adf`):
-дзвінок → **Earpiece → AGDSP Handset (0–6)**, `Clarity=1`, `ul_ns_limit=0x258`. У нас Earpiece
-немає → **Handsfree (7–14)**: Clarity 0, ns 0. Ще дві відмінності: входи лише 48 кГц (було 8…48)
-і `mmap_no_irq_in` з помилкою (`OUT_STEREO` у профілі входу, вписаний джерелом у `primary input`).
-**План:** політику v3.0 дослівно в гілку → ребут → SIM + WhatsApp + Telegram → бісекція по трьох.
-Мікрофон обирає параметр AGDSP, не маска (`in_device:0x80000004`); FIFO `sprd_aec_on` не діє.
+---
 
-## 📋 Далі — `TODO.md`, `DEBT.md`
+## ⏳ У роботі / Наступний крок
 
-BD-профіль без `Built-In Back Mic`; борг 13 (HAL `vol_index:0`, ЦАП `0x3` — ризик для BD);
-`4fc5856` на стенд через оператора; версійність `504`; захист від UIS8581; `customize.sh` з нуля
-(інсталятор із `car.config` ще не проганявся); AGDSP у `/data`; каркас UI.
-
-## ❓ Власнику
-
-1. Тембр «глухіше і пласкіше»: лишився шар маршрутів (у 4.18 — заводські). Підміняти й слухати?
-2. Рівень до сну після ACC ON повертається до persist (18 → 10) — лишити чи лікувати? Вісь wDSP.
+1. Накотити виправлені файли на стенд K706 (`/data/adb/modules/BitPerfect.module/system/vendor/etc/`).
+2. Перезавантажити стенд або перезапустити `audioserver`.
+3. Перевірити:
+   - Вхідний стільниковий або BT-дзвінок: відсутність луни у співрозмовника.
+   - Голосовий асистент: розпізнавання голосу поверх увімкненої музики.
+   - wDSP: захоплення аудіо в повному спектрі без 4 кГц зрізу.
