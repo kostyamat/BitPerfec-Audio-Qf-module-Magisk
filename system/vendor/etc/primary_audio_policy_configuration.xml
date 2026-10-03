@@ -40,8 +40,8 @@
 				channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_OUT_STEREO"/>
 		</mixPort>
 		<mixPort name="primary input" role="sink">
-			<profile name="" format="AUDIO_FORMAT_PCM_16_BIT"					 
-							 samplingRates="8000,11025,12000,16000,22050,24000,32000,44100,48000"
+			<profile name="" format="AUDIO_FORMAT_PCM_8_24_BIT"					 
+							 samplingRates="48000,44100,32000,24000,22050,16000,12000,11025,8000"
 							 channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_FRONT_BACK"/>
 		</mixPort>
         <mixPort name="recognition input" role="sink">
