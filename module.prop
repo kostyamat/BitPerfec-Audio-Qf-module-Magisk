@@ -1,6 +1,6 @@
 id=BitPerfect.module
 name=BitPerfect Universal Audio Engine
-version=v5.5.1-Universal
-versionCode=551
+version=v5.5-Universal
+versionCode=550
 author=Kostyantyn Matviyevskyy aka kostyamat & Antigravity (c)2026
-description=Bit-to-bit audio for QF001/K706. v5.5.1: Call mic & AEC loopback DG 18 (+7dB boost), SoC master I2S clocks on cellular calls, sys.bitperfect.enabled live confirmation, full SSOT AGDSP profile restoration.
+description=Bit-to-bit audio for QF001/K706. v5.5 establishes SSOT: restores 2-channel ALSA capture with stereo hardware speaker loopback on AuxMIC, maps AEC to Google WebRTC AEC3 (Fullband echo cancellation without 4kHz telephone cutoff), restores Built-In Back Mic and full input sample rates (8..48kHz), and adds dedicated RAW unprocessed input for wDSP/Vosk.
