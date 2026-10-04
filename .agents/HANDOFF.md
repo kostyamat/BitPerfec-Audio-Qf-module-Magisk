@@ -16,7 +16,7 @@ BitPerfect = репо, `enabled=1`; модуль дзвінків v3.7 + DialerK
 ⚠️ BT-телефон від'єднався 21:44:53 — BT-дзвінок не вийшов (DialerKM сам пішов на SIM).
 
 ## 🧪 Перед тестовим дзвінком
-Знімання SIM: `.agents/tools/call_probe.sh`; BT (чекає `call_state`): `%TEMP%\mic\bt_probe.sh`.
+Знімання SIM: `.agents/tools/call_probe.sh`; BT (чекає `call_state`): `.agents/tools/bt_probe.sh`.
 Дзвінок через DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai
 --es extra_number <номер>`. Здоров'я: немає `dsp timeout`, є `name:Audio\Handset\NB1|WB1`.
 
