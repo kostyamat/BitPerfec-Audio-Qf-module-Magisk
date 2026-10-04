@@ -22,9 +22,7 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
 - Шторм після знеструмлення — eMMC; FS-Doctor v1.6 (свій git). 8581 — профіль 44.1/16 (TODO 5а).
 
 ## ⏳ У роботі — «сирий» мікрофон для wDSP і ШІ
-- 📻 wDSP `60780d6` (Дж `ad912b89`, на стенді) просить `UNPROCESSED` (9), HAL однаково отримує
-  `source:1` → `Music\Handsfree\Record`. Рівень живий (rms ~5000, ≈ −16 дБFS від динаміків):
-  −98 дБ не відтворилося, причину не встановлено (#1351). Приймає Claude wDSP.
+- wDSP просить `UNPROCESSED`, HAL однаково бере `source:1` (`Record`); рівень живий (#1351).
 - 📻 23:35: регулятор VBC DG — це **послаблення**: 0 → −41.7, 8 → −50, 24 → −70 дБFS (≈1.2 дБ/крок).
   Набір `Record` (DG 3) майже на максимумі, `UnprocessRecord` (24) на ~20 дБ тихіший. На потоці
   wDSP висять WebRTC AEC + NS (наш `stream mic`), у DSP — `NsEnable`. Політика бачить `Source: MIC`.
