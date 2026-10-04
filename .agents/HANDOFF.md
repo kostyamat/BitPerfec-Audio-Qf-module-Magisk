@@ -1,4 +1,4 @@
-# Зріз — 04.10.2026 ~23:58, сесія `3827b401` (Claude): дзвінок знову тихий — wDSP тримає мікрофон
+# Зріз — 05.10.2026 ~00:05, сесія `3827b401` (Claude): дзвінок з DG 18 і wDSP 30860fc — DSP живий
 
 **Доручення власника (картбланш):** один мікрофон — його NR (AGDSP 4.18) і AEC з петлі динаміка
 для SIM- і BT-дзвінків, розпізнавання — клієнти, RAW для wDSP/ШІ. Платформу питати в Дж
@@ -28,8 +28,9 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
   wDSP висять WebRTC AEC + NS (наш `stream mic`), у DSP — `NsEnable`. Політика бачить `Source: MIC`.
 - На стенді (23:54): BitPerfect = `e29dc9b` (DG 18), `module.prop` v5.5 (самочинний `4edb0e9` Дж
   відкочено `dd059ef`); модуль дзвінків v3.8 (DialerKM release з модуля, без /data/app поверх).
-- 🔴 Дзвінок 23:48 — тиша: wDSP (збірка 23:21) пише «releasing microphone», а `AudioRecord` живе ще 3.6 с
-  → `start_input_stream` поверх голосу → `dsp timeout`. P0 Дж `ad912b89` (#1368). Без фіксу не дзвонити.
+- 📻 00:00 дзвінок на 1200, wDSP `30860fc` (Дж `ad912b89`): мікрофон звільнено за 274 мс до голосу, `dsp timeout`
+  немає, NB1→WB1, ADC2/ADC3 DG = 18. ❓ Чи чути 1200 — `VBC_IIS_MST_SEL_0_TYPE` на дзвінку EXTERNAL, хоча `64b4c9f`
+  ставить INTERNAL. Остаточно wDSP приймає Claude wDSP.
 - 🔬 Підміна 9→1: `lib64/libaudioclient.so` `AudioRecord::set` 0x4d59c `str w9(=1),[this,#332]` —
   `mAttributes.source = MIC` безумовно, для всіх (#1369). Латка зачепить усі застосунки — рішення власника.
   ⚠️ Якщо латати — DG `UnprocessRecord` (24) теж опустити, інакше −20 дБ.
