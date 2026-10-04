@@ -468,8 +468,6 @@
         </dsploop>
         <voice>
             <on>
-              <ctl name="VBC_IIS_MST_SEL_0_TYPE" val="VBC_MASTER_INTERNAL" />
-              <ctl name="VBC_IIS_MASTER_ENALBE" val="enable" />
             </on>
             <off>
             </off>
