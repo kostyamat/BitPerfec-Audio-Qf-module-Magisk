@@ -32,7 +32,7 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
   → `start_input_stream` поверх голосу → `dsp timeout`. P0 Дж `ad912b89` (#1368). Без фіксу не дзвонити.
 - 🔬 Підміна 9→1: `lib64/libaudioclient.so` `AudioRecord::set` 0x4d59c `str w9(=1),[this,#332]` —
   `mAttributes.source = MIC` безумовно, для всіх (#1369). Латка зачепить усі застосунки — рішення власника.
-  Коли знайде — фікс у BitPerfect; ⚠️ тоді DG `UnprocessRecord` (24) теж опустити, інакше −20 дБ.
+  ⚠️ Якщо латати — DG `UnprocessRecord` (24) теж опустити, інакше −20 дБ.
 - DialerKM `706192c` (Дж `d739c765`): без SIM і BT — «Немає маршруту», `call_state` не чіпає (#1345).
   На стенді ще не перевірено.
 
