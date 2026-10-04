@@ -5,7 +5,7 @@
 (`0c0b138e`), кімната `gemini-window-3827-підключись-до-магніто`. Вночі дзвонити лише на 1200.
 
 **Репо:** `v5.4-repaired`, не запушено з `73d72cc`. Ключове: `b96b2a4` AEC + вхід як у 4.18;
-`64b4c9f` такти I2S на дзвінку; `456198d` `sys.bitperfect.enabled`; `e29dc9b` мікрофон і опора дзвінка DG 18.
+`456198d` `sys.bitperfect.enabled`; `e29dc9b` мікрофон і опора дзвінка DG 18.
 
 **Стенд `192.168.1.140:9876`** (після знеструмлень адреса стрибає — сканувати порт 9876).
 BitPerfect = репо, `enabled=1`; модуль дзвінків v3.7 + DialerKM `a386876`; wDSP від Дж
@@ -29,8 +29,8 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
 - На стенді (23:54): BitPerfect = `e29dc9b` (DG 18), `module.prop` v5.5 (самочинний `4edb0e9` Дж
   відкочено `dd059ef`); модуль дзвінків v3.8 (DialerKM release з модуля, без /data/app поверх).
 - 📻 00:00 дзвінок на 1200, wDSP `30860fc` (Дж `ad912b89`): мікрофон звільнено за 274 мс до голосу, `dsp timeout`
-  немає, NB1→WB1, ADC2/ADC3 DG = 18. 1200 чути (власник). `VBC_IIS_MST_SEL_0_TYPE` на дзвінку EXTERNAL, хоча `64b4c9f`
-  ставить INTERNAL — розібрати; еталон тактів передано дзвонилці (#1378). Остаточно wDSP приймає Claude wDSP.
+  немає, NB1→WB1, ADC2/ADC3 DG = 18. 1200 чути (власник). Такти дає заводський `only_codec_p` (`MST_SEL_2`
+  INTERNAL); мертвий `<voice>` з `64b4c9f` прибрано `18ce943` (на стенді ще старий файл, ефекту нема). Остаточно wDSP приймає Claude wDSP.
 - 🔬 Підміна 9→1: `lib64/libaudioclient.so` `AudioRecord::set` 0x4d59c `str w9(=1),[this,#332]` —
   `mAttributes.source = MIC` безумовно, для всіх (#1369). Латка зачепить усі застосунки — рішення власника.
   ⚠️ Якщо латати — DG `UnprocessRecord` (24) теж опустити, інакше −20 дБ.
