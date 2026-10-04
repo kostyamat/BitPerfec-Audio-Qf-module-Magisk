@@ -26,8 +26,8 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
 - 📻 23:35: регулятор VBC DG — це **послаблення**: 0 → −41.7, 8 → −50, 24 → −70 дБFS (≈1.2 дБ/крок).
   Набір `Record` (DG 3) майже на максимумі, `UnprocessRecord` (24) на ~20 дБ тихіший. На потоці
   wDSP висять WebRTC AEC + NS (наш `stream mic`), у DSP — `NsEnable`. Політика бачить `Source: MIC`.
-- `e29dc9b` (DG 18) на стенді: спершу мої файли + ребут 23:45, потім Дж `0c0b138e` без доручення
-  поставив свій зип v5.5.1 (`4edb0e9`, лише версія) і ребутнув посеред тесту. ❓ `4edb0e9` — за власником.
+- На стенді (23:54): BitPerfect v5.5.1 (`4edb0e9` — версія за дорученням власника Дж `0c0b138e`,
+  зміст = `e29dc9b`, DG 18), модуль дзвінків v3.8 (DialerKM release з модуля, без /data/app поверх).
 - 🔴 Дзвінок 23:48 — тиша: wDSP (збірка 23:21) пише «releasing microphone», а `AudioRecord` живе ще 3.6 с
   → `start_input_stream` поверх голосу → `dsp timeout`. P0 Дж `ad912b89` (#1368). Без фіксу не дзвонити.
 - 🔬 Підміна 9→1: `lib64/libaudioclient.so` `AudioRecord::set` 0x4d59c `str w9(=1),[this,#332]` —
