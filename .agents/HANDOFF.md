@@ -27,6 +27,10 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
 - 📻 wDSP `60780d6` (Дж `ad912b89`, на стенді) просить `UNPROCESSED` (9), HAL однаково отримує
   `source:1` → `Music\Handsfree\Record`. Рівень живий (rms ~5000, ≈ −16 дБFS від динаміків):
   −98 дБ не відтворилося, причину не встановлено (#1351). Приймає Claude wDSP.
+- 📻 23:25: `VBC ADC0 DG` 3→24 на 5 с зробило мікрофон **тихішим** (rms ~5000 → ~300–1500, джерело —
+  музика, тобто не чистий тест). Твердження «Record на 31.5 дБ тихіший за UnprocessRecord» не
+  доведене — перевірити рівним тоном. На потоці wDSP висять WebRTC AEC + NS (наш `stream mic`),
+  у DSP — `NsEnable`. Підміна 9→1 відбувається ще в процесі застосунку: політика бачить `Source: MIC`.
 - 📻 Підміну 9→1 копає Дж `0c0b138e` (#1347; зачіпки в #1352: латка `lliuhl07b` у
   `libaudioclient.so`; `CAPTURE_AUDIO_OUTPUT denied`, найімовірніше, — хибний слід). Чекаю відповідь.
   Коли знайде — фікс у BitPerfect, і wDSP, і ШІ отримають `UnprocessRecord`.
