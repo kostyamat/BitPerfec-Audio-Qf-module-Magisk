@@ -12,6 +12,19 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"D:/My_K706_Magisk_Modules/BitPerfect2/.claude/postcompact.sh\"",
+            "timeout": 15,
+            "statusMessage": "BitPerfect: чек-лист після компакту"
+          }
+        ]
+      }
     ]
   }
 }
