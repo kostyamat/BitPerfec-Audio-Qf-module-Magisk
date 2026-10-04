@@ -1,42 +1,38 @@
-# Зріз — 05.10.2026 ~00:05, сесія `3827b401` (Claude): дзвінок з DG 18 і wDSP 30860fc — DSP живий
+# Зріз — 05.10.2026 ~00:40, сесія `3827b401` (Claude): SIM-дзвінки працюють, «сирий» мікрофон — за власником
 
 **Доручення власника (картбланш):** один мікрофон — його NR (AGDSP 4.18) і AEC з петлі динаміка
-для SIM- і BT-дзвінків, розпізнавання — клієнти, RAW для wDSP/ШІ. Платформу питати в Дж
-(`0c0b138e`), кімната `gemini-window-3827-підключись-до-магніто`. Вночі дзвонити лише на 1200.
+для SIM- і BT-дзвінків, розпізнавання — клієнти, RAW для wDSP/ШІ. Модуль BitPerfect — мій, я
+головний (власник 05.10). Вночі дзвонити лише на 1200.
 
-**Репо:** `v5.4-repaired`, не запушено з `73d72cc`. Ключове: `b96b2a4` AEC + вхід як у 4.18;
-`456198d` `sys.bitperfect.enabled`; `e29dc9b` мікрофон і опора дзвінка DG 18.
+**Репо:** `v5.4-repaired`, не запушено з `73d72cc`, дерево чисте. Ключове: `b96b2a4` AEC + вхід як у
+4.18; `456198d` `sys.bitperfect.enabled`; `e29dc9b` DG 18 для мікрофона й опори дзвінка; `18ce943`
+маршрут I2S знову заводський; `dd059ef` відкат самочинної v5.5.1 (`module.prop` = v5.5).
 
 **Стенд `192.168.1.140:9876`** (після знеструмлень адреса стрибає — сканувати порт 9876).
-BitPerfect = репо, `enabled=1`; модуль дзвінків v3.7 + DialerKM `a386876`; wDSP від Дж
-(`D:\gemini\wdsp_test`, `gemini_ui_dev`, `bfe03c8`); FS-Doctor v1.6 (`Data_FS_fix.module`, свій git,
-прибирає). SIM у мережі (DIGI ES, LTE). MCU V02.13. adb вільний.
+BitPerfect = `e29dc9b` + `module.prop` v5.5, `enabled=1` (`18ce943` ще не встановлено — ефекту нема);
+модуль дзвінків v3.8 (DialerKM release з модуля); wDSP `30860fc` (Дж `ad912b89`); FS-Doctor v1.6.
+SIM у мережі. adb вільний.
 
 ## 🧪 Перед тестовим дзвінком
 Знімання: `.agents/tools/call_probe.sh` (SIM, 1200 через Telecom), `.agents/tools/bt_probe.sh` (BT).
-DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --es extra_number N`.
-Здоров'я: немає `dsp timeout`, є `name:Audio\Handset\NB1|WB1`.
+Здоров'я: немає `dsp timeout`, є `Audio\Handset\NB1→WB1`, між `start_voice_call` і відбоєм немає
+`start_input_stream`. Еталон на дзвінку: `MASTER_ENALBE` enable, `MST_SEL_2` INTERNAL, ADC2/ADC3 DG 18.
 
-## ✅ Сьогодні (04.10)
-- SIM-дзвінок з wDSP від Дж (22:31): мікрофон звільнено, DSP живий, «звук є» (власник).
-- Шторм після знеструмлення — eMMC; FS-Doctor v1.6 (свій git). 8581 — профіль 44.1/16 (TODO 5а).
+## ✅ Перевірено 04–05.10 (закомічено)
+- 📻 VBC DG — **послаблення**: 0 → −41.7, 8 → −50, 24 → −70 дБFS (≈1.2 дБ/крок). `e0cde90` стишив
+  дзвінок → `e29dc9b` DG 18 (≈ +7 дБ від заводських 24). На дзвінку на залізі 18.
+- 📻 Дзвінок 00:00 на 1200: wDSP звільнив мікрофон за 274 мс до голосу, DSP живий, 1200 чути.
+- 📻 Такти на дзвінку ставить заводський `only_codec_p` (IIS2, `MST_SEL_2`); `<voice>` з `64b4c9f`
+  HAL не застосовував — прибрано.
 
-## ⏳ У роботі — «сирий» мікрофон для wDSP і ШІ
-- wDSP просить `UNPROCESSED`, HAL однаково бере `source:1` (`Record`); рівень живий (#1351).
-- 📻 23:35: регулятор VBC DG — це **послаблення**: 0 → −41.7, 8 → −50, 24 → −70 дБFS (≈1.2 дБ/крок).
-  Набір `Record` (DG 3) майже на максимумі, `UnprocessRecord` (24) на ~20 дБ тихіший. На потоці
-  wDSP висять WebRTC AEC + NS (наш `stream mic`), у DSP — `NsEnable`. Політика бачить `Source: MIC`.
-- На стенді (23:54): BitPerfect = `e29dc9b` (DG 18), `module.prop` v5.5 (самочинний `4edb0e9` Дж
-  відкочено `dd059ef`); модуль дзвінків v3.8 (DialerKM release з модуля, без /data/app поверх).
-- 📻 00:00 дзвінок на 1200, wDSP `30860fc` (Дж `ad912b89`): мікрофон звільнено за 274 мс до голосу, `dsp timeout`
-  немає, NB1→WB1, ADC2/ADC3 DG = 18. 1200 чути (власник). Такти дає заводський `only_codec_p` (`MST_SEL_2`
-  INTERNAL); мертвий `<voice>` з `64b4c9f` прибрано `18ce943` (на стенді ще старий файл, ефекту нема). Остаточно wDSP приймає Claude wDSP.
-- 🔬 Підміна 9→1: `lib64/libaudioclient.so` `AudioRecord::set` 0x4d59c `str w9(=1),[this,#332]` —
-  `mAttributes.source = MIC` безумовно, для всіх (#1369). Латка зачепить усі застосунки — рішення власника.
-  ⚠️ Якщо латати — DG `UnprocessRecord` (24) теж опустити, інакше −20 дБ.
-- DialerKM `706192c` (Дж `d739c765`): без SIM і BT — «Немає маршруту», `call_state` не чіпає (#1345).
-  На стенді ще не перевірено.
+## ⏳ Відкрито
+- ❓ **«Сирий» мікрофон — рішення власника.** 🔬 `lib64/libaudioclient.so` `AudioRecord::set`
+  0x4d59c `str w9(=1),[this,#332]` — `mAttributes.source = MIC` для **всіх** застосунків (#1369).
+  Латка зачепить VOICE_COMMUNICATION (WhatsApp/Telegram → VoIP-шлях HAL, ризик для AGDSP).
+  Варіант — пропускати лише 9. ⚠️ Тоді DG `UnprocessRecord` (24) опустити, інакше −20 дБ.
+  Поки що на потоці wDSP: набір `Record` (DG 3) + WebRTC AEC/NS (наш `stream mic`) + `NsEnable`.
+- Остаточне приймання wDSP `30860fc` — Claude wDSP (інший акаунт).
 
 ## 📋 Далі
-BT-дзвінок (`BTHS`); аплінк/луна — живій людині, оцінити DG 18; рев'ю `gemini_ui_dev` (інший
-акаунт); Telecom `sprd_voip_start` — розібрати.
+BT-дзвінок (`BTHS`); аплінк/луна живій людині — оцінити DG 18; DialerKM без SIM і BT — «Немає
+маршруту» (#1345), не перевірено; Telecom `sprd_voip_start` — розібрати; 8581 профіль 44.1/16 (TODO 5а).
