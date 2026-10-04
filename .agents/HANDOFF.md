@@ -1,4 +1,4 @@
-# Зріз — 04.10.2026 ~22:35, сесія `3827b401` (Claude), wDSP від Дж — звук у дзвінку є
+# Зріз — 04.10.2026 ~22:50, сесія `3827b401` (Claude), мікрофон: дзвінок є, «сирий» запис — ні
 
 **Доручення власника (картбланш):** один мікрофон — його NR (AGDSP 4.18) і AEC з петлі динаміка
 для SIM- і BT-дзвінків, розпізнавання — клієнти, RAW для wDSP/ШІ. Платформу питати в Дж
@@ -7,26 +7,30 @@
 **Репо:** `v5.4-repaired`, не запушено з `73d72cc`. Ключове: `b96b2a4` AEC + вхід як у 4.18;
 `64b4c9f` такти I2S на дзвінку; `456198d` `sys.bitperfect.enabled`; `e0cde90` мікрофон і опора +7.5 дБ.
 
-**Стенд — нова адреса `192.168.1.140:9876`** (після знеструмлення; знаходити скануванням порту).
-BitPerfect = репо, `enabled=1`; модуль дзвінків v3.7 + DialerKM `a386876`; **wDSP від Дж**
-(`D:\gemini\wdsp_test`, `gemini_ui_dev`, `bfe03c8`) — ✅ дзвінок 22:31: мікрофон звільнено на старті,
-DSP живий, `Handset\NB1→WB1`, «звук є» (власник), після відбою аналіз відновлено; **FS-Doctor v1.6** (`D:\My_K706_Magisk_Modules\Data_FS_fix.module`,
-власний git) — працює, почав планове прибирання (dirty ~4900 > 2291). MCU V02.13.
-SIM після холодного старту знову в мережі (DIGI ES, LTE). BT-дзвінок ще не знято.
+**Стенд `192.168.1.140:9876`** (після знеструмлень адреса стрибає — сканувати порт 9876).
+BitPerfect = репо, `enabled=1`; модуль дзвінків v3.7 + DialerKM `a386876`; wDSP від Дж
+(`D:\gemini\wdsp_test`, `gemini_ui_dev`, `bfe03c8`); FS-Doctor v1.6 (`Data_FS_fix.module`, свій git,
+прибирає). SIM у мережі (DIGI ES, LTE). MCU V02.13. adb вільний.
 
 ## 🧪 Перед тестовим дзвінком
-Знімання SIM: `.agents/tools/call_probe.sh`; BT (чекає `call_state`): `.agents/tools/bt_probe.sh`.
-Дзвінок через DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai
---es extra_number <номер>`. Здоров'я: немає `dsp timeout`, є `name:Audio\Handset\NB1|WB1`.
+Знімання: `.agents/tools/call_probe.sh` (SIM, 1200 через Telecom), `.agents/tools/bt_probe.sh` (BT).
+DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --es extra_number N`.
+Здоров'я: немає `dsp timeout`, є `name:Audio\Handset\NB1|WB1`.
 
 ## ✅ Сьогодні (04.10)
-- Шторм після знеструмлення — eMMC (запис 281–730 мс), фреймворк тричі вбитий сторожем, не наш код.
-- `force-stop` RokoAi лишив його «stopped» → не стартував після ребуту; знято запуском (пам'ять).
-- 8581: перевірено висновки Дж — `extendArray`/`nrArray` = обробка **запису**, не дзвінка; WebRTC
-  AEC без опори. Дж шукає параметри дзвінка (#1340). Профіль 44.1/16 — TODO 5а.
+- SIM-дзвінок з wDSP від Дж (22:31): мікрофон звільнено, DSP живий, «звук є» (власник).
+- Шторм після знеструмлення — eMMC, не наш код. FS-Doctor: 3 коміти (тиша диска, пороги від /data,
+  сон без зависання) + `meminfo`-баг, через який демон помирав на звіті з v1.5.
+- 8581: `extendArray`/`nrArray` = обробка **запису**; WebRTC AEC без опори; профіль 44.1/16 (TODO 5а).
 
-## ⏳ Далі
-1. Гілка wDSP `gemini_ui_dev` — рев'ю на іншому акаунті (там же злиття, RTA, переклади).
-2. BT-дзвінок: `in_devices`, режим `BTHS`; аплінк/луна — живій людині; оцінити +7.5 дБ.
-3. Лінії дзвінків: без SIM і без BT DialerKM однаково дзвонить через SIM — краще «немає маршруту».
-4. Telecom на `onCallAdded` вмикає VoIP (`sprd_voip_start`) — не шкодить, розібрати.
+## ⏳ У роботі — «сирий» мікрофон для wDSP і ШІ
+- 📻 wDSP бере `AUDIO_SOURCE_MIC` → −98 дБ: набір `Music\Handsfree\Record` має `VBC_ADC0_DG=0x03`
+  (на 31.5 дБ нижче за `UnprocessRecord`) + `NsEnable`. Завдання — Дж `ad912b89` (#1346/#1348,
+  кімната «Сову на глобус WDSP», TODO 0а wDSP `af51d7b`); приймає Claude wDSP.
+- 📻 RokoAi просить `UNPROCESSED` (9), але HAL отримує `source:1 flags:0`; поруч у лозі
+  `CAPTURE_AUDIO_OUTPUT … denied`. У сирцях Unisoc підміни нема → бінарники QF. Розкопка — Дж
+  `0c0b138e` (#1347). Коли знайде — фікс у BitPerfect, і wDSP, і ШІ отримають `UnprocessRecord`.
+
+## 📋 Далі
+BT-дзвінок (`BTHS`); аплінк/луна — живій людині, оцінити +7.5 дБ; рев'ю `gemini_ui_dev` (інший
+акаунт); DialerKM без SIM і BT — «немає маршруту» (#1342); Telecom `sprd_voip_start` — розібрати.
