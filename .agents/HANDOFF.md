@@ -1,4 +1,4 @@
-# Зріз — 04.10.2026 ~22:50, сесія `3827b401` (Claude), мікрофон: дзвінок є, «сирий» запис — ні
+# Зріз — 04.10.2026 ~23:15, сесія `3827b401` (Claude), мікрофон: дзвінок є, «сирий» запис — ні
 
 **Доручення власника (картбланш):** один мікрофон — його NR (AGDSP 4.18) і AEC з петлі динаміка
 для SIM- і BT-дзвінків, розпізнавання — клієнти, RAW для wDSP/ШІ. Платформу питати в Дж
@@ -24,13 +24,15 @@ DialerKM: `am broadcast -a com.km.roco_ai.action.VOICE_DIAL -p com.km.roco_ai --
 - 8581: `extendArray`/`nrArray` = обробка **запису**; WebRTC AEC без опори; профіль 44.1/16 (TODO 5а).
 
 ## ⏳ У роботі — «сирий» мікрофон для wDSP і ШІ
-- 📻 wDSP бере `AUDIO_SOURCE_MIC` → −98 дБ: набір `Music\Handsfree\Record` має `VBC_ADC0_DG=0x03`
-  (на 31.5 дБ нижче за `UnprocessRecord`) + `NsEnable`. Завдання — Дж `ad912b89` (#1346/#1348,
-  кімната «Сову на глобус WDSP», TODO 0а wDSP `af51d7b`); приймає Claude wDSP.
-- 📻 RokoAi просить `UNPROCESSED` (9), але HAL отримує `source:1 flags:0`; поруч у лозі
-  `CAPTURE_AUDIO_OUTPUT … denied`. У сирцях Unisoc підміни нема → бінарники QF. Розкопка — Дж
-  `0c0b138e` (#1347). Коли знайде — фікс у BitPerfect, і wDSP, і ШІ отримають `UnprocessRecord`.
+- 📻 wDSP `60780d6` (Дж `ad912b89`, на стенді) просить `UNPROCESSED` (9), HAL однаково отримує
+  `source:1` → `Music\Handsfree\Record`. Рівень живий (rms ~5000, ≈ −16 дБFS від динаміків):
+  −98 дБ не відтворилося, причину не встановлено (#1351). Приймає Claude wDSP.
+- 📻 Підміну 9→1 копає Дж `0c0b138e` (#1347; зачіпки в #1352: латка `lliuhl07b` у
+  `libaudioclient.so`; `CAPTURE_AUDIO_OUTPUT denied`, найімовірніше, — хибний слід). Чекаю відповідь.
+  Коли знайде — фікс у BitPerfect, і wDSP, і ШІ отримають `UnprocessRecord`.
+- DialerKM `706192c` (Дж `d739c765`): без SIM і BT — «Немає маршруту», `call_state` не чіпає (#1345).
+  На стенді ще не перевірено.
 
 ## 📋 Далі
 BT-дзвінок (`BTHS`); аплінк/луна — живій людині, оцінити +7.5 дБ; рев'ю `gemini_ui_dev` (інший
-акаунт); DialerKM без SIM і BT — «немає маршруту» (#1342); Telecom `sprd_voip_start` — розібрати.
+акаунт); Telecom `sprd_voip_start` — розібрати.
