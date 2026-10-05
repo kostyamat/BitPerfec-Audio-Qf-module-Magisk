@@ -62,10 +62,7 @@ BitPerfec-Audio-Qf-module-Magisk/        branch v5.4-repaired
 🔴 **The release zip is assembled by hand and must contain exactly seven entries:** `META-INF`,
 `common`, `profiles`, `system`, `customize.sh`, `module.prop`, `service.sh`. ⚠️ `.agents/` and
 `control-app/` are **sources, not payload** — zipping the whole folder would ship them to every owner
-and bloat the module. There is no build script yet; writing one is worth doing before the next
-release, precisely so this cannot be got wrong by hand.
-
-Both are led by one session. The owner, 29–30.09.2026: *«так, це ти і модуль твій»*.
+and bloat the module. No build script yet (worth writing before the next release).
 
 🔴 **BitPerfect is load-bearing for the whole platform.** The owner: *«бітперфект це основний спосіб
 вирівняти звучання… від нього залежить і дзвінки, і вдсп і радіо, і плеєр і ще маса майбутніх
@@ -96,9 +93,8 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
   before the test — it does not survive a reboot.
 - Commit after every verified step; **push only on the owner's order**, and only from WSL.
 - Do not grant permissions over adb.
-- 🔴 **One playback mixPort per PCM.** `audio_pcm.xml` puts `mm_normal`, `fast` and `mmap_noirq` on
-  device 3 (`pcmC0D3p`), so the policy declares only `primary output`; a second output port there
-  makes the HAL fail `pcmC0D3p busy` ~50/s and re-route VBC under live music.
+- 🔴 **One playback mixPort per PCM:** `mm_normal`, `fast`, `mmap_noirq` all sit on `pcmC0D3p`, so the
+  policy declares only `primary output`. A second one → `pcmC0D3p busy` ~50/s, VBC re-routed under music.
 
 ## Traps
 
