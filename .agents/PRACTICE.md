@@ -45,6 +45,16 @@ whether the setup could have produced the other answer at all. 📻 Hit twice he
 and re-selecting MCU channel 4 while it was already 4 — which cannot tell "type is never set" from
 "type is set only on a real change". The real change (4→2→4, #1073) did set it.
 
+🪤 **A cut-short `dumpsys media.audio_flinger` can kill the audio HAL.** The HAL writes its own dump
+into the pipe; when `head`, `grep -m1` or `sed … | head` closes it early, the HAL takes SIGPIPE and dies
+without a tombstone: `HAL server crashed, audio server is restarting`. 📻 06.10 01:40, polled once a
+second on a live call: the 4th poll restarted audioserver mid-call. Dump to a file on the device, then
+grep the file; never poll it during a call.
+
+🪤 **`input keyevent 25` does not lower the call volume.** It moves the Android stream; the MCU's phone
+level (`persist.sys.phone_volume`) stayed 9. 📻 06.10: a 1200 test ran above the owner's ceiling of 5.
+Set and read back the phone level *before* dialling, or do not dial.
+
 🪤 **Commit messages from PowerShell go through `-F <file>`, never `-m`.** A multi-line `-m` with
 quotes inside breaks apart into pathspecs and the commit fails halfway.
 
