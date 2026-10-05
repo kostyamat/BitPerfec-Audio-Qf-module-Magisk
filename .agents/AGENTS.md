@@ -28,7 +28,7 @@ What follows from it, and what every change is measured against:
 📻 **Verified on the bench 30.09.2026**, and this is the shape to keep:
 
 ```
-HAL format: 0x4 (AUDIO_FORMAT_PCM_8_24_BIT)   on primary AND fast
+HAL format: 0x4 (AUDIO_FORMAT_PCM_8_24_BIT)   on primary, the only playback output
 Sample rate: 48000 Hz                          on both
 VBC_IIS_MST_WIDTH_SET: WD_16BIT >WD_24BIT      24-bit selected on the bus
 G db on the music track at index 15: 0         unity, nothing lost
@@ -96,6 +96,9 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
   before the test — it does not survive a reboot.
 - Commit after every verified step; **push only on the owner's order**, and only from WSL.
 - Do not grant permissions over adb.
+- 🔴 **One playback mixPort per PCM.** `audio_pcm.xml` puts `mm_normal`, `fast` and `mmap_noirq` on
+  device 3 (`pcmC0D3p`), so the policy declares only `primary output`; a second output port there
+  makes the HAL fail `pcmC0D3p busy` ~50/s and re-route VBC under live music.
 
 ## Traps
 
