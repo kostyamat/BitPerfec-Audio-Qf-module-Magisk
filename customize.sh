@@ -289,7 +289,7 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 # ---------------------------------------------------------------------------
 PLATFORM=$(getprop ro.board.platform)
 TARGET_MD5_64="562666cf1b0d22ea2900db1665759fa9"
-TARGET_MD5_32="448b1142fb7f6f1a8c9b36d0f622e960"
+TARGET_MD5_32="448b1142d4f2f5340f7e655f496a6dbb"
 PATCH_MD5_64="4b0485538ca9e199332d9fd655929a77"
 PATCH_MD5_32="17061effa7ba54e0c4d7f8ed9e1c9008"
 
