@@ -279,6 +279,54 @@ fi
 ui_print "- Очищення застарілого кешу блобів AGDSP у /data..."
 rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 
+# ---------------------------------------------------------------------------
+# Латка libaudioclient.so (пропуск VOICE_RECOGNITION=6 та UNPROCESSED=9)
+#
+# Встановлюється ВИКЛЮЧНО на UIS7862 (ums512) і лише тоді, коли на пристрої
+# присутня відома заводська версія libaudioclient.so (або вже встановлена ця латка).
+# На UIS8581 (sp9863a) вендорного хардкоду source=1 немає — чужі бінарники
+# несумісні за ABI та призведуть до бутлупу audioserver.
+# ---------------------------------------------------------------------------
+PLATFORM=$(getprop ro.board.platform)
+TARGET_MD5_64="562666cf1b0d22ea2900db1665759fa9"
+TARGET_MD5_32="448b1142fb7f6f1a8c9b36d0f622e960"
+PATCH_MD5_64="4b0485538ca9e199332d9fd655929a77"
+PATCH_MD5_32="17061effa7ba54e0c4d7f8ed9e1c9008"
+
+LIVE_LIB64=$(md5sum /system/lib64/libaudioclient.so 2>/dev/null | awk '{print $1}')
+LIVE_LIB32=$(md5sum /system/lib/libaudioclient.so 2>/dev/null | awk '{print $1}')
+
+APPLY_LIBAUDIO=no
+if [ "$PLATFORM" = "ums512" ]; then
+    MATCH_64=no
+    MATCH_32=no
+    if [ "$LIVE_LIB64" = "$TARGET_MD5_64" ] || [ "$LIVE_LIB64" = "$PATCH_MD5_64" ]; then
+        MATCH_64=yes
+    fi
+    if [ "$LIVE_LIB32" = "$TARGET_MD5_32" ] || [ "$LIVE_LIB32" = "$PATCH_MD5_32" ]; then
+        MATCH_32=yes
+    fi
+
+    if [ "$MATCH_64" = "yes" ] && [ "$MATCH_32" = "yes" ]; then
+        APPLY_LIBAUDIO=yes
+    else
+        ui_print "- libaudioclient.so: невідповідність MD5 (lib64: $LIVE_LIB64, lib: $LIVE_LIB32)"
+        ui_print "  Очікувались заводські: $TARGET_MD5_64 / $TARGET_MD5_32"
+        ui_print "  Латку libaudioclient пропущено для безпеки системи."
+    fi
+else
+    ui_print "- Платформа $PLATFORM: латка libaudioclient не потрібна (пропуск)"
+fi
+
+if [ "$APPLY_LIBAUDIO" = "yes" ]; then
+    ui_print "- UIS7862: встановлення латки libaudioclient (джерела 6 і 9)"
+    set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644
+    set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644
+else
+    rm -rf "$MODPATH/system/lib" "$MODPATH/system/lib64"
+    rm -rf /data/adb/modules/BitPerfect.module/system/lib /data/adb/modules/BitPerfect.module/system/lib64
+fi
+
 ui_print "- Встановлення прав доступу..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/config" 0 0 0755 0644
