@@ -4,7 +4,7 @@
 wDSP/ШІ. BitPerfect — мій. 06.10: керувати кімнатою `bitperfect-control-qfphone-rokoai`, можна
 лізти в код DialerKM/RokoAi; сесії мають оголошувати adb і ребут. Вночі звук — лише з дозволу.
 
-**Репо:** `v5.4-repaired`, не запушено з `73d72cc`. Нове: `a3f9270` TTS у `NaviApp.ini`; `5aea177` один вихід на PCM 3 (прибрано
+**Репо:** `v5.4-repaired`, запушено до `3c65e41` (06.10, власник, з Windows по SSH). Нове: `a3f9270` TTS у `NaviApp.ini`; `5aea177` один вихід на PCM 3 (прибрано
 `fast`/`mmap_no_irq_out` з політики BU/BD — «pcmC0D3p busy»); `18ce943` маршрут I2S заводський;
 `e29dc9b` DG 18 дзвінка; `dd059ef` module.prop v5.5. AGENTS: правило «один mixPort на PCM».
 
