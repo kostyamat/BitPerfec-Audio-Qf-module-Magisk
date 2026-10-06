@@ -320,8 +320,9 @@ fi
 
 if [ "$APPLY_LIBAUDIO" = "yes" ]; then
     ui_print "- UIS7862: встановлення латки libaudioclient (джерела 6 і 9)"
-    set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644
-    set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644
+    set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
+    set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
+    chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
 else
     rm -rf "$MODPATH/system/lib" "$MODPATH/system/lib64"
     rm -rf /data/adb/modules/BitPerfect.module/system/lib /data/adb/modules/BitPerfect.module/system/lib64
