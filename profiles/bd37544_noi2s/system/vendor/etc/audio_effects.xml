@@ -37,10 +37,6 @@
                 <apply effect="aec"/>
                 <apply effect="ns"/>
             </stream>
-            <stream type="voice_recognition">
-                <apply effect="aec"/>
-                <apply effect="ns"/>
-            </stream>
         </preprocess>
 
     </audio_effects_conf>
