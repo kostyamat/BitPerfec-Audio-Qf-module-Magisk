@@ -20,8 +20,7 @@ wDSP/ШІ. BitPerfect — мій. 06.10: керувати кімнатою `bitp
   ставити `phone` рівень до набору. ❌ Опитування `dumpsys` вбило HAL (SIGPIPE) — пастка в PRACTICE.
 
 ## 📻/🔬 Встановлено сьогодні
-- PCM 3 (`FE_ST_FAST`): у нашому `audio_pcm.xml` `mm_normal`, `fast`, `mmap_noirq` усі на device 3
-  (завод: fast→0, mmap→1). HAL app_type 5 = FAST. Звідси 2206× busy о 00:04 (#1421).
+- PCM 3: `mm_normal`/`fast`/`mmap_noirq` усі на device 3 → лишився один вихід (`5aea177`).
 - Такти: 3 с без потоків → `do_normal_output_standby` → `MASTER_ENALBE disable` (0079, 01:20:31).
   Тому дзвінок після музики глухне; заглушка дзвонилки — правильний інструмент.
 - Підміна 9→1: `libaudioclient.so` 0x4d59c — для всіх; латка — рішення власника. На «mic» наш
