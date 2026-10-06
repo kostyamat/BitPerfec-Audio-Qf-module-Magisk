@@ -2328,7 +2328,7 @@
             </Record>
             <UnprocessRecord>
                 <VBC_ADC0_DG ctl="VBC ADC0 DG Set">
-                    <volume0 visible="true" val="0x18" />
+                    <volume0 visible="true" val="0x03" />
                 </VBC_ADC0_DG>
             </UnprocessRecord>
             <FM>
@@ -2378,7 +2378,7 @@
             </Record>
             <UnprocessRecord>
                 <VBC_ADC0_DG ctl="VBC ADC0 DG Set">
-                    <volume0 visible="true" val="0x18" />
+                    <volume0 visible="true" val="0x03" />
                 </VBC_ADC0_DG>
             </UnprocessRecord>
             <FM>
@@ -2444,7 +2444,7 @@
             </Playback>
             <UnprocessRecord>
                 <VBC_ADC0_DG ctl="VBC ADC0 DG Set">
-                    <volume0 visible="true" val="0x18" />
+                    <volume0 visible="true" val="0x03" />
                 </VBC_ADC0_DG>
             </UnprocessRecord>
             <Record>
