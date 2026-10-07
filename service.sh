@@ -54,10 +54,6 @@ case $? in
     *) log_msg "car.config music_volume not found - left alone." ;;
 esac
 
-# BT calls: with the built-in BT stack (gocsdk_zj) the call microphone goes through the SoC.
-# QF_Bluetooth switches the call to MODE_IN_COMMUNICATION (AGDSP AEC + NR) only when this flag is 1
-# (PROP_HAS_SOC_BT_MIC); gocsdk_zj then records mono. Units with an external BT module keep 0.
-[ -x /system/bin/gocsdk_zj ] && resetprop sys.qf.bt.has_bt_mic 1
 
 # --- persist.sys.main_volume is NOT ours to touch. Do not add it back. ---
 #
