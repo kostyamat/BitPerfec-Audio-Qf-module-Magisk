@@ -1,4 +1,4 @@
-# Зріз — 07.10.2026 ~13:40, сесія `3827b401` (Claude): мікрофон ШІ працює; BT-луна — пресет wDSP
+# Зріз — 07.10.2026 ~14:10, сесія `3827b401` (Claude): мікрофон ШІ працює; BT-луна — пресет wDSP
 
 **Доручення власника:** один мікрофон — NR і AEC для SIM/BT-дзвінків, чистий канал для wDSP/ШІ.
 BitPerfect — мій; керую кімнатою `bitperfect-control-qfphone-rokoai` (код DialerKM/RokoAi — можна);
@@ -8,7 +8,7 @@ BitPerfect — мій; керую кімнатою `bitperfect-control-qfphone-r
 Пушить власник. Ключове: `5aea177` один вихід на PCM 3; `a3f9270` TTS у `NaviApp.ini`; латка
 `libaudioclient` (дебагер `aa7ac02`…`dac2cc8`, інсталятор — лише платформа 7862, без md5 `249035a`);
 `217cebf` DG «сирого» 3; `c045952` розпізнавання без AEC/NS; DP лишається (`5dae4d6`);
-`22d4643` `sys.qf.bt.has_bt_mic=1` на вбудованому BT; `LEGAL.md` — декларація власника (`7b3e8fe`).
+`22d4643` `sys.qf.bt.has_bt_mic=1` на вбудованому BT; `LEGAL.md` — декларація власника з доказами.
 
 **Стенд `192.168.1.138:9876`** (адреса стрибає — сканувати порт 9876). BitPerfect = репо HEAD
 (`audio_process` `4b3de62a`, `audio_effects` `d44ee684`, `audio_pga` `56bf2292`, `service.sh` з
