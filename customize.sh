@@ -282,38 +282,15 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 # ---------------------------------------------------------------------------
 # Латка libaudioclient.so (пропуск VOICE_RECOGNITION=6 та UNPROCESSED=9)
 #
-# Встановлюється ВИКЛЮЧНО на UIS7862 (ums512) і лише тоді, коли на пристрої
-# присутня відома заводська версія libaudioclient.so (або вже встановлена ця латка).
-# На UIS8581 (sp9863a) вендорного хардкоду source=1 немає — чужі бінарники
-# несумісні за ABI та призведуть до бутлупу audioserver.
+# Встановлюється лише на UIS7862 (ums512). На UIS8581 (sp9863a) вендорного хардкоду source=1
+# немає, а бібліотеки там інші — чужі бінарники покладуть audioserver. Перевірку md5 знято
+# (власник 07.10: «надто високий рівень захисту, і не потрібний»).
 # ---------------------------------------------------------------------------
 PLATFORM=$(getprop ro.board.platform)
-TARGET_MD5_64="562666cf1b0d22ea2900db1665759fa9"
-TARGET_MD5_32="448b1142d4f2f5340f7e655f496a6dbb"
-PATCH_MD5_64="4b0485538ca9e199332d9fd655929a77"
-PATCH_MD5_32="17061effa7ba54e0c4d7f8ed9e1c9008"
-
-LIVE_LIB64=$(md5sum /system/lib64/libaudioclient.so 2>/dev/null | awk '{print $1}')
-LIVE_LIB32=$(md5sum /system/lib/libaudioclient.so 2>/dev/null | awk '{print $1}')
 
 APPLY_LIBAUDIO=no
 if [ "$PLATFORM" = "ums512" ]; then
-    MATCH_64=no
-    MATCH_32=no
-    if [ "$LIVE_LIB64" = "$TARGET_MD5_64" ] || [ "$LIVE_LIB64" = "$PATCH_MD5_64" ]; then
-        MATCH_64=yes
-    fi
-    if [ "$LIVE_LIB32" = "$TARGET_MD5_32" ] || [ "$LIVE_LIB32" = "$PATCH_MD5_32" ]; then
-        MATCH_32=yes
-    fi
-
-    if [ "$MATCH_64" = "yes" ] && [ "$MATCH_32" = "yes" ]; then
-        APPLY_LIBAUDIO=yes
-    else
-        ui_print "- libaudioclient.so: невідповідність MD5 (lib64: $LIVE_LIB64, lib: $LIVE_LIB32)"
-        ui_print "  Очікувались заводські: $TARGET_MD5_64 / $TARGET_MD5_32"
-        ui_print "  Латку libaudioclient пропущено для безпеки системи."
-    fi
+    APPLY_LIBAUDIO=yes
 else
     ui_print "- Платформа $PLATFORM: латка libaudioclient не потрібна (пропуск)"
 fi
