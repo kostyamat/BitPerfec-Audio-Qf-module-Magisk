@@ -30,7 +30,7 @@ BitPerfect — мій; керую кімнатою `bitperfect-control-qfphone-r
   дампити звук.
 - ⏳ **Гучність дзвінка з першого гудка** (власник 12.10 «латати обидва»): QFBacklight.onBTPhoneKey —
   341 глушить музику, 330 (після 341) → `btcall_type`, 331 → медіа. BT v8 = v7 + 330 одразу після 341
-  (лише classes.dex): `D:\.agents\scratch\qfbluetooth_v7\..._v8_unsigned.apk` — підписує власник своїм
+  (лише classes.dex), підписано ключем власника; обидві встановлені 12.10 21:41 + ребут (стара DialerKM —
   `/data/local/tmp/DialerKM_3.8.2_backup.apk`). DialerKM `2517249`. Далі: тест BT і SIM дзвінком.
 
 ## 📋 Далі
