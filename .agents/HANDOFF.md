@@ -31,7 +31,11 @@ BitPerfect — мій; керую кімнатою `bitperfect-control-qfphone-r
 - ⏳ **Гучність дзвінка з першого гудка** (власник 12.10 «латати обидва»): QFBacklight.onBTPhoneKey —
   341 глушить музику, 330 (після 341) → `btcall_type`, 331 → медіа. BT v8 = v7 + 330 одразу після 341
   (лише classes.dex), підписано ключем власника; обидві встановлені 12.10 21:41 + ребут (стара DialerKM —
-  `/data/local/tmp/DialerKM_3.8.2_backup.apk`). DialerKM `2517249`. Далі: тест BT і SIM дзвінком.
+  `/data/local/tmp/DialerKM_3.8.2_backup.apk`). DialerKM `2517249`.
+  📻 BT 21:46: гудок одразу на 13 ✔, але 330 двічі (гудок + відповідь) → 2-й запуск зберіг `btcall_type` як
+  тип для відновлення → після відбою тип застряг, музика на 13. v8b: `sStartKeySent` (330 раз за дзвінок,
+  скид у broadcastAllPhoneEnd), підписано — не встановлено: стенд offline. Далі: v8b + `resetprop
+  sys.current.vol.type media_type`, тест BT і SIM.
 
 ## 📋 Далі
 «глухо після дзвінка» — на
