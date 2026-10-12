@@ -6,16 +6,15 @@ cat <<'EOF'
 === BitPerfect: after compaction, before anything else ===
 1. Re-arm the board watchman (Monitor, re-arm on every 30-min expiry):
    "C:/Program Files/Python312/python.exe" C:/repos/agent-bridge/watch_board.py --session 3827b401-ee38-4390-8b5a-8b5a12ad49b7 --agent Claude --window local_bd04d1ce-829d-462b-836e-6f38608f5b29
-2. You run the room "bitperfect-control-qfphone-rokoai" (owner 06.10): rules #1441 (announce adb /
-   reboot, BitPerfect changes only through you, evidence marks), reports go to the board.
-   Pending there:
-   - #1536 Claude wDSP (OTHER account, reads the board later): call preset must switch at
-     PHONE_CALL_START / sys.qf.call_state / btcall_type in the service, not when the screen opens.
-   - #1535/#1537 debugger Gemini 0c0b138e: which AEC runs on BT calls and its echo tail; why
-     setMode(3) never happens (SCO reset after 3 s). Demand code-from-source proof (owner).
-   - RokoAi Gemini 2495fea2: keep Vosk without software gain; WAV probes in /sdcard/RokoAi.
-3. Bench: 192.168.1.138:9876 (moves after power cuts: scan 192.168.1.0/24 for 9876).
-   Never cut `dumpsys media.audio_flinger` with head/grep -m1 (SIGPIPE kills the HAL) - dump to a file.
-4. DP in VoiceRecognition/UnprocessRecord stays ON (A/B 07.10: without it the owner is not heard).
-5. Do not push (the owner pushes). Commit after each verified step; rewrite .agents/HANDOFF.md.
+2. First task (P0, in the slice): SIM mic sensitivity too low after 906a42b. Compare TX gain/AGC fields of
+   cvs.xml Audio/Handset vs Handsfree (v4.18 copy: unzip QF_BitPerfect.module.v4.18.zip); give Handset its TX gain
+   back, keep the AEC/NLP values. Owner rule: mic sensitivity WITH HEADROOM in all modes; the user trims it with
+   the car-settings sliders (persist.sys.mainmic.gain -> ADCL/ADCR Capture Gain).
+3. After any cvs.xml/pga change on the bench: delete /data/vendor/local/media/audio_params/<blob> + reboot
+   (the module installer does it). Clean installs only: module zip from the commit (git archive, 7 entries).
+4. Bench 192.168.1.138:9876 (moves: scan 9876). Announce adb/reboot in room bitperfect-control-qfphone-rokoai.
+   Never cut `dumpsys media.audio_flinger` with head/grep -m1 - dump to a file.
+5. Other repos touched 12.10: QF_Bluetooth_Mod (BT dialer, own slice), DialerKM, QF_Cellular_Calling.
+   BT dialer is persistent: after pm install -r -> reboot. Keystore password never goes into files.
+6. Do not push (the owner pushes). Commit after each verified step; rewrite .agents/HANDOFF.md (<= 4 KB).
 EOF
