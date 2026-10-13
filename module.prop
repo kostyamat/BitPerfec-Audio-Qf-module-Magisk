@@ -1,6 +1,6 @@
 id=BitPerfect.module
 name=BitPerfect Universal Audio Engine
-version=v5.5.3-Universal
-versionCode=553
+version=v5.5.4-Universal
+versionCode=554
 author=Kostyantyn Matviyevskyy aka kostyamat & Antigravity (c)2026
-description=Bit-to-bit audio for QF001/K706: 24-bit/48 kHz path at 0 dB, volume and effects on BU32107 only. One playback output per PCM, raw unprocessed microphone for wDSP (no DP), navigation ducking, call microphone with headroom and echo cancellation on SIM (handsfree CVS) and BT calls without forced communication mode.
+description=Bit-to-bit audio for QF001/K706: 24-bit/48 kHz path at 0 dB, volume and effects on BU32107 only. One playback output per PCM, raw microphone for wDSP/Vosk, navigation ducking, call microphone with headroom and echo cancellation on SIM (handsfree CVS) and BT calls without forced communication mode.
