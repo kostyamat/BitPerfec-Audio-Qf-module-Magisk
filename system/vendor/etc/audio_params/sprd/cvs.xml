@@ -11,7 +11,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0xa" visible="true" val="0x3232" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0xc" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0xe" visible="true" val="0x0a" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0x10" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0x10" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0x12" visible="true" val="0xc8" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0x14" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0x16" visible="true" val="0xfe67" />
@@ -467,7 +467,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0x346" visible="true" val="0x3232" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0x348" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0x34a" visible="true" val="0x1e" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0x34c" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0x34c" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0x34e" visible="true" val="0xc8" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0x350" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0x352" visible="true" val="0xfe67" />
@@ -923,7 +923,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0x682" visible="true" val="0x3232" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0x684" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0x686" visible="true" val="0x0a" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0x688" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0x688" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0x68a" visible="true" val="0xc8" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0x68c" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0x68e" visible="true" val="0xfe67" />
@@ -1379,7 +1379,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0x9be" visible="true" val="0x3250" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0x9c0" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0x9c2" visible="true" val="0x14" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0x9c4" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0x9c4" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0x9c6" visible="true" val="0x015e" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0x9c8" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0x9ca" visible="true" val="0xfe67" />
@@ -1835,7 +1835,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0xcfa" visible="true" val="0x3232" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0xcfc" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0xcfe" visible="true" val="0x14" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0xd00" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0xd00" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0xd02" visible="true" val="0xc8" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0xd04" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0xd06" visible="true" val="0xfe67" />
@@ -2291,7 +2291,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0x1036" visible="true" val="0x3250" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0x1038" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0x103a" visible="true" val="0x14" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0x103c" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0x103c" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0x103e" visible="true" val="0x015e" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0x1040" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0x1042" visible="true" val="0xfe67" />
@@ -2747,7 +2747,7 @@
                 <SPP_frm offset="0" bits="16" t="u16" id="0x1372" visible="true" val="0x3250" />
                 <SPP_thr offset="0" bits="16" t="u16" id="0x1374" visible="true" val="0x1414" />
                 <ECP_thr offset="0" bits="16" t="u16" id="0x1376" visible="true" val="0x14" />
-                <cutoff_tx offset="0" bits="16" t="u16" id="0x1378" visible="true" val="0x64" />
+                <cutoff_tx offset="0" bits="16" t="u16" id="0x1378" visible="true" val="0x32" />
                 <cutoff_rx offset="0" bits="16" t="u16" id="0x137a" visible="true" val="0x015e" />
                 <dl_CTC offset="0" bits="16" t="u16" id="0x137c" visible="true" val="0x0200" />
                 <CTC_CL1_THR offset="0" bits="16" t="u16" id="0x137e" visible="true" val="0xfe67" />
