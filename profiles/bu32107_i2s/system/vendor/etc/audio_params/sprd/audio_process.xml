@@ -527,7 +527,7 @@
                     </RECORDEQ_band_para05>
                 </eq>
                 <dp>
-                    <DP_sw_switch offset="0" bits="16" t="u16" id="0x1ee" visible="true" val="0x02" />
+                    <DP_sw_switch offset="0" bits="16" t="u16" id="0x1ee" visible="true" val="0x00" />
                     <DP_input_gain offset="0" bits="16" t="u16" id="0x1f0" visible="false" val="0x07fb" />
                     <DP_sdelay offset="0" bits="16" t="u16" id="0x1f2" visible="false" val="0x32" />
                     <DP_limit_up offset="0" bits="16" t="u16" id="0x1f4" visible="true" val="0x00" />
@@ -748,7 +748,7 @@
                     </RECORDEQ_band_para05>
                 </eq>
                 <dp>
-                    <DP_sw_switch offset="0" bits="16" t="u16" id="0x32c" visible="true" val="0x02" />
+                    <DP_sw_switch offset="0" bits="16" t="u16" id="0x32c" visible="true" val="0x00" />
                     <DP_input_gain offset="0" bits="16" t="u16" id="0x32e" visible="false" val="0x07fb" />
                     <DP_sdelay offset="0" bits="16" t="u16" id="0x330" visible="false" val="0x32" />
                     <DP_limit_up offset="0" bits="16" t="u16" id="0x332" visible="true" val="0x00" />
@@ -1044,7 +1044,7 @@
                     </RECORDEQ_band_para05>
                 </eq>
                 <dp>
-                    <DP_sw_switch offset="0" bits="16" t="u16" id="0x4d4" visible="true" val="0x02" />
+                    <DP_sw_switch offset="0" bits="16" t="u16" id="0x4d4" visible="true" val="0x00" />
                     <DP_input_gain offset="0" bits="16" t="u16" id="0x4d6" visible="false" val="0x07fb" />
                     <DP_sdelay offset="0" bits="16" t="u16" id="0x4d8" visible="false" val="0x32" />
                     <DP_limit_up offset="0" bits="16" t="u16" id="0x4da" visible="true" val="0x00" />
