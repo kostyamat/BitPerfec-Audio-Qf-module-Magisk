@@ -1,34 +1,31 @@
-# Зріз — 13.10.2026 ~18:45, сесія `3827b401` (Claude): мікрофон дзвінків закрито, дефолти відомі
+# Slice — 13.10.2026 ~22:55, session `3827b401` (Claude): call audio done, defaults known
 
-**Доручення власника:** NR і AEC для SIM/BT-дзвінків, чистий мікрофон для wDSP/ШІ.
-BitPerfect — мій; керую кімнатою `bitperfect-control-qfphone-rokoai`;
-сесії оголошують adb/ребут, звіти — на дошку. Вночі звук — лише з дозволу.
+**Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
+`bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
+night without permission.
 
-**Репо:** `v5.4-repaired`, запушено до `3c65e41` (06.10); решта — локально. Пушить власник.
-Ключове: `5aea177` один вихід на PCM 3; `906a42b` CVS Handset = Handsfree (луна на
-SIM); `e95d013` мікрофон дзвінків VBC ADC2/ADC3 18 → 7 (≈ +13 дБ); `59f14b6` UnprocessRecord без DP;
-`bb856b0` звичайний запис ADC0 DG → 0 — BT-мікрофон гучніший (власник: «чути по БТ мене стало краще, і луни немає»).
+**Repo:** `v5.4-repaired`, pushed up to `3c65e41` (06.10); the rest is local. The owner pushes.
+Key: `5aea177` one output on PCM 3; `906a42b` CVS Handset = Handsfree (SIM echo); `e95d013` call mic VBC ADC2/ADC3
+18 → 7 (≈ +13 dB); `59f14b6` UnprocessRecord without DP; `bb856b0` normal record ADC0 DG → 0 (BT mic louder);
+`5a845b8` cutoff_tx Handset 0x64 → 0x32 (SIM bass back).
 
-**Стенд `192.168.1.138:9876`** (адреса стрибає — сканувати 9876): BitPerfect **v5.5.11** (= v5.5.9),
-модуль дзвінків v3.8.4, BT-дзвонилка v8d, латаний QF Framework (`QF_Framework_Mod`), wDSP `4d1006d`.
-Рівень входу 9: `/data/local/tmp/tonetest.sh <сек>`; `MicMeter` (`mm.dex`) — лише для джерел 1/6 (9 глушиться).
+**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.5.11** (= v5.5.9 by audio files),
+calling module v3.8.4, BT dialer v8d, patched QF Framework (`QF_Framework_Mod`), our SystemUI (`QF_SystemUI_Mod`).
+Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`) only for sources 1/6 (9 is silenced).
 
-## Дефолти мікрофона (📻 13.10, власник: «дефолти ми вже знаємо», далі — крутить користувач)
-- Залізо: кодек ADCL/ADCR 0..7 = повзунок карсеттінгс, крок ≈ 5–6 дБ угорі; VBC DG обернений (0 = максимум).
-  Тон із телефона на повну, повзунок 7: пік ≈ −12 дБFS — кліпу немає, запас ≈ 12 дБ.
-- Дзвінок SIM 7/7 (мікрофон ADC2 = опора ADC3): «луни немає, чути нормально». 4/4 — луна. Опора окремо від
-  мікрофона (4/10) — писки й артефакти: **зсувати тільки разом**.
-- SIM: `5a845b8` cutoff_tx Handset 0x64 → 0x32 — «басів більше, луни немає»; власник: «зараз звук схожий на звук БТ»
-  DRC_tx на SIM пробували (v5.5.10) — «крошиться», відкат `8db467a`. ❓ У машині: гул мотора (АЧХ/NR «заточені на шум траси, вітру… мотор максимально глушиться»).
+## Mic defaults (📻 13.10; owner: «дефолти ми вже знаємо», the user tunes the rest)
+- Hardware: codec ADCL/ADCR 0..7 = car-settings slider, ≈ 5–6 dB/step at the top; VBC DG is inverted (0 = max).
+  Phone tone at full volume, slider 7: peak ≈ −12 dBFS — no clipping, ≈ 12 dB headroom.
+- SIM call 7/7 (mic ADC2 = AEC reference ADC3): «луни немає, чути нормально». 4/4 — echo. Reference apart from the
+  mic (4/10) — squeaks: **move them together only**.
+- SIM now «схожий на звук БТ», «басів більше, луни немає». DRC_tx tried (v5.5.10) — «крошиться», reverted `8db467a`.
+  ❓ In the car: engine hum through the 50 Hz cutoff (owner: NR/EQ «заточені на шум траси… мотор максимально глушиться»).
 
-## ⏳ Відкрите (по порядку)
-1. ✅ Persist гучності дзвінка — латка у QF Framework (`D:\My_K706_Magisk_Modules\QF_Framework_Mod`, свій зріз):
-   під час дзвінка persist не пишеться; після сну/ребуту — дефолт карсеттінгс. Діє на обидві дзвонилки.
-2. ✅ EQ wDSP — розкладка в #1703: DynamicsProcessing (`libdynproc`, уже в soundfx) на сесію плеєра, не на сесію 0
-   (один primary-вихід → зачепило б дзвінки/навігацію); вимкнений = біт-у-біт; Q довільного немає. Чекаю прототип wDSP.
-3. **BitPerfect Control:** живе редагування мікрофона за режимами — дефолти вище; правило «опора разом з мікрофоном».
-- wDSP досі ставить свою пам'ять гучності дзвінка поверх платформи — вада #1704, їхня лінія.
+## ⏳ Open
+1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
+2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
+- wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
 
-## 📋 Далі
-SystemUI → виклик QF_NotificationCenter зі статусбару (`QF_SystemUI_Mod`, свій зріз; ❓ контракт).
-Побажання до BT-дзвонилки (у її зрізі): іконка BT-музики, метадані в режимі «BT-колонка», обкладинка; 8581.
+## 📋 Next
+SystemUI Notification Centre button — `QF_SystemUI_Mod` slice (blocked by Unisoc autolaunch on their app, #1720).
+BT dialer wishes (its slice): BT-music icon, metadata in «BT speaker» mode, cover art; 8581.
