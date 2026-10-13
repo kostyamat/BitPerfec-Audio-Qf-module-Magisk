@@ -46,7 +46,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0x4e" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0x50" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0x52" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0x54" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0x54" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0x56" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
@@ -502,7 +502,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0x38a" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0x38c" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0x38e" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0x390" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0x390" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0x392" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
@@ -958,7 +958,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0x6c6" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0x6c8" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0x6ca" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0x6cc" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0x6cc" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0x6ce" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
@@ -1414,7 +1414,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0xa02" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0xa04" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0xa06" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0xa08" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0xa08" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0xa0a" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
@@ -1870,7 +1870,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0xd3e" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0xd40" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0xd42" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0xd44" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0xd44" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0xd46" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
@@ -2326,7 +2326,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0x107a" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0x107c" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0x107e" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0x1080" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0x1080" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0x1082" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
@@ -2782,7 +2782,7 @@
                     <HPF offset="0" bits="16" t="u16" id="0x13b6" visible="true" val="0x00" />
                     <HEF offset="0" bits="16" t="u16" id="0x13b8" visible="true" val="0x00" />
                     <SPP offset="0" bits="16" t="u16" id="0x13ba" visible="true" val="0x01" />
-                    <DRC offset="0" bits="16" t="u16" id="0x13bc" visible="true" val="0x01" />
+                    <DRC offset="0" bits="16" t="u16" id="0x13bc" visible="true" val="0x00" />
                     <RSV offset="0" bits="16" t="u16" id="0x13be" visible="true" val="0x00" />
                 </TX_MODUAL>
                 <RX_MODUAL>
