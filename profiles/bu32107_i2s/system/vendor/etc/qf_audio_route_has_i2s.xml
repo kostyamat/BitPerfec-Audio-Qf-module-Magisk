@@ -461,7 +461,7 @@
         <dsploop>
             <on>
               <ctl name="VBC_MUX_ADC3" val="ADC_IN_DAC1" />
-              <ctl name="VBC ADC3 DG Set" val="18" count="2" />
+              <ctl name="VBC ADC3 DG Set" val="10" count="2" />
             </on>
             <off>
             </off>
@@ -475,7 +475,7 @@
         <voip>
             <on>
               <ctl name="VBC_MUX_ADC3" val="ADC_IN_DAC1" />
-              <ctl name="VBC ADC3 DG Set" val="18" count="2" />
+              <ctl name="VBC ADC3 DG Set" val="10" count="2" />
             </on>
             <off>
             </off>
@@ -484,7 +484,7 @@
             <on>
               <ctl name="S_VOICE_CAP_C SWITCH" val="1" />
               <ctl name="VBC_MUX_ADC3" val="ADC_IN_DAC1" />
-              <ctl name="VBC ADC3 DG Set" val="18" count="2" />
+              <ctl name="VBC ADC3 DG Set" val="10" count="2" />
               <ctl name="VBC_MUX_ST" val="ST_IN_ADC2" />
             </on>
             <off>
