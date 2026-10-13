@@ -4,7 +4,7 @@
         <Handset>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -45,7 +45,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -86,7 +86,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -127,7 +127,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -168,7 +168,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -209,7 +209,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -250,7 +250,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -293,7 +293,7 @@
         <Handsfree>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -334,7 +334,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -375,7 +375,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -416,7 +416,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -457,7 +457,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -498,7 +498,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -539,7 +539,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -582,7 +582,7 @@
         <Headset4P>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -623,7 +623,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -664,7 +664,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -705,7 +705,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -746,7 +746,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -787,7 +787,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -828,7 +828,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -871,7 +871,7 @@
         <Headset3P>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -912,7 +912,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -953,7 +953,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -994,7 +994,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1035,7 +1035,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1076,7 +1076,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1117,7 +1117,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1160,7 +1160,7 @@
         <BTHS>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1201,7 +1201,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1242,7 +1242,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1283,7 +1283,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1324,7 +1324,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1365,7 +1365,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1406,7 +1406,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1449,7 +1449,7 @@
         <BTHSNREC>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1490,7 +1490,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1531,7 +1531,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1572,7 +1572,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1613,7 +1613,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1654,7 +1654,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1695,7 +1695,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1738,7 +1738,7 @@
         <TypeC_Digital>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1779,7 +1779,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1820,7 +1820,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1861,7 +1861,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1902,7 +1902,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1943,7 +1943,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -1984,7 +1984,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2027,7 +2027,7 @@
         <Hac>
             <NB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2068,7 +2068,7 @@
             </NB1>
             <NB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2109,7 +2109,7 @@
             </NB2>
             <WB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2150,7 +2150,7 @@
             </WB1>
             <WB2>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2191,7 +2191,7 @@
             </WB2>
             <SWB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2232,7 +2232,7 @@
             </SWB1>
             <FB1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
@@ -2273,7 +2273,7 @@
             </FB1>
             <VOIP1>
                 <VBC_ADC2_DG ctl="VBC ADC2 DG Set">
-                    <volume0 visible="true" val="0x04" />
+                    <volume0 visible="true" val="0x07" />
                 </VBC_ADC2_DG>
                 <VBC_DAC1_DG ctl="VBC DAC1 DG Set">
                     <volume0 visible="true" val="0x18" />
