@@ -280,7 +280,8 @@ ui_print "- Очищення застарілого кешу блобів AGDSP 
 rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 
 # ---------------------------------------------------------------------------
-# Латка libaudioclient.so (пропуск VOICE_RECOGNITION=6 та UNPROCESSED=9)
+# Латки UIS7862: libaudioclient.so (пропуск VOICE_RECOGNITION=6 та UNPROCESSED=9) і
+# libaudiopolicymanager.so (без sprd_voip_start — VoIP-запис HAL зламаний, Telegram)
 #
 # Встановлюється лише на UIS7862 (ums512). На UIS8581 (sp9863a) вендорного хардкоду source=1
 # немає, а бібліотеки там інші — чужі бінарники покладуть audioserver. Перевірку md5 знято
@@ -296,7 +297,7 @@ else
 fi
 
 if [ "$APPLY_LIBAUDIO" = "yes" ]; then
-    ui_print "- UIS7862: встановлення латки libaudioclient (джерела 6 і 9)"
+    ui_print "- UIS7862: латки libaudioclient (джерела 6 і 9) і libaudiopolicymanager (без VoIP-режиму HAL)"
     set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
     set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
     chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
