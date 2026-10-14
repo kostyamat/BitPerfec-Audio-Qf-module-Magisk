@@ -1,4 +1,4 @@
-# Slice — 14.10.2026 ~18:25, session `3827b401` (Claude): Telegram VoIP calls
+# Slice — 14.10.2026 ~18:35, session `3827b401` (Claude): VoIP calls fixed, WhatsApp noise open
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
@@ -28,7 +28,9 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
    Source 7 passthrough tried and reverted (`09ac926`). Unisoc AEC needs that mode → removed from audio_effects
    (`fece07a`), apps use their own AEC; WhatsApp «все чудово». Telegram: AEC works; «підсвистування» was
    at the louder level; voice_call SPEAKER curve raised (`c8efacb`, index 9: −18 → −6 dB). 📻 18:18 call at slider 7:
-   owner «зв'язок ок». If the whistle comes back: speech peaks reach −5 dBFS (50 ms) — lower VoIP record DG only.
+   owner «зв'язок ок»; volume «ок для мене». ⏳ WhatsApp 18:21: «між фразами шуми, ехо немає» (was «все чудово» on
+   v5.5.12). Mic floor −36 dBFS; ringback reaches the mic at −5 dBFS. Next: owner calls WhatsApp with car-settings
+   mic slider 5 (floor follows → lower VoIP record DG for good); if not — test Unisoc AEC back (`fece07a`) for NS.
 1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
 2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
 - wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
