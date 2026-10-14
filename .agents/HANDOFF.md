@@ -1,4 +1,4 @@
-# Slice — 14.10.2026 ~17:10, session `3827b401` (Claude): call audio done, defaults known
+# Slice — 14.10.2026 ~18:25, session `3827b401` (Claude): Telegram VoIP calls
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
@@ -9,7 +9,7 @@ Key: `5aea177` one output on PCM 3; `906a42b` CVS Handset = Handsfree (SIM echo)
 18 → 7 (≈ +13 dB); `59f14b6` UnprocessRecord without DP; `bb856b0` normal record ADC0 DG → 0 (BT mic louder);
 `5a845b8` cutoff_tx Handset 0x64 → 0x32 (SIM bass back).
 
-**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.5.11** (= v5.5.9 by audio files),
+**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.5.15**,
 calling module v3.8.4, BT dialer v8d, patched QF Framework (`QF_Framework_Mod`), our SystemUI (`QF_SystemUI_Mod`).
 Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`) only for sources 1/6 (9 is silenced).
 
@@ -22,12 +22,13 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
   ❓ In the car: engine hum through the 50 Hz cutoff (owner: NR/EQ «заточені на шум траси… мотор максимально глушиться»).
 
 ## ⏳ Open
-0. **Telegram calls: mic stutters/crackles/silent** (voice messages fine). 📻 14.10 log (`tgcall.sh` on the bench):
-   app opens source 7, but `APM getInputForDevice` already gets **source 1** (remap 7→1 happens before APM — not in
-   `getInputForAttr`, not in `AudioRecord::set` log path; still unknown where). HAL opens the input as VOIP_RECORD (7,
-   because `sprd_voip_start=true` after setMode 3) but `audio_add_input`/`in_read` compute NORMAL_RECORD (11) for
-   source 1 → standby + reopen every ~240 ms (144× in 35 s), pop-mute each time. Output stays MM_NORMAL (no VoIP
-   pcm). Next: find the 7→1 remap (APS/AudioFlinger/framework) or byte-patch `in_read`; owner decides.
+0. **VoIP calls (Telegram)** — 📻 14.10. Cause: Unisoc `AudioPolicyManagerSPRD::startOutput` sends
+   `sprd_voip_start=true` when STREAM_VOICE_CALL starts; in that mode the 7862 HAL loops standby/reopen on the
+   input (VOIP_RECORD vs NORMAL_RECORD) whatever the source. Fixed `0a2f7e5` (lib64 libaudiopolicymanager, one `b`).
+   Source 7 passthrough tried and reverted (`09ac926`). Unisoc AEC needs that mode → removed from audio_effects
+   (`fece07a`), apps use their own AEC; WhatsApp «все чудово». Telegram: AEC works, but «підсвистування і запинання»
+   (mic floor ≈ −36 dBFS, speech −25…−30). Voice_call SPEAKER curve raised (`c8efacb`). ⏳ Owner: test slider 7→5
+   (does the floor follow → lower VoIP record DG), and the louder curve.
 1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
 2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
 - wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
