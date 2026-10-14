@@ -26,9 +26,9 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
    `sprd_voip_start=true` when STREAM_VOICE_CALL starts; in that mode the 7862 HAL loops standby/reopen on the
    input (VOIP_RECORD vs NORMAL_RECORD) whatever the source. Fixed `0a2f7e5` (lib64 libaudiopolicymanager, one `b`).
    Source 7 passthrough tried and reverted (`09ac926`). Unisoc AEC needs that mode → removed from audio_effects
-   (`fece07a`), apps use their own AEC; WhatsApp «все чудово». Telegram: AEC works, but «підсвистування і запинання»
-   (mic floor ≈ −36 dBFS, speech −25…−30). Voice_call SPEAKER curve raised (`c8efacb`). ⏳ Owner: test slider 7→5
-   (does the floor follow → lower VoIP record DG), and the louder curve.
+   (`fece07a`), apps use their own AEC; WhatsApp «все чудово». Telegram: AEC works; «підсвистування» was
+   at the louder level; voice_call SPEAKER curve raised (`c8efacb`, index 9: −18 → −6 dB). 📻 18:18 call at slider 7:
+   owner «зв'язок ок». If the whistle comes back: speech peaks reach −5 dBFS (50 ms) — lower VoIP record DG only.
 1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
 2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
 - wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
