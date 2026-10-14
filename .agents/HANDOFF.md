@@ -1,4 +1,4 @@
-# Slice — 13.10.2026 ~22:55, session `3827b401` (Claude): call audio done, defaults known
+# Slice — 14.10.2026 ~17:10, session `3827b401` (Claude): call audio done, defaults known
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
@@ -22,6 +22,12 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
   ❓ In the car: engine hum through the 50 Hz cutoff (owner: NR/EQ «заточені на шум траси… мотор максимально глушиться»).
 
 ## ⏳ Open
+0. **Telegram calls: mic stutters/crackles/silent** (voice messages fine). 📻 14.10 log (`tgcall.sh` on the bench):
+   app opens source 7, but `APM getInputForDevice` already gets **source 1** (remap 7→1 happens before APM — not in
+   `getInputForAttr`, not in `AudioRecord::set` log path; still unknown where). HAL opens the input as VOIP_RECORD (7,
+   because `sprd_voip_start=true` after setMode 3) but `audio_add_input`/`in_read` compute NORMAL_RECORD (11) for
+   source 1 → standby + reopen every ~240 ms (144× in 35 s), pop-mute each time. Output stays MM_NORMAL (no VoIP
+   pcm). Next: find the 7→1 remap (APS/AudioFlinger/framework) or byte-patch `in_read`; owner decides.
 1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
 2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
 - wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
