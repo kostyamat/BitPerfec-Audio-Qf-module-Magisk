@@ -15,3 +15,6 @@
 *.diff
 *.mp4
 /.agents/.compact-state
+
+# Exception: the read-only diagnostic tool ships as a built zip (no sources here), see README.
+!tools/QF_audio_survey.*.zip
