@@ -4,7 +4,7 @@
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
 night without permission.
 
-**Repo:** `v5.4-repaired`, pushed up to `3c65e41` (06.10); the rest is local. The owner pushes.
+**Repo:** `v5.4-repaired`, pushed up to `36dd787` (15.10). The owner pushes.
 Key: `5aea177` one output on PCM 3; `906a42b` CVS Handset = Handsfree (SIM echo); `e95d013` call mic VBC ADC2/ADC3
 18 → 7 (≈ +13 dB); `59f14b6` UnprocessRecord without DP; `bb856b0` normal record ADC0 DG → 0 (BT mic louder);
 `5a845b8` cutoff_tx Handset 0x64 → 0x32 (SIM bass back).
