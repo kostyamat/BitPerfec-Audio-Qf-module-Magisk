@@ -39,6 +39,54 @@ snapshot, which you are welcome to send if you want to help with support.
 - **Microphone for apps:** a raw, unprocessed input for DSP and voice apps (wDSP, assistants).
 - Everything is overlaid by Magisk; no system partition is ever written.
 
+## What changed since the classic v4.18
+
+v4.18 was a single BU32107 profile. Since then:
+
+**Hardware detection**
+- The sound processor and the output path are read from the MCU code at the right positions (v4.x read
+  the control-panel digits, so every BD37xxx unit got the BU32107 I2S profile — the "digital rasp").
+- Two profiles: BU32107 (I2S) and BD37xxx (the SoC's DAC). The audio configuration is built from scratch
+  for the detected hardware; no file of the other variant is left behind, also after an upgrade.
+- 🔴 UIS7862 only: the installer refuses UIS8581 and any other platform.
+
+**Playback**
+- One 24-bit / 48 kHz output: the second output on the same PCM made `pcmC0D3p busy`, re-routed the bus
+  under music and silenced TTS — gone.
+- 0 dB that survives: the platform default volume is pinned at unity where the platform keeps it
+  (`car.config`), not only in a property it rewrites at boot. The incoming-call ringtone is no longer
+  played 18 dB down.
+- The CarSettings start-up volume slider is never touched (v5.0/v5.1 overwrote it).
+- The 24-bit I2S width is enforced only where an I2S bus exists, at boot and after sleep.
+- After boot and after sleep the MCU gets the level of the current source.
+
+**Navigation**
+- Navigators that announce themselves as "assistant" are treated as navigation, not music.
+- Google TTS prompts duck the music like navigation prompts.
+
+**Calls**
+- SIM: handsfree echo cancellation on the handset path, microphone ≈ +13 dB with the echo reference moved
+  with it, the handset bass back.
+- Bluetooth: louder microphone; the call stays at 0 dB, without a forced communication mode.
+- Telegram / WhatsApp: the Unisoc VoIP record mode looped the microphone input (stutter, crackle,
+  silence) — it is no longer switched on, and the apps use their own echo cancelling; VoIP is louder on
+  the speaker at mid volume.
+- The calling module (`qf_cellular_calling_master`) works only on top of BitPerfect, which confirms
+  itself each boot (`sys.bitperfect.enabled=1`) once the policies are loaded and the audio path is alive.
+
+**Microphone**
+- Raw, unprocessed input for DSP apps (wDSP), voice recognition without echo cancelling or noise
+  suppression (assistants); the vendor override that forced every app to the plain microphone is patched
+  for these two sources.
+- Headroom in every mode: the car-settings microphone sliders trim the level down without clipping.
+
+**Reliability**
+- The boot watchdog checks that the audio path really runs (a stream stranded after the platform's own
+  audioserver restart), not only that the policies are loaded.
+- Disable / remove is safe: a guard script restores the factory volume and audio parameters on the same
+  boot, and redoes ours when the module is enabled again.
+- On install a snapshot of the factory audio state is saved to `/sdcard/QF_audio_survey/`.
+
 ## Install, disable, remove
 
 Install the zip in Magisk and reboot. The installer saves a snapshot of your unit's factory audio state
@@ -50,6 +98,8 @@ parameters on the next boot, so the factory path does not play at full scale. Re
 removes the guard.
 
 ## Feedback — what to send
+
+💬 **Support group (Telegram):** https://t.me/kostyamat_dev/3 — reports go there.
 
 "It does not work" cannot be fixed without data. Please send:
 
@@ -77,3 +127,18 @@ It recognises any navigator, also those that take no audio focus or speak as an 
 The module payload is `META-INF`, `common`, `profiles`, `system`, `customize.sh`, `module.prop`,
 `service.sh`. `control-app/` is the companion app (work in progress) and `.agents/` holds the
 development notes — neither is part of the module.
+
+## Support the developer
+
+🏆 If you appreciate my work and want to buy me coffee/beer - your choice, or purchase licenses for some paid products that I offer, here is a link to some of my payment details.
+👇
+
+**Crypto**
+- TRC-20 (Tron): `TCSvCEyX1Zxb9E97oTpxHsBCLiDZLPTvzk`
+- TON (Telegram wallet): `UQCqracCOo_DEwVWQjPVYkKak-gSZx1TXQOxICi_9frpdr5j`
+
+**PayPal** (Please send your PayPal payment via 'Friends and Family'. If you select 'Goods and Services', PayPal charges a large fee and forces me to create shipping information, which delays the process.)
+https://www.paypal.com/paypalme/kostyamat
+
+**Revolut**
+https://revolut.me/kostyamat
