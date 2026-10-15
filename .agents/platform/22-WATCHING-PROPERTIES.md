@@ -41,6 +41,22 @@ Additions by the wDSP line (board #1145), checked against the same source:
   transaction. Inside: read, compare, post the work to your own handler. No UI, no settings writes,
   no MCU calls.
 
+### Confirmed against AOSP 10 source (Argon study, 15.10.2026)
+
+The owner's commissioned trace "Tracing AOSP SystemProperties Callbacks" (Argon / Gemini, file in the
+owner's Downloads) agrees with the measurement above and adds:
+
+- 🔬 (AOSP source, not yet tried here) **A shell can fire the callbacks:** `service call activity 1599295570`
+  sends `SYSPROPS_TRANSACTION` to ActivityManagerService, which runs the callbacks in system_server and
+  fans a one-way transaction out to every running app process. So a Magisk script that sets a property
+  an app watches with `addChangeCallback` can announce it in one line. ❓ Not checked on the bench.
+- 🔬 The callback is a parameterless `Runnable`: **no key, no value**. Every announcement wakes every
+  listener in every process, each re-reads what it cares about — a global "re-read" signal, not pub/sub.
+- 🔬 `init`, `setprop`, native `property_set()` and even Java `SystemProperties.set()` never send it: init
+  and bionic do not link binder, and `SystemProperties.java` runs no watcher thread.
+- Better tools by case: native code — `android::base::WaitForProperty()` (libbase, wraps the futex wait
+  below); framework-to-app settings — `Settings.*` + `ContentObserver`; a targeted service — an AIDL listener.
+
 ## How to use the one that works
 
 ```c
