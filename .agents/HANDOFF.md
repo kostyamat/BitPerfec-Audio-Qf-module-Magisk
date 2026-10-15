@@ -4,7 +4,7 @@
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
 night without permission.
 
-**Repo:** `v5.4-repaired`, pushed up to `4a678a3`+ (15.10). The owner pushes.
+**Repo:** `v5.4-repaired`, pushed (15.10). The owner pushes.
 Key: `5aea177` one output on PCM 3; `906a42b` CVS Handset = Handsfree (SIM echo); `e95d013` call mic VBC ADC2/ADC3
 18 → 7 (≈ +13 dB); `59f14b6` UnprocessRecord without DP; `bb856b0` normal record ADC0 DG → 0 (BT mic louder);
 `5a845b8` cutoff_tx Handset 0x64 → 0x32 (SIM bass back).
@@ -23,7 +23,7 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
 
 ## 📦 Release v5.6 (`5144c01`, zip `QF_BitPerfect.module.v5.6-Universal.zip` from that commit)
 UIS7862 only — installer aborts on any other platform (`dbf20ae`). README: changes since v4.18, support group
-https://t.me/kostyamat_dev/3, donation details (`c45981b`). ⏳ Owner publishes (GitHub release / TG); not pushed yet.
+https://t.me/kostyamat_dev/3, donation details (`c45981b`). 📦 Published 15.10: GitHub release `v5.6` (tag on `46507cd`) with the zip; feedback via the TG group.
 
 ## ⏳ Open
 0. **VoIP calls** fixed 14.10 (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder curve).
