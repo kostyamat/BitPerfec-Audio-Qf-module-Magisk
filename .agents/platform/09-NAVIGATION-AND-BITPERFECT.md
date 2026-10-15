@@ -488,3 +488,14 @@ Three things follow, and they explain complaints we have been treating as separa
 
 ⇒ Practical, for anyone tuning this: **`navi_remix_ratio ≥ 90` switches navigation mixing off** by the platform's own
 arithmetic. To hear prompts over music, keep it at 80 or below - and do not pin the volume index or the default.
+
+## §14. Navigators do not agree on audio focus (15.10.2026)
+
+- 📻 Waze 5.25 (bench, BitPerfect v5.5.17, Spotify playing): the prompt plays as an AudioTrack with
+  `usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH` and takes **no audio focus at
+  all** — the focus stack holds only the music app with plain `GAIN` throughout the prompt.
+- 🧩 So "did the music lose focus" cannot tell that a navigator is speaking. Detect a prompt by any of:
+  `persist.sys.navi_state=true`, a focus entry with `GAIN_TRANSIENT*`, or a started player with usage
+  NAVIGATION_GUIDANCE or ASSISTANT (some navigators speak as ASSISTANT — see the v5.1 strategy note).
+- The diagnostic module `QF_audio_survey` v1.3 (BitPerfect repo, `tools/`) uses exactly this rule and records
+  the focus stack, the started players and every volume while the prompt speaks.
