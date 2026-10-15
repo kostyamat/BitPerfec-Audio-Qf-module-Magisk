@@ -298,9 +298,8 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 # vendor source=MIC override) and libaudiopolicymanager.so (never sends sprd_voip_start: the HAL's
 # VoIP record mode is broken, it loops the input - Telegram calls).
 #
-# UIS7862 (ums512) only. UIS8581 (sp9863a) has no vendor source=1 override and different libraries -
-# foreign binaries would take audioserver down. The md5 check was dropped (owner 07.10: «надто
-# високий рівень захисту, і не потрібний»).
+# UIS7862 (ums512) only: UIS8581 (sp9863a) has different libraries - foreign binaries would take
+# audioserver down.
 # ---------------------------------------------------------------------------
 PLATFORM=$(getprop ro.board.platform)
 
