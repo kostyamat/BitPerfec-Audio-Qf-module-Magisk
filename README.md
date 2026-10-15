@@ -23,7 +23,11 @@ The installer reads the MCU code and picks the profile by itself.
 |---|---|---|
 | UIS7862 + **ROHM BU32107** | digital I2S, 24/48 | ✅ tested on the developer's unit |
 | UIS7862 + **ROHM BD37xxx** | the SoC's own DAC (analogue), 24/48 by factory design | 🧪 needs reports |
-| UIS8581 | — | 🧪 library patches skipped; needs reports |
+| **UIS8581** | — | ❌ **not supported** — the installer refuses it and changes nothing |
+
+🔴 **Not for UIS8581 units.** Its audio HAL and libraries are different and the module has never run on
+one. The installer stops on any platform other than UIS7862 (`ums512`); it only saves the factory
+snapshot, which you are welcome to send if you want to help with support.
 
 ## What it changes
 
@@ -51,8 +55,8 @@ removes the guard.
 
 1. `/sdcard/QF_audio_survey/` — the factory snapshot the installer made;
 2. `/data/adb/BitPerfect.log`;
-3. **for navigation-prompt problems (too quiet, cut off, music not ducked), for BD37xxx and UIS8581
-   units, and for any other sound problem:** a live report from the diagnostic tool below, taken with
+3. **for navigation-prompt problems (too quiet, cut off, music not ducked), for BD37xxx units, and for
+   any other sound problem:** a live report from the diagnostic tool below, taken with
    BitPerfect installed and with the navigator you actually use.
 
 ### Diagnostic tool: `tools/QF_audio_survey.v1.3.zip`
