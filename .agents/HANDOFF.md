@@ -31,6 +31,8 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
   `audio_pcm.xml` + routes; BD now has the BU policy (same mic). BD output is 24/48 into the SC2730 DAC by factory
   design (10-BITPERFECT-MODULE.md). ❓ Not yet on a BD unit — needs a tester's survey/log.
 1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
+   📻 15.10 SIM: echo cancelling leaks the ends of the far end's phrases a little («практично не заважає»); owner:
+   «Точну підстройку зробимо в програмі». SIM and BT otherwise «все добре».
 2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
 - wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
 
