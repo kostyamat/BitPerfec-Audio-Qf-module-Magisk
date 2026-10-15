@@ -370,6 +370,23 @@ pre-seeding one variant and patching it by name. Then there is nothing to leave 
 to maintain. ⚠️ The rebuild has to cover the **live** directory too, not only the staging one, or a
 file dropped between versions survives on the unit for good.
 
+✅ **Done 15.10.2026 (`712d50c`, v5.5.17).** The zip no longer pre-seeds `system/vendor/etc`.
+`profiles/<chip>/` holds only what depends on the hardware (`audio_pcm.xml`, `audio_route.xml`, the
+two `qf_*` routes); `common/system/vendor/etc` holds everything shared in one copy (policy, effects,
+AGDSP parameters, volume curves). 📻 On the BU bench the installer built a set byte-identical to
+v5.5.16's. `drop_route` stays for units upgrading from an older version (live directory).
+The section below about factory-identical BD files describes the pre-seeded layout and is history.
+
+### BD37xxx (analogue) units get 24/48 into the SoC DAC — by the factory design
+
+- 🔬 Factory `audio_pcm.xml`: `mm_normal` opens PCM 3 with `format="3"` (S24_LE), 48 kHz, on every unit.
+- 🔬 Factory `qf_audio_route_no_i2s.xml`, the codec path: `VBC_MUX_DAC0_IIS_PORT_SEL = IIS0`,
+  `VBC_MUX_IIS0_PORT_DO_SEL = DAC0`, `VBC_IIS_TX0_WD_SEL = WD_24BIT` — DAC0 to the SC2730 codec at 24 bit.
+- 🧩 `VBC_IIS_MST_WIDTH_SET` (16 bit in the BD `audio_route.xml`) is the width of the EXTERNAL I2S master
+  (IIS2 → `vbc_iism0` → BU32107 on BU units, 📻 tinymix on the BU bench); music on BD does not use it.
+- So BitPerfect's policy (`primary output` PCM_8_24 48 kHz) is 24/48 end to end on BD too; since v5.5.17
+  BD also shares the BU input side of the policy (same microphone). ❓ Not yet measured on a BD unit.
+
 ✅ The ban itself is respected today: no `mount -o rw`, no `remount`, no write into `/system` or
 `/vendor`. The only system path touched is a `md5sum` read of the factory `audio_params`.
 
