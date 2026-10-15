@@ -23,8 +23,7 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
 
 ## ⏳ Open
 0. **VoIP calls** fixed 14.10 (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder curve).
-   ⏳ WhatsApp «між фразами шуми, ехо немає»: next — call with car-settings mic slider 5; if the floor follows,
-   lower the VoIP record DG; else try Unisoc AEC back (`fece07a`) for its NS.
+   📻 15.10 WhatsApp: owner «ватсапп прекрасно» — closed.
 - ✅ Guard (`77115bd`, `70a9d37`, v5.5.16): `/data/adb/post-fs-data.d/bitperfect_guard.sh` — disabled/removed →
   car.config music_volume from backup, AGDSP blobs dropped, `sys.bitperfect.enabled=0`; enabled again → blobs
   dropped + pin 15. 📻 15.10 bench, all on the same boot: disable → 9, 16-bit, owner «не хрипить»; enable → 15, 24-bit.
