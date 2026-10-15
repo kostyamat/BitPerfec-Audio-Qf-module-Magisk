@@ -37,6 +37,10 @@ fi
 GONE=no
 [ -d "$MOD" ] && [ ! -f "$MOD/remove" ] || GONE=yes
 
+# Every boot while inactive: tell the calling line BitPerfect is NOT there (service.sh, which sets 1,
+# does not run). Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
+resetprop sys.bitperfect.enabled 0 2>/dev/null || setprop sys.bitperfect.enabled 0
+
 if [ ! -f "$DONE" ]; then
     # 1. music_volume back to the value it had before BitPerfect first pinned it. Only that one
     #    field is restored: the rest of car.config may have changed since the backup was taken.
