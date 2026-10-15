@@ -22,15 +22,9 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
   ❓ In the car: engine hum through the 50 Hz cutoff (owner: NR/EQ «заточені на шум траси… мотор максимально глушиться»).
 
 ## ⏳ Open
-0. **VoIP calls (Telegram)** — 📻 14.10. Cause: Unisoc `AudioPolicyManagerSPRD::startOutput` sends
-   `sprd_voip_start=true` when STREAM_VOICE_CALL starts; in that mode the 7862 HAL loops standby/reopen on the
-   input (VOIP_RECORD vs NORMAL_RECORD) whatever the source. Fixed `0a2f7e5` (lib64 libaudiopolicymanager, one `b`).
-   Source 7 passthrough tried and reverted (`09ac926`). Unisoc AEC needs that mode → removed from audio_effects
-   (`fece07a`), apps use their own AEC; WhatsApp «все чудово». Telegram: AEC works; «підсвистування» was
-   at the louder level; voice_call SPEAKER curve raised (`c8efacb`, index 9: −18 → −6 dB). 📻 18:18 call at slider 7:
-   owner «зв'язок ок»; volume «ок для мене». ⏳ WhatsApp 18:21: «між фразами шуми, ехо немає» (was «все чудово» on
-   v5.5.12). Mic floor −36 dBFS; ringback reaches the mic at −5 dBFS. Next: owner calls WhatsApp with car-settings
-   mic slider 5 (floor follows → lower VoIP record DG for good); if not — test Unisoc AEC back (`fece07a`) for NS.
+0. **VoIP calls** fixed 14.10 (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder curve).
+   ⏳ WhatsApp «між фразами шуми, ехо немає»: next — call with car-settings mic slider 5; if the floor follows,
+   lower the VoIP record DG; else try Unisoc AEC back (`fece07a`) for its NS.
 - ✅ Guard (`77115bd`, `70a9d37`, v5.5.16): `/data/adb/post-fs-data.d/bitperfect_guard.sh` — disabled/removed →
   car.config music_volume from backup, AGDSP blobs dropped, `sys.bitperfect.enabled=0`; enabled again → blobs
   dropped + pin 15. 📻 15.10 bench, all on the same boot: disable → 9, 16-bit, owner «не хрипить»; enable → 15, 24-bit.
