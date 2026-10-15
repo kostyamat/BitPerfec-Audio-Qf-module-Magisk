@@ -51,14 +51,17 @@ removes the guard.
 
 1. `/sdcard/QF_audio_survey/` — the factory snapshot the installer made;
 2. `/data/adb/BitPerfect.log`;
-3. **for BD37xxx and UIS8581 units, and for any sound problem:** a live report from the diagnostic
-   tool below, taken with BitPerfect installed.
+3. **for navigation-prompt problems (too quiet, cut off, music not ducked), for BD37xxx and UIS8581
+   units, and for any other sound problem:** a live report from the diagnostic tool below, taken with
+   BitPerfect installed and with the navigator you actually use.
 
-### Diagnostic tool: `tools/QF_audio_survey.v1.2.zip`
+### Diagnostic tool: `tools/QF_audio_survey.v1.3.zip`
 
 A read-only Magisk module: it changes nothing, plays nothing and sends nothing by itself. It writes a
-report to `/sdcard/QF_audio_survey/` (audio configuration, mixer state, every audio stream, what format
-and gain Android feeds the HAL, volumes during a navigation prompt).
+report to `/sdcard/QF_audio_survey/`: audio configuration, mixer state, every audio stream, what format
+and gain Android feeds the HAL, the installed navigators, and — the main part — what happens while a
+navigator speaks: which app it is, how it plays (usage, audio focus) and every volume at that moment.
+It recognises any navigator, also those that take no audio focus or speak as an "assistant".
 
 1. Install it in Magisk (BitPerfect stays installed) and reboot.
 2. Play music or radio, start your navigator and let it speak **once**.
