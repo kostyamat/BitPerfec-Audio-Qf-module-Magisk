@@ -259,6 +259,15 @@ case $? in
     *) ui_print "- car.config: music_volume not found, left alone" ;;
 esac
 
+# Guard against our own leftovers: Magisk runs nothing of a disabled module and there is no
+# uninstall.sh, so a script outside the module puts car.config and the AGDSP blobs back to factory
+# when BitPerfect is disabled or removed (and redoes ours when it is enabled again). See bp_guard.sh.
+mkdir -p /data/adb/post-fs-data.d
+cp -f "$MODPATH/common/bp_guard.sh" /data/adb/post-fs-data.d/bitperfect_guard.sh
+chmod 0755 /data/adb/post-fs-data.d/bitperfect_guard.sh
+rm -f /data/adb/BitPerfect.guard.restored
+ui_print "- Сторож вимкнення/видалення: /data/adb/post-fs-data.d/bitperfect_guard.sh"
+
 # v5.1: the NXP branch used to do `setprop persist.sys.navi_volume 15` here. Removed.
 #
 # That property is the STREAM_SYSTEM index - it IS the navigation prompt's whole loudness. Writing
