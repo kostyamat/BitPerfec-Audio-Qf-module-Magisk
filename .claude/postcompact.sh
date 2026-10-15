@@ -9,7 +9,7 @@ cat <<'EOF'
 2. v5.6 RELEASED 15.10 (GitHub tag v5.6, 4PDA/XDA posts) - waiting for testers. Calls (SIM/BT/Telegram/
    WhatsApp), mic, guard, BD layout are done. Next, when reports come: BD37xxx survey, engine hum (SIM),
    navigator reports (QF_audio_survey v1.3); owner's "strange navigator" (MapFactor) - watch logcat when ready.
-   Then BitPerfect Control (per-mode mic, SIM AEC fine-tuning; AEC reference always moves with the mic).
+   Order (owner 15.10, .agents/TODO.md): 1 testers' feedback and logs, 2 UIS8581 adaptation, 3 BitPerfect Control.
    QF_Framework_Mod / QF_SystemUI_Mod / QF_Bluetooth_Mod now have their OWN sessions - not this one's work.
    Releases: .agents/RELEASE.md.  WSL: `-u root` for tools, but PUSH as the default user (keys in its ~/.ssh).
 3. After any cvs.xml/pga change on the bench: delete /data/vendor/local/media/audio_params/<blob> + reboot

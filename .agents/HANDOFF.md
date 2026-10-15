@@ -28,7 +28,8 @@ UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waz
   (focus, AudioTrack, getOutput) when he says it is ready.
 - SIM: echo cancelling leaks the ends of the far end's phrases a little — owner: «Точну підстройку зробимо в програмі».
 
-## 📋 Next
-1. **BitPerfect Control:** live per-mode mic editing from the defaults above, SIM AEC fine-tuning; the AEC
-   reference always moves with the mic.
-2. EQ for wDSP — plan #1703 (DynamicsProcessing on the player session); waiting for their prototype.
+## 📋 Next — order from the owner (15.10), details in `.agents/TODO.md`
+1. Testers: feedback and logs on v5.6 (BD37xxx, navigators, engine hum) — the open items above.
+2. UIS8581 adaptation: 44.1/16 profile, AGDSP params into /data instead of the /vendor overlay; needs a 8581 tester.
+3. Then BitPerfect Control: per-mode mic, SIM AEC fine-tuning; the AEC reference always moves with the mic.
+EQ for wDSP — plan #1703, waiting for their prototype.
