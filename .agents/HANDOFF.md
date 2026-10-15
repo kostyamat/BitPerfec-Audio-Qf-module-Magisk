@@ -1,4 +1,4 @@
-# Slice — 15.10.2026 ~21:25, session `3827b401` (Claude): BD37xxx compatibility, module rebuilt from empty
+# Slice — 15.10.2026 ~22:55, session `3827b401` (Claude): release v5.6 prepared
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
@@ -9,7 +9,7 @@ Key: `5aea177` one output on PCM 3; `906a42b` CVS Handset = Handsfree (SIM echo)
 18 → 7 (≈ +13 dB); `59f14b6` UnprocessRecord without DP; `bb856b0` normal record ADC0 DG → 0 (BT mic louder);
 `5a845b8` cutoff_tx Handset 0x64 → 0x32 (SIM bass back).
 
-**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.5.17**,
+**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.6** (release),
 calling module v3.8.4, BT dialer v8d, patched QF Framework (`QF_Framework_Mod`), our SystemUI (`QF_SystemUI_Mod`).
 Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`) only for sources 1/6 (9 is silenced).
 
@@ -20,6 +20,10 @@ Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`
   mic (4/10) — squeaks: **move them together only**.
 - SIM now «схожий на звук БТ», «басів більше, луни немає». DRC_tx tried (v5.5.10) — «крошиться», reverted `8db467a`.
   ❓ In the car: engine hum through the 50 Hz cutoff (owner: NR/EQ «заточені на шум траси… мотор максимально глушиться»).
+
+## 📦 Release v5.6 (`5144c01`, zip `QF_BitPerfect.module.v5.6-Universal.zip` from that commit)
+UIS7862 only — installer aborts on any other platform (`dbf20ae`). README: changes since v4.18, support group
+https://t.me/kostyamat_dev/3, donation details (`c45981b`). ⏳ Owner publishes (GitHub release / TG); not pushed yet.
 
 ## ⏳ Open
 0. **VoIP calls** fixed 14.10 (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder curve).
