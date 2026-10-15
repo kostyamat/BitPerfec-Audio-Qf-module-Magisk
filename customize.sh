@@ -202,8 +202,13 @@ esac
 ui_print "- Аудіопроцесор: $CHIP_NAME"
 ui_print "- Тракт: $([ "$USE_I2S" = yes ] && echo 'цифровий I2S' || echo 'аналоговий (ЦАП SC2730)')"
 
+# system/vendor/etc is built from EMPTY here (owner, 30.09.2026): the zip ships no pre-seeded variant.
+# profiles/<chip>/ carries only what depends on the hardware (audio_pcm.xml and the routes), common/
+# carries everything shared (policy, effects, AGDSP parameters, volume curves) in one copy.
+#
 # Exactly one of the two route files belongs on a given unit, and the other has to be DELETED, not
-# merely left unwritten. Two mechanisms leave it behind:
+# merely left unwritten. Two mechanisms used to leave it behind (the first is gone with the
+# pre-seeded variant, the second still applies to units upgrading from an older version):
 #
 #   * `cp -rf` copies the chosen profile over the pre-seeded system/, but never removes a file the
 #     profile has no counterpart for;
@@ -289,12 +294,13 @@ ui_print "- Очищення застарілого кешу блобів AGDSP 
 rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 
 # ---------------------------------------------------------------------------
-# Латки UIS7862: libaudioclient.so (пропуск VOICE_RECOGNITION=6 та UNPROCESSED=9) і
-# libaudiopolicymanager.so (без sprd_voip_start — VoIP-запис HAL зламаний, Telegram)
+# UIS7862 library patches: libaudioclient.so (lets VOICE_RECOGNITION=6 and UNPROCESSED=9 through the
+# vendor source=MIC override) and libaudiopolicymanager.so (never sends sprd_voip_start: the HAL's
+# VoIP record mode is broken, it loops the input - Telegram calls).
 #
-# Встановлюється лише на UIS7862 (ums512). На UIS8581 (sp9863a) вендорного хардкоду source=1
-# немає, а бібліотеки там інші — чужі бінарники покладуть audioserver. Перевірку md5 знято
-# (власник 07.10: «надто високий рівень захисту, і не потрібний»).
+# UIS7862 (ums512) only. UIS8581 (sp9863a) has no vendor source=1 override and different libraries -
+# foreign binaries would take audioserver down. The md5 check was dropped (owner 07.10: «надто
+# високий рівень захисту, і не потрібний»).
 # ---------------------------------------------------------------------------
 PLATFORM=$(getprop ro.board.platform)
 
