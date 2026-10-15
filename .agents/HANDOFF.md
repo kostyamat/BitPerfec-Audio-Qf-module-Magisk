@@ -1,45 +1,34 @@
-# Slice — 15.10.2026 ~22:55, session `3827b401` (Claude): release v5.6 prepared
+# Slice — 15.10.2026 ~23:20, session `3827b401` (Claude): v5.6 released, waiting for testers
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
-night without permission.
+night without permission. Push / release only on the owner's order (`.agents/RELEASE.md`).
 
-**Repo:** `v5.4-repaired`, pushed (15.10). The owner pushes.
-Key: `5aea177` one output on PCM 3; `906a42b` CVS Handset = Handsfree (SIM echo); `e95d013` call mic VBC ADC2/ADC3
-18 → 7 (≈ +13 dB); `59f14b6` UnprocessRecord without DP; `bb856b0` normal record ADC0 DG → 0 (BT mic louder);
-`5a845b8` cutoff_tx Handset 0x64 → 0x32 (SIM bass back).
+**Repo:** `v5.4-repaired`, pushed 15.10; GitHub release **v5.6** (tag on `46507cd`, zip from `5144c01`).
+Forum posts (4PDA ru, XDA en) and the annotation: `.agents/release/`. Support group https://t.me/kostyamat_dev/3.
 
-**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.6** (release),
-calling module v3.8.4, BT dialer v8d, patched QF Framework (`QF_Framework_Mod`), our SystemUI (`QF_SystemUI_Mod`).
-Input level of source 9: `/data/local/tmp/tonetest.sh <s>`; `MicMeter` (`mm.dex`) only for sources 1/6 (9 is silenced).
+**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.6**, calling module v3.8.4, BT dialer
+v9 (its session), patched QF Framework and SystemUI (their own sessions now).
 
 ## Mic defaults (📻 13.10; owner: «дефолти ми вже знаємо», the user tunes the rest)
-- Hardware: codec ADCL/ADCR 0..7 = car-settings slider, ≈ 5–6 dB/step at the top; VBC DG is inverted (0 = max).
-  Phone tone at full volume, slider 7: peak ≈ −12 dBFS — no clipping, ≈ 12 dB headroom.
-- SIM call 7/7 (mic ADC2 = AEC reference ADC3): «луни немає, чути нормально». 4/4 — echo. Reference apart from the
-  mic (4/10) — squeaks: **move them together only**.
-- SIM now «схожий на звук БТ», «басів більше, луни немає». DRC_tx tried (v5.5.10) — «крошиться», reverted `8db467a`.
-  ❓ In the car: engine hum through the 50 Hz cutoff (owner: NR/EQ «заточені на шум траси… мотор максимально глушиться»).
+- Codec ADCL/ADCR 0..7 = car-settings slider, ≈ 5–6 dB/step at the top; VBC DG is inverted (0 = max).
+  Phone tone at full volume, slider 7: peak ≈ −12 dBFS — ≈ 12 dB headroom.
+- SIM call 7/7 (mic ADC2 = AEC reference ADC3): no echo; 4/4 — echo; reference apart from the mic — squeaks:
+  **move them together only**. DRC_tx tried — «крошиться», reverted.
 
-## 📦 Release v5.6 (`5144c01`, zip `QF_BitPerfect.module.v5.6-Universal.zip` from that commit)
-UIS7862 only — installer aborts on any other platform (`dbf20ae`). README: changes since v4.18, support group
-https://t.me/kostyamat_dev/3, donation details (`c45981b`). 📦 Published 15.10: GitHub release `v5.6` (tag on `46507cd`) with the zip; feedback via the TG group.
+## Done in v5.6 (details: README «What changed since v4.18», 10-BITPERFECT-MODULE.md)
+VoIP (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder curve) — Telegram «люкс», WhatsApp
+«прекрасно». Guard on disable/remove (`77115bd`). vendor/etc from empty, BD = BU policy (`712d50c`). Platform gate
+UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waze takes no audio focus).
 
-## ⏳ Open
-0. **VoIP calls** fixed 14.10 (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder curve).
-   📻 15.10 WhatsApp: owner «ватсапп прекрасно» — closed.
-- ✅ Guard (`77115bd`, `70a9d37`, v5.5.16): `/data/adb/post-fs-data.d/bitperfect_guard.sh` — disabled/removed →
-  car.config music_volume from backup, AGDSP blobs dropped, `sys.bitperfect.enabled=0`; enabled again → blobs
-  dropped + pin 15. 📻 15.10 bench, all on the same boot: disable → 9, 16-bit, owner «не хрипить»; enable → 15, 24-bit.
-- ✅ BD37xxx (`712d50c`, v5.5.17): vendor/etc built from empty — shared files in `common/`, profiles keep only
-  `audio_pcm.xml` + routes; BD now has the BU policy (same mic). BD output is 24/48 into the SC2730 DAC by factory
-  design (10-BITPERFECT-MODULE.md). ❓ Not yet on a BD unit — needs a tester's survey/log.
-1. **BitPerfect Control:** live per-mode mic editing from the defaults above; the AEC reference always moves with the mic.
-   📻 15.10 SIM: echo cancelling leaks the ends of the far end's phrases a little («практично не заважає»); owner:
-   «Точну підстройку зробимо в програмі». SIM and BT otherwise «все добре».
-2. EQ for wDSP — plan in #1703 (DynamicsProcessing on the player session, not session 0); waiting for their prototype.
-- wDSP call-volume memory — fixed on their side (`698830f`, #1709), not yet confirmed by a live call.
+## ⏳ Waiting / open
+- Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
+  50 Hz cutoff (in a car); navigator reports.
+- Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
+  (focus, AudioTrack, getOutput) when he says it is ready.
+- SIM: echo cancelling leaks the ends of the far end's phrases a little — owner: «Точну підстройку зробимо в програмі».
 
 ## 📋 Next
-SystemUI Notification Centre button — `QF_SystemUI_Mod` slice (blocked by Unisoc autolaunch on their app, #1720).
-BT dialer wishes (its slice): BT-music icon, metadata in «BT speaker» mode, cover art; 8581.
+1. **BitPerfect Control:** live per-mode mic editing from the defaults above, SIM AEC fine-tuning; the AEC
+   reference always moves with the mic.
+2. EQ for wDSP — plan #1703 (DynamicsProcessing on the player session); waiting for their prototype.

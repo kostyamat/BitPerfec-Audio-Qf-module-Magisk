@@ -6,6 +6,7 @@
 | `HANDOFF.md` | always — arrives by import. The current slice: branch, HEAD, what is on the bench, the exact next step | Ukrainian |
 | `TODO.md` | picking up work. The queue with priorities, and the questions waiting on the owner | Ukrainian |
 | `DEBT.md` | touching code that smells. Twelve open items with symptom, location and why postponed | Ukrainian |
+| `RELEASE.md` | before any release: version, 7-entry zip, bench check, push from WSL, GitHub release, README / annotation / 4PDA / XDA texts (examples in `release/`) | English |
 | `PRACTICE.md` | before driving adb, git or the mirrors. Traps that already cost time, and which mirror lives where | English |
 | `CONTROLLABLE_PARAMETERS.md` | designing the app. The register of what can be controlled on this platform, with a recommendation per row | English |
 | `platform/09-NAVIGATION-AND-BITPERFECT.md` | navigation, ducking, prompt levels | English |

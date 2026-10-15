@@ -913,3 +913,18 @@ cannot tell those apart must not guess: a value is not an event.
 2. Для виміру: `sprd_aec_on=0` через FIFO вимикає AEC **без ребуту** — але лише з правами `system` або
    рутом. wDSP без рута цього не може; з рутом — може.
 3. ⚠️ Усе, крім двох «✅», — **дизасемблер Дж**, на нашому дроті не перевірене.
+
+## VoIP calls on UIS7862: the HAL's VoIP record mode is broken (14.10.2026)
+
+- 📻 `AudioPolicyManagerSPRD::startOutput` (`/system/lib64/libaudiopolicymanager.so`, 🔬 Ghidra) sends
+  `sprd_voip_start=true` to the HAL when a STREAM_VOICE_CALL output starts on the primary output in mode 3.
+  Telegram plays the call on that stream; WhatsApp does not (it plays the call otherwise and works).
+- 📻 In that mode `audio.primary.ums512.so` opens the capture as VOIP_RECORD (type 7) while `audio_add_input` /
+  `in_read` compute NORMAL_RECORD (11) → standby + reopen on every read, ~240 ms, 144× in 35 s, pop-mute each time:
+  stutter, crackle, silence on the far end. Independent of the source (also with source 7 passed through).
+- 🔬 QF's `AudioRecord::set` (libaudioclient) forces every source to MIC (1); BitPerfect's patch lets only 6 and 9
+  through. Letting 7 through as well was tried and reverted (`09ac926`) — it does not fix the loop.
+- Fix (`0a2f7e5`): one instruction at 0x138f0 (`cbnz w23` → `b`), the message is never sent; `tools/patch_libaudiopolicymanager.py`.
+- 📻 The Unisoc AEC effect (`libsprdvoiceprocessing`, a4a00091…) works only in that VoIP mode; declared, it makes
+  Telegram switch its own WebRTC AEC off («Disabling EC since built-in EC will be used instead») → echo. Removed
+  from `audio_effects.xml` (`fece07a`); apps cancel echo themselves. Owner after both: Telegram «люкс», WhatsApp «прекрасно».

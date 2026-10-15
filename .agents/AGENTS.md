@@ -59,10 +59,8 @@ BitPerfec-Audio-Qf-module-Magisk/        branch v5.4-repaired
 | **the module** | `BitPerfect.module` — a Magisk module that radically changes the audio path of the QF/K706 platform |
 | **the app** | `com.radiorubka.bitperfect` — a live editor for the platform's AGDSP parameters: filters on and off, microphone gain per mode, applied by restarting `audioserver`. Delivered **inside the module**, in `priv-app`, because it needs `android.uid.system` |
 
-🔴 **The release zip is assembled by hand and must contain exactly seven entries:** `META-INF`,
-`common`, `profiles`, `system`, `customize.sh`, `module.prop`, `service.sh`. ⚠️ `.agents/` and
-`control-app/` are **sources, not payload** — zipping the whole folder would ship them to every owner
-and bloat the module. No build script yet (worth writing before the next release).
+🔴 **Releases: `.agents/RELEASE.md`** — the zip holds exactly seven entries (`META-INF`, `common`, `profiles`,
+`system`, `customize.sh`, `module.prop`, `service.sh`); `.agents/`, `control-app/`, `tools/` are not payload.
 
 🔴 **BitPerfect is load-bearing for the whole platform.** The owner: *«бітперфект це основний спосіб
 вирівняти звучання… від нього залежить і дзвінки, і вдсп і радіо, і плеєр і ще маса майбутніх
