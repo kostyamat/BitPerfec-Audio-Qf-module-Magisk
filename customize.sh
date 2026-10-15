@@ -143,6 +143,18 @@ ui_print "  вашого набору мікросхем; або просто в
 ui_print "  ---------------------------------------------------"
 ui_print " "
 
+# UIS7862 (ums512) only. UIS8581 (sp9863a) has a different HAL (44.1/16 output), different libraries
+# and no unit anyone has tested this module on: refuse it, after the factory snapshot above is saved.
+PLATFORM=$(getprop ro.board.platform)
+if [ "$PLATFORM" != "ums512" ]; then
+    ui_print " "
+    ui_print "  !!! Платформа $PLATFORM - це НЕ UIS7862 (ums512)."
+    ui_print "  !!! BitPerfect поки що лише для UIS7862. UIS8581 не підтримується."
+    ui_print "  !!! Нічого не змінено. Знімок стану в /sdcard/QF_audio_survey/ -"
+    ui_print "  !!! надішліть автору, якщо хочете допомогти з підтримкою."
+    abort "  BitPerfect: unsupported platform $PLATFORM (UIS7862 / ums512 only)"
+fi
+
 MCU_VER=$(getprop persist.sys.qf.mcu.version)
 HW_CODE=$(echo "$MCU_VER" | awk -F'.' '{print $NF}')
 
@@ -298,27 +310,12 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 # vendor source=MIC override) and libaudiopolicymanager.so (never sends sprd_voip_start: the HAL's
 # VoIP record mode is broken, it loops the input - Telegram calls).
 #
-# UIS7862 (ums512) only: UIS8581 (sp9863a) has different libraries - foreign binaries would take
-# audioserver down.
+# These binaries are UIS7862 builds; the platform gate at the top of this script stops any other SoC.
 # ---------------------------------------------------------------------------
-PLATFORM=$(getprop ro.board.platform)
-
-APPLY_LIBAUDIO=no
-if [ "$PLATFORM" = "ums512" ]; then
-    APPLY_LIBAUDIO=yes
-else
-    ui_print "- Платформа $PLATFORM: латка libaudioclient не потрібна (пропуск)"
-fi
-
-if [ "$APPLY_LIBAUDIO" = "yes" ]; then
-    ui_print "- UIS7862: латки libaudioclient (джерела 6 і 9) і libaudiopolicymanager (без VoIP-режиму HAL)"
-    set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
-    set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
-    chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
-else
-    rm -rf "$MODPATH/system/lib" "$MODPATH/system/lib64"
-    rm -rf /data/adb/modules/BitPerfect.module/system/lib /data/adb/modules/BitPerfect.module/system/lib64
-fi
+ui_print "- UIS7862: латки libaudioclient (джерела 6 і 9) і libaudiopolicymanager (без VoIP-режиму HAL)"
+set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
+set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
+chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
 
 ui_print "- Встановлення прав доступу..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
