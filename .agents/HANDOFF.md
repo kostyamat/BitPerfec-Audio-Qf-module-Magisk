@@ -4,7 +4,7 @@
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
 night without permission. Push / release only on the owner's order (`.agents/RELEASE.md`).
 
-**Repo:** `v5.4-repaired`, pushed 15.10; GitHub release **v5.6** (tag on `46507cd`, zip from `5144c01`).
+**Repo:** `v5.4-repaired` (GitHub default branch since 16.10), pushed 15.10, 4 doc commits local — push on order; GitHub release **v5.6** (tag on `46507cd`, zip from `5144c01`).
 Forum posts (4PDA ru, XDA en) and the annotation: `.agents/release/`. Support group https://t.me/kostyamat_dev/3.
 
 **Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.6**, calling module v3.8.4, BT dialer
