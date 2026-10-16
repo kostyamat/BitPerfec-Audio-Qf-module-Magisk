@@ -17,6 +17,8 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
    md5 of `/data/adb/modules_update/BitPerfect.module/system/vendor` with the previous live set.
 
 ## Publish (only on the owner's order: «пуш», «реліз»)
+- The GitHub default branch is `v5.4-repaired` (set 16.10.2026; `main` holds only the old stub README) — the
+  front page shows this branch's README, so it must be pushed for the README to be seen.
 - Push from **WSL as the default user** (`wsl -e bash script.sh`) — the SSH keys are in that user's `~/.ssh`,
   root has none («Host key verification failed»). Check `git rev-list --left-right --count` = `0 0` after fetch.
 - GitHub release from Windows: `python -I tools/gh_release.py <tag> <FULL sha> <body.md> <zip>` (token from
