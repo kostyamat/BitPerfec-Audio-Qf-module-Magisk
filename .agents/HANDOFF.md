@@ -32,4 +32,7 @@ UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waz
 1. Testers: feedback and logs on v5.6 (BD37xxx, navigators, engine hum) — the open items above.
 2. UIS8581 adaptation: 44.1/16 profile, AGDSP params into /data instead of the /vendor overlay; needs a 8581 tester.
 3. Then BitPerfect Control: per-mode mic, SIM AEC fine-tuning; the AEC reference always moves with the mic.
-EQ for wDSP — plan #1703, waiting for their prototype.
+4. **EQ for wDSP (план #1703)** — нотація від власника (19.10): розглянути можливе впровадження C++ ядра з https://github.com/xeloria/ResonanceFX як гібридного програмно-апаратного еквалайзера.
+   - *Ідея:* компенсувати обмежену дискретність і широку добротність BU32107 (вузьке вирізання резонансів/провалів салону через biquad notch у `double`, розширення стереобази M/S, mono bass < 90 Гц).
+   - *Зауваження Antigravity:* брати виключно чисту C++ математику (`Biquad.h`, `Spatial.h`), без Magisk-обгортки та важких ефектів ResonanceFX, щоб гарантовано зберегти 24-bit 48kHz I2S тракт BitPerfect v5.6.
+
