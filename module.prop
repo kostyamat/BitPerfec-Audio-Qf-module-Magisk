@@ -1,7 +1,7 @@
 id=BitPerfect.module
 name=BitPerfect Universal Audio Engine
-version=v5.6-Universal
-versionCode=5600
+version=v5.6.1-Universal
+versionCode=5601
 author=Kostyantyn Matviyevskyy aka kostyamat & Antigravity (c)2026
 description=UIS7862 only (not for UIS8581). Bit-to-bit audio for QF001/K706: 24-bit/48 kHz path at 0 dB, volume and effects on the sound processor only (BU32107 or BD37xxx). One playback output per PCM, raw unprocessed microphone for wDSP (no DP), navigation ducking, call microphone with headroom and echo cancellation on SIM (handsfree CVS), BT calls without forced communication mode, and working VoIP calls (Telegram) without the broken Unisoc VoIP record mode.
 updateJson=https://raw.githubusercontent.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/v5.4-repaired/update.json
