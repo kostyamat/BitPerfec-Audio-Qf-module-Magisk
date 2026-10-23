@@ -3,6 +3,8 @@
 Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every text: `.agents/release/`.
 
 ## Scope and labels
+- 🔴 **QF firmware or its MG clone only** (owner 23.10: a Topway install needed a reflash) — `customize.sh`
+  refuses anything whose `persist.sys.qf.mcu.version` / `ro.boot.hardware.revision` does not start `QF`/`MG`.
 - 🔴 **UIS7862 only.** Every public text opens with «UIS7862 only — NOT for UIS8581» (owner: «з вказівками НЕ
   для 8581»); the installer enforces it (`customize.sh` platform gate, `ums512`).
 - Version: `vX.Y-Universal` in `module.prop`; versionCode `XYZZ` (v5.5.17 = 5517, v5.6 = 5600). Bump only on a
@@ -23,11 +25,16 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   root has none («Host key verification failed»). Check `git rev-list --left-right --count` = `0 0` after fetch.
 - GitHub release from Windows: `python -I tools/gh_release.py <tag> <FULL sha> <body.md> <zip>` (token from
   `git credential fill`, never printed; a short sha is rejected). Tag on the pushed HEAD.
+- **Magisk update** (`updateJson` in `module.prop` → `update.json` on the default branch): only AFTER the
+  release asset is live, set `update.json` version / versionCode / zipUrl to it, add the release to
+  `CHANGELOG.md`, commit, push. Pushed earlier, Magisk offers a zip that 404s. The zip name in `zipUrl` must
+  match the uploaded asset exactly.
 
 ## Texts
 - **README** (English) holds: what the module does, hardware table, «What changed since the classic v4.18»,
   install/disable/remove, Feedback (support group https://t.me/kostyamat_dev/3, what to send, the survey tool),
-  «Support the developer» with the owner's payment details verbatim. One changelog only — in the README.
+  «Support the developer» with the owner's payment details verbatim. README keeps «since v4.18» only; per-release notes go to
+  `CHANGELOG.md` (Magisk shows it on the update button), short, one section per release.
 - **Release annotation:** short, by the work done on the sound path and the microphone (owner: «згідно
   проробленої роботи що до трактів звуку і мікрофона»); English, then a short Ukrainian paragraph.
 - **Forum posts:** 4PDA — Russian, BBCode (`[b] [list] [url] [font=Courier New]`); XDA — English, XenForo
