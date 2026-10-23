@@ -155,6 +155,23 @@ if [ "$PLATFORM" != "ums512" ]; then
     abort "  BitPerfect: unsupported platform $PLATFORM (UIS7862 / ums512 only)"
 fi
 
+# ums512 alone is not enough: Topway and other vendors ship UIS7862 too, with their own HAL, policy
+# and libraries. Our patched libaudiopolicymanager.so and the vendor overlay are QF's; on a Topway
+# they left the unit in a boot loop that only a reflash cured (owner, 23.10.2026). Accept QF
+# firmware and its MG clone only: the MCU string's first field (QF05..., MG18/19/20 on the
+# shengpai client build) or the hardware revision (QF001 on the bench; MG19 on shengpai).
+QF_MCU=$(getprop persist.sys.qf.mcu.version)
+QF_REV=$(getprop ro.boot.hardware.revision)
+case "$QF_MCU" in QF*|MG*) QF_OK=yes ;; *) QF_OK=no ;; esac
+case "$QF_REV" in QF*|MG*) QF_OK=yes ;; esac
+if [ "$QF_OK" != "yes" ]; then
+    ui_print " "
+    ui_print "  !!! Це не магнітола QF (або клон MG): MCU '$QF_MCU', revision '$QF_REV'."
+    ui_print "  !!! BitPerfect лише для QF / K706 на UIS7862 (не Topway та інші)."
+    ui_print "  !!! Нічого не змінено. Встановлення на іншу прошивку кладе магнітолу."
+    abort "  BitPerfect: not a QF/MG unit (MCU '$QF_MCU', revision '$QF_REV')"
+fi
+
 MCU_VER=$(getprop persist.sys.qf.mcu.version)
 HW_CODE=$(echo "$MCU_VER" | awk -F'.' '{print $NF}')
 
