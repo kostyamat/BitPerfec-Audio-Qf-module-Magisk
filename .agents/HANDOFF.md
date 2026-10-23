@@ -32,6 +32,9 @@ UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waz
 - 23.10: `58d9759` service.sh polls the policy check (was one look at +2 s → false "old policies", killed audioserver,
   flag 0 on 4 of 10 boots → echo on SIM). Not yet installed: zip from the commit + reboot on the owner's word.
   Bench flag raised by hand (resetprop) until then.
+- 23.10: installer whitelist QF*/MG* (`74ce953`, wording `8e5f2f5`) after a Topway brick; Magisk self-update
+  `updateJson` → `update.json` + `CHANGELOG.md` (`3fd5cf3`) — works from the next release on. All local, not pushed.
+  Next release: bump version, zip, install on bench, then on order push + release, THEN update.json (RELEASE.md).
 - Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
   50 Hz cutoff (in a car); navigator reports.
 - Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
