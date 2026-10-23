@@ -938,3 +938,14 @@ cannot tell those apart must not guess: a value is not an event.
   `QF…` (bench `QF05.V02.13.KMA01BF1.002121`) or `ro.boot.hardware.revision` `QF…` (bench `QF001`); the MG
   clone (shengpai client) carries `MG18/MG19/MG20` there (🔬 QF OTA `Utils.getMcuVersion`, framework
   `SystemProperties`). ❓ No live MG unit seen yet.
+
+## car.config without `music_volume` (BitPerfect line, 23.10.2026)
+
+- 📻 On 18.10.2026 ~19:57 the owner changed CarSettings; `/great/protect_dir/car.config` came out with 106 entries
+  instead of 109 — `music_volume`, `aux2_mode`, `float_bar_display` gone (all three present in
+  `/system/config/car.config` and in the module's backup). BitPerfect logs «car.config music_volume not found».
+- 🔬 `ConfigInfoManagerService.setConfigInfoToSystemProperties` (services.jar, lines 620-636) writes
+  `persist.qf.arm.default.volume` only for an item it parsed; with no `music_volume` item it writes nothing, so
+  the module's boot `resetprop … 15` stands — 📻 15 after boot and +20 s. 🔬 `updateGreatConfigInfo` (499-575)
+  re-adds missing items from `/system` only on the first boot after an OTA — then `current=9` comes back and the
+  module's pin rewrites it to 15 (effective the boot after).
