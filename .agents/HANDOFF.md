@@ -4,6 +4,13 @@
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
 night without permission. Push / release only on the owner's order (`.agents/RELEASE.md`).
 
+## 🔴 From the wDSP line (22.10.2026): wDSP's package changed
+
+The owner renamed wDSP to **wDSP Pro, package `com.communityofdevs.wdsp_pro`** (wDSP `bdb486f`); the old
+`com.radiorubka.wdsp` may still be installed alongside. BitPerfect code does not name wDSP's package (checked:
+only `.agents/AGENTS.md` dependencies and the contracts `C:\APPS_Contacts\wDSP--BitPerfect\*`). If any module
+script, whitelist or policy overlay ever lists wDSP by package, add the new one.
+
 **Repo:** `v5.4-repaired` (GitHub default branch since 16.10), pushed 15.10, 4 doc commits local — push on order; GitHub release **v5.6** (tag on `46507cd`, zip from `5144c01`).
 Forum posts (4PDA ru, XDA en) and the annotation: `.agents/release/`. Support group https://t.me/kostyamat_dev/3.
 
@@ -22,6 +29,9 @@ VoIP (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder cu
 UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waze takes no audio focus).
 
 ## ⏳ Waiting / open
+- 23.10: `58d9759` service.sh polls the policy check (was one look at +2 s → false "old policies", killed audioserver,
+  flag 0 on 4 of 10 boots → echo on SIM). Not yet installed: zip from the commit + reboot on the owner's word.
+  Bench flag raised by hand (resetprop) until then.
 - Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
   50 Hz cutoff (in a car); navigator reports.
 - Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
