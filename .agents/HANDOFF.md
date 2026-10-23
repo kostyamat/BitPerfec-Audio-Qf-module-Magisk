@@ -7,7 +7,7 @@ night without permission. Push / release only on the owner's order (`.agents/REL
 **wDSP renamed** (22.10): wDSP Pro, `com.communityofdevs.wdsp_pro` (old `com.radiorubka.wdsp` may coexist). BitPerfect
 names no wDSP package; if a script/whitelist ever does, add the new one.
 
-**Repo:** `v5.4-repaired` (GitHub default branch), pushed 23.10, in sync; GitHub release **v5.6.1** (`25b5f8b` = update.json → v5.6.1;
+**Repo:** `v5.4-repaired` (GitHub default branch), pushed 23.10 (only slice/TODO doc commits local — push on order); GitHub release **v5.6.1** (`25b5f8b` = update.json → v5.6.1;
 annotation `.agents/release/v5.6.1_github_release.md`). Magisk `updateJson` live (raw update.json + CHANGELOG.md 200).
 Forum posts (4PDA ru, XDA en) and the annotation: `.agents/release/`. Support group https://t.me/kostyamat_dev/3.
 
