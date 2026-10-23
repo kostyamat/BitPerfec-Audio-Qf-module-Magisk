@@ -6,7 +6,7 @@ log_msg() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] [up:$(cat /proc/uptime | awk '{print $1}')s] $1" >> "$LOGFILE"
 }
 
-log_msg "=== BitPerfect Universal v5.4 Service Starting ==="
+log_msg "=== BitPerfect $(grep '^version=' "$MODPATH/module.prop" | cut -d= -f2) Service Starting ==="
 
 MCU_VER=$(resetprop persist.sys.qf.mcu.version 2>/dev/null)
 HW_CODE=$(echo "$MCU_VER" | awk -F'.' '{print $NF}')
@@ -87,19 +87,39 @@ esac
 
     log_msg "System boot_completed reached (count=$COUNT)"
 
-    sleep 2
-    IS_NEW_POLICY=$(dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" | grep "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE")
-    POLICY_OK=no
-    if [ -z "$IS_NEW_POLICY" ]; then
-        log_msg "WARNING: audioserver started with old policies! Restarting audioserver now..."
-        killall audioserver 2>/dev/null || pkill -9 audioserver
-        sleep 2
-        log_msg "audioserver restarted. New PID: $(pidof audioserver)"
+    policy_loaded() {
         dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
-            | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE" && POLICY_OK=yes
-    else
+            | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE"
+    }
+    # Poll for up to $1 seconds: audioserver up and answering with our policies.
+    wait_policy() {
+        N=0
+        while [ $N -lt "$1" ]; do
+            [ -n "$(pidof audioserver)" ] && policy_loaded && return 0
+            sleep 1
+            N=$((N + 1))
+        done
+        return 1
+    }
+
+    # One look 2 s after boot_completed is not enough: around then the platform restarts audioserver
+    # itself (McuManagerService on a new/empty MCU version), dumpsys answers nothing, and we used to
+    # read that as "old policies", kill a healthy audioserver and re-check 2 s later while it was
+    # still down - flag 0 for the whole boot (bench 22-23.10, 4 boots of 10). Poll instead, and
+    # restart only when a running audioserver really answers without our policies.
+    POLICY_OK=no
+    if wait_policy 20; then
         log_msg "Policies are loaded."
         POLICY_OK=yes
+    else
+        log_msg "WARNING: audioserver has old policies after 20 s (PID: $(pidof audioserver)). Restarting it..."
+        setprop ctl.restart audioserver
+        if wait_policy 30; then
+            log_msg "audioserver restarted (PID $(pidof audioserver)), policies are loaded."
+            POLICY_OK=yes
+        else
+            log_msg "audioserver restarted (PID: $(pidof audioserver)), policies still NOT loaded."
+        fi
     fi
 
     # --- and separately: is the path underneath them actually alive? ---
