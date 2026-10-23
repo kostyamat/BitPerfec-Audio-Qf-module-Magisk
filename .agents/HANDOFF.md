@@ -33,8 +33,8 @@ UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waz
   default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
   whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`). Not pushed.
   Publish on order: push, gh_release v5.6.1, THEN update.json → v5.6.1 + push (RELEASE.md). Owner to confirm a SIM call.
-- ❓ `/great/protect_dir/car.config` lost its `music_volume` line on 18.10 between 19:55 and 19:59 (107 entries now,
-  backup has it) — not our install; the 0 dB pin still holds via `persist.qf.arm.default.volume`. Who rewrote it?
+- car.config lost `music_volume`, `aux2_mode`, `float_bar_display` when the owner changed CarSettings (18.10 ~19:57).
+  Harmless for us (10-BITPERFECT-MODULE.md, last section); the CarSettings line may want to know it drops entries.
 - Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
   50 Hz cutoff (in a car); navigator reports.
 - Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
