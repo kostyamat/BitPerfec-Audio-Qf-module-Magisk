@@ -1,10 +1,10 @@
 # BitPerfect — changelog
 
-🔴 **QF / K706 on UIS7862 only — NOT for UIS8581, NOT for Topway or other firmware.**
+🔴 **QF / K706 on UIS7862 only — NOT for UIS8581, NOT for any firmware other than QF / MG.**
 Support: https://t.me/kostyamat_dev/3
 
 ## Next
-- Installer refuses any unit that is not QF firmware or its MG clone (a Topway install needed a reflash).
+- Installer accepts QF firmware and its MG clone only and refuses everything else (a Topway install needed a reflash).
 - Boot check of the audio policies waits for audioserver instead of one look at +2 s: the
   "BitPerfect enabled" flag no longer drops to 0 on some boots (calls lost echo cancelling).
 - Updates from Magisk: the module now tells Magisk where its releases are.

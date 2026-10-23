@@ -24,15 +24,16 @@ The installer reads the MCU code and picks the profile by itself.
 | UIS7862 + **ROHM BU32107** | digital I2S, 24/48 | ✅ tested on the developer's unit |
 | UIS7862 + **ROHM BD37xxx** | the SoC's own DAC (analogue), 24/48 by factory design | 🧪 needs reports |
 | **UIS8581** | — | ❌ **not supported** — the installer refuses it and changes nothing |
-| **Topway** and any other non-QF firmware on UIS7862 | — | ❌ **not supported** — the installer refuses it; installing it there needed a reflash |
+| **any firmware other than QF or its MG clone** (Topway, FYT and the rest), whatever the SoC | — | ❌ **refused** — the installer accepts QF/MG only |
 
 🔴 **Not for UIS8581 units.** Its audio HAL and libraries are different and the module has never run on
 one. The installer stops on any platform other than UIS7862 (`ums512`); it only saves the factory
 snapshot, which you are welcome to send if you want to help with support.
 
-🔴 **QF firmware (or its MG clone) only.** Other vendors ship UIS7862 too — Topway among them — with
-their own audio HAL and libraries; the module's patched files leave such a unit unable to boot. The
-installer checks the QF MCU string / hardware revision (`QF…` or `MG…`) and refuses anything else.
+🔴 **QF firmware (or its MG clone) only — everything else is refused.** Other vendors ship UIS7862 too,
+with their own audio HAL and libraries; the module's patched files leave such a unit unable to boot (a
+Topway owner needed a reflash). The installer accepts only a QF MCU string / hardware revision (`QF…` or
+`MG…`) and refuses anything else.
 
 ## What it changes
 

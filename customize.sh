@@ -167,7 +167,8 @@ case "$QF_REV" in QF*|MG*) QF_OK=yes ;; esac
 if [ "$QF_OK" != "yes" ]; then
     ui_print " "
     ui_print "  !!! Це не магнітола QF (або клон MG): MCU '$QF_MCU', revision '$QF_REV'."
-    ui_print "  !!! BitPerfect лише для QF / K706 на UIS7862 (не Topway та інші)."
+    ui_print "  !!! BitPerfect лише для прошивки QF / K706 (або клону MG) на UIS7862."
+    ui_print "  !!! Будь-яка інша прошивка - відмова, без винятків."
     ui_print "  !!! Нічого не змінено. Встановлення на іншу прошивку кладе магнітолу."
     abort "  BitPerfect: not a QF/MG unit (MCU '$QF_MCU', revision '$QF_REV')"
 fi

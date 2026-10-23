@@ -3,7 +3,7 @@
 Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every text: `.agents/release/`.
 
 ## Scope and labels
-- 🔴 **QF firmware or its MG clone only** (owner 23.10: a Topway install needed a reflash) — `customize.sh`
+- 🔴 **QF firmware or its MG clone only, everyone else refused** (owner 23.10: «ти всіх виключай крім QF\MG») — `customize.sh`
   refuses anything whose `persist.sys.qf.mcu.version` / `ro.boot.hardware.revision` does not start `QF`/`MG`.
 - 🔴 **UIS7862 only.** Every public text opens with «UIS7862 only — NOT for UIS8581» (owner: «з вказівками НЕ
   для 8581»); the installer enforces it (`customize.sh` platform gate, `ums512`).
