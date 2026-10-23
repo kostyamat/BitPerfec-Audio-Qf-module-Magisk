@@ -3,3 +3,4 @@
 *.xml text eol=lf
 update-binary text eol=lf
 updater-script text eol=lf
+*.json text eol=lf
