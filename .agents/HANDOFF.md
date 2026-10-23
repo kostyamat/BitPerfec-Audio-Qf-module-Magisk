@@ -29,12 +29,12 @@ VoIP (`0a2f7e5` no sprd_voip_start, `fece07a` no Unisoc AEC, `c8efacb` louder cu
 UIS7862 only (`dbf20ae`). Survey tool v1.3 catches any navigator (`a31c3d2`; Waze takes no audio focus).
 
 ## ⏳ Waiting / open
-- 23.10: `58d9759` service.sh polls the policy check (was one look at +2 s → false "old policies", killed audioserver,
-  flag 0 on 4 of 10 boots → echo on SIM). Not yet installed: zip from the commit + reboot on the owner's word.
-  Bench flag raised by hand (resetprop) until then.
-- 23.10: installer whitelist QF*/MG* (`74ce953`, wording `8e5f2f5`) after a Topway brick; Magisk self-update
-  `updateJson` → `update.json` + `CHANGELOG.md` (`3fd5cf3`) — works from the next release on. All local, not pushed.
-  Next release: bump version, zip, install on bench, then on order push + release, THEN update.json (RELEASE.md).
+- 23.10 **v5.6.1 on the bench** (zip from the `release:` commit), reboot OK: flag 1 at +25 s, policies, WD_24BIT,
+  default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
+  whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`). Not pushed.
+  Publish on order: push, gh_release v5.6.1, THEN update.json → v5.6.1 + push (RELEASE.md). Owner to confirm a SIM call.
+- ❓ `/great/protect_dir/car.config` lost its `music_volume` line on 18.10 between 19:55 and 19:59 (107 entries now,
+  backup has it) — not our install; the 0 dB pin still holds via `persist.qf.arm.default.volume`. Who rewrote it?
 - Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
   50 Hz cutoff (in a car); navigator reports.
 - Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
