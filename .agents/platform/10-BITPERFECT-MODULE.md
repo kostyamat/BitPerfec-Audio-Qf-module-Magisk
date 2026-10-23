@@ -928,3 +928,13 @@ cannot tell those apart must not guess: a value is not an event.
 - 📻 The Unisoc AEC effect (`libsprdvoiceprocessing`, a4a00091…) works only in that VoIP mode; declared, it makes
   Telegram switch its own WebRTC AEC off («Disabling EC since built-in EC will be used instead») → echo. Removed
   from `audio_effects.xml` (`fece07a`); apps cancel echo themselves. Owner after both: Telegram «люкс», WhatsApp «прекрасно».
+
+## 🔑 Not every UIS7862 is QF — the installer gate (BitPerfect line, 23.10.2026)
+
+- 📻 *(owner, 23.10.2026)* A user installed BitPerfect on a **Topway** unit (also UIS7862 / `ums512`): our patched
+  `libaudiopolicymanager.so` and the QF vendor/etc overlay left it unbootable; only a reflash cured it. So
+  `ro.board.platform == ums512` does **not** identify the platform.
+- 🔬 QF identity used by the installer (`customize.sh`, `74ce953`): `persist.sys.qf.mcu.version` first field
+  `QF…` (bench `QF05.V02.13.KMA01BF1.002121`) or `ro.boot.hardware.revision` `QF…` (bench `QF001`); the MG
+  clone (shengpai client) carries `MG18/MG19/MG20` there (🔬 QF OTA `Utils.getMcuVersion`, framework
+  `SystemProperties`). ❓ No live MG unit seen yet.
