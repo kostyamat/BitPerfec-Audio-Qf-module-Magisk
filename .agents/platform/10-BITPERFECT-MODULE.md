@@ -982,3 +982,7 @@ cannot tell those apart must not guess: a value is not an event.
 - 🔬 8581 kernel: `CONFIG_SND_USB_AUDIO=y` (ikconfig in `boot.img`), so the USB DAC setting applies there too.
 - 🔬 `IMcuManager$Stub` is identical in the 7862 and 8581 `framework.jar` (baksmali, `.line` ignored): 14 = `RPC_GetChannel`,
   15 = `RPC_SetChannel`; the MCU commands are the same too (owner, 25.10). ❓ Not run on any 8581 unit.
+- 🔬 `libaudioclient.so` on 8581 does NOT force the record source (llvm-objdump of `AudioRecord::set`, 25.10):
+  arm64 `str w25,[x19,#0x14c]` with `w25 ← w20 ← w1` (inputSource), arm32 Thumb `str.w r4,[r10,#0xd4]` with
+  `r4 ← r5 ← r1`, no rewrite in between — stock AOSP. On 7862 the same stores write a constant 1 (`orr w9,wzr,#1`
+  / `movs r0,#1`) = MIC. So sources 6 and 9 reach the 8581 HAL unpatched; ❓ what its HAL does with 9 is untested.
