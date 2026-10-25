@@ -13,6 +13,9 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   build that goes to the bench or out, in its own `release:` commit (module.prop only).
 
 ## Build and verify
+0. BitPerfect Control first: `cd control-app; .\gradlew.bat clean :app:assembleDebug` (clean - an incremental
+   APK keeps stale padding, 15 MB instead of 2.8), copy `app-debug.apk` to
+   `system/priv-app/BitPerfectControl/BitPerfectControl.apk`, commit it.
 1. Zip from the COMMIT, exactly 7 entries:
    `git -c core.autocrlf=false archive --format=zip -o QF_BitPerfect.module.vX.Y-Universal.zip HEAD META-INF common profiles system customize.sh module.prop service.sh`
 2. Announce adb on the board if another line uses the bench; `magisk --install-module`, reboot.

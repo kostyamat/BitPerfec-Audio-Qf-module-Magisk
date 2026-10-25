@@ -111,6 +111,14 @@ Disabling or removing the module in Magisk is safe: a small guard script
 parameters on the next boot, so the factory path does not play at full scale. Removing the module also
 removes the guard.
 
+## BitPerfect Control (the app)
+
+The module installs **BitPerfect Control** (`/system/priv-app`). It shows what BitPerfect is doing on your unit
+(platform, audio path, whether the module confirmed itself this boot) and switches the USB DAC output without
+editing files. It asks for root once (Magisk prompt) and changes nothing by itself - every action goes through the
+module. Two looks: **Modern** (day / night) and **Hyper** (night). More controls - navigators, microphone, echo
+cancelling and noise reduction per channel - come in the next versions.
+
 ## USB DAC (external)
 
 QF firmware switches Android's USB audio output off (one commented-out line in the vendor audio

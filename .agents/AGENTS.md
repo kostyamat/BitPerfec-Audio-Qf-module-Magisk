@@ -74,7 +74,8 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 - Debug builds only. R8 silently removes hidden-API calls, so a signed release does nothing while
-  debug works.
+  debug works. Debug runs R8 (the app has no hidden API): a hidden-API call needs a keep rule.
+- The app writes no module file: `su -c sh <module>/common/bp_ctl.sh <cmd>`, the module owns each rule.
 - The module is not built by Gradle. Its installer is `customize.sh`; releases are zips in the
   module's own folder.
 - 🔴 **After `adb install -r` services do not come back up by themselves.** The process shows in

@@ -4,6 +4,7 @@
 Support: https://t.me/kostyamat_dev/3
 
 ## Next
+- BitPerfect Control app inside the module (priv-app): module status, the USB DAC switch, Modern and Hyper styles.
 - UIS8581: reduced profile — navigation ducking, music curve, USB DAC setting; factory 16/44.1 output,
   HAL and calls kept; never run on a unit yet (reports wanted).
 - USB DAC output, chosen in `/sdcard/BitPerfectAudio/bitperfect.conf` (`usb_dac=0/1`, see README).
