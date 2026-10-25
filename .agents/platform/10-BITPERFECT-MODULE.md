@@ -949,3 +949,15 @@ cannot tell those apart must not guess: a value is not an event.
   the module's boot `resetprop … 15` stands — 📻 15 after boot and +20 s. 🔬 `updateGreatConfigInfo` (499-575)
   re-adds missing items from `/system` only on the first boot after an OTA — then `current=9` comes back and the
   module's pin rewrites it to 15 (effective the boot after).
+
+## USB audio output — switched off by QF in the policy only (BitPerfect line, 25.10.2026)
+
+- 🔬 Both `update(2)` (UIS7862, QF001.20260728) and `8581_QF005`: `vendor/etc/audio_policy_configuration.xml`
+  has the USB module commented out — `<!-- qf patch, remove usb audio output, by liuhl -->`
+  `<!-- xi:include href="usb_audio_policy_configuration.xml"/ -->`. Top-level file identical on both.
+- 🔬 Everything else is there: AOSP USB HAL `vendor/lib{,64}/hw/audio.usb.default.so` (different builds per
+  platform), `usb_audio_policy_configuration.xml` (AOSP, dynamic `usb_device output`; the 8581 one also has USB
+  input), `android.hardware.usb.host.xml`, and on 7862 the kernel has `CONFIG_SND_USB_AUDIO=y` (ikconfig in
+  `boot.img`). ❓ 8581 kernel not checked.
+- 🧩 So a USB DAC is dead for Android playback only because of that one include; apps with their own USB
+  driver (libusb through UsbManager) do not depend on it.
