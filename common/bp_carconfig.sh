@@ -15,10 +15,25 @@
 BP_CARCONFIG=/great/protect_dir/car.config
 BP_CARCONFIG_BAK=/data/adb/BitPerfect.car.config.bak
 
-# returns 0 = already 15, 2 = changed, 1 = file or line missing (not a QF unit we know)
+# Who owns the default level. On UIS7862 music_volume is visible=0 - no slider - so it is ours.
+# On UIS8581 it is visible=1, default 14: the "default volume" slider in car settings. A slider the
+# owner can see is his choice and is never pinned (the same rule as persist.sys.main_volume above
+# in service.sh). A missing line (CarSettings rewrote the file, 18.10 on the bench) is not a slider.
+# Returns 0 = ours (pin it), 1 = the user's.
+bp_level_is_ours() {
+    BP_LINE=$(grep -a -m1 '^name=music_volume,' "$BP_CARCONFIG" 2>/dev/null)
+    case "$BP_LINE" in
+        *"visible=1"*) return 1 ;;
+        "") [ "$(getprop ro.board.platform)" = "ums512" ] || return 1 ;;  # unknown elsewhere: hands off
+    esac
+    return 0
+}
+
+# returns 0 = already 15, 2 = changed, 1 = file or line missing, 3 = the user's slider (left alone)
 bp_pin_music_volume() {
     [ -f "$BP_CARCONFIG" ] || return 1
     BP_LINE=$(grep -a -m1 '^name=music_volume,' "$BP_CARCONFIG") || return 1
+    bp_level_is_ours || return 3
     case "$BP_LINE" in *"current=15,"*) return 0 ;; esac
     [ -f "$BP_CARCONFIG_BAK" ] || cp -p "$BP_CARCONFIG" "$BP_CARCONFIG_BAK"
     BP_TMP=/data/local/tmp/bp_car.config.$$

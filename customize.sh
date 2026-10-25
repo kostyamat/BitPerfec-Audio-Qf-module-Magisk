@@ -143,17 +143,21 @@ ui_print "  or simply delete the folder."
 ui_print "  ---------------------------------------------------"
 ui_print " "
 
-# UIS7862 (ums512) only. UIS8581 (sp9863a) has a different HAL (44.1/16 output), different libraries
-# and no unit anyone has tested this module on: refuse it, after the factory snapshot above is saved.
+# UIS7862 (ums512): the full module. UIS8581 (sp9863a): a reduced profile (profiles/sp9863a/) - its HAL,
+# libraries and vendor files are different, no 8581 bench exists, so only edits whose factory base was
+# seen are applied. Anything else: refused, after the factory snapshot above is saved.
 PLATFORM=$(getprop ro.board.platform)
-if [ "$PLATFORM" != "ums512" ]; then
-    ui_print " "
-    ui_print "  !!! Platform $PLATFORM is NOT UIS7862 (ums512)."
-    ui_print "  !!! BitPerfect is for UIS7862 only. UIS8581 is not supported."
-    ui_print "  !!! Nothing was changed. State snapshot in /sdcard/QF_audio_survey/ -"
-    ui_print "  !!! send it to the author if you want to help with support."
-    abort "  BitPerfect: unsupported platform $PLATFORM (UIS7862 / ums512 only)"
-fi
+case "$PLATFORM" in
+    ums512)  BP_SOC=7862 ;;
+    sp9863a) BP_SOC=8581 ;;
+    *)
+        ui_print " "
+        ui_print "  !!! Platform $PLATFORM is neither UIS7862 (ums512) nor UIS8581 (sp9863a)."
+        ui_print "  !!! Nothing was changed. State snapshot in /sdcard/QF_audio_survey/ -"
+        ui_print "  !!! send it to the author if you want to help with support."
+        abort "  BitPerfect: unsupported platform $PLATFORM"
+        ;;
+esac
 
 # ums512 alone is not enough: Topway and other vendors ship UIS7862 too, with their own HAL, policy
 # and libraries. Our patched libaudiopolicymanager.so and the vendor overlay are QF's; on a Topway
@@ -167,7 +171,7 @@ case "$QF_REV" in QF*|MG*) QF_OK=yes ;; esac
 if [ "$QF_OK" != "yes" ]; then
     ui_print " "
     ui_print "  !!! Not a QF unit (or its MG clone): MCU '$QF_MCU', revision '$QF_REV'."
-    ui_print "  !!! BitPerfect is for QF / K706 firmware (or its MG clone) on UIS7862 only."
+    ui_print "  !!! BitPerfect is for QF / K706 firmware (or its MG clone) only."
     ui_print "  !!! Any other firmware is refused, no exceptions."
     ui_print "  !!! Nothing was changed. On other firmware this module bricks the unit."
     abort "  BitPerfect: not a QF/MG unit (MCU '$QF_MCU', revision '$QF_REV')"
@@ -230,6 +234,8 @@ case "$SOUND_CHIP" in
     *) CHIP_NAME="unknown ($SOUND_CHIP)" ;;
 esac
 ui_print "- Sound processor: $CHIP_NAME"
+
+if [ "$BP_SOC" = "7862" ]; then
 ui_print "- Path: $([ "$USE_I2S" = yes ] && echo 'digital I2S' || echo 'analogue (SC2730 DAC)')"
 
 # system/vendor/etc is built from EMPTY here (owner, 30.09.2026): the zip ships no pre-seeded variant.
@@ -276,6 +282,40 @@ fi
 
 ui_print "- Applying shared navigation and volume policies..."
 cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
+touch "$MODPATH/bp_nav_policy"
+
+else
+# ---------------------------------------------------------------------------
+# UIS8581. Kept factory: the 16-bit / 44.1 kHz output (owner 04.10: profile 44.1/16, no HAL patch -
+# 44.1 music plays without resampling), the HAL's own audio_hw.xml / audio_para / codec_pga.xml,
+# audio_effects, calls. The 7862 libraries and vendor set (audio_pcm, audio_route, audio_config,
+# audio_params/sprd, primary policy) are NOT for this SoC - v5.3 put them here and the unit hung on
+# the logo. Applied: the navigation policy and the music curve, built from the 8581 factory files
+# (tools/build_8581_profile.py), each only over a factory file with the md5 they were built from.
+# ---------------------------------------------------------------------------
+ui_print "- UIS8581: factory 16-bit / 44.1 kHz output kept (44.1 music is not resampled)"
+rm -f "$MODPATH/system/lib/libaudioclient.so" "$MODPATH/system/lib64/libaudioclient.so"       "$MODPATH/system/lib64/libaudiopolicymanager.so"
+rmdir "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
+NAV_FILES=0
+while read -r SUM NAME; do
+    [ -n "$NAME" ] || continue
+    if [ "$(md5sum "/vendor/etc/$NAME" 2>/dev/null | cut -d' ' -f1)" = "$SUM" ]; then
+        cp -f "$MODPATH/profiles/sp9863a/system/vendor/etc/$NAME" "$MODPATH/system/vendor/etc/$NAME"
+        ui_print "- $NAME: navigation / music policy applied"
+        [ "$NAME" = "audio_policy_engine_product_strategies.xml" ] && NAV_FILES=1
+    else
+        ui_print "- $NAME: this firmware's file is not the one we know - kept factory"
+    fi
+done < "$MODPATH/profiles/sp9863a/factory.md5"
+[ "$NAV_FILES" = "1" ] && touch "$MODPATH/bp_nav_policy"
+cp -f "$MODPATH/common/system/vendor/etc/usb_audio_policy_configuration.xml" "$MODPATH/system/vendor/etc/"
+fi
+
+# The navigator list (/system/config/NaviApp.ini) is edited from the unit's own copy (bp_naviapp.sh).
+. "$MODPATH/common/bp_naviapp.sh"
+if bp_naviapp_build /system/config/NaviApp.ini "$MODPATH/system/config/NaviApp.ini"; then
+    ui_print "- Navigator list: iGo and missing navigators added to music ducking"
+fi
 
 # USB DAC: the unit's own top-level policy with QF's USB include switched by the user's setting
 # (/sdcard/BitPerfectAudio/bitperfect.conf, usb_dac=0/1). service.sh re-applies it at every boot.
@@ -294,7 +334,11 @@ esac
 # Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
 rm -f "$MODPATH/capabilities" /data/adb/modules/BitPerfect.module/capabilities
 if [ -d /data/adb/modules/qf_cellular_calling_master ] || [ -d /data/adb/modules_update/qf_cellular_calling_master ]; then
-    ui_print "- Calling module found: BitPerfect provides the call audio policy and routes"
+    if [ "$BP_SOC" = "7862" ]; then
+        ui_print "- Calling module found: BitPerfect provides the call audio policy and routes"
+    else
+        ui_print "- Calling module found: on UIS8581 calls use the factory audio path"
+    fi
 fi
 
 # Platform default volume -> unity, so the first boot after install already comes up at 0 dB.
@@ -303,6 +347,7 @@ bp_pin_music_volume
 case $? in
     0) ui_print "- car.config: music_volume already 15" ;;
     2) ui_print "- car.config: music_volume -> 15 (backup: $BP_CARCONFIG_BAK)" ;;
+    3) ui_print "- car.config: music_volume is your 'default volume' slider - left alone (15 = 0 dB)" ;;
     *) ui_print "- car.config: music_volume not found, left alone" ;;
 esac
 
@@ -342,10 +387,12 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 #
 # These binaries are UIS7862 builds; the platform gate at the top of this script stops any other SoC.
 # ---------------------------------------------------------------------------
+if [ "$BP_SOC" = "7862" ]; then
 ui_print "- UIS7862: patched libaudioclient (sources 6 and 9) and libaudiopolicymanager (no HAL VoIP mode)"
 set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
 set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
 chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
+fi
 
 ui_print "- Setting permissions..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644

@@ -33,6 +33,9 @@ fi
 if [ "$SOUND_CHIP" = "1" ]; then      # BD37534: analogue inputs only
     HAS_I2S=no
 fi
+# The I2S width control is a UIS7862 (ums512) mixer control; UIS8581 keeps its factory 16-bit path.
+BP_SOC=7862
+[ "$(getprop ro.board.platform)" = "ums512" ] || { BP_SOC=8581; HAS_I2S=no; }
 
 log_msg "Detected MCU: $MCU_VER (sound chip: $SOUND_CHIP, tuner: $RADIO_CHIP, I2S: $HAS_I2S)"
 
@@ -41,16 +44,21 @@ log_msg "Detected MCU: $MCU_VER (sound chip: $SOUND_CHIP, tuner: $RADIO_CHIP, I2
 # Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
 resetprop sys.bitperfect.enabled 0
 
-resetprop persist.qf.arm.default.volume 15
-
 # The platform re-derives that property from car.config at every boot - see common/bp_carconfig.sh.
 . "$MODPATH/common/bp_carconfig.sh"
 . "$MODPATH/common/bp_mcu_level.sh"
+
+# Unity (15) is ours to hold only where the default level is no user's slider (bp_level_is_ours):
+# on UIS8581 it is the visible "default volume" slider, and every 15-restore below stands down.
+LEVEL_OURS=no
+bp_level_is_ours && LEVEL_OURS=yes
+[ "$LEVEL_OURS" = "yes" ] && resetprop persist.qf.arm.default.volume 15
 
 bp_pin_music_volume
 case $? in
     0) log_msg "car.config music_volume already 15." ;;
     2) log_msg "car.config music_volume set to 15 (was: $BP_LINE); takes effect on next boot." ;;
+    3) log_msg "car.config music_volume is the user's slider (visible) - level left to the user." ;;
     *) log_msg "car.config music_volume not found - left alone." ;;
 esac
 
@@ -101,9 +109,15 @@ esac
         *) log_msg "USB DAC: no policy include in the module - left factory." ;;
     esac
 
+    # With our navigation policy installed (marker from the installer) it must be the one loaded;
+    # without it (UIS8581 firmware we did not recognise) a policy that answers at all is the factory one.
     policy_loaded() {
-        dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
-            | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE"
+        if [ -f "$MODPATH/bp_nav_policy" ]; then
+            dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
+                | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE"
+        else
+            dumpsys media.audio_policy 2>/dev/null | grep -q "Streams: AUDIO_STREAM_SYSTEM(1)"
+        fi
     }
     # Poll for up to $1 seconds: audioserver up and answering with our policies.
     wait_policy() {
@@ -188,7 +202,10 @@ esac
     [ "$(getprop sys.bitperfect.enabled)" = "1" ] || log_msg "sys.bitperfect.enabled stays 0 (policy: $POLICY_OK)."
 
     # MCU gain -> the live source's level, once per boot (contract BOOT_AUDIO_STATE, B-bis).
-    if bp_repush_mcu_level boot; then
+    # UIS7862 only: the mcu_service transaction numbers were read on that framework, not on 8581's.
+    if [ "$BP_SOC" != "7862" ]; then
+        log_msg "MCU level not re-pushed at boot: not on UIS8581 (unverified there)."
+    elif bp_repush_mcu_level boot; then
         log_msg "MCU level re-pushed on channel $BP_MCU_CH (boot)."
     else
         log_msg "MCU level not re-pushed at boot: $BP_MCU_WHY."
@@ -202,7 +219,7 @@ esac
     WATCH_UNTIL=$(($(date +%s) + 15))
     while [ $(date +%s) -lt $WATCH_UNTIL ]; do
         CURR_VOL=$(get_music_vol)
-        if [ -n "$CURR_VOL" ] && [ "$CURR_VOL" != "15" ]; then
+        if [ "$LEVEL_OURS" = "yes" ] && [ -n "$CURR_VOL" ] && [ "$CURR_VOL" != "15" ]; then
             NAVI_ACTIVE=$(getprop persist.sys.navi_state)
             if [ "$NAVI_ACTIVE" != "true" ]; then
                 log_msg "Detected volume drop to $CURR_VOL! Restoring to 15..."
@@ -218,11 +235,13 @@ esac
     done
 
     log_msg "Early boot watchdog completed. Final verification..."
-    cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
-    if [ "$(get_music_vol)" != "15" ]; then
-        media volume --stream 3 --set 15 2>/dev/null
+    if [ "$LEVEL_OURS" = "yes" ]; then
+        cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
+        if [ "$(get_music_vol)" != "15" ]; then
+            media volume --stream 3 --set 15 2>/dev/null
+        fi
+        resetprop persist.qf.arm.default.volume 15
     fi
-    resetprop persist.qf.arm.default.volume 15
 
     # Suspend/Resume detector (wake-up watchdog)
     # Detects wake-up by monotonic time leap during deep sleep without background polling or VM calls
@@ -240,14 +259,18 @@ esac
                 if [ "$HAS_I2S" = "yes" ]; then
                     tinymix "VBC_IIS_MST_WIDTH_SET" WD_24BIT 2>/dev/null
                 fi
-                resetprop persist.qf.arm.default.volume 15
-                cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
-                if [ "$(get_music_vol)" != "15" ]; then
-                    media volume --stream 3 --set 15 2>/dev/null
+                if [ "$LEVEL_OURS" = "yes" ]; then
+                    resetprop persist.qf.arm.default.volume 15
+                    cmd media.audio_flinger set-volume 3 1.0 2>/dev/null
+                    if [ "$(get_music_vol)" != "15" ]; then
+                        media volume --stream 3 --set 15 2>/dev/null
+                    fi
                 fi
                 # Let QFSleepWakeup finish its own wake-up volume pass first.
                 sleep 5
-                if bp_repush_mcu_level wake; then
+                if [ "$BP_SOC" != "7862" ]; then
+                    :
+                elif bp_repush_mcu_level wake; then
                     log_msg "MCU level re-pushed on channel $BP_MCU_CH (wake)."
                 else
                     log_msg "MCU level not re-pushed at wake: $BP_MCU_WHY."
