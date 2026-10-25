@@ -2,4 +2,42 @@
     <style name="Theme.BitPerfectControl" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
     </style>
+
+    <!-- Geometry only. Colours come from ThemeManager at runtime (no hard-coded accent in XML). -->
+    <style name="BpCard">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/card_padding</item>
+    </style>
+
+    <style name="BpCardTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_subtitle</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BpCardValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textSize">@dimen/text_size_label</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BpCardNote">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:textSize">@dimen/text_size_note</item>
+    </style>
+
+    <style name="BpPill" parent="Widget.Material3.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">@dimen/row_min_height</item>
+        <item name="android:checkable">true</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+    </style>
 </resources>

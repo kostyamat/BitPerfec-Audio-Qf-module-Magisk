@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#1B2430</color>
+
+    <!-- automotive-modern-ui (ThemeManager reads these for the Classic stroke) -->
+    <color name="stroke_color">#D7DDE1</color>
+    <color name="text_theme_aware">#11171D</color>
+
+    <!-- automotive-hyper-ui tokens -->
+    <color name="bg_main">#0A0E17</color>
+    <color name="bg_card">#131B2A</color>
+    <color name="bg_card_elevated">#1A2436</color>
+    <color name="border_card">#223147</color>
+    <color name="hyper_cyan">#00E5FF</color>
+    <color name="hyper_cyan_dim">#1F4050</color>
+    <color name="hyper_cyan_pulse">#3300E5FF</color>
+    <color name="rocket_orange">#FF6D00</color>
+    <color name="turbo_violet">#7C4DFF</color>
+    <color name="status_green">#00E676</color>
+    <color name="status_red">#FF5252</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="text_muted">#64748B</color>
+
+    <!-- automotive-support-badge tokens -->
+    <color name="coffee_amber">#FFA726</color>
+    <color name="coffee_dim">#26FFA726</color>
+    <color name="coffee_pulse">#40FFA726</color>
+    <color name="paypal_blue">#0079C1</color>
+    <color name="revolut_blue">#0075EB</color>
+    <color name="ton_cyan">#0088CC</color>
+    <color name="tron_red">#FF4D4D</color>
 </resources>

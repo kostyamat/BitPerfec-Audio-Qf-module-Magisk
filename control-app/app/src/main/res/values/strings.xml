@@ -1,3 +1,58 @@
 <resources>
     <string name="app_name">BitPerfect Control</string>
+
+    <!-- status cards -->
+    <string name="card_platform">Platform</string>
+    <string name="card_path">Audio path</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Reading…</string>
+    <string name="status_no_root">No root access, or BitPerfect is not installed.</string>
+    <string name="platform_7862">UIS7862 · full module</string>
+    <string name="platform_8581">UIS8581 · reduced profile</string>
+    <string name="platform_other">%1$s · not supported</string>
+    <string name="path_i2s_24">24-bit I²S to the sound processor</string>
+    <string name="path_analogue">SoC DAC (analogue)</string>
+    <string name="path_8581">16-bit / 44.1 kHz (factory)</string>
+    <string name="path_playing">Playing: %1$s</string>
+    <string name="path_idle">Nothing is playing now</string>
+    <string name="module_active">Active · %1$s</string>
+    <string name="module_inactive">Not confirmed this boot · %1$s</string>
+    <string name="module_disabled">Disabled in Magisk</string>
+    <string name="module_nav_policy_on">Navigation ducking policy loaded</string>
+    <string name="module_nav_policy_off">Factory navigation policy</string>
+
+    <!-- USB DAC -->
+    <string name="usb_title">External USB DAC</string>
+    <string name="usb_desc">Head unit: only players with their own USB driver (USB Audio Player PRO, Neutron, HiBy) play to the DAC, bit-perfect; everything else stays on the sound processor.\nUSB DAC: all Android sound goes to the DAC while it is plugged in, resampled to its best rate, at full scale - set the level on the DAC or the amplifier. SIM calls stay on the head unit.</string>
+    <string name="usb_off">Head unit</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">Applied - the audio service was restarted.</string>
+    <string name="usb_result_same">Already set.</string>
+    <string name="usb_result_unsupported">This firmware\'s audio policy has no USB switch we know - left factory.</string>
+    <string name="usb_result_error">Could not apply: %1$s</string>
+
+    <!-- appearance -->
+    <string name="theme_title">Appearance</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Auto</string>
+    <string name="mode_day">Day</string>
+    <string name="mode_night">Night</string>
+    <string name="hyper_night_only">Hyper is a night style.</string>
+    <string name="btn_refresh">Refresh</string>
+
+    <!-- automotive-support-badge -->
+    <string name="btn_donate_badge">Donate me</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Buy me a coffee</item>
+        <item>💖 Support my projects</item>
+        <item>🚀 Keep updates coming!</item>
+    </string-array>
+    <string name="support_dialog_title">Support the Developer</string>
+    <string name="support_dialog_desc">If you appreciate my work and want to buy me coffee/beer or purchase licenses:</string>
+    <string name="support_click_hint">Tap to copy link &amp; open</string>
+    <string name="support_click_hint_wallet">Tap to copy address &amp; open</string>
+    <string name="support_click_hint_tg">Tap to copy &amp; open Telegram</string>
+    <string name="btn_close">CLOSE</string>
+    <string name="toast_copied">Copied to clipboard: %s</string>
 </resources>

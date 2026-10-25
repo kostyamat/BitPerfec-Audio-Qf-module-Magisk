@@ -1,19 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!-- Root ScrollView with fillViewport (automotive styles, rule 1): 480-600 px tall panels must scroll. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="@dimen/screen_padding">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- header: title, badge centred between two flexible spacers (rule 3), refresh -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.radiorubka.bitperfect.ui.ShimmerBadgeLayout
+                android:id="@+id/btn_donate_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_badge_donate"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minWidth="340dp"
+                android:orientation="horizontal"
+                android:paddingStart="22dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tv_donate_badge_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="☕ Buy me a coffee"
+                    android:textColor="#F7DF1E"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </com.radiorubka.bitperfect.ui.ShimmerBadgeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/row_min_height"
+                android:text="@string/btn_refresh"
+                android:textSize="@dimen/text_size_button" />
+        </LinearLayout>
+
+        <!-- telemetry grid: three equal cards (rule 2) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/card_platform"
+                style="@style/BpCard"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:id="@+id/tv_platform_title"
+                    style="@style/BpCardTitle"
+                    android:text="@string/card_platform" />
+
+                <TextView
+                    android:id="@+id/tv_platform"
+                    style="@style/BpCardValue"
+                    android:text="@string/status_loading" />
+
+                <TextView
+                    android:id="@+id/tv_platform_note"
+                    style="@style/BpCardNote" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_path"
+                style="@style/BpCard"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tv_path_title"
+                    style="@style/BpCardTitle"
+                    android:text="@string/card_path" />
+
+                <TextView
+                    android:id="@+id/tv_path"
+                    style="@style/BpCardValue"
+                    android:text="@string/status_loading" />
+
+                <TextView
+                    android:id="@+id/tv_path_note"
+                    style="@style/BpCardNote" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_module"
+                style="@style/BpCard"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/tv_module_title"
+                    style="@style/BpCardTitle"
+                    android:text="@string/card_module" />
+
+                <TextView
+                    android:id="@+id/tv_module"
+                    style="@style/BpCardValue"
+                    android:text="@string/status_loading" />
+
+                <TextView
+                    android:id="@+id/tv_module_note"
+                    style="@style/BpCardNote" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- USB DAC -->
+        <LinearLayout
+            android:id="@+id/card_usb"
+            style="@style/BpCard"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/tv_usb_title"
+                style="@style/BpCardTitle"
+                android:text="@string/usb_title" />
+
+            <TextView
+                android:id="@+id/tv_usb_desc"
+                style="@style/BpCardNote"
+                android:text="@string/usb_desc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_usb_off"
+                    style="@style/BpPill"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/usb_off" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_usb_on"
+                    style="@style/BpPill"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/usb_on" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_usb_result"
+                style="@style/BpCardNote" />
+        </LinearLayout>
+
+        <!-- appearance: Modern (day / night) and Hyper (night-only cyber) -->
+        <LinearLayout
+            android:id="@+id/card_theme"
+            style="@style/BpCard"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/tv_theme_title"
+                style="@style/BpCardTitle"
+                android:text="@string/theme_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_style_modern"
+                    style="@style/BpPill"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/style_modern" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_style_hyper"
+                    style="@style/BpPill"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/style_hyper" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mode_auto"
+                    style="@style/BpPill"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/mode_auto" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mode_day"
+                    style="@style/BpPill"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/mode_day" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mode_night"
+                    style="@style/BpPill"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/mode_night" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_theme_note"
+                style="@style/BpCardNote" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

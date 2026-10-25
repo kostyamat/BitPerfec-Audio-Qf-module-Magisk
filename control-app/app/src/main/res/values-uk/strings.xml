@@ -1,0 +1,52 @@
+<resources>
+    <string name="card_platform">Платформа</string>
+    <string name="card_path">Аудіотракт</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Читаю…</string>
+    <string name="status_no_root">Немає root-доступу, або BitPerfect не встановлено.</string>
+    <string name="platform_7862">UIS7862 · повний модуль</string>
+    <string name="platform_8581">UIS8581 · зменшений профіль</string>
+    <string name="platform_other">%1$s · не підтримується</string>
+    <string name="path_i2s_24">24 біти I²S у звуковий процесор</string>
+    <string name="path_analogue">ЦАП SoC (аналог)</string>
+    <string name="path_8581">16 біт / 44.1 кГц (заводський)</string>
+    <string name="path_playing">Грає: %1$s</string>
+    <string name="path_idle">Зараз нічого не грає</string>
+    <string name="module_active">Працює · %1$s</string>
+    <string name="module_inactive">Не підтверджено на цьому старті · %1$s</string>
+    <string name="module_disabled">Вимкнено в Magisk</string>
+    <string name="module_nav_policy_on">Політику приглушення під навігацію завантажено</string>
+    <string name="module_nav_policy_off">Заводська політика навігації</string>
+
+    <string name="usb_title">Зовнішній USB-ЦАП</string>
+    <string name="usb_desc">Магнітола: на ЦАП грають лише плеєри з власним USB-драйвером (USB Audio Player PRO, Neutron, HiBy), біт-у-біт; решта звуку лишається на звуковому процесорі.\nUSB-ЦАП: поки ЦАП під\'єднано, туди йде весь звук Android, на найкращій частоті ЦАПа, на повну шкалу - гучність на ЦАПі чи підсилювачі. SIM-дзвінки лишаються на магнітолі.</string>
+    <string name="usb_off">Магнітола</string>
+    <string name="usb_on">USB-ЦАП</string>
+    <string name="usb_result_changed">Застосовано - аудіосервіс перезапущено.</string>
+    <string name="usb_result_same">Уже так.</string>
+    <string name="usb_result_unsupported">Політика цієї прошивки не має відомого нам перемикача USB - лишено заводську.</string>
+    <string name="usb_result_error">Не вдалося застосувати: %1$s</string>
+
+    <string name="theme_title">Вигляд</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Авто</string>
+    <string name="mode_day">День</string>
+    <string name="mode_night">Ніч</string>
+    <string name="hyper_night_only">Hyper — нічний стиль.</string>
+    <string name="btn_refresh">Оновити</string>
+
+    <string name="btn_donate_badge">Donate me</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Пригостити кавою</item>
+        <item>💖 Підтримуй мої проекти</item>
+        <item>🚀 Більше оновлень!</item>
+    </string-array>
+    <string name="support_dialog_title">Підтримка розробника</string>
+    <string name="support_dialog_desc">Якщо ви цінуєте мою роботу та бажаєте пригостити автора кавою або пивом:</string>
+    <string name="support_click_hint">Клік: копіювати посилання та перейти</string>
+    <string name="support_click_hint_wallet">Клік: копіювати адресу та відкрити гаманець</string>
+    <string name="support_click_hint_tg">Клік: копіювати та відкрити у Telegram</string>
+    <string name="btn_close">ЗАКРИТИ</string>
+    <string name="toast_copied">Скопійовано в буфер обміну: %s</string>
+</resources>

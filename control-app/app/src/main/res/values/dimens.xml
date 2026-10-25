@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Type scale of the automotive styles: title 24 -> subtitle 18 -> label 16 -> note 14 (13sp is the floor) -->
+    <dimen name="text_size_title">24sp</dimen>
+    <dimen name="text_size_subtitle">18sp</dimen>
+    <dimen name="text_size_label">16sp</dimen>
+    <dimen name="text_size_note">14sp</dimen>
+    <dimen name="text_size_button">16sp</dimen>
+    <!-- Touch targets: rows and pills at least 56dp tall (paddings 12dp top/bottom) -->
+    <dimen name="row_min_height">56dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="screen_padding">16dp</dimen>
+</resources>

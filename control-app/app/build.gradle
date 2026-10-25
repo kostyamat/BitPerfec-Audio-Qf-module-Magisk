@@ -20,6 +20,14 @@ android {
     }
 
     buildTypes {
+        // R8 on the debug build too: unshrunk Material + AppCompat + Kotlin is ~16 MB of dex inside a
+        // Magisk module. The app calls no hidden API (only su and plain views), so the reason this project
+        // ships debug builds - R8 stripping hidden-API calls - does not bite here; our package is kept whole.
+        debug {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -40,9 +48,6 @@ android {
 dependencies {
     implementation libs.appcompat
     implementation libs.material
-    implementation libs.activity
-    implementation libs.constraintlayout
-    implementation libs.core.ktx.v1131
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
