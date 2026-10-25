@@ -202,10 +202,9 @@ esac
     [ "$(getprop sys.bitperfect.enabled)" = "1" ] || log_msg "sys.bitperfect.enabled stays 0 (policy: $POLICY_OK)."
 
     # MCU gain -> the live source's level, once per boot (contract BOOT_AUDIO_STATE, B-bis).
-    # UIS7862 only: the mcu_service transaction numbers were read on that framework, not on 8581's.
-    if [ "$BP_SOC" != "7862" ]; then
-        log_msg "MCU level not re-pushed at boot: not on UIS8581 (unverified there)."
-    elif bp_repush_mcu_level boot; then
+    # Both platforms: IMcuManager$Stub is identical in the 7862 and 8581 framework.jar (14 = RPC_GetChannel,
+    # 15 = RPC_SetChannel), and the MCU commands are the same (owner, 25.10).
+    if bp_repush_mcu_level boot; then
         log_msg "MCU level re-pushed on channel $BP_MCU_CH (boot)."
     else
         log_msg "MCU level not re-pushed at boot: $BP_MCU_WHY."
@@ -268,9 +267,7 @@ esac
                 fi
                 # Let QFSleepWakeup finish its own wake-up volume pass first.
                 sleep 5
-                if [ "$BP_SOC" != "7862" ]; then
-                    :
-                elif bp_repush_mcu_level wake; then
+                if bp_repush_mcu_level wake; then
                     log_msg "MCU level re-pushed on channel $BP_MCU_CH (wake)."
                 else
                     log_msg "MCU level not re-pushed at wake: $BP_MCU_WHY."
