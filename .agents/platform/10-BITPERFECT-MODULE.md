@@ -986,3 +986,11 @@ cannot tell those apart must not guess: a value is not an event.
   arm64 `str w25,[x19,#0x14c]` with `w25 ← w20 ← w1` (inputSource), arm32 Thumb `str.w r4,[r10,#0xd4]` with
   `r4 ← r5 ← r1`, no rewrite in between — stock AOSP. On 7862 the same stores write a constant 1 (`orr w9,wzr,#1`
   / `movs r0,#1`) = MIC. So sources 6 and 9 reach the 8581 HAL unpatched; ❓ what its HAL does with 9 is untested.
+- 🔬 8581 HAL `audio.primary.sp9863a.so` handles source 9 itself (strings): «Audio NV mode is unprocess now! mode:%d»,
+  «Audio Source is Unprocessed, but NV don't support Unprocessed, so Mode:%d» — UNPROCESSED selects the `Unprocess`
+  profile of `audio_para`. It also runs its own record NR (`AudioRecordNr_*`, `check_support_nr … nr param switch … rate`,
+  «check_support_nr fource un-use nr»). Dumps: `persist.vendor.media.dump.switch` / `persist.vendor.media.audio.dump` →
+  `/data/vendor/local/media/audio_dumpinread_{noprocess,afternr,aftersrc}.wav`.
+- 🔬 `audio_para` `Unprocess` (factory 8581_QF005): ARM `eq_switch=0x1`, `agc_input_gain[0]=0x657` (Handsfree 0x400;
+  🧩 0x400 = unity → ≈ +4 dB), `aud_proc_exp_control[1]=0x100` (Handsfree 0x0, ❓ meaning); `EQ_Unprocess\eq_control=0x0`,
+  `eq_mode_1\band_control=0x0` (🧩 no band active). ❓ Whether NR runs on it — `check_support_nr` not yet decompiled.
