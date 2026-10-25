@@ -21,6 +21,7 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
   **move them together only**. DRC_tx tried — «крошиться», reverted.
 
 ## ⏳ Waiting / open
+- 25.10 `12a3460`: installer output all English (owner); goes out with the next release, not on the bench.
 - 23.10 **v5.6.1 on the bench** (zip from the `release:` commit), reboot OK: flag 1 at +25 s, policies, WD_24BIT,
   default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
   whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`).
