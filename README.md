@@ -106,6 +106,19 @@ Disabling or removing the module in Magisk is safe: a small guard script
 parameters on the next boot, so the factory path does not play at full scale. Removing the module also
 removes the guard.
 
+## USB DAC (external)
+
+QF firmware switches Android's USB audio output off (one commented-out line in the vendor audio
+policy). BitPerfect lets you choose, in **`/sdcard/BitPerfectAudio/bitperfect.conf`** (created at install,
+edit the value and reboot):
+
+| `usb_dac` | what plays on the DAC |
+|---|---|
+| `0` (default) | only players with their own USB driver — USB Audio Player PRO, Neutron, HiBy "USB exclusive" — bit-perfect at any rate; everything else stays on the head unit's sound processor |
+| `1` | all Android sound while the DAC is plugged in, resampled to the DAC's best rate; Android volume stays at full scale, so set the level on the DAC or the amplifier. SIM calls stay on the head unit |
+
+🧪 New in this version and not yet tested on a unit with a DAC — reports welcome.
+
 ## Feedback — what to send
 
 💬 **Support group (Telegram):** https://t.me/kostyamat_dev/3 — reports go there.

@@ -1,4 +1,4 @@
-# Slice — 23.10.2026, session `3827b401` (Claude): v5.6.1 released, waiting for testers
+# Slice — 25.10.2026, session `3827b401` (Claude): v5.6.1 released, waiting for testers
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
@@ -21,7 +21,11 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
   **move them together only**. DRC_tx tried — «крошиться», reverted.
 
 ## ⏳ Waiting / open
-- 25.10 `12a3460`: installer output all English (owner); goes out with the next release, not on the bench.
+- 25.10 next release (not built, bench DEAD — owner waits for a new unit; work from firmware in `D:\Release`:
+  `update(2)` = QF 7862, `8581_QF005`/`8581_BMW` = 8581, `TS10_*` = Topway): installer English (`12a3460`);
+  USB DAC `usb_dac=0/1` in `/sdcard/BitPerfectAudio/bitperfect.conf` (`5c79546`, tested offline on the
+  factory file). On the new unit: install, plug a DAC, try both values, `dumpsys media.audio_policy` to a file.
+  Then UIS8581 port «уважно, і по наітію» — no 8581 bench exists.
 - 23.10 **v5.6.1 on the bench** (zip from the `release:` commit), reboot OK: flag 1 at +25 s, policies, WD_24BIT,
   default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
   whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`).

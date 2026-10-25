@@ -961,3 +961,9 @@ cannot tell those apart must not guess: a value is not an event.
   `boot.img`). ❓ 8581 kernel not checked.
 - 🧩 So a USB DAC is dead for Android playback only because of that one include; apps with their own USB
   driver (libusb through UsbManager) do not depend on it.
+- 🔬 AOSP 10 `enginedefault/src/Engine.cpp` STRATEGY_PHONE: in `AUDIO_MODE_IN_CALL`, when the call mic is on
+  the primary module and its HAL is < 3.0 (ours `halVersion="2.0"`), only primary-module output devices are
+  allowed — so a SIM call never goes to a USB DAC. VoIP (IN_COMMUNICATION) and every other strategy do prefer
+  `USB_HEADSET`/`USB_DEVICE` over the speaker when one is connected.
+- BitPerfect (`5c79546`): `/sdcard/BitPerfectAudio/bitperfect.conf` `usb_dac=0/1` switches that include at every
+  boot (`common/bp_usb.sh`); ❓ not yet run on a unit.

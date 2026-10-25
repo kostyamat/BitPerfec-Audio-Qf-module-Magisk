@@ -4,6 +4,7 @@
 Support: https://t.me/kostyamat_dev/3
 
 ## Next
+- USB DAC output, chosen in `/sdcard/BitPerfectAudio/bitperfect.conf` (`usb_dac=0/1`, see README).
 - Installer output is in English.
 
 ## v5.6.1
