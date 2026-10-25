@@ -1,9 +1,11 @@
 # BitPerfect — changelog
 
-🔴 **QF / K706 on UIS7862 only — NOT for UIS8581, NOT for any firmware other than QF / MG.**
+🔴 **QF / K706 (or its MG clone) only. UIS7862: full module. UIS8581: reduced profile (from the next release). Any other firmware: refused.**
 Support: https://t.me/kostyamat_dev/3
 
 ## Next
+- UIS8581: reduced profile — navigation ducking, music curve, USB DAC setting; factory 16/44.1 output,
+  HAL and calls kept; never run on a unit yet (reports wanted).
 - USB DAC output, chosen in `/sdcard/BitPerfectAudio/bitperfect.conf` (`usb_dac=0/1`, see README).
 - Installer output is in English.
 

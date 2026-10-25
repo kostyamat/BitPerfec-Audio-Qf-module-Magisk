@@ -8,8 +8,8 @@
 
 # BitPerfect — audio engine for QF / Roco K706 head units
 
-A Magisk module for Android head units on the **Unisoc UIS7862** platform (QF, Roco K706 and their
-clones). It takes the sound from any player at full quality, with no attenuation and no change to the
+A Magisk module for QF / Roco K706 head units (and their MG clone) on **Unisoc UIS7862** — and, with a
+reduced profile, **UIS8581**. It takes the sound from any player at full quality, with no attenuation and no change to the
 frequency response, and hands it to the head unit's sound processor at **24 bit / 48 kHz, 0 dB**.
 Volume and effects stay where they belong: in the sound processor.
 
@@ -23,12 +23,17 @@ The installer reads the MCU code and picks the profile by itself.
 |---|---|---|
 | UIS7862 + **ROHM BU32107** | digital I2S, 24/48 | ✅ tested on the developer's unit |
 | UIS7862 + **ROHM BD37xxx** | the SoC's own DAC (analogue), 24/48 by factory design | 🧪 needs reports |
-| **UIS8581** | — | ❌ **not supported** — the installer refuses it and changes nothing |
+| **UIS8581** | factory 16 bit / 44.1 kHz kept | 🧪 **reduced profile, untested** — see below |
 | **any firmware other than QF or its MG clone** (Topway, FYT and the rest), whatever the SoC | — | ❌ **refused** — the installer accepts QF/MG only |
 
-🔴 **Not for UIS8581 units.** Its audio HAL and libraries are different and the module has never run on
-one. The installer stops on any platform other than UIS7862 (`ums512`); it only saves the factory
-snapshot, which you are welcome to send if you want to help with support.
+🧪 **UIS8581 — a reduced profile, never run on a unit.** Its audio HAL, libraries and vendor files are
+different, so the module does far less there. Kept factory: the 16-bit / 44.1 kHz output (most music is
+44.1, so it plays without resampling), the HAL's own sound parameters, effects and calls. Applied:
+navigation prompts duck the music (also iGo and the navigators the factory list misses), the louder music
+curve, the USB DAC setting. Each policy file is replaced only when the unit's factory file is exactly the
+one the profile was built from; anything else stays factory. The "default volume" slider in car settings
+stays yours — set it to **15 for 0 dB**. The UIS7862 patched libraries are never installed there. Reports
+from 8581 owners (the snapshot plus `/data/adb/BitPerfect.log`) are what turns 🧪 into ✅.
 
 🔴 **QF firmware (or its MG clone) only — everything else is refused.** Other vendors ship UIS7862 too,
 with their own audio HAL and libraries; the module's patched files leave such a unit unable to boot (a
@@ -54,7 +59,7 @@ v4.18 was a single BU32107 profile. Since then:
   the control-panel digits, so every BD37xxx unit got the BU32107 I2S profile — the "digital rasp").
 - Two profiles: BU32107 (I2S) and BD37xxx (the SoC's DAC). The audio configuration is built from scratch
   for the detected hardware; no file of the other variant is left behind, also after an upgrade.
-- 🔴 UIS7862 only: the installer refuses UIS8581 and any other platform.
+- 🔴 QF / MG firmware on UIS7862 (full) or UIS8581 (reduced profile); any other platform or firmware is refused.
 
 **Playback**
 - One 24-bit / 48 kHz output: the second output on the same PCM made `pcmC0D3p busy`, re-routed the bus

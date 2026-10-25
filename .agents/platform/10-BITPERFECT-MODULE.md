@@ -958,7 +958,7 @@ cannot tell those apart must not guess: a value is not an event.
 - 🔬 Everything else is there: AOSP USB HAL `vendor/lib{,64}/hw/audio.usb.default.so` (different builds per
   platform), `usb_audio_policy_configuration.xml` (AOSP, dynamic `usb_device output`; the 8581 one also has USB
   input), `android.hardware.usb.host.xml`, and on 7862 the kernel has `CONFIG_SND_USB_AUDIO=y` (ikconfig in
-  `boot.img`). ❓ 8581 kernel not checked.
+  `boot.img`). 8581 kernel: also `CONFIG_SND_USB_AUDIO=y` (see the UIS8581 profile section).
 - 🧩 So a USB DAC is dead for Android playback only because of that one include; apps with their own USB
   driver (libusb through UsbManager) do not depend on it.
 - 🔬 AOSP 10 `enginedefault/src/Engine.cpp` STRATEGY_PHONE: in `AUDIO_MODE_IN_CALL`, when the call mic is on
@@ -967,3 +967,17 @@ cannot tell those apart must not guess: a value is not an event.
   `USB_HEADSET`/`USB_DEVICE` over the speaker when one is connected.
 - BitPerfect (`5c79546`): `/sdcard/BitPerfectAudio/bitperfect.conf` `usb_dac=0/1` switches that include at every
   boot (`common/bp_usb.sh`); ❓ not yet run on a unit.
+
+## UIS8581 profile — what was ported and why (BitPerfect line, 25.10.2026)
+
+- 🔬 `8581_QF005` and `8581_BMW` have byte-identical `audio_policy_engine_product_strategies.xml`,
+  `audio_policy_engine_stream_volumes.xml`, `audio_policy_volumes.xml` (md5 in `profiles/sp9863a/factory.md5`).
+- 🔬 vs the 7862 factory: same STRATEGY_MEDIA structure (no STRATEGY_FM on 8581); voice_call `indexMax` 7 (7862: 15)
+  and other voice_call / system SPEAKER curves. So only the navigation move (NAVIGATION_GUIDANCE + ASSISTANT,
+  MUSIC → SYSTEM group) and the MUSIC/SPEAKER curve were ported (`tools/build_8581_profile.py`); voice_call and system
+  curves stay factory.
+- 🔬 `/system/config/car.config` on 8581: `music_volume default=14 current=14 visible=1` — a visible user slider
+  (7862: default 9, `visible=0`). BitPerfect does not pin it there (`bp_level_is_ours`).
+- 🔬 `/system/config/NaviApp.ini` on 8581 = 7862's plus `vn.vietmap.live`; the module now edits the unit's own list.
+- 🔬 8581 kernel: `CONFIG_SND_USB_AUDIO=y` (ikconfig in `boot.img`), so the USB DAC setting applies there too.
+- ❓ Not run on any 8581 unit; `mcu_service` transactions 14/15 not checked against the 8581 framework (re-push off there).

@@ -21,11 +21,12 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
   **move them together only**. DRC_tx tried — «крошиться», reverted.
 
 ## ⏳ Waiting / open
-- 25.10 next release (not built, bench DEAD — owner waits for a new unit; work from firmware in `D:\Release`:
-  `update(2)` = QF 7862, `8581_QF005`/`8581_BMW` = 8581, `TS10_*` = Topway): installer English (`12a3460`);
-  USB DAC `usb_dac=0/1` in `/sdcard/BitPerfectAudio/bitperfect.conf` (`5c79546`, tested offline on the
-  factory file). On the new unit: install, plug a DAC, try both values, `dumpsys media.audio_policy` to a file.
-  Then UIS8581 port «уважно, і по наітію» — no 8581 bench exists.
+- 25.10 next release (not built; bench DEAD, owner waits for a new unit; firmware in `D:\Release`: `update(2)` = QF 7862,
+  `8581_QF005`/`8581_BMW` = 8581, `TS10_*` = Topway). In it: installer English (`12a3460`); USB DAC `usb_dac=0/1`
+  in `/sdcard/BitPerfectAudio/bitperfect.conf` (`5c79546`); **UIS8581 reduced profile** (`4f9fe9e`, `01675f6`:
+  factory 16/44.1 + HAL + calls kept, nav policy + music curve only over known-md5 factory files, slider left to
+  the user, no 7862 libs). All checked by an installer simulation in WSL on the firmware trees, not on a unit.
+  On the new 7862 unit: install, reboot, flag 1, DAC with both values. 8581: only with a tester.
 - 23.10 **v5.6.1 on the bench** (zip from the `release:` commit), reboot OK: flag 1 at +25 s, policies, WD_24BIT,
   default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
   whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`).
@@ -40,6 +41,6 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
 
 ## 📋 Next — order from the owner (15.10), details in `.agents/TODO.md`
 1. Testers: feedback and logs on v5.6/v5.6.1 (BD37xxx, navigators, engine hum) — the open items above.
-2. UIS8581 adaptation: 44.1/16 profile, AGDSP params into /data instead of the /vendor overlay; needs a 8581 tester.
+2. UIS8581: reduced profile done (25.10); next only with a tester — mic in /data audio_para, MCU re-push (TODO §2).
 3. Then BitPerfect Control: per-mode mic, SIM AEC fine-tuning; the AEC reference always moves with the mic.
 4. EQ for wDSP (plan #1703, ResonanceFX C++ core idea, owner 19.10) — details in `.agents/TODO.md` §4.
