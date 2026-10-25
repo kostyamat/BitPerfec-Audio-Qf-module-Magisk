@@ -8,7 +8,7 @@ cat <<'EOF'
    "C:/Program Files/Python312/python.exe" C:/repos/agent-bridge/watch_board.py --session 3827b401-ee38-4390-8b5a-8b5a12ad49b7 --agent Claude --window local_bd04d1ce-829d-462b-836e-6f38608f5b29
 2. v5.6 RELEASED 15.10 (GitHub tag v5.6, 4PDA/XDA posts) - waiting for testers. Calls (SIM/BT/Telegram/
    WhatsApp), mic, guard, BD layout are done. Next, when reports come: BD37xxx survey, engine hum (SIM),
-   navigator reports (QF_audio_survey v1.3); owner's "strange navigator" (MapFactor) - watch logcat when ready.
+   navigator reports (QF_audio_survey v1.4, also the mic check); owner's "strange navigator" (MapFactor) - watch logcat when ready.
    Order (owner 15.10, .agents/TODO.md): 1 testers' feedback and logs, 2 UIS8581 adaptation, 3 BitPerfect Control.
    QF_Framework_Mod / QF_SystemUI_Mod / QF_Bluetooth_Mod now have their OWN sessions - not this one's work.
    Releases: .agents/RELEASE.md.  WSL: `-u root` for tools, but PUSH as the default user (keys in its ~/.ssh).

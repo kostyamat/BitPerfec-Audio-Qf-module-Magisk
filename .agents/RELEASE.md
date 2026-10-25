@@ -46,4 +46,4 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   (`[B] [LIST] [URL='…'] [ICODE]`); each in one code block for copy-paste. A SHORT changelog vs 4.18 — owner:
   «Кожен крок змін описувати не потрібно».
 - Feedback always asks for `/sdcard/QF_audio_survey/`, `/data/adb/BitPerfect.log` and, for navigation problems
-  or BD units, a report from `tools/QF_audio_survey.v1.3.zip`.
+  or BD units, a report from `tools/QF_audio_survey.v1.4.zip`.

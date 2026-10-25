@@ -136,18 +136,22 @@ edit the value and reboot):
    any other sound problem:** a live report from the diagnostic tool below, taken with
    BitPerfect installed and with the navigator you actually use.
 
-### Diagnostic tool: `tools/QF_audio_survey.v1.3.zip`
+### Diagnostic tool: `tools/QF_audio_survey.v1.4.zip`
 
-A read-only Magisk module: it changes nothing, plays nothing and sends nothing by itself. It writes a
-report to `/sdcard/QF_audio_survey/`: audio configuration, mixer state, every audio stream, what format
-and gain Android feeds the HAL, the installed navigators, and — the main part — what happens while a
-navigator speaks: which app it is, how it plays (usage, audio focus) and every volume at that moment.
-It recognises any navigator, also those that take no audio focus or speak as an "assistant".
+A diagnostic Magisk module: it plays nothing and sends nothing by itself. It writes a report to
+`/sdcard/QF_audio_survey/`: audio configuration, mixer state, every audio stream, what format and gain
+Android feeds the HAL, the installed navigators, what happens while a navigator speaks (which app, how it
+plays, every volume at that moment — any navigator, also those that take no audio focus), and since v1.4
+**what a recorder really gets from the microphone**: the input source, the input mode the HAL chose, the
+capture stream, and on UIS8581 the HAL's own recording before its processing and after its noise reduction
+(identical files = the "unprocessed" input is really untouched). The only thing it touches: the HAL's
+recording dump, on for about 10 seconds during that check and then off again.
 
 1. Install it in Magisk (BitPerfect stays installed) and reboot.
 2. Play music or radio, start your navigator and let it speak **once**.
-3. In Magisk the tool's line shows `DONE` (or `DONE (partial)` after 7 minutes without a prompt).
-4. Zip `/sdcard/QF_audio_survey/` and send it. Then remove the tool.
+3. Then open wDSP and start its microphone (or any voice recorder) for about 15 seconds, talking near the mic.
+4. In Magisk the tool's line shows `DONE` (or `DONE (partial)` without a prompt within 7 minutes).
+5. Zip `/sdcard/QF_audio_survey/` and send it. Then remove the tool.
 
 ## Repository
 

@@ -994,3 +994,20 @@ cannot tell those apart must not guess: a value is not an event.
 - 🔬 `audio_para` `Unprocess` (factory 8581_QF005): ARM `eq_switch=0x1`, `agc_input_gain[0]=0x657` (Handsfree 0x400;
   🧩 0x400 = unity → ≈ +4 dB), `aud_proc_exp_control[1]=0x100` (Handsfree 0x0, ❓ meaning); `EQ_Unprocess\eq_control=0x0`,
   `eq_mode_1\band_control=0x0` (🧩 no band active). ❓ Whether NR runs on it — `check_support_nr` not yet decompiled.
+- 🔬 8581 HAL record path, Ghidra 25.10 (`audio.primary.sp9863a.so`): `GetAudio_InMode_number_from_device` — source 9 →
+  NV mode 6, source 6 → mode 7, else 3 (or 0 for a wired headset); `audio_para` profile order: 0 Headset, 1 Headfree,
+  2 Handset, 3 Handsfree, 4 ISCHandsfree, 5 ISCHeadfree, 6 Unprocess, 7 Recognition (mode struct 0xd20 bytes).
+  `in_read` at 48 kHz: `init_rec_process(mode)` = `AUDPROC_initDp` + `AUDPROC_initRecordEq` of that mode, and
+  `AudioRecordNr_Init(mode + 0x220)` — NR is created for every stream, no on/off test before it; `in_read` then runs
+  `AudioRecordNr_Proc` when NR exists, the DP/EQ process only when it does not. 🧩 So "unprocessed" on 8581 is
+  exactly as flat as the Unprocess NV values make it.
+- 🔬 `nrArray` differs only in Unprocess: `[1]=0x1101 [2]=0x2` (Headset/Handsfree/Recognition `0x1111`, `0x202`);
+  `extendArray[1]` Unprocess `0x400` (others 0x7fc/0xfed/0x8f5). ❓ Bit meaning — needs the dumps.
+- 🔬 8581 HAL capture dumps (Ghidra `set_dump_status`, `adev_set_parameters`, `control_audio_loop_process`): key
+  `media.dump.switch=<mask>` (strtoul base 0, so `0xc800` works), also written to `persist.vendor.media.dump.switch`;
+  bits `0x80` music, `0x100` sco, `0x200` vaudio, `0x400` btsco, `0x800` inread (what the app gets), `0x1000` inread_vbc,
+  `0x2000` inread_aftersrc, `0x4000` inread_noprocess, `0x8000` inread_afternr → `/data/vendor/local/media/audio_dump<name>.wav|.pcm`;
+  clearing a bit closes the file (wav header added). The FIFO `/data/vendor/local/media/mmi.audio.ctrl` (or
+  `/dev/pipe/mmi.audio.ctrl`) hands any `key=value` string to `adev_set_parameters`, so as root:
+  `echo "media.dump.switch=0xc800" > /data/vendor/local/media/mmi.audio.ctrl`. ❓ Not run on a unit. The 7862 HAL has a
+  different, smaller dump set (`dumpinread` only).

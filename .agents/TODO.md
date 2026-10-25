@@ -10,7 +10,7 @@
 ## 1. Перевірка тестерами — відгуки й логи (v5.6, реліз 15.10)
 
 Група: https://t.me/kostyamat_dev/3. Від людей просимо `/sdcard/QF_audio_survey/`, `/data/adb/BitPerfect.log`,
-а для навігації й BD — звіт помічника `tools/QF_audio_survey.v1.3.zip`.
+а для навігації й BD — звіт помічника `tools/QF_audio_survey.v1.4.zip` (з v1.4 — і перевірка мікрофона).
 
 - **BD37xxx:** чи справді 24/48 доходить до ЦАП SC2730 (дамп AudioFlinger, `pcm*p/hw_params`, `VBC_IIS_TX0_WD_SEL`);
   чи немає хрипу; мікрофон і дзвінки з політикою BU.
