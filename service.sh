@@ -87,6 +87,20 @@ esac
 
     log_msg "System boot_completed reached (count=$COUNT)"
 
+    # USB DAC setting (common/bp_usb.sh): flip the policy include if the user changed usb_dac, and
+    # restart audioserver once so it reads it - the policy check below waits for it to come back.
+    . "$MODPATH/common/bp_usb.sh"
+    N=0; while [ ! -d /sdcard/Android ] && [ $N -lt 30 ]; do sleep 1; N=$((N + 1)); done
+    bp_conf_ensure
+    USB_W=$(bp_usb_wanted)
+    bp_usb_set "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" "$USB_W"
+    case $? in
+        0) log_msg "USB DAC output changed to usb_dac=$USB_W ($BP_CONF). Restarting audioserver."
+           setprop ctl.restart audioserver ;;
+        2) log_msg "USB DAC output: usb_dac=$USB_W." ;;
+        *) log_msg "USB DAC: no policy include in the module - left factory." ;;
+    esac
+
     policy_loaded() {
         dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
             | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE"

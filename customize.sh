@@ -277,6 +277,18 @@ fi
 ui_print "- Applying shared navigation and volume policies..."
 cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
 
+# USB DAC: the unit's own top-level policy with QF's USB include switched by the user's setting
+# (/sdcard/BitPerfectAudio/bitperfect.conf, usb_dac=0/1). service.sh re-applies it at every boot.
+. "$MODPATH/common/bp_usb.sh"
+bp_conf_ensure
+cp -f /vendor/etc/audio_policy_configuration.xml "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" 2>/dev/null
+bp_usb_set "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" "$(bp_usb_wanted)"
+case $? in
+    0|2) ui_print "- USB DAC output: usb_dac=$(bp_usb_wanted) (settings: $BP_CONF)" ;;
+    *)   ui_print "- USB DAC: this unit's policy has no USB include we know - left factory"
+         rm -f "$MODPATH/system/vendor/etc/audio_policy_configuration.xml"                "$MODPATH/system/vendor/etc/usb_audio_policy_configuration.xml" ;;
+esac
+
 # Calls run only on top of BitPerfect: every audio policy and route for calls lives here, the calling
 # module ships none and refuses to work without sys.bitperfect.enabled=1 (set by service.sh).
 # Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
