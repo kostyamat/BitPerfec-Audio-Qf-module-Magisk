@@ -33,8 +33,6 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
   default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
   whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`).
   Published 23.10. Owner to confirm a SIM call (echo gone?). Forum posts for v5.6.1 not written (not ordered).
-- car.config lost `music_volume`, `aux2_mode`, `float_bar_display` when the owner changed CarSettings (18.10 ~19:57).
-  Harmless for us (10-BITPERFECT-MODULE.md, last section); the CarSettings line may want to know it drops entries.
 - Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
   50 Hz cutoff (in a car); navigator reports.
 - Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
