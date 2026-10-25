@@ -1011,3 +1011,28 @@ cannot tell those apart must not guess: a value is not an event.
   `/dev/pipe/mmi.audio.ctrl`) hands any `key=value` string to `adev_set_parameters`, so as root:
   `echo "media.dump.switch=0xc800" > /data/vendor/local/media/mmi.audio.ctrl`. ❓ Not run on a unit. The 7862 HAL has a
   different, smaller dump set (`dumpinread` only).
+
+## 🔑 UIS8581: the UNPROCESSED input (source 9) is flat in the HAL — proven from the code (BitPerfect line, 26.10.2026)
+
+Ghidra 12.1.2 on `audio.primary.sp9863a.so` and `libvbeffect.so` (8581_QF005), with the factory `audio_para`.
+HAL mode struct (0xd20 per mode, profile order in the previous section): +0x00 16-byte header, +0x10 `eq_control`,
++0x12 `eq_mode_1..6` (0x44 each), +0x1aa `extendArray[0..58]`, +0x220 `nrArray[0..7]`, +0x230 name, +0x240 `audio_arm`
+(🔬 confirmed: `eq_switch` read at +0x25c, `nrArray` copied from +0x220, DP init from +0x1aa, record EQ from +0x1d0).
+
+| stage (48 kHz capture: `AudioRecordNr_Proc` → `AUDPROC_ProcessDpEx`) | switch | Unprocess | effect |
+|---|---|---|---|
+| LCF low-cut (1st-order IIR) | `LCF_SW_dp` = `extendArray[0]` bit 2 | 0 | off |
+| noise suppression (`audio_record_nr[_stereo]`: VAD, noise est/suppress) | returns at once if `nrArray[0] & 0xf == 0` | `nrArray[0]=0` | off (0 in EVERY profile) |
+| DP: AGC / compressor / expander / limiter | `DP_SW` = bit 0, `DP_ZC_SW` = bit 1 | 0 | off |
+| fixed gain when DP is off: `out = s × DP_input_gain >> 10` | `DP_input_gain` = `extendArray[1]` | `0x400` | ×1.0 exactly (Handsfree 0xfed ≈ +12 dB) |
+| record EQ (6 biquads) | `RECORD_EQ_SW` = `extendArray[19]` bit 15, bands = bits 8..13, master gain `extendArray[20]` | `0xc000`, gain `0x400` | no band active, ×1.0 |
+| VBC hardware EQ on the ADC (`ad01/ad23 eq switch`, profile from `vbc_eq`) | `vb_ad01/ad23_effect_profile_apply` | — | 🔬 never called by the HAL; ❓ kernel default — the survey v1.4 logs it |
+
+- 🧩 So at 48 kHz the HAL hands source 9 over bit-exact: no filter, no NR, no dynamics, unity gain. Recognition (source 6)
+  is NOT flat: `extendArray[19]=0xe300` → record EQ bands 0, 1, 5 on, `DP_input_gain 0x8f5` (≈ +7 dB).
+- Other rates: resample (`SprdSrc_To_44K`) plus `aud_rec_do_process` (the same DP/EQ switches) — flat but resampled.
+- Level only, not response: `agc_input_gain[0]=0x657` (`app_config_info[0]`) and the codec PGA (`SetAudio_gain_route` →
+  `audio_pga_apply`); `app_config_info[0].eq_switch` and `aud_proc_exp_control` feed the playback (DA) EQ in
+  `AUDENHA_SetPara`, not the microphone.
+- ⇒ No module change is needed for a flat source 9 on 8581; the survey's noprocess/afternr compare and the tinymix line
+  confirm it on the first tester's unit.
