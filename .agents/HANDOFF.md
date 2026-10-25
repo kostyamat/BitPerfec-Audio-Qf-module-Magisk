@@ -41,6 +41,6 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
 
 ## 📋 Next — order from the owner (15.10), details in `.agents/TODO.md`
 1. Testers: feedback and logs on v5.6/v5.6.1 (BD37xxx, navigators, engine hum) — the open items above.
-2. UIS8581: reduced profile done (25.10); next only with a tester — mic in /data audio_para, MCU re-push (TODO §2).
+2. UIS8581: reduced profile done (25.10); next only with a tester — mic in /data audio_para (TODO §2).
 3. Then BitPerfect Control: per-mode mic, SIM AEC fine-tuning; the AEC reference always moves with the mic.
 4. EQ for wDSP (plan #1703, ResonanceFX C++ core idea, owner 19.10) — details in `.agents/TODO.md` §4.

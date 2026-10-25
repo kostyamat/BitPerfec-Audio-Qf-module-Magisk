@@ -980,4 +980,5 @@ cannot tell those apart must not guess: a value is not an event.
   (7862: default 9, `visible=0`). BitPerfect does not pin it there (`bp_level_is_ours`).
 - 🔬 `/system/config/NaviApp.ini` on 8581 = 7862's plus `vn.vietmap.live`; the module now edits the unit's own list.
 - 🔬 8581 kernel: `CONFIG_SND_USB_AUDIO=y` (ikconfig in `boot.img`), so the USB DAC setting applies there too.
-- ❓ Not run on any 8581 unit; `mcu_service` transactions 14/15 not checked against the 8581 framework (re-push off there).
+- 🔬 `IMcuManager$Stub` is identical in the 7862 and 8581 `framework.jar` (baksmali, `.line` ignored): 14 = `RPC_GetChannel`,
+  15 = `RPC_SetChannel`; the MCU commands are the same too (owner, 25.10). ❓ Not run on any 8581 unit.
