@@ -394,6 +394,9 @@ set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_f
 chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
 fi
 
+ui_print "- BitPerfect Control app: /system/priv-app/BitPerfectControl"
+set_perm_recursive "$MODPATH/system/priv-app" 0 0 0755 0644 u:object_r:system_file:s0
+
 ui_print "- Setting permissions..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/config" 0 0 0755 0644
