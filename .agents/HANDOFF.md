@@ -27,6 +27,8 @@ v12 (its session), patched QF Framework and SystemUI (their own sessions now).
   factory 16/44.1 + HAL + calls kept, nav policy + music curve only over known-md5 factory files, slider left to
   the user, no 7862 libs). All checked by an installer simulation in WSL on the firmware trees, not on a unit.
   On the new 7862 unit: install, reboot, flag 1, DAC with both values. 8581: only with a tester.
+- 25.10 survey tool v1.4 (`e0d4559`): mic check — source, HAL mode, on 8581 HAL dumps before/after NR
+  (`media.dump.switch=0xe800` via the mmi.audio.ctrl FIFO, ~10 s, restored). For 8581 testers first.
 - 23.10 **v5.6.1 on the bench** (zip from the `release:` commit), reboot OK: flag 1 at +25 s, policies, WD_24BIT,
   default.volume 15. In it: policy check polls (`58d9759`, was flag 0 on 4/10 boots → SIM echo), installer
   whitelist QF*/MG* (`74ce953`/`8e5f2f5`, after a Topway brick), Magisk `updateJson` (`3fd5cf3`).
