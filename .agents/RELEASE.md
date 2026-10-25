@@ -31,6 +31,9 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   match the uploaded asset exactly.
 
 ## Texts
+- 🔴 **Everything the module prints is English** — installer output, logs, abort messages (owner 25.10: «тобі по
+  приколу тролити іноземців логом установки українською мовою??»). Users are international; Ukrainian goes only
+  into the short paragraph of the release annotation.
 - **README** (English) holds: what the module does, hardware table, «What changed since the classic v4.18»,
   install/disable/remove, Feedback (support group https://t.me/kostyamat_dev/3, what to send, the survey tool),
   «Support the developer» with the owner's payment details verbatim. README keeps «since v4.18» only; per-release notes go to

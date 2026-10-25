@@ -19,7 +19,7 @@ ui_print "       $MODVER (versionCode $MODCODE)"
 ui_print "          for QF001 / K706 Platform                "
 ui_print "***************************************************"
 
-ui_print "- Розпакування профілів з архіву..."
+ui_print "- Unpacking profiles..."
 unzip -o "$ZIPFILE" 'profiles/*' 'common/*' -d "$MODPATH" >&2
 
 # ---------------------------------------------------------------------------
@@ -133,13 +133,13 @@ rm -rf "/data/local/tmp/qf_snap_$STAMP" 2>/dev/null
 
 ui_print " "
 ui_print "  ---------------------------------------------------"
-ui_print "  ЗБЕРЕЖЕНО ЗНІМОК ЗАВОДСЬКОГО СТАНУ вашої магнітоли:"
-ui_print "    /sdcard/QF_audio_survey/   (${DST_K:-0} KB, з ${SRC_K:-0} KB)"
+ui_print "  SAVED A SNAPSHOT OF YOUR UNIT'S FACTORY STATE:"
+ui_print "    /sdcard/QF_audio_survey/   (${DST_K:-0} KB of ${SRC_K:-0} KB)"
 ui_print " "
-ui_print "  Це конфігураційні файли та значення налаштувань."
-ui_print "  Нікуди не надсилається - лежить у вас."
-ui_print "  Надішліть автору, якщо хочете допомогти з підтримкою"
-ui_print "  вашого набору мікросхем; або просто видаліть теку."
+ui_print "  Configuration files and setting values only."
+ui_print "  Nothing is sent anywhere - it stays on your unit."
+ui_print "  Send it to the author to help support your chip set,"
+ui_print "  or simply delete the folder."
 ui_print "  ---------------------------------------------------"
 ui_print " "
 
@@ -148,10 +148,10 @@ ui_print " "
 PLATFORM=$(getprop ro.board.platform)
 if [ "$PLATFORM" != "ums512" ]; then
     ui_print " "
-    ui_print "  !!! Платформа $PLATFORM - це НЕ UIS7862 (ums512)."
-    ui_print "  !!! BitPerfect поки що лише для UIS7862. UIS8581 не підтримується."
-    ui_print "  !!! Нічого не змінено. Знімок стану в /sdcard/QF_audio_survey/ -"
-    ui_print "  !!! надішліть автору, якщо хочете допомогти з підтримкою."
+    ui_print "  !!! Platform $PLATFORM is NOT UIS7862 (ums512)."
+    ui_print "  !!! BitPerfect is for UIS7862 only. UIS8581 is not supported."
+    ui_print "  !!! Nothing was changed. State snapshot in /sdcard/QF_audio_survey/ -"
+    ui_print "  !!! send it to the author if you want to help with support."
     abort "  BitPerfect: unsupported platform $PLATFORM (UIS7862 / ums512 only)"
 fi
 
@@ -166,10 +166,10 @@ case "$QF_MCU" in QF*|MG*) QF_OK=yes ;; *) QF_OK=no ;; esac
 case "$QF_REV" in QF*|MG*) QF_OK=yes ;; esac
 if [ "$QF_OK" != "yes" ]; then
     ui_print " "
-    ui_print "  !!! Це не магнітола QF (або клон MG): MCU '$QF_MCU', revision '$QF_REV'."
-    ui_print "  !!! BitPerfect лише для прошивки QF / K706 (або клону MG) на UIS7862."
-    ui_print "  !!! Будь-яка інша прошивка - відмова, без винятків."
-    ui_print "  !!! Нічого не змінено. Встановлення на іншу прошивку кладе магнітолу."
+    ui_print "  !!! Not a QF unit (or its MG clone): MCU '$QF_MCU', revision '$QF_REV'."
+    ui_print "  !!! BitPerfect is for QF / K706 firmware (or its MG clone) on UIS7862 only."
+    ui_print "  !!! Any other firmware is refused, no exceptions."
+    ui_print "  !!! Nothing was changed. On other firmware this module bricks the unit."
     abort "  BitPerfect: not a QF/MG unit (MCU '$QF_MCU', revision '$QF_REV')"
 fi
 
@@ -196,15 +196,15 @@ RADIO_CHIP=${HW_CODE:2:1}
 # set_mpu_i2s_property and publishes the result. Prefer its answer, fall back to the suffix.
 I2S_PROP=$(getprop persist.sys.qf.arm.use.i2s)
 
-ui_print "- Виявлено MCU: $MCU_VER"
+ui_print "- MCU detected: $MCU_VER"
 
 # v5.1: say it out loud when the hardware cannot be identified. The fallback is the safe profile,
 # but a silent fallback is how somebody ends up on the wrong audio path with no idea why - and on
 # this platform the wrong path is audible as noise, not as silence.
 if [ -z "$HW_CODE" ]; then
-    ui_print "  !!! УВАГА: persist.sys.qf.mcu.version порожній."
-    ui_print "  !!! Ставлю БЕЗПЕЧНИЙ профіль 16-bit. Якщо у вас BU32107 -"
-    ui_print "  !!! напишіть автору, додамо ваш код заліза."
+    ui_print "  !!! WARNING: persist.sys.qf.mcu.version is empty."
+    ui_print "  !!! Installing the SAFE 16-bit profile. If you have a BU32107,"
+    ui_print "  !!! tell the author and your hardware code will be added."
 fi
 
 mkdir -p "$MODPATH/system/vendor/etc"
@@ -223,14 +223,14 @@ if [ "$SOUND_CHIP" = "1" ]; then
 fi
 
 case "$SOUND_CHIP" in
-    0) CHIP_NAME="ROHM BU32107 (цифровий DSP)" ;;
-    1) CHIP_NAME="ROHM BD37534 (аналоговий процесор)" ;;
-    2) CHIP_NAME="AKM AK7738 (зовнішній DSP)" ;;
-    3) CHIP_NAME="AKM AK7604 (зовнішній DSP)" ;;
-    *) CHIP_NAME="невідомий ($SOUND_CHIP)" ;;
+    0) CHIP_NAME="ROHM BU32107 (digital DSP)" ;;
+    1) CHIP_NAME="ROHM BD37534 (analogue processor)" ;;
+    2) CHIP_NAME="AKM AK7738 (external DSP)" ;;
+    3) CHIP_NAME="AKM AK7604 (external DSP)" ;;
+    *) CHIP_NAME="unknown ($SOUND_CHIP)" ;;
 esac
-ui_print "- Аудіопроцесор: $CHIP_NAME"
-ui_print "- Тракт: $([ "$USE_I2S" = yes ] && echo 'цифровий I2S' || echo 'аналоговий (ЦАП SC2730)')"
+ui_print "- Sound processor: $CHIP_NAME"
+ui_print "- Path: $([ "$USE_I2S" = yes ] && echo 'digital I2S' || echo 'analogue (SC2730 DAC)')"
 
 # system/vendor/etc is built from EMPTY here (owner, 30.09.2026): the zip ships no pre-seeded variant.
 # profiles/<chip>/ carries only what depends on the hardware (audio_pcm.xml and the routes), common/
@@ -263,18 +263,18 @@ drop_route() {
 }
 
 if [ "$USE_I2S" = "yes" ]; then
-    ui_print "- Профіль: 24-bit 48kHz Hi-Fi Bit-to-Bit"
+    ui_print "- Profile: 24-bit 48kHz Hi-Fi Bit-to-Bit"
     cp -rf "$MODPATH/profiles/bu32107_i2s/system/"* "$MODPATH/system/"
     drop_route qf_double_bt_audio_route_noi2s.xml
     drop_route qf_audio_route_no_i2s.xml
 else
-    ui_print "- Профіль: 16-bit Safe BitPerfect (без шуму)"
+    ui_print "- Profile: 16-bit Safe BitPerfect (no noise)"
     cp -rf "$MODPATH/profiles/bd37544_noi2s/system/"* "$MODPATH/system/"
     drop_route qf_double_bt_audio_route_i2s.xml
     drop_route qf_audio_route_has_i2s.xml
 fi
 
-ui_print "- Застосування спільних політик навігації та регулювання..."
+ui_print "- Applying shared navigation and volume policies..."
 cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
 
 # Calls run only on top of BitPerfect: every audio policy and route for calls lives here, the calling
@@ -282,7 +282,7 @@ cp -rf "$MODPATH/common/system/"* "$MODPATH/system/"
 # Contract: C:\APPS_Contacts\BitPerfect--Calling\MODULE_DETECTION_CONTRACT.md
 rm -f "$MODPATH/capabilities" /data/adb/modules/BitPerfect.module/capabilities
 if [ -d /data/adb/modules/qf_cellular_calling_master ] || [ -d /data/adb/modules_update/qf_cellular_calling_master ]; then
-    ui_print "- Модуль дзвінків знайдено: аудіополітику й маршрути дзвінків дає BitPerfect"
+    ui_print "- Calling module found: BitPerfect provides the call audio policy and routes"
 fi
 
 # Platform default volume -> unity, so the first boot after install already comes up at 0 dB.
@@ -301,7 +301,7 @@ mkdir -p /data/adb/post-fs-data.d
 cp -f "$MODPATH/common/bp_guard.sh" /data/adb/post-fs-data.d/bitperfect_guard.sh
 chmod 0755 /data/adb/post-fs-data.d/bitperfect_guard.sh
 rm -f /data/adb/BitPerfect.guard.restored
-ui_print "- Сторож вимкнення/видалення: /data/adb/post-fs-data.d/bitperfect_guard.sh"
+ui_print "- Disable/remove guard: /data/adb/post-fs-data.d/bitperfect_guard.sh"
 
 # v5.1: the NXP branch used to do `setprop persist.sys.navi_volume 15` here. Removed.
 #
@@ -316,11 +316,11 @@ ui_print "- Сторож вимкнення/видалення: /data/adb/post-f
 # If NXP units genuinely need louder prompts - the tuner does run hot - that belongs where the
 # owner can see and change it, not in an installer.
 if [ "$RADIO_CHIP" = "4" ]; then
-    ui_print "- Тюнер: NXP TEF6686 (гарячий вихід)"
-    ui_print "  Якщо підказки навігації тонуть - підніміть їх у налаштуваннях гучності."
+    ui_print "- Tuner: NXP TEF6686 (hot output)"
+    ui_print "  If navigation prompts get lost, raise them in the volume settings."
 fi
 
-ui_print "- Очищення застарілого кешу блобів AGDSP у /data..."
+ui_print "- Clearing the stale AGDSP blob cache in /data..."
 rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 
 # ---------------------------------------------------------------------------
@@ -330,16 +330,16 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 #
 # These binaries are UIS7862 builds; the platform gate at the top of this script stops any other SoC.
 # ---------------------------------------------------------------------------
-ui_print "- UIS7862: латки libaudioclient (джерела 6 і 9) і libaudiopolicymanager (без VoIP-режиму HAL)"
+ui_print "- UIS7862: patched libaudioclient (sources 6 and 9) and libaudiopolicymanager (no HAL VoIP mode)"
 set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
 set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
 chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
 
-ui_print "- Встановлення прав доступу..."
+ui_print "- Setting permissions..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/config" 0 0 0755 0644
 set_perm "$MODPATH/service.sh" 0 0 0755
 
 ui_print "***************************************************"
-ui_print "  Установка успішна! Перезавантажте пристрій.     "
+ui_print "  Installation successful! Reboot the device.     "
 ui_print "***************************************************"
