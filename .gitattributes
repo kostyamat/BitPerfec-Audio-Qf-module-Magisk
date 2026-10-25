@@ -4,3 +4,4 @@
 update-binary text eol=lf
 updater-script text eol=lf
 *.json text eol=lf
+*.md5 text eol=lf
