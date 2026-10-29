@@ -46,12 +46,30 @@
 3. **Порушення ліцензій відкритого коду (GPL Violations):** Використовуючи ядро Linux та модулі, захищені ліцензіями GNU GPL v2/v3, вендор відмовляється публікувати вихідний код ядра та драйверів, порушуючи умови вільного ліцензування (Copyleft) і продаючи закритий комерційний продукт на базі відкритого надбання спільноти.
 4. **Нецільове використання відкритого ПЗ:** Системний фреймворк містить грубі хаки та захардкоджені обмеження, що штучно блокують роботу стандартних Android API.
 
+5. **Другий апарат — те саме, тільки гірше (стенд 194, перевірено 29.10.2026).** Продано як «UIS7862S 8 ядер 2,0 ГГц, 8 ГБ / 128 ГБ, Android 15» за повну ціну, розробникові, якого продавець знав. Насправді:
+   * **ОЗП — 4 ГБ, з них «плюс 4 ГБ» дописано.** Завантажувач читає з розділу `ubootdata` рядок `MemPlus:4G` і додає 4 вигадані гігабайти до обсягу, який передає ядру. Власний журнал завантажувача (`uboot_log`) зберігає заводські завантаження з `MemPlus:4G`. Контролер DRAM (`/proc/sprd_dmc/property`) і `androidboot.ddrsize` кажуть 4096 МБ. Пам'ять — стара LPDDR3 (так звітує сам чип у регістрі MR8), хоча процесор підтримує LPDDR4X.
+   * **Процесор — нижчий сорт, T610, а не 2-гігагерцовий T618/UIS7862S.** Завантажувач розшифровує eFuse кристала власною таблицею `auto.efuse,1:T610,:T618` — тут `T610`. Ядро завантажило таблицю частот саме для T610: обидва кластери до 1,82 ГГц, GPU до 614 МГц (у T618 — 2,0 ГГц і 850 МГц). Лічильник тактів процесора під повним навантаженням показав 1,816 і 1,820 ГГц. «2000000» у `cpuinfo_max_freq` немає в жодній таблиці частот; назву «Unisoc UIS7862S» вписано рядком `/cpuinfo_hardware` у дерево пристроїв.
+   * **Android — 10** (збірка `QP1A.190711.020` — база AOSP від 11.07.2019, патч безпеки 2020-06-05), а показує «15»: число лежить у файлі `/great/protect_dir/version.config`. Прошивка «зібрана» 20.07.2026, але під новою датою — стара основа: жоден із 32 місячних патчів Google для Android 10 не перенесено, ядро 4.14, підтримку якого припинено в січні 2024.
+   * **Флеш 128 ГБ — справжній** (перевірено записом і читанням 102 ГБ без жодної помилки), але чип Samsung виготовлено в березні 2017 року.
+6. **Увесь механізм підробки, знайдений у коді прошивки** (`framework.jar`, `services.jar`, образ завантаження `boot-framework.art`, який zygote вантажить у кожну програму):
+   * `SystemProperties.get("ro.build.version.release")` читає `version.config` і повертає фальшиву версію всім програмам; `QFApi.getFakeAndroidVersion / getFakeSdkVersion / getFakeAndroidYear / getFakeAndroidAliasName` підганяють під неї SDK, рік і кодову назву — аж до «Android 20».
+   * `TextView.convertAndroidVersionText()` переписує текст на екрані програм-перевірок: «Android 10» → «Android N», «Quince Tart» → «Tiramisu», «2019» → «2022», «29» → фальшивий SDK, `API 29 "Q"` → `API 31 "S"`. Список жертв зашито в код і доповнюється з сервера через `fakeSdkIntPkg.ini`: AIDA64, CPU-Z, Geekbench 4–11, Device Info HW (і Pro), DeviceInfo (liuzh), Fake Device Test; у Device Info HW поле з версією Android просто ховається.
+   * `Activity.onCreate()` і `LayoutInflater` переписують `Build.VERSION` усередині Fake Device Test і DeviceInfo; `Instrumentation.execStartActivity()` замість справжнього Fake Device Test запускає підроблену копію `mark.fakedevicetest2` з `/system/etc/preload_apps/fakeDeviceTestModify.xapk`.
+   * `ActivityManagerService.needUseFakeMem()` віддає завищений обсяг ОЗП усім програмам, крім системних і навігації; ядро тримає справжній обсяг у нестандартному рядку `TrueMemTotal`.
+   * `StatFs` (`ProxyStatFs.createAFakeFlash`) готовий підробити й об'єм флешу для `/data` і `/storage/emulated/0` за файлом `/great/protect_dir/flash.config` — на цьому апараті файлу немає.
+   * Для бенчмарків (AnTuTu, Geekbench та ще 16 назв) сервіс продуктивності вмикає окремий режим `POWER_HINT_VENDOR_BENCHMARK`, тож їхні цифри — не ті, що отримує звичайна програма.
+
+   Кожен пункт із командою й виводом показує програма автора **QF TruthCheck**; методи з адресами в коді — у знанні платформи (`qf-platform`, `references/46`).
+
 **Як перевірити самому** (`getprop` читає властивості напряму, повз перехоплювач у Java):
 ```
 adb shell getprop ro.build.version.sdk           # 29 = Android 10
 adb shell getprop ro.build.version.security_patch   # 2020-06-05 — останнє оновлення безпеки
 adb shell getprop persist.sys.qf.build.version   # 13 — звідси «Android 13» на екрані
 adb shell getprop ro.boot.auto.chipid            # UMS512-AC
+adb shell getprop ro.boot.auto.efuse              # T610 — сорт кристала з eFuse (T618 = 2,0 ГГц)
+adb shell su -c cat /great/protect_dir/version.config   # звідки фальшива версія Android
+adb shell su -c "strings /dev/block/by-name/uboot_log | grep MemPlus"   # скільки ГБ ОЗП дописано
 adb shell grep -E 'MemTotal|TrueMemTotal' /proc/meminfo
 ```
 
