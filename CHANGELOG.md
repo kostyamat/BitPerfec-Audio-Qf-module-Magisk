@@ -4,6 +4,8 @@
 Support: https://t.me/kostyamat_dev/3
 
 ## Next
+- Shared microphone (UIS7862 and UIS8581): several apps can record at once (e.g. a dashcam next to wDSP Pro)
+  instead of Android silencing all but the one on top; calls and VoIP capture still take the microphone.
 - BitPerfect Control app inside the module (priv-app): module status, the USB DAC switch, Modern and Hyper styles.
 - UIS8581: reduced profile — navigation ducking, music curve, USB DAC setting; factory 16/44.1 output,
   HAL and calls kept; never run on a unit yet (reports wanted).
