@@ -1,47 +1,34 @@
-# Slice — 31.10.2026, session `3827b401` (Claude): next release ready in git (not built), waiting for a unit
+# Slice — 31.10.2026, session `3827b401` (Claude): DVR mic sharing in progress; next release in git, no unit
 
-**Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
-`bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
-night without permission. Push / release only on the owner's order (`.agents/RELEASE.md`).
+**Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. Announce adb on the board only when another
+line is on the bench. No sound at night without permission. Push / release only on order (`.agents/RELEASE.md`).
+wDSP is now wDSP Pro `com.communityofdevs.wdsp_pro` (BitPerfect names no wDSP package).
 
-**wDSP renamed** (22.10): wDSP Pro, `com.communityofdevs.wdsp_pro` (old `com.radiorubka.wdsp` may coexist). BitPerfect
-names no wDSP package; if a script/whitelist ever does, add the new one.
+**Repo:** `v5.4-repaired` (GitHub default); origin = 23.10, ~27 commits local — push on order. Release v5.6.1 live,
+Magisk `updateJson` live. **Bench `192.168.1.138:9876` DEAD since 25.10** (new unit awaited; last: v5.6.1).
+Firmware for offline work: `D:\Release\update(2)` = QF 7862, `8581_QF005`/`8581_BMW` = 8581, `TS10_*` = Topway.
 
-**Repo:** `v5.4-repaired` (GitHub default branch); origin = 23.10, **26 commits local** (USB DAC, 8581, app, survey v1.4,
-LEGAL.md by another line) — push on order; GitHub release **v5.6.1** (`25b5f8b` = update.json → v5.6.1;
-annotation `.agents/release/v5.6.1_github_release.md`). Magisk `updateJson` live (raw update.json + CHANGELOG.md 200).
-Forum posts (4PDA ru, XDA en) and the annotation: `.agents/release/`. Support group https://t.me/kostyamat_dev/3.
+## ⏳ IN PROGRESS — answer owed to QF_DVR (#1997; room `gemini-window-50b5-mcu-patch`, #2008)
+DVR (session 147a9dc2, contract `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md`) records UNPROCESSED 48k mono
+next to wDSP Pro; Android 10 silences all but the top/latest uid (wDSP `silenced:true`). Owner: «UNPROCESSED ВДСП бере
+завжди. Все решту має сідати до нього ресемплом як клієнт… BitPerfect дозволяє».
+🔬 AOSP 10 `AudioPolicyService::updateUidStates_l`: allowCapture needs `isTopOrLatestActive`; `canCaptureOutput` lifts
+only the call/sensitive clauses. Plan: patch `/system/lib64/libaudiopolicyservice.so` (7862 md5 9138eb08…, 8581
+f08142f6…; stripped — find the function in Ghidra by its logic) to drop the top/latest term, KEEP in-call and
+privacy-sensitive (VOICE_COMMUNICATION / CAMCORDER) silencing; both clients already share `patch:17`. Then: patch tool
+like `tools/patch_libaudiopolicymanager.py`, answer DVR in the room + edit the contract, test on the new unit. Also
+correct Gemini #2009 there: PGA step measured ≈5–6 dB at the top (not 3); with BitPerfect source 9 passes (no forced
+MIC/stereo). First action after a restart: re-arm the board watchman (owner asked twice).
 
-**Bench `192.168.1.138:9876` DEAD since 25.10** (owner waits for a new unit). Last state: BitPerfect **v5.6.1**, calling module v3.8.4, BT dialer v12.
+## Waiting
+- Next release (not built): installer English, USB DAC `usb_dac` (`5c79546`), UIS8581 reduced profile (`4f9fe9e`,
+  `01675f6`), BitPerfect Control v0.1 priv-app (`97bb76f`, `6867601`, emulator only), survey v1.4 mic check
+  (`e0d4559`). All verified offline/emulator only. On the new 7862 unit: install, flag 1, DAC both values, the app.
+- Owner to confirm a SIM call without echo (v5.6.1 fix `58d9759`). SIM AEC leaks phrase ends a little (fine-tune in app).
+- Testers: BD37xxx survey, engine hum via SIM 50 Hz cutoff, navigator reports; owner's MapFactor when ready.
+- Mic defaults (📻 13.10): slider 0..7 ≈5–6 dB/step at the top, 7 = ≈12 dB headroom; AEC reference ADC3 moves only
+  together with the mic ADC2.
 
-## Mic defaults (📻 13.10; owner: «дефолти ми вже знаємо», the user tunes the rest)
-- Codec ADCL/ADCR 0..7 = car-settings slider, ≈ 5–6 dB/step at the top; VBC DG is inverted (0 = max).
-  Phone tone at full volume, slider 7: peak ≈ −12 dBFS — ≈ 12 dB headroom.
-- SIM call 7/7 (mic ADC2 = AEC reference ADC3): no echo; 4/4 — echo; reference apart from the mic — squeaks:
-  **move them together only**. DRC_tx tried — «крошиться», reverted.
-
-## ⏳ Waiting / open
-- 25.10 next release (not built; bench DEAD, owner waits for a new unit; firmware in `D:\Release`: `update(2)` = QF 7862,
-  `8581_QF005`/`8581_BMW` = 8581, `TS10_*` = Topway). In it: installer English (`12a3460`); USB DAC `usb_dac=0/1`
-  in `/sdcard/BitPerfectAudio/bitperfect.conf` (`5c79546`); **UIS8581 reduced profile** (`4f9fe9e`, `01675f6`:
-  factory 16/44.1 + HAL + calls kept, nav policy + music curve only over known-md5 factory files, slider left to
-  the user, no 7862 libs). All checked by an installer simulation in WSL on the firmware trees, not on a unit.
-  On the new 7862 unit: install, reboot, flag 1, DAC with both values. 8581: only with a tester.
-- 26.10 BitPerfect Control v0.1 in the module (`97bb76f` app, `6867601` priv-app + `common/bp_ctl.sh`): status,
-  USB DAC, Modern + Hyper styles, support badge; emulator only (owner's AVD `emulator-5554`, Android 11, no root).
-  Next: navigators service, mic/AEC/NR per mode (TODO §3).
-- 25.10 survey tool v1.4 (`e0d4559`): mic check — source, HAL mode, on 8581 HAL dumps before/after NR
-  (`media.dump.switch=0xe800` via the mmi.audio.ctrl FIFO, ~10 s, restored). For 8581 testers first.
-- 23.10 v5.6.1 on the bench and released (policy check polls `58d9759`, QF/MG gate, updateJson). Owner to
-  confirm a SIM call (echo gone?).
-- Testers: BD37xxx survey (24/48 into the SC2730 DAC not yet seen on a BD unit); engine hum through the SIM
-  50 Hz cutoff (in a car); navigator reports.
-- Owner's «strange navigator» (MapFactor, was installing maps and loading the disk 15.10): watch logcat
-  (focus, AudioTrack, getOutput) when he says it is ready.
-- SIM: echo cancelling leaks the ends of the far end's phrases a little — owner: «Точну підстройку зробимо в програмі».
-
-## 📋 Next — order from the owner (15.10), details in `.agents/TODO.md`
-1. Testers: feedback and logs on v5.6/v5.6.1 (BD37xxx, navigators, engine hum) — the open items above.
-2. UIS8581: reduced profile done (25.10); next only with a tester — mic in /data audio_para (TODO §2).
-3. Then BitPerfect Control: per-mode mic, SIM AEC fine-tuning; the AEC reference always moves with the mic.
-4. EQ for wDSP (plan #1703, ResonanceFX C++ core idea, owner 19.10) — details in `.agents/TODO.md` §4.
+## 📋 Next (owner 15.10; `.agents/TODO.md`)
+1. Testers' feedback and logs. 2. UIS8581: mic via `/data` audio_para — only with a tester (TODO §2).
+3. BitPerfect Control: navigators service, per-mode mic, AEC/NR/AGC (TODO §3). 4. EQ for wDSP (TODO §4).
