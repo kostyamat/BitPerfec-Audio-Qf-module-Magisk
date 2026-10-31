@@ -295,7 +295,8 @@ else
 # ---------------------------------------------------------------------------
 ui_print "- UIS8581: factory 16-bit / 44.1 kHz output kept (44.1 music is not resampled)"
 rm -f "$MODPATH/system/lib/libaudioclient.so" "$MODPATH/system/lib64/libaudioclient.so"       "$MODPATH/system/lib64/libaudiopolicymanager.so"
-rmdir "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
+rmdir "$MODPATH/system/lib" 2>/dev/null
+cp -f "$MODPATH/profiles/sp9863a/system/lib64/libaudiopolicyservice.so" "$MODPATH/system/lib64/"
 NAV_FILES=0
 while read -r SUM NAME; do
     [ -n "$NAME" ] || continue
@@ -387,12 +388,19 @@ rm -f /data/vendor/local/media/audio_params/* 2>/dev/null
 #
 # These binaries are UIS7862 builds; the platform gate at the top of this script stops any other SoC.
 # ---------------------------------------------------------------------------
+#
+# Both SoCs: libaudiopolicyservice.so, the SoC's own build (8581 copied from profiles/sp9863a above) -
+# capture apps share the microphone instead of all but the top/latest one being silenced; calls and
+# privacy-sensitive sources still silence. tools/patch_libaudiopolicyservice.py.
+# ---------------------------------------------------------------------------
 if [ "$BP_SOC" = "7862" ]; then
 ui_print "- UIS7862: patched libaudioclient (sources 6 and 9) and libaudiopolicymanager (no HAL VoIP mode)"
 set_perm_recursive "$MODPATH/system/lib" 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
-chcon u:object_r:system_file:s0 "$MODPATH/system/lib" "$MODPATH/system/lib64" 2>/dev/null
+chcon u:object_r:system_file:s0 "$MODPATH/system/lib" 2>/dev/null
 fi
+ui_print "- Shared microphone: patched libaudiopolicyservice (apps record side by side)"
+set_perm_recursive "$MODPATH/system/lib64" 0 0 0755 0644 u:object_r:system_lib_file:s0
+chcon u:object_r:system_file:s0 "$MODPATH/system/lib64" 2>/dev/null
 
 ui_print "- BitPerfect Control app: /system/priv-app/BitPerfectControl"
 set_perm_recursive "$MODPATH/system/priv-app" 0 0 0755 0644 u:object_r:system_file:s0
