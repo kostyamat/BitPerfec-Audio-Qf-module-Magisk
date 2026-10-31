@@ -20,7 +20,7 @@ Firmware for offline work: `D:\Release\update(2)` = QF 7862, `8581_QF005`/`8581_
 Patched `libaudiopolicyservice.so` shipped as files (owner: «просто латану в модуль, все» — no install-time md5):
 `system/lib64` (7862), `profiles/sp9863a/system/lib64` (8581, copied by customize.sh). Tool
 `tools/patch_libaudiopolicyservice.py`. Contract `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` has the
-answer; DVR told (board #2015). 🔬 QF already treats source MIC as virtual.
+answer; DVR told (board #2018, full answer + test steps; waiting for its stand result). 🔬 QF already treats source MIC as virtual.
 Still owed in room `gemini-window-50b5-mcu-patch`: correct Gemini #2009 — PGA step ≈5–6 dB at the top (not 3); with
 BitPerfect source 9 passes (no forced MIC/stereo).
 
