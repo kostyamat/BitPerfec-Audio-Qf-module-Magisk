@@ -1,4 +1,4 @@
-# Slice — 25.10.2026, session `3827b401` (Claude): v5.6.1 released, waiting for testers
+# Slice — 31.10.2026, session `3827b401` (Claude): next release ready in git (not built), waiting for a unit
 
 **Owner's brief:** NR and AEC for SIM/BT calls, a clean mic for wDSP/AI. BitPerfect is mine; I run the room
 `bitperfect-control-qfphone-rokoai`. Announce adb on the board only when another line is on the bench. No sound at
@@ -7,12 +7,12 @@ night without permission. Push / release only on the owner's order (`.agents/REL
 **wDSP renamed** (22.10): wDSP Pro, `com.communityofdevs.wdsp_pro` (old `com.radiorubka.wdsp` may coexist). BitPerfect
 names no wDSP package; if a script/whitelist ever does, add the new one.
 
-**Repo:** `v5.4-repaired` (GitHub default branch), pushed 23.10 (only slice/TODO doc commits local — push on order); GitHub release **v5.6.1** (`25b5f8b` = update.json → v5.6.1;
+**Repo:** `v5.4-repaired` (GitHub default branch); origin = 23.10, **26 commits local** (USB DAC, 8581, app, survey v1.4,
+LEGAL.md by another line) — push on order; GitHub release **v5.6.1** (`25b5f8b` = update.json → v5.6.1;
 annotation `.agents/release/v5.6.1_github_release.md`). Magisk `updateJson` live (raw update.json + CHANGELOG.md 200).
 Forum posts (4PDA ru, XDA en) and the annotation: `.agents/release/`. Support group https://t.me/kostyamat_dev/3.
 
-**Bench `192.168.1.138:9876`** (address moves — scan 9876): BitPerfect **v5.6.1**, calling module v3.8.4, BT dialer
-v12 (its session), patched QF Framework and SystemUI (their own sessions now).
+**Bench `192.168.1.138:9876` DEAD since 25.10** (owner waits for a new unit). Last state: BitPerfect **v5.6.1**, calling module v3.8.4, BT dialer v12.
 
 ## Mic defaults (📻 13.10; owner: «дефолти ми вже знаємо», the user tunes the rest)
 - Codec ADCL/ADCR 0..7 = car-settings slider, ≈ 5–6 dB/step at the top; VBC DG is inverted (0 = max).
