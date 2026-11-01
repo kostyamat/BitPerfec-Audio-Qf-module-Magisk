@@ -399,6 +399,20 @@ set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/config" 0 0 0755 0644
 set_perm "$MODPATH/service.sh" 0 0 0755
 
+# The Magisk app decides whether this works at all (owner 02.11.2026): said loudly, never refused. A hidden app
+# (another package name) says nothing here. The BitPerfect Control app says the same when it has no root.
+BP_MAGISK_APP=$(dumpsys package com.topjohnwu.magisk 2>/dev/null | sed -n 's/.*versionCode=\([0-9]*\).*/\1/p' | sed -n 1p)
+if [ -n "$BP_MAGISK_APP" ] && [ "$BP_MAGISK_APP" != 30600 ]; then
+    ui_print " "
+    ui_print "  !!! Magisk app version code $BP_MAGISK_APP. Use Magisk app 30.6."
+    if [ "$BP_MAGISK_APP" -gt 30600 ]; then
+        ui_print "  !!! 31.1 and later give apps no root on a kernel patched with Magisk 27."
+    else
+        ui_print "  !!! An older app may not install this module completely: install again from 30.6."
+    fi
+    ui_print " "
+fi
+
 ui_print "***************************************************"
 ui_print "  Installation successful! Reboot the device.     "
 ui_print "***************************************************"
