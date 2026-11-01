@@ -76,7 +76,7 @@ public final class ModuleControl {
         return run("usb_curve " + curve);
     }
 
-    private static final Pattern USB_CURVE = Pattern.compile("default|[0-9]{1,3}(,[0-9]{1,3}){4}");
+    private static final Pattern USB_CURVE = Pattern.compile("default|[0-9]{1,3}(\\.[0-9]{1,3})?(,[0-9]{1,3}(\\.[0-9]{1,3})?){4}");
     private static final Pattern USB_MODE = Pattern.compile("auto|S(16|24|32)_(3)?LE/[0-9]{4,6}");
 
     /** {@code mic} lines: "channel gain_db aec nr nr_depth" (SIM, VOIP, BT; UIS7862 only; nr_depth 0 = BitPerfect's). */

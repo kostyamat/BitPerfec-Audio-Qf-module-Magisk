@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Bu DAC için ses eğrisi</string>
     <string name="dac_curve_note">Teyp düğmesinin her konumunun DAC uzerindeki yeri. Müzik çalarken kulakla ayarlayın: hemen uygulanır.</string>
     <string name="dac_curve_now">Şimdi: düğme %1$s, DAC adımı %2$s / %3$s</string>
-    <string name="dac_curve_point">Düğme %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Düğme %1$d: %2$s%%</string>
     <string name="dac_curve_default">Sıfırla</string>
 </resources>

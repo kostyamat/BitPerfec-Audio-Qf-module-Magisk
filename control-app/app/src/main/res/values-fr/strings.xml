@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Courbe de volume pour ce DAC</string>
     <string name="dac_curve_note">Où chaque position du bouton de l\'autoradio se place sur le DAC. Ajustez à l\'oreille en musique : effet immédiat.</string>
     <string name="dac_curve_now">Actuel : bouton %1$s, pas du DAC %2$s sur %3$s</string>
-    <string name="dac_curve_point">Bouton %1$d : %2$d%%</string>
+    <string name="dac_curve_point">Bouton %1$d : %2$s%%</string>
     <string name="dac_curve_default">Réinitialiser</string>
 </resources>

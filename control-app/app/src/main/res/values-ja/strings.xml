@@ -141,6 +141,6 @@
     <string name="dac_curve_title">このDACのボリュームカーブ</string>
     <string name="dac_curve_note">ヘッドユニットのツマミの各位置がDACのどこに当たるか。音楽を聴きながら耳で調整：すぐに適用されます。</string>
     <string name="dac_curve_now">現在：ノブ %1$s、DACステップ %2$s / %3$s</string>
-    <string name="dac_curve_point">ノブ %1$d: %2$d%%</string>
+    <string name="dac_curve_point">ノブ %1$d: %2$s%%</string>
     <string name="dac_curve_default">リセット</string>
 </resources>

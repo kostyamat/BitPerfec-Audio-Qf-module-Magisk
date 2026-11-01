@@ -150,6 +150,6 @@
     <string name="dac_curve_title">Volume curve for this DAC</string>
     <string name="dac_curve_note">Where each position of the head unit knob lands on the DAC. Tune it by ear with music on: it applies at once.</string>
     <string name="dac_curve_now">Now: knob %1$s, DAC step %2$s of %3$s</string>
-    <string name="dac_curve_point">Knob %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Knob %1$d: %2$s%%</string>
     <string name="dac_curve_default">Reset</string>
 </resources>

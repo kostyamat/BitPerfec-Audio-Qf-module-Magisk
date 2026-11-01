@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Крива гучності для цього ЦАПа</string>
     <string name="dac_curve_note">Куди на ЦАПі потрапляє кожне положення ручки магнітоли. Налаштовуйте на слух під музику: застосовується одразу.</string>
     <string name="dac_curve_now">Зараз: ручка %1$s, крок ЦАПа %2$s із %3$s</string>
-    <string name="dac_curve_point">Ручка %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Ручка %1$d: %2$s%%</string>
     <string name="dac_curve_default">Скинути</string>
 </resources>

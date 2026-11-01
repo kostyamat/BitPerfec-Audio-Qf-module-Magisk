@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Hangerőgörbe ehhez a DAC-hoz</string>
     <string name="dac_curve_note">Hová esik a fejegység gombjának egyes állásai a DAC-on. Állítsa be fülre zene mellett: azonnal érvénybe lép.</string>
     <string name="dac_curve_now">Most: gomb %1$s, DAC lépés %2$s / %3$s</string>
-    <string name="dac_curve_point">Gomb %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Gomb %1$d: %2$s%%</string>
     <string name="dac_curve_default">Alaphelyzet</string>
 </resources>

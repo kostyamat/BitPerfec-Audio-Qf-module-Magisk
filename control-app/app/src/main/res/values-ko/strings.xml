@@ -141,6 +141,6 @@
     <string name="dac_curve_title">이 DAC의 볼륨 커브</string>
     <string name="dac_curve_note">헤드 유닛 노브의 각 위치가 DAC에서 어디에 해당하는지 설정합니다. 음악을 들으며 귀로 맞추세요: 즉시 적용됩니다.</string>
     <string name="dac_curve_now">현재: 노브 %1$s, DAC 단계 %2$s / %3$s</string>
-    <string name="dac_curve_point">노브 %1$d: %2$d%%</string>
+    <string name="dac_curve_point">노브 %1$d: %2$s%%</string>
     <string name="dac_curve_default">초기화</string>
 </resources>

@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Силова крива за този ЦАП</string>
     <string name="dac_curve_note">Къде всяка позиция на копчето на радиото съответства на ЦАП. Настройте на слух с музика: прилага се веднага.</string>
     <string name="dac_curve_now">Сега: копче %1$s, стъпка на ЦАП %2$s от %3$s</string>
-    <string name="dac_curve_point">Копче %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Копче %1$d: %2$s%%</string>
     <string name="dac_curve_default">Нулиране</string>
 </resources>

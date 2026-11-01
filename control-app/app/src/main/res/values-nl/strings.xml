@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Volumecurve voor deze DAC</string>
     <string name="dac_curve_note">Waar elke stand van de autoradioknop op de DAC landt. Stel op het geor af met muziek: werkt direct.</string>
     <string name="dac_curve_now">Nu: knop %1$s, DAC-stap %2$s van %3$s</string>
-    <string name="dac_curve_point">Knop %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Knop %1$d: %2$s%%</string>
     <string name="dac_curve_default">Reset</string>
 </resources>

@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Καμπύλη έντασης για αυτό το DAC</string>
     <string name="dac_curve_note">Πού προσγειώνεται κάθε θέση του κουμπιού του ραδιοφώνου στο DAC. Ρυθμίστε το με το αυτί με μουσική: εφαρμόζεται αμέσως.</string>
     <string name="dac_curve_now">Τώρα: κουμπί %1$s, βήμα DAC %2$s από %3$s</string>
-    <string name="dac_curve_point">Κουμπί %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Κουμπί %1$d: %2$s%%</string>
     <string name="dac_curve_default">Επαναφορά</string>
 </resources>

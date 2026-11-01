@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Кривая громкости для этого ЦАП</string>
     <string name="dac_curve_note">Куда попадает каждое положение ручки магнитолы на ЦАП. Настройте на слух под музыку: применяется сразу.</string>
     <string name="dac_curve_now">Сейчас: ручка %1$s, шаг ЦАП %2$s из %3$s</string>
-    <string name="dac_curve_point">Ручка %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Ручка %1$d: %2$s%%</string>
     <string name="dac_curve_default">Сброс</string>
 </resources>

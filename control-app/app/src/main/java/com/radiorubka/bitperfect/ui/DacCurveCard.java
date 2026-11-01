@@ -12,13 +12,15 @@ import com.radiorubka.bitperfect.core.ModuleControl;
 import com.radiorubka.bitperfect.ui.theme.ToggleStyler;
 import com.radiorubka.bitperfect.ui.theme.TouchGlow;
 
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 
 /**
  * Where each position of the head unit's knob lands on this DAC's own volume scale. Every DAC has its own steps and
  * its own feel (owner 02.11: «у мене початок не чутливий, у гось таке буде в кінці. А в когось лінія»), so the module
  * keeps a curve per DAC model ({@code bp_ctl.sh usb_curve}, common/bp_usbvol.sh). A change applies at once, nothing
- * restarts, so the person can tune it by ear with music on; a slider is sent when it is let go.
+ * restarts, so the person can tune it by ear with music on; a slider is sent when it is let go. Moving one point
+ * carries the others along smoothly, and two points never share a level (owner 02.11).
  */
 public final class DacCurveCard {
 
@@ -32,6 +34,9 @@ public final class DacCurveCard {
     private final TextView[] tvPoint = new TextView[KNOB.length];
     private final SeekBar[] sb = new SeekBar[KNOB.length];
     private final Runnable changed;
+    private static final int SCALE = 1000; // a slider holds tenths of a percent
+    private final int[] atStart = new int[KNOB.length];
+    private int top = 100;
     private boolean dragging;
 
     public DacCurveCard(Activity act, ExecutorService io, Runnable changed) {
@@ -49,25 +54,26 @@ public final class DacCurveCard {
             tvPoint[i] = new TextView(act, null, 0, R.style.BpCardNote);
             rows.addView(tvPoint[i]);
             sb[i] = new SeekBar(act);
-            sb[i].setMax(100);
+            sb[i].setMax(SCALE);
             rows.addView(sb[i]);
             sb[i].setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar s, int p, boolean fromUser) {
-                    if (fromUser) keepRising(at);
+                    if (fromUser && dragging) carry(at, p);
                     label();
                 }
 
                 @Override
                 public void onStartTrackingTouch(SeekBar s) {
                     dragging = true;
+                    for (int j = 0; j < sb.length; j++) atStart[j] = sb[j].getProgress();
                 }
 
                 @Override
                 public void onStopTrackingTouch(SeekBar s) {
                     dragging = false;
                     StringBuilder c = new StringBuilder();
-                    for (int j = 0; j < sb.length; j++) c.append(j == 0 ? "" : ",").append(sb[j].getProgress());
+                    for (int j = 0; j < sb.length; j++) c.append(j == 0 ? "" : ",").append(percent(sb[j].getProgress()));
                     send(c.toString());
                 }
             });
@@ -80,27 +86,48 @@ public final class DacCurveCard {
         if (!show || dragging) return;
         String[] c = r.get("usb_curve").trim().split("\\s+");
         if (c.length == KNOB.length) {
-            for (int i = 0; i < KNOB.length; i++) sb[i].setProgress(Integer.parseInt(c[i]));
+            for (int i = 0; i < KNOB.length; i++) sb[i].setProgress(Math.round(Float.parseFloat(c[i]) * SCALE / 100));
         }
         label();
         String[] now = r.get("usb_dac_level").trim().split("\\s+");
         tvNow.setText(now.length == 3 ? act.getString(R.string.dac_curve_now, now[0], now[1], now[2]) : "");
+        if (now.length == 3) top = Math.max(1, Integer.parseInt(now[2]));
     }
 
     public void applyTheme() {
         ToggleStyler.apply(btnDefault);
     }
 
-    /** A curve never falls: a slider pushes its neighbours along. */
-    private void keepRising(int at) {
-        int v = sb[at].getProgress();
-        for (int i = at + 1; i < sb.length; i++) if (sb[i].getProgress() < v) sb[i].setProgress(v);
-        for (int i = at - 1; i >= 0; i--) if (sb[i].getProgress() > v) sb[i].setProgress(v);
+    /**
+     * Point {@code at} dragged to {@code to}: the points on each side keep their shape, squeezed or stretched between
+     * it and the far end, measured from where they stood when the finger came down. Neighbours stay at least one
+     * step of this DAC apart.
+     */
+    private void carry(int at, int to) {
+        int n = sb.length, last = n - 1;
+        int gap = Math.max(SCALE / top + 1, 5);
+        int first = atStart[0], end = atStart[last];
+        int lo = at == 0 ? 0 : first + at * gap;
+        int hi = at == last ? SCALE : end - (last - at) * gap;
+        int p = Math.max(lo, Math.min(hi, to));
+        int[] v = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (i == at) v[i] = p;
+            else if (i < at) v[i] = first + Math.round((atStart[i] - first) * (float) (p - first) / (atStart[at] - first));
+            else v[i] = p + Math.round((atStart[i] - atStart[at]) * (float) (end - p) / (end - atStart[at]));
+        }
+        for (int i = at + 1; i < n; i++) v[i] = Math.max(v[i], v[i - 1] + gap);
+        for (int i = at - 1; i >= 0; i--) v[i] = Math.min(v[i], v[i + 1] - gap);
+        for (int i = 0; i < n; i++) sb[i].setProgress(v[i]);
+    }
+
+    private static String percent(int progress) {
+        return String.format(Locale.US, "%.1f", progress * 100f / SCALE);
     }
 
     private void label() {
         for (int i = 0; i < KNOB.length; i++) {
-            tvPoint[i].setText(act.getString(R.string.dac_curve_point, KNOB[i], sb[i].getProgress()));
+            tvPoint[i].setText(act.getString(R.string.dac_curve_point, KNOB[i], percent(sb[i].getProgress())));
         }
     }
 

@@ -141,6 +141,6 @@
     <string name="dac_curve_title">Curva de volume para este DAC</string>
     <string name="dac_curve_note">Onde cada posição do botão do rádio cai no DAC. Ajuste de ouvido com música: aplica-se imediatamente.</string>
     <string name="dac_curve_now">Agora: botão %1$s, passo do DAC %2$s de %3$s</string>
-    <string name="dac_curve_point">Botão %1$d: %2$d%%</string>
+    <string name="dac_curve_point">Botão %1$d: %2$s%%</string>
     <string name="dac_curve_default">Redefinir</string>
 </resources>

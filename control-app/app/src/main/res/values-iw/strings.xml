@@ -141,6 +141,6 @@
     <string name="dac_curve_title">עקומת עוצמת קול עבור DAC זה</string>
     <string name="dac_curve_note">היכן נוחת כל מצב של כפתור הרדיו על הממיר (DAC). כוונו לפי אוזן בזמן השמעת מוזיקה: חל מיד.</string>
     <string name="dac_curve_now">כעת: כפתור %1$s, שלב DAC %2$s מתוך %3$s</string>
-    <string name="dac_curve_point">כפתור %1$d: %2$d%%</string>
+    <string name="dac_curve_point">כפתור %1$d: %2$s%%</string>
     <string name="dac_curve_default">איפוס</string>
 </resources>

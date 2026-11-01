@@ -141,6 +141,6 @@
     <string name="dac_curve_title">此DAC的音量曲线</string>
     <string name="dac_curve_note">head unit 音量旋钮的每一格对应 DAC 的位置。放音乐时用耳朵微调：立即生效。</string>
     <string name="dac_curve_now">当前：旋钮 %1$s，DAC步数 %2$s / %3$s</string>
-    <string name="dac_curve_point">旋钮 %1$d：%2$d%%</string>
+    <string name="dac_curve_point">旋钮 %1$d：%2$s%%</string>
     <string name="dac_curve_default">重置</string>
 </resources>
