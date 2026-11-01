@@ -1,4 +1,4 @@
-# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.2 on stand 194 — own navigators, live path, shared mic in force
+# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.4 on stand 194 — DAC mode in app, own navigators, shared mic in force
 
 **v5.7.2-Universal (5702), commit `cea3c59`** — test build, not a release (no tag, `update.json` still 5.6.1).
 Installed on **stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107). Stand is shared with QF_DVR
@@ -24,9 +24,10 @@ reboot only `svc power reboot`, `working`/`done` on the board, each line touches
 ## ⏳ In progress — DAC mode (owner 01.11: DAC first, then mic)
 Module side on stand 194 in **v5.7.3** (`33f09b8`, `0535267`): `usb_dac_mode=auto|FORMAT/RATE`, `bp_ctl.sh usb_mode`,
 status `card=` / `usb_caps=` / `usb_mode=`. 📻 PCM2704: auto → USB out 48000/16; `S16_LE/44100` → 44100/16; back to
-auto → 48000 (conf left `auto`). Next: the app — USB card with the DAC's own name + id, a mode picker from
-`usb_caps` (stereo only), the path note names the card. My first write of that card was stopped by the safety
-filter (01.11) — whoever picks it up writes it fresh from this description.
+auto → 48000 (conf left `auto`). App part in **v5.7.4** (`90bfacd`, `b6e75c2`) on stand 194: USB card shows
+«Підключено: Burr-Brown from TI USB Audio DAC (08bb:2704) / Заявляє: S16_LE, 2 ch, 32000,44100,48000; …», button
+«Режим ЦАП» (Auto + the DAC's stereo modes), the «Playing» note names the card. ⏳ Owner to try the picker; the
+«declares» line is raw — make it human (16-bit stereo: 32 / 44.1 / 48 kHz) if he wants.
 📻 01.11 04:34 stand hung half-shut: DVR's ACTION_SHUTDOWN receiver timed out (25 s), lowLevelReboot failed, init in
 D state with `ntfs3g` (NTFS stick) — `svc`/`adb reboot` useless; recovered by sysrq s→u→b. DVR told (#2037).
 Then the mic block (TODO §3): per-mode gain, NR/AEC switches, AEC auto-calibration per mode, NR curve presets.
