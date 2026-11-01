@@ -8,9 +8,11 @@
 #                     restart audioserver when it changed (prints usb_result=changed|same|unsupported)
 #   usb_mode <auto|FORMAT/RATE>   set usb_dac_mode (e.g. S16_LE/44100, as the DAC declares it) and the USB
 #                     policy; restarts audioserver when USB is on (usb_mode_result=changed|saved|same|bad_value)
-#   mic show | mic set <SIM|VOIP|BT> <gain_db|aec|nr> [value]   the user's call-mic settings (UIS7862,
-#                     common/bp_mic.sh); set rebuilds the AGDSP XML and restarts audioserver, never during a
-#                     call (mic_result=changed|same|saved_in_call|bad_value)
+#   mic show | mic set <SIM|VOIP|BT> <gain_db|aec|nr|nr_depth> [value] | mic reset <channel>
+#   mic preset list | mic preset <save|load|del> <name>
+#                     the user's call-mic settings (UIS7862, common/bp_mic.sh); a change rebuilds the AGDSP XML
+#                     and restarts audioserver, never during a call
+#                     (mic_result=changed|same|saved_in_call|saved|bad_value|no_preset; preset=<name> per line)
 #   navi list         navi=<package> <adjust> <mix> <factory|bitperfect|user>, one per navigator
 #   navi set <pkg> <true|false> <appset|0-100>   / navi del <pkg>
 #                     edit the user's navigators.conf and rebuild the live list (prints
@@ -50,6 +52,17 @@ bp_restart_audioserver() {
         [ -n "$NEW" ] && [ "$NEW" != "$OLD" ] && service check media.audio_policy | grep -q ': found' && break
     done
     sleep 1
+}
+
+# Rebuild the call-mic XML from mic.conf and restart audioserver - but a call would not survive the restart:
+# then the setting is only kept, and applied after the call (next change) or at boot (service.sh).
+bp_mic_apply() {
+    if [ "$(getprop sys.qf.call_state)" = true ]; then echo "mic_result=saved_in_call"; return 0; fi
+    bp_mic_build "$MODDIR"
+    case $? in
+        0) bp_restart_audioserver; echo "mic_result=changed" ;;
+        *) echo "mic_result=same" ;;
+    esac
 }
 
 case "$1" in
@@ -111,17 +124,34 @@ case "$1" in
         esac
         ;;
     mic)
-        # mic show: mic=<channel> <gain_db> <aec> <nr>   mic set <channel> <control> [value]  (no value = default)
+        # mic show: mic=<channel> <gain_db> <aec> <nr> <nr_depth>   mic set <channel> <control> [value]
+        # (no value = BitPerfect's)
         case "$2" in
             show) bp_mic_show | while read -r l; do echo "mic=$l"; done ;;
             set)
                 bp_mic_set "$3" "$4" "$5" || { echo "mic_result=bad_value"; exit 1; }
-                # a call would not survive the restart: keep the setting, apply after the call / at boot
-                if [ "$(getprop sys.qf.call_state)" = true ]; then echo "mic_result=saved_in_call"; exit 0; fi
-                bp_mic_build "$MODDIR"
-                case $? in
-                    0) bp_restart_audioserver; echo "mic_result=changed" ;;
-                    *) echo "mic_result=same" ;;
+                bp_mic_apply ;;
+            reset)
+                bp_mic_reset "$3" || { echo "mic_result=bad_value"; exit 1; }
+                bp_mic_apply ;;
+            preset)
+                case "$3" in
+                    list) bp_mic_preset list | while read -r l; do echo "preset=$l"; done ;;
+                    save|del)
+                        bp_mic_preset "$3" "$4"
+                        case $? in
+                            0) echo "mic_result=saved" ;;
+                            3) echo "mic_result=no_preset" ;;
+                            *) echo "mic_result=bad_value"; exit 1 ;;
+                        esac ;;
+                    load)
+                        bp_mic_preset load "$4"
+                        case $? in
+                            0) bp_mic_apply ;;
+                            3) echo "mic_result=no_preset" ;;
+                            *) echo "mic_result=bad_value"; exit 1 ;;
+                        esac ;;
+                    *) echo "mic_result=bad_value"; exit 1 ;;
                 esac
                 ;;
             *) echo "mic_result=bad_value"; exit 1 ;;
