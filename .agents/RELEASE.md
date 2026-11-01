@@ -7,8 +7,8 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   refuses anything whose `persist.sys.qf.mcu.version` / `ro.boot.hardware.revision` does not start `QF`/`MG`.
 - 🔴 **UIS7862 full, UIS8581 reduced** (owner 25.10: «давай порт на 8581… уважно, і по наітію» — superseded the
   v5.6 rule «з вказівками НЕ для 8581»). Public texts say which: 8581 is 🧪 until a tester reports. Gate:
-  `customize.sh` (`ums512` / `sp9863a`). 8581 files are rebuilt with `tools/build_8581_profile.py` and applied only
-  over factory files with the md5 in `profiles/sp9863a/factory.md5`.
+  `customize.sh` (`ums512` / `sp9863a`). 8581 files are rebuilt with `tools/build_8581_profile.py` and applied as they
+  are on every 8581 firmware (owner 02.11: «Для 85-81 все аналогично»).
 - Version: `vX.Y-Universal` in `module.prop`; versionCode `XYZZ` (v5.5.17 = 5517, v5.6 = 5600). Bump only on a
   build that goes OUT — to testers or a release — in its own `release:` commit (module.prop only). Working builds for
   the bench keep the current version: Magisk installs the same version over itself (owner 01.11.2026: «ти так скоро

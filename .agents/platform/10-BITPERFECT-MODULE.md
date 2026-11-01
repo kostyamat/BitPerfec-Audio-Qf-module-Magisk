@@ -971,7 +971,7 @@ cannot tell those apart must not guess: a value is not an event.
 ## UIS8581 profile — what was ported and why (BitPerfect line, 25.10.2026)
 
 - 🔬 `8581_QF005` and `8581_BMW` have byte-identical `audio_policy_engine_product_strategies.xml`,
-  `audio_policy_engine_stream_volumes.xml`, `audio_policy_volumes.xml` (md5 in `profiles/sp9863a/factory.md5`).
+  `audio_policy_engine_stream_volumes.xml`, `audio_policy_volumes.xml` (md5 9c68cd54…, 33ac1226…, 8187dfe2…).
 - 🔬 vs the 7862 factory: same STRATEGY_MEDIA structure (no STRATEGY_FM on 8581); voice_call `indexMax` 7 (7862: 15)
   and other voice_call / system SPEAKER curves. So only the navigation move (NAVIGATION_GUIDANCE + ASSISTANT,
   MUSIC → SYSTEM group) and the MUSIC/SPEAKER curve were ported (`tools/build_8581_profile.py`); voice_call and system
