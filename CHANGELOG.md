@@ -5,7 +5,7 @@ Support: https://t.me/kostyamat_dev/3
 
 ## v5.7.5
 Guide with pictures: docs/GUIDE.en.md · docs/GUIDE.uk.md
-- BitPerfect Control, the settings app inside the module: what is playing and where, settings in tabs.
+- BitPerfect Control, the settings app inside the module: what is playing and where, settings in tabs; 25 languages.
 - USB DAC: Head unit / USB DAC switch works at once (no replug, no reboot); full scale from Android, level on the
   DAC's own control, optionally following the head unit's knob; DAC mode from its own format list; silent while the
   ignition is off (no more beeping from the sleep countdown).

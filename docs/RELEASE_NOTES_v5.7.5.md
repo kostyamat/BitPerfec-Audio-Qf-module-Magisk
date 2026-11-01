@@ -4,6 +4,7 @@
 
 **BitPerfect Control — the settings app inside the module**
 - Status: the chip, what is really playing and where (head unit or USB DAC, bits, rate), whether the module confirmed itself this boot. Settings in tabs: USB DAC, Microphone, Navigators, Look.
+- 25 languages: English, Ukrainian, Arabic, Bulgarian, Chinese (Simplified, Traditional), Czech, Dutch, French, German, Greek, Hebrew, Hungarian, Italian, Japanese, Korean, Polish, Portuguese (PT, BR), Romanian, Russian, Slovak, Spanish (ES, AR), Turkish.
 
 **USB DAC**
 - Switching Head unit ↔ USB DAC works at once — no replugging, no reboot.
@@ -25,4 +26,4 @@ Installer output and logs are in English. Your settings live in `/sdcard/BitPerf
 
 🔴 **Лише QF / K706 (або клон MG).** UIS7862 — повний модуль, UIS8581 — зменшений профіль 🧪 (звітів тестерів ще нема).
 
-Нове: програма налаштувань **BitPerfect Control** у модулі (стан, що й куди грає, вкладки). **USB-ЦАП** перемикається одразу, без перепідключення; Android віддає ЦАПу повну шкалу, гучність — власним регулятором ЦАПа, за бажанням за ручкою магнітоли; ЦАП мовчить при вимкненому запалюванні (більше ніякого пікання відліку сну). **Мікрофон дзвінків** окремо для SIM, VoIP і Bluetooth: рівень, ехозаглушення, шумодав і його глибина, пресети. **Спільний мікрофон** — кілька програм пишуть одночасно (реєстратор поруч із wDSP Pro). Власні **навігатори**. Посібник із картинками — [українською](https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/blob/main/docs/GUIDE.uk.md). Відгуки — https://t.me/kostyamat_dev/3.
+Нове: програма налаштувань **BitPerfect Control** у модулі (стан, що й куди грає, вкладки; 25 мов). **USB-ЦАП** перемикається одразу, без перепідключення; Android віддає ЦАПу повну шкалу, гучність — власним регулятором ЦАПа, за бажанням за ручкою магнітоли; ЦАП мовчить при вимкненому запалюванні (більше ніякого пікання відліку сну). **Мікрофон дзвінків** окремо для SIM, VoIP і Bluetooth: рівень, ехозаглушення, шумодав і його глибина, пресети. **Спільний мікрофон** — кілька програм пишуть одночасно (реєстратор поруч із wDSP Pro). Власні **навігатори**. Посібник із картинками — [українською](https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/blob/main/docs/GUIDE.uk.md). Відгуки — https://t.me/kostyamat_dev/3.

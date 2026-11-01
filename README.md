@@ -43,7 +43,7 @@ Volume and effects stay where they belong: in the sound processor.
 | 🎤 **Call microphone** | per channel (SIM, VoIP, Bluetooth): level, echo cancelling, noise reduction and its depth, presets |
 | 🎙️ **Shared microphone** | several apps record at once — a dashcam next to wDSP Pro |
 | 🧭 **Navigation** | prompts duck the music; add your own navigators |
-| 📱 **BitPerfect Control** | what is really playing and where; every setting in one app |
+| 📱 **BitPerfect Control** | what is really playing and where; every setting in one app; 25 languages |
 
 ⚖️ **Legal status / Right to Repair:** [LEGAL.md](LEGAL.md) (Ukrainian)
 
