@@ -2,7 +2,8 @@
 
 **v5.7.2-Universal (5702), commit `cea3c59`** — test build, not a release (no tag, `update.json` still 5.6.1).
 Installed on **stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107). Stand is shared with QF_DVR
-(session 147a9dc2): rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194» —
+(session 147a9dc2) — talk to it ONLY in board room `qf-dvr-gemini-window-3827` (owner 01.11: not Gemini's
+`50b5 ↔ MCU patch` room); rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194» —
 reboot only `svc power reboot`, `working`/`done` on the board, each line touches only its own module.
 
 **Repo:** `v5.4-repaired`, ~45 commits local (origin = 23.10) — push on order. Release v5.6.1 live.
