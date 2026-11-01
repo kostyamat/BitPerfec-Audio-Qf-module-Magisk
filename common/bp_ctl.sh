@@ -24,6 +24,20 @@ bp_conf_set_usb() {
     rm -f "$T"
 }
 
+# Restart audioserver and return only when the new one serves the policy again (<= 15 s), so the
+# caller's next status already shows the new routing.
+bp_restart_audioserver() {
+    OLD=$(pidof audioserver)
+    setprop ctl.restart audioserver
+    i=0
+    while [ $i -lt 30 ]; do
+        sleep 0.5; i=$((i + 1))
+        NEW=$(pidof audioserver)
+        [ -n "$NEW" ] && [ "$NEW" != "$OLD" ] && service check media.audio_policy | grep -q ': found' && break
+    done
+    sleep 1
+}
+
 case "$1" in
     status)
         echo "platform=$(getprop ro.board.platform)"
@@ -38,9 +52,13 @@ case "$1" in
         echo "usb_state=$(bp_usb_state "$APC")"
         W=$(tinymix VBC_IIS_MST_WIDTH_SET 2>/dev/null | tail -1)
         echo "i2s_width=$W"
+        # What really plays now: playing=<usb|internal> <cardN/pcmMp> <format> <channels> <rate>, one per running PCM
         for s in /proc/asound/card*/pcm*p/sub0; do
             grep -q RUNNING "$s/status" 2>/dev/null || continue
-            echo "playing=$s $(grep -E '^(format|rate|channels):' "$s/hw_params" 2>/dev/null | awk '{print $2}' | tr '\n' ' ')"
+            C=${s#/proc/asound/}; C=${C%%/*}
+            K=internal; [ -f "/proc/asound/$C/usbid" ] && K=usb
+            P=${s%/sub0}; P=${P##*/}
+            echo "playing=$K $C/$P $(grep -E '^(format|channels|rate):' "$s/hw_params" 2>/dev/null | awk '{print $2}' | tr '\n' ' ')"
         done
         ;;
     usb)
@@ -48,7 +66,7 @@ case "$1" in
         bp_conf_set_usb "$2"
         bp_usb_set "$APC" "$2"
         case $? in
-            0) setprop ctl.restart audioserver; echo "usb_result=changed" ;;
+            0) bp_restart_audioserver; echo "usb_result=changed" ;;
             2) echo "usb_result=same" ;;
             *) echo "usb_result=unsupported" ;;
         esac
