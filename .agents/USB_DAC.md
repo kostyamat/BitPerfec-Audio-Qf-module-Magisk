@@ -18,9 +18,10 @@ Measured on stand 194 (UIS7862, PCM2704 `08bb:2704`), 01.11.2026, unless marked 
   from root.
 - 📻 USB mixer thread: `Processing format: PCM_FLOAT`, `HAL format: PCM_16_BIT` (PCM2704 is S16 only).
 - 📻 PCM2704 has `PCM Playback Volume` (dsrange 0..128) and `PCM Playback Switch`. The driver's dB range is in
-  `/proc/asound/cardN/usbmixer`: `dBmin=-12800, dBmax=0` (1/100 dB), so 1 dB a step. Owner by ear: −64 dB is barely audible.
+  `/proc/asound/cardN/usbmixer`: `dBmin=-12800, dBmax=0` (1/100 dB), 1 dB a step on paper. 🔴 Not what comes out: owner by ear, step 4
+  («−124 dB») is a whisper, half the knob (step 64) normal listening. Never derive a level from it. ❓ Real step→dB table: measure.
 - `common/bp_usbvol.sh`: index = max on the USB device; `usb_dac_volume=follow` → control from `sys.media.vol` through a
-  curve per DAC model (`usb_dac_curve_<vid>_<pid>=a,b,c,d,e`: knob 1, 8, 16, 24, 32 in % of the range; default even in dB over the top 60 dB)
+  curve per DAC model (`usb_dac_curve_<vid>_<pid>=a,b,c,d,e`: knob 1, 8, 16, 24, 32 in % of the range; default even in steps)
   (unset → `persist.sys.main_volume`), mute → switch off. No control → no follow (owner: «немає - значить немає»).
 
 ## 3. «Auto» = the player straight to the DAC (not done — design notes)

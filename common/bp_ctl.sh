@@ -12,7 +12,7 @@
 #                     the head unit's knob (common/bp_usbvol.sh watches it; no restart; a DAC without a control
 #                     stays at full scale) (usb_volume_result=saved|bad_value); status: usb_volume=, usb_dac_volctl=MAX|none
 #   usb_curve <a,b,c,d,e|default>   where knob 1, 8, 16, 24, 32 land on this DAC model's control, in % of its range;
-#                     applies at once (usb_curve_result=saved|bad_value|no_dac); status: usb_dac_db=<min max in 1/100 dB>,
+#                     applies at once (usb_curve_result=saved|bad_value|no_dac); status: usb_dac_db=<what the driver reports, min max in 1/100 dB, not what comes out>,
 #                     usb_curve=<five values>, usb_dac_level=<knob step top>
 #   mic show | mic set <SIM|VOIP|BT> <gain_db|aec|nr|nr_depth> [value] | mic reset <channel>
 #   mic preset list | mic preset <save|load|del> <name>
@@ -110,7 +110,7 @@ case "$1" in
         if [ -n "$2" ]; then
             BP_VK=$(bp_usbvol_ctl "$1"); BP_VD=$(bp_usbvol_db "$1" "$BP_VK"); BP_VU=$(bp_usbvol_curve_user "$1")
             echo "usb_dac_db=$BP_VD"
-            echo "usb_curve=${BP_VU:-$(bp_usbvol_curve_default $BP_VD)}"
+            echo "usb_curve=${BP_VU:-$BP_USBVOL_CURVE_DEFAULT}"
             echo "usb_dac_level=$(bp_usbvol_knob) $(tinymix -D "$1" -v "$BP_VK" 2>/dev/null | tr -d '\r' | awk '{ print $1 }') $2"
         fi
         # What really plays now: playing=<usb|internal> <cardN/pcmMp> <format> <channels> <rate>, one per running PCM

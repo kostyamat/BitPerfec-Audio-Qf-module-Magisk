@@ -14,11 +14,12 @@
 #                        повність, а якщо цап має власну систему регулювання підсилення - вішаємося на неї,
 #                        - немає - значить немає»).
 # usb_dac_curve_<vid>_<pid>=a,b,c,d,e  per DAC model: where knob 1, 8, 16, 24, 32 land, in % of the control's
-#                        range; straight lines between them. Unset: the default below.
+#                        range; straight lines between them. Unset: even in steps, the knob as it always was.
 #                        Owner 02.11: «шкала Дб у кожного своя, у мене початок не чутливий, у гось таке буде в
-#                        кінці. А в когось лінія.» The reported dB is what the driver says, not what is heard:
-#                        📻 PCM2704 reports -128..0 dB in 128 steps, yet it is audible at step 12 and hardly
-#                        changes up to half (🧩 the chip may stop attenuating near -64 dB, ❓ not measured).
+#                        кінці. А в когось лінія.» The dB range the driver reports is NOT what comes out: 📻 PCM2704
+#                        reports -128..0 dB in 128 steps, yet step 4 ("-124 dB", below the 16-bit floor) is an audible
+#                        whisper and half the knob ("-64 dB") is normal listening (owner by ear). So no default may be
+#                        derived from it: a curve computed from those dB put knob 3 above normal listening.
 # Ignition off (sys.qf.is.acc.on=false): the DAC's switch off and control at 0 until the ignition is back.
 # The head unit's own level is not touched: that is wDSP's (AUDIO_PATH_AND_MODULE_CONTRACT).
 
@@ -26,8 +27,7 @@ BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
 # IAudioService 10 = setStreamVolume(stream, index, flags, caller) on every QF Android 10 build we have
 # (🔬 framework.jar of stand 194, 7862 update(2), 8581 QF005 + BMW).
 BP_USBVOL_TX=10
-# The usable part of a wider dB range: the default curve starts this many dB below the top.
-BP_USBVOL_SPAN_DB=60
+BP_USBVOL_CURVE_DEFAULT="3 25 50 75 100"
 
 bp_usbvol_wanted() {
     BPV_V=$(grep -m1 '^[[:space:]]*usb_dac_volume[[:space:]]*=' "$BP_CONF" 2>/dev/null | cut -d= -f2 | tr -d ' \r\t')
@@ -82,22 +82,6 @@ bp_usbvol_curve_user() {
     grep -m1 "^[[:space:]]*$(bp_usbvol_curve_key "$1")[[:space:]]*=" "$BP_CONF" 2>/dev/null | cut -d= -f2 | tr -d ' \r\t' | tr ',' ' '
 }
 
-# The default for a dB range "$1 $2": straight in dB over the top BP_USBVOL_SPAN_DB. A DAC that reports no wider
-# range: straight in steps.
-bp_usbvol_curve_default() {
-    BPV_F=0
-    if [ -n "$2" ]; then
-        BPV_R=$(( ($2 - $1) / 100 ))
-        [ "$BPV_R" -gt "$BP_USBVOL_SPAN_DB" ] && BPV_F=$(( (BPV_R - BP_USBVOL_SPAN_DB) * 100 / BPV_R ))
-    fi
-    if [ "$BPV_F" = 0 ]; then echo "3 25 50 75 100"; return; fi
-    BPV_O=""
-    for BPV_K in 1 8 16 24 32; do
-        BPV_O="$BPV_O $(( BPV_F + (100 - BPV_F) * (BPV_K - 1) / 31 ))"
-    done
-    echo $BPV_O
-}
-
 # Control value for knob $1 (1..32), control top $2, curve $3 (five values).
 bp_usbvol_level() {
     BPV_KN=$1; BPV_TOP=$2
@@ -142,7 +126,7 @@ bp_usbvol_knob() {
 
 bp_usbvol_watch() {
     echo $$ > "$BP_USBVOL_PID"
-    BPV_LAST=""; BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_DEF=""
+    BPV_LAST=""; BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""
     while [ "$(cat "$BP_USBVOL_PID" 2>/dev/null)" = $$ ]; do
         if [ "$(bp_usb_wanted)" != 1 ]; then BPV_LAST=""; sleep 3; continue; fi
         # the card is looked up again only when /proc/asound changes (plug, unplug)
@@ -153,7 +137,6 @@ bp_usbvol_watch() {
             if [ -n "$BPV_NUM" ]; then
                 BPV_CTL=$(bp_usbvol_ctl "$BPV_NUM")
                 [ -n "$BPV_CTL" ] && BPV_TOP_HW=$(bp_usbvol_max "$BPV_NUM" "$BPV_CTL")
-                BPV_DEF=$(bp_usbvol_curve_default $(bp_usbvol_db "$BPV_NUM" "$BPV_CTL"))
             fi
             BPV_MAXI=$(service call audio 17 i32 3 2>/dev/null | sed -n 's/.*Parcel(00000000 \([0-9a-f]*\).*/\1/p')
             BPV_MAXI=$((0x${BPV_MAXI:-f}))
@@ -167,7 +150,7 @@ bp_usbvol_watch() {
                 BPV_HW=0; BPV_SW=0
             else
                 BPV_CUR=$(bp_usbvol_curve_user "$BPV_NUM")
-                BPV_HW=$(bp_usbvol_level "$BPV_VOL" "$BPV_TOP_HW" "${BPV_CUR:-$BPV_DEF}")
+                BPV_HW=$(bp_usbvol_level "$BPV_VOL" "$BPV_TOP_HW" "${BPV_CUR:-$BP_USBVOL_CURVE_DEFAULT}")
             fi
         fi
         # Ignition off: the DAC goes silent until it is back on. While the unit counts down to sleep, system_server
