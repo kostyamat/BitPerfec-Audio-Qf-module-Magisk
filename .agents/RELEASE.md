@@ -10,7 +10,9 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   `customize.sh` (`ums512` / `sp9863a`). 8581 files are rebuilt with `tools/build_8581_profile.py` and applied only
   over factory files with the md5 in `profiles/sp9863a/factory.md5`.
 - Version: `vX.Y-Universal` in `module.prop`; versionCode `XYZZ` (v5.5.17 = 5517, v5.6 = 5600). Bump only on a
-  build that goes to the bench or out, in its own `release:` commit (module.prop only).
+  build that goes OUT — to testers or a release — in its own `release:` commit (module.prop only). Working builds for
+  the bench keep the current version: Magisk installs the same version over itself (owner 01.11.2026: «ти так скоро
+  до версії 100500 дійдеш, якщо на кожен рядок коду будеш версію піднімати»).
 
 ## Build and verify
 0. BitPerfect Control first: `cd control-app; .\gradlew.bat clean :app:assembleDebug` (clean - an incremental
