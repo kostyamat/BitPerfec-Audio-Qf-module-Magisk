@@ -1,6 +1,6 @@
 # Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 on stand 194 — mic engine works, app card next
 
-**v5.7.5-Universal (5705), commit `27951b0`** — test build, not a release (no tag, `update.json` still 5.6.1).
+**v5.7.5-Universal (5705), commit `859fca7` — full zip on stand 194 (19:27, 📻 checked)** — test build, not a release (no tag, `update.json` still 5.6.1).
 🔴 Bench builds keep the version now; bump only for testers / release (`RELEASE.md`, owner 01.11).
 **Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107), shared with QF_DVR (session 147a9dc2): talk to it
 ONLY in board room `qf-dvr-claude-window-7ef9`; rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md`
@@ -26,7 +26,7 @@ In-call live tuning needs the HAL tuning server: reverse `start_audio_tunning_se
 used to stay silent until replugged. ✅ `ee249d0`/`27951b0` `common/bp_usbvol.sh` watcher: Android full scale on
 the USB device (index 15), level = the DAC's own control; `usb_dac_volume=follow` maps `sys.media.vol` 0..32
 (unset → `persist.sys.main_volume`) to it, no control → no follow (owner: «немає - значить немає»). App toggle
-`6a26b2b`. 📻 knob 16→64, 32→128; after boot 12/128 with main=3. ❓ PCM2704 unit in dB.
+`6a26b2b` (📻 seen on screen). 📻 knob 16→64, 32→128; after boot 12/128 with main=3. ❓ PCM2704 unit in dB.
 ✅ Ignition off → the DAC's switch off (sleep countdown ticks, stream ALARM from system_server, were the beeps).
 **Next:** «Авто» (direct path) and DTS/multichannel DACs — next version (TODO §3, `.agents/USB_DAC.md` §3).
 
