@@ -19,8 +19,13 @@ open. Owner's earlier settings and logs: `D:/My_K706_Magisk_Modules/stand194_bac
 Cause NOT established, not reproduced. Needs his `bp_report.tgz` (log, tombstones, settings). A second user: Magisk gave the app no root prompt;
 ask the Magisk version first (31.1+ with a Magisk 27 kernel is the owner's suspect). All findings: `.agents/DEBT.md`, last section.
 
+## ⏳ Local, NOT released (owner: «Випустимо пізніше, після відгуків на 576»), on stand 194, version still 5.7.6
+Installer warns about the Magisk app; `RootCard` no-root screen, one `su`, real timeout (`3f13028`, not yet seen on the unit: needs the owner
+to revoke root in Magisk); DAC curve per model, knob 1/8/16/24/32 in % of the control (`5b06d5c`, default = old even steps, command tested).
+Psychoacoustic default needs a REAL step→dB table: the driver's dB scale is false (`.agents/USB_DAC.md`). Owner by ear: step 4 whisper, half knob normal.
+
 ## 📋 Next (`.agents/TODO.md`)
-Root-prompt UX in `ModuleControl` (DEBT: one-line error, `su` every 3 s, deadline that cannot fire); shorten `AGENTS.md` (over 8 KB);
+Shorten `AGENTS.md` (over 8 KB);
 testers' feedback; UIS8581 with a tester; «Авто» direct DAC path; DTS / multichannel; AEC calibration; EQ for wDSP.
 
 ## Waiting
