@@ -225,8 +225,18 @@ public class MainActivity extends Activity {
         for (String line : r.get("usb_caps").split("\n")) {
             String[] f = line.trim().split("\\s+"); // cardN FORMAT CHANNELS RATE,RATE
             if (f.length < 4) continue;
+            // "S16_LE 2 32000,44100,48000" -> "16-bit, stereo: 32 / 44.1 / 48 kHz"
+            StringBuilder khz = new StringBuilder();
+            for (String rate : f[3].split(",")) {
+                if (!rate.matches("[0-9]{4,6}")) continue;
+                int hz = Integer.parseInt(rate);
+                if (khz.length() > 0) khz.append(" / ");
+                khz.append(hz % 1000 == 0 ? String.valueOf(hz / 1000) : String.valueOf(hz / 1000.0));
+            }
+            String ch = "2".equals(f[2]) ? getString(R.string.ch_stereo) : "1".equals(f[2]) ? getString(R.string.ch_mono)
+                    : getString(R.string.ch_n, f[2]);
             if (declared.length() > 0) declared.append("; ");
-            declared.append(f[1]).append(", ").append(f[2]).append(" ch, ").append(f[3]);
+            declared.append(getString(R.string.caps_line, f[1].replaceAll("^[SU](\\d+).*$", "$1"), ch, khz));
             if (!"2".equals(f[2])) continue;
             for (String rate : f[3].split(",")) {
                 if (rate.matches("[0-9]{4,6}")) usbModes.add(f[1] + "/" + rate);

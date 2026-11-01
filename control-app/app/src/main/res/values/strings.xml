@@ -38,6 +38,7 @@
     <string name="usb_result_unsupported">This firmware\'s audio policy has no USB switch we know - left factory.</string>
     <string name="usb_result_error">Could not apply: %1$s</string>
     <string name="usb_dac_none">No USB DAC plugged in.</string>
+    <string name="caps_line">%1$s-bit, %2$s: %3$s kHz</string>
     <string name="usb_dac_info">Plugged in: %1$s (%2$s)\nIt declares: %3$s</string>
     <string name="usb_mode_btn">DAC mode: %1$s</string>
     <string name="usb_mode_auto">Auto (the DAC\'s best)</string>
