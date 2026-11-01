@@ -48,6 +48,18 @@ public final class ModuleControl {
         return run("usb " + (on ? "1" : "0"));
     }
 
+    /** {@code usb_mode_result}: changed (audioserver restarted), saved (USB off), same, bad_value. */
+    public static Result setUsbMode(String mode) {
+        if (!USB_MODE.matcher(mode).matches()) {
+            Result r = new Result();
+            r.values.put("usb_mode_result", "bad_value");
+            return r;
+        }
+        return run("usb_mode " + mode);
+    }
+
+    private static final Pattern USB_MODE = Pattern.compile("auto|S(16|24|32)_(3)?LE/[0-9]{4,6}");
+
     /** {@code navi} lines: "package adjust mix origin" (origin factory|bitperfect|user). */
     public static Result naviList() {
         return run("navi list");

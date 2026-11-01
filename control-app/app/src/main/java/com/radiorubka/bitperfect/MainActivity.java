@@ -12,11 +12,16 @@ import com.google.android.material.button.MaterialButton;
 import com.radiorubka.bitperfect.core.ModuleControl;
 import com.radiorubka.bitperfect.ui.NavigatorsCard;
 import com.radiorubka.bitperfect.ui.ShimmerBadgeLayout;
+import com.radiorubka.bitperfect.ui.ThemedDialog;
 import com.radiorubka.bitperfect.ui.SupportDialog;
 import com.radiorubka.bitperfect.ui.theme.ThemeManager;
 import com.radiorubka.bitperfect.ui.theme.ToggleStyler;
 import com.radiorubka.bitperfect.ui.theme.TouchGlow;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,6 +38,10 @@ public class MainActivity extends Activity {
     private MaterialButton btnUsbOff, btnUsbOn, btnModern, btnHyper, btnAuto, btnDay, btnNight, btnRefresh;
     private boolean usbWanted;
     private NavigatorsCard navi;
+    private TextView tvUsbDac;
+    private MaterialButton btnUsbMode;
+    private String usbMode = "auto";
+    private final List<String> usbModes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,11 @@ public class MainActivity extends Activity {
         btnDay = findViewById(R.id.btn_mode_day);
         btnNight = findViewById(R.id.btn_mode_night);
         btnRefresh = findViewById(R.id.btn_refresh);
+        tvUsbDac = findViewById(R.id.tv_usb_dac);
+        btnUsbMode = findViewById(R.id.btn_usb_mode);
+        btnUsbMode.setText(getString(R.string.usb_mode_btn, getString(R.string.usb_mode_auto)));
+        btnUsbMode.setOnClickListener(v -> pickUsbMode());
+        TouchGlow.attach(btnUsbMode);
 
         btnUsbOff.setOnClickListener(v -> applyUsb(false));
         btnUsbOn.setOnClickListener(v -> applyUsb(true));
@@ -152,15 +166,31 @@ public class MainActivity extends Activity {
         // The title is what really plays now (USB first: when the DAC plays, that is where the sound goes);
         // idle, it is the path the unit is set up for.
         String[] usb = null, internal = null;
+        // card=<cardN> <usb|internal> <usbid|-> <name>: each card as it names itself
+        Map<String, String> cardNames = new HashMap<>();
+        String usbName = null, usbId = null;
+        for (String line : r.get("card").split("\n")) {
+            String[] f = line.trim().split("\\s+", 4);
+            if (f.length < 4) continue;
+            boolean isUsb = "usb".equals(f[1]);
+            cardNames.put(f[0], isUsb ? getString(R.string.card_usb, f[3], f[2]) : getString(R.string.card_internal, f[3]));
+            if (isUsb && usbName == null) {
+                usbName = f[3];
+                usbId = f[2];
+            }
+        }
         StringBuilder pcms = new StringBuilder();
         for (String line : r.get("playing").split("\n")) {
             String[] d = describePlaying(line);
             if (d == null) continue;
             if ("usb".equals(d[0]) && usb == null) usb = d;
             else if (internal == null) internal = d;
+            String pcm = line.trim().split("\\s+")[1];
+            String name = cardNames.get(pcm.split("/")[0]);
             if (pcms.length() > 0) pcms.append(", ");
-            pcms.append(line.trim().split("\\s+")[1]);
+            pcms.append(name != null ? name : pcm);
         }
+        showUsbDac(r, usbName, usbId);
         if (usb != null) {
             tvPath.setText(getString(R.string.path_usb_now, usb[1]));
         } else if (internal != null) {
@@ -186,6 +216,64 @@ public class MainActivity extends Activity {
 
         usbWanted = "1".equals(r.get("usb_wanted"));
         styleChoices();
+    }
+
+    /** The plugged DAC's own name, id and declared stereo modes; the mode button shows the saved mode. */
+    private void showUsbDac(ModuleControl.Result r, String name, String id) {
+        usbModes.clear();
+        StringBuilder declared = new StringBuilder();
+        for (String line : r.get("usb_caps").split("\n")) {
+            String[] f = line.trim().split("\\s+"); // cardN FORMAT CHANNELS RATE,RATE
+            if (f.length < 4) continue;
+            if (declared.length() > 0) declared.append("; ");
+            declared.append(f[1]).append(", ").append(f[2]).append(" ch, ").append(f[3]);
+            if (!"2".equals(f[2])) continue;
+            for (String rate : f[3].split(",")) {
+                if (rate.matches("[0-9]{4,6}")) usbModes.add(f[1] + "/" + rate);
+            }
+        }
+        tvUsbDac.setText(name == null ? getString(R.string.usb_dac_none)
+                : getString(R.string.usb_dac_info, name, id, declared.toString()));
+        usbMode = r.get("usb_mode").isEmpty() ? "auto" : r.get("usb_mode");
+        btnUsbMode.setText(getString(R.string.usb_mode_btn, modeLabel(usbMode)));
+        if (name != null && !"auto".equals(usbMode) && !usbModes.contains(usbMode)) {
+            tvUsbResult.setText(R.string.usb_mode_not_supported);
+        }
+    }
+
+    /** "S16_LE/44100" -> "16-bit / 44.1 kHz"; auto -> its label. */
+    private String modeLabel(String mode) {
+        if ("auto".equals(mode)) return getString(R.string.usb_mode_auto);
+        String[] d = describePlaying("usb - " + mode.replace("/", " 2 "));
+        return d == null ? mode : d[1].replaceAll(",[^,]*$", "");
+    }
+
+    private void pickUsbMode() {
+        if (usbModes.isEmpty()) {
+            tvUsbResult.setText(R.string.usb_mode_unplugged);
+        }
+        List<String> values = new ArrayList<>();
+        values.add("auto");
+        values.addAll(usbModes);
+        String[] items = new String[values.size()];
+        for (int i = 0; i < items.length; i++) items[i] = modeLabel(values.get(i));
+        ThemedDialog.showList(this, getString(R.string.usb_mode_title), items, (d, which) -> applyUsbMode(values.get(which)));
+    }
+
+    private void applyUsbMode(String mode) {
+        tvUsbResult.setText(R.string.status_loading);
+        io.execute(() -> {
+            ModuleControl.Result r = ModuleControl.setUsbMode(mode);
+            ui.post(() -> {
+                String res = r.get("usb_mode_result");
+                if (!r.ok()) tvUsbResult.setText(getString(R.string.usb_result_error, r.error));
+                else if ("changed".equals(res)) tvUsbResult.setText(R.string.usb_result_changed);
+                else if ("saved".equals(res)) tvUsbResult.setText(R.string.usb_mode_saved);
+                else if ("same".equals(res)) tvUsbResult.setText(R.string.usb_result_same);
+                else tvUsbResult.setText(getString(R.string.usb_result_error, res));
+                refresh();
+            });
+        });
     }
 
     // ---------------------------------------------------------------- actions
@@ -269,6 +357,7 @@ public class MainActivity extends Activity {
         check(btnNight, hyper || mode == ThemeManager.THEME_MODE_NIGHT);
         tvThemeNote.setText(hyper ? getString(R.string.hyper_night_only) : "");
         ToggleStyler.apply(btnRefresh);
+        ToggleStyler.apply(btnUsbMode);
     }
 
     private static void check(MaterialButton b, boolean on) {

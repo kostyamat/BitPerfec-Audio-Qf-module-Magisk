@@ -37,6 +37,16 @@
     <string name="usb_result_same">Already set.</string>
     <string name="usb_result_unsupported">This firmware\'s audio policy has no USB switch we know - left factory.</string>
     <string name="usb_result_error">Could not apply: %1$s</string>
+    <string name="usb_dac_none">No USB DAC plugged in.</string>
+    <string name="usb_dac_info">Plugged in: %1$s (%2$s)\nIt declares: %3$s</string>
+    <string name="usb_mode_btn">DAC mode: %1$s</string>
+    <string name="usb_mode_auto">Auto (the DAC\'s best)</string>
+    <string name="usb_mode_title">DAC mode</string>
+    <string name="usb_mode_unplugged">Plug in the DAC to choose from its own modes.</string>
+    <string name="usb_mode_not_supported">The plugged DAC does not declare this mode - Android will not play to it. Choose Auto.</string>
+    <string name="usb_mode_saved">Saved - applies when the USB DAC switch is on.</string>
+    <string name="card_internal">head unit (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
 
     <!-- navigators -->
     <string name="navi_title">Navigators</string>

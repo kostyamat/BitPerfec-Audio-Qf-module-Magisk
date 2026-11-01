@@ -33,6 +33,16 @@
     <string name="usb_result_same">Уже так.</string>
     <string name="usb_result_unsupported">Політика цієї прошивки не має відомого нам перемикача USB - лишено заводську.</string>
     <string name="usb_result_error">Не вдалося застосувати: %1$s</string>
+    <string name="usb_dac_none">USB-ЦАП не підключено.</string>
+    <string name="usb_dac_info">Підключено: %1$s (%2$s)\nЗаявляє: %3$s</string>
+    <string name="usb_mode_btn">Режим ЦАП: %1$s</string>
+    <string name="usb_mode_auto">Авто (найкраще, що вміє ЦАП)</string>
+    <string name="usb_mode_title">Режим ЦАП</string>
+    <string name="usb_mode_unplugged">Підключіть ЦАП, щоб вибрати з його власних режимів.</string>
+    <string name="usb_mode_not_supported">Підключений ЦАП не заявляє цього режиму - Android на нього не гратиме. Оберіть «Авто».</string>
+    <string name="usb_mode_saved">Збережено - діє, коли перемикач USB-ЦАП увімкнено.</string>
+    <string name="card_internal">магнітола (%1$s)</string>
+    <string name="card_usb">USB-ЦАП %1$s (%2$s)</string>
 
     <string name="navi_title">Навігатори</string>
     <string name="navi_desc">Програми, чиї голосові підказки грають як навігація й притишують музику. Додайте свою й налаштуйте; зміни діють після перезавантаження.</string>
