@@ -3,5 +3,5 @@ name=BitPerfect Universal Audio Engine
 version=v5.7.5-Universal
 versionCode=5705
 author=Kostyantyn Matviyevskyy aka kostyamat & Antigravity (c)2026
-description=QF/K706 (or MG clone) only: UIS7862 full module, UIS8581 reduced profile (factory 16-bit/44.1 kHz kept). On UIS7862 bit-to-bit audio: 24-bit/48 kHz path at 0 dB, volume and effects on the sound processor only (BU32107 or BD37xxx). One playback output per PCM, raw unprocessed microphone for wDSP (no DP), navigation ducking, call microphone with headroom and echo cancellation on SIM (handsfree CVS), BT calls without forced communication mode, and working VoIP calls (Telegram) without the broken Unisoc VoIP record mode.
+description=QF/K706 (or MG clone) only: UIS7862 full module, UIS8581 reduced profile (factory 16-bit/44.1 kHz kept). On UIS7862 bit-to-bit audio: 24-bit/48 kHz path at 0 dB, volume and effects on the sound processor only. Shared microphone (several recorders at once), navigation ducking with your own navigators, call microphone per channel (level, echo cancelling, noise reduction depth, presets), USB DAC output at full scale with the DAC's own volume following the head unit's knob. Settings app: BitPerfect Control.
 updateJson=https://raw.githubusercontent.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/v5.4-repaired/update.json
