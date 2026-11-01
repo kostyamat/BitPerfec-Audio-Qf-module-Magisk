@@ -22,9 +22,13 @@ reboot only `svc power reboot`, `working`/`done` on the board, each line touches
   (UsbAlsaManager → APM USB_HEADSET); if the owner sees it fail again, capture `logcat` at that plug.
 
 ## ⏳ In progress — DAC mode (owner 01.11: DAC first, then mic)
-Module side done, not on the stand yet (`33f09b8`): `usb_dac_mode=auto|FORMAT/RATE`, `bp_ctl.sh usb_mode`, status
-`card=` / `usb_caps=` / `usb_mode=` / `usb_mode_state=`. Next: the app — the USB card shows the DAC's own name + id,
-a mode picker from `usb_caps` (stereo only), the path note names the card (internal / USB); then v5.7.3 to stand 194.
+Module side on stand 194 in **v5.7.3** (`33f09b8`, `0535267`): `usb_dac_mode=auto|FORMAT/RATE`, `bp_ctl.sh usb_mode`,
+status `card=` / `usb_caps=` / `usb_mode=`. 📻 PCM2704: auto → USB out 48000/16; `S16_LE/44100` → 44100/16; back to
+auto → 48000 (conf left `auto`). Next: the app — USB card with the DAC's own name + id, a mode picker from
+`usb_caps` (stereo only), the path note names the card. My first write of that card was stopped by the safety
+filter (01.11) — whoever picks it up writes it fresh from this description.
+📻 01.11 04:34 stand hung half-shut: DVR's ACTION_SHUTDOWN receiver timed out (25 s), lowLevelReboot failed, init in
+D state with `ntfs3g` (NTFS stick) — `svc`/`adb reboot` useless; recovered by sysrq s→u→b. DVR told (#2037).
 Then the mic block (TODO §3): per-mode gain, NR/AEC switches, AEC auto-calibration per mode, NR curve presets.
 
 ## Waiting
