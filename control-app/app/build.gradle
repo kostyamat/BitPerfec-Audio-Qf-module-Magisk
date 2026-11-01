@@ -19,6 +19,11 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    // Only the app's own languages: Material and AppCompat bring strings for ~80 locales (most of resources.arsc).
+    androidResources {
+        localeFilters += ["en", "uk"]
+    }
+
     buildTypes {
         // R8 on the debug build too: unshrunk Material + AppCompat + Kotlin is ~16 MB of dex inside a
         // Magisk module. The app calls no hidden API (only su and plain views), so the reason this project
