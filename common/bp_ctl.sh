@@ -15,7 +15,7 @@
 #   mic preset list | mic preset <save|load|del> <name>
 #                     the user's call-mic settings (UIS7862, common/bp_mic.sh); a change rebuilds the AGDSP XML
 #                     and restarts audioserver, never during a call
-#                     (mic_result=changed|same|saved_in_call|saved|bad_value|no_preset; preset=<name> per line)
+#                     (mic_result=changed|same|saved_in_call|saved|build_failed|bad_value|no_preset; preset=<name> per line)
 #   navi list         navi=<package> <adjust> <mix> <factory|bitperfect|user>, one per navigator
 #   navi set <pkg> <true|false> <appset|0-100>   / navi del <pkg>
 #                     edit the user's navigators.conf and rebuild the live list (prints
@@ -27,7 +27,7 @@ MODDIR=/data/adb/modules/BitPerfect.module
 . "$MODDIR/common/bp_mic.sh"
 . "$MODDIR/common/bp_usbvol.sh"
 USBPOL="$MODDIR/system/vendor/etc/usb_audio_policy_configuration.xml"
-NAVI_BASE="$MODDIR/common/NaviApp.base.ini"
+NAVI_BASE="$MODDIR/common/system/config/NaviApp.ini"
 NAVI_LIVE="$MODDIR/system/config/NaviApp.ini"
 APC="$MODDIR/system/vendor/etc/audio_policy_configuration.xml"
 
@@ -67,6 +67,7 @@ bp_mic_apply() {
     bp_mic_build "$MODDIR"
     case $? in
         0) bp_restart_audioserver; echo "mic_result=changed" ;;
+        1) echo "mic_result=build_failed" ;;
         *) echo "mic_result=same" ;;
     esac
 }

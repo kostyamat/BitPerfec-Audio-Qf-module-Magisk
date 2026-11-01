@@ -92,21 +92,36 @@ bp_mic_awk() {
         { print }' "$1"
 }
 
-# Rebuild the live files of module dir $1 from base + the user's lines. Returns 0 changed, 2 unchanged.
+# Rebuild the live files of module dir $1 from base + the user's lines. Returns 0 changed, 2 unchanged,
+# 1 not built. Nothing of the user's: the live file is the base itself, no awk (12 s at boot on 4.7 MB of XML).
+# The same lines as last time: already built. A cut-short awk (out of memory at boot, full disk) must never
+# reach the live file: the HAL would compile the torn XML into a blob.
 bp_mic_build() {
     BPM_RC=2
     for f in audio_structure.xml cvs.xml; do
         BPM_B="$1/common/system/vendor/etc/audio_params/sprd/$f"
         BPM_L="$1/system/vendor/etc/audio_params/sprd/$f"
+        BPM_D="$1/common/.mic_rules.$f"
         [ -f "$BPM_B" ] && [ -f "$BPM_L" ] || continue
         BPM_R=/data/local/tmp/bp_mic_rules.$$; BPM_T=/data/local/tmp/bp_mic_out.$$
         bp_mic_rules "$f" > "$BPM_R"
-        bp_mic_awk "$BPM_B" "$BPM_R" > "$BPM_T"
-        if ! cmp -s "$BPM_T" "$BPM_L"; then
-            cat "$BPM_T" > "$BPM_L"
+        BPM_S=$BPM_B
+        if [ -s "$BPM_R" ]; then
+            if cmp -s "$BPM_R" "$BPM_D"; then rm -f "$BPM_R"; continue; fi
+            bp_mic_awk "$BPM_B" "$BPM_R" > "$BPM_T"
+            if [ $? -ne 0 ] || [ "$(wc -l < "$BPM_T")" != "$(wc -l < "$BPM_B")" ]; then
+                [ "$BPM_RC" = 0 ] || BPM_RC=1
+                rm -f "$BPM_R" "$BPM_T"
+                continue
+            fi
+            BPM_S=$BPM_T
+        fi
+        if ! cmp -s "$BPM_S" "$BPM_L"; then
+            cat "$BPM_S" > "$BPM_L"
             rm -f "$BP_MIC_BLOBS/${f%.xml}"
             BPM_RC=0
         fi
+        if [ -s "$BPM_R" ]; then cat "$BPM_R" > "$BPM_D"; else rm -f "$BPM_D"; fi
         rm -f "$BPM_R" "$BPM_T"
     done
     return $BPM_RC

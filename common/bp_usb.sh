@@ -5,8 +5,10 @@
 #   <!-- qf patch, remove usb audio output, by liuhl -->
 #   <!-- xi:include href="usb_audio_policy_configuration.xml"/ -->
 # while the USB HAL (audio.usb.default.so), USB host and the kernel driver (CONFIG_SND_USB_AUDIO=y)
-# are all there. The module carries a copy of that file and turns the include on or off from the
-# user's setting; everything else in it stays the unit's own.
+# are all there. The module carries that file ready-made, one copy per state, and never reads or edits
+# the unit's own (owner 02.11.2026: «у модуль потрапляє ГОТОВЕ ДО ВЖИВАННЯ, без дурнуватих патчів на льоту»):
+#   common/audio_policy_configuration.usb0.xml  QF's file as shipped, the same on every firmware we have
+#   common/audio_policy_configuration.usb1.xml  the same with the USB include on
 #
 # usb_dac=0  Android does not use the DAC. Players with their own USB driver (USB Audio Player PRO,
 #            Neutron, HiBy "USB exclusive") still play to it bit-perfect; everything else stays on the
@@ -22,8 +24,6 @@
 
 BP_CONF_DIR=/sdcard/BitPerfectAudio
 BP_CONF=$BP_CONF_DIR/bitperfect.conf
-BP_USB_ON='<xi:include href="usb_audio_policy_configuration.xml"/>'
-BP_USB_OFF='<!-- xi:include href="usb_audio_policy_configuration.xml"/ -->'
 
 # Create the settings file with its explanation if the user has none. Never overwrite one.
 bp_conf_ensure() {
@@ -56,33 +56,27 @@ bp_usb_wanted() {
     [ "$BPU_V" = "1" ] && echo 1 || echo 0
 }
 
-# Current state of a policy file: 1 = include on, 0 = off, x = neither form found.
-bp_usb_state() {
-    if grep -qF "$BP_USB_ON" "$1" 2>/dev/null && ! grep -qF "$BP_USB_OFF" "$1" 2>/dev/null; then
-        echo 1
-    elif grep -qF "$BP_USB_OFF" "$1" 2>/dev/null; then
-        echo 0
-    else
-        echo x
-    fi
+# The module's ready copy of the policy for live file $1 and state $2 (0/1).
+bp_usb_ready() {
+    echo "${1%/system/vendor/etc/audio_policy_configuration.xml}/common/audio_policy_configuration.usb$2.xml"
 }
 
-# Set the include in $1 to $2 (0/1). Rewrites in place (cat >, same inode): on a live unit the file
-# is bind-mounted over /vendor/etc, and a new inode would leave the mount on the old content.
-# Returns 0 = changed, 2 = already so, 1 = file or include form not found.
+# Current state of the live policy file $1: 1 = include on, 0 = off, x = neither ready copy.
+bp_usb_state() {
+    for BPU_S in 0 1; do
+        cmp -s "$1" "$(bp_usb_ready "$1" $BPU_S)" && { echo $BPU_S; return; }
+    done
+    echo x
+}
+
+# Put the ready copy for state $2 (0/1) into live file $1. In place (cat >, same inode): on a live unit
+# the file is bind-mounted over /vendor/etc, and a new inode would leave the mount on the old content.
+# Returns 0 = changed, 2 = already so, 1 = the module has no such copy.
 bp_usb_set() {
-    BPU_F=$1; BPU_W=$2
-    [ -f "$BPU_F" ] || return 1
-    BPU_S=$(bp_usb_state "$BPU_F")
-    [ "$BPU_S" = "x" ] && return 1
-    [ "$BPU_S" = "$BPU_W" ] && return 2
-    BPU_T=/data/local/tmp/bp_apc.$$
-    if [ "$BPU_W" = "1" ]; then
-        sed "s#<!-- xi:include href=\"usb_audio_policy_configuration.xml\"/ -->#$BP_USB_ON#" "$BPU_F" > "$BPU_T" || return 1
-    else
-        sed "s#$BP_USB_ON#$BP_USB_OFF#" "$BPU_F" > "$BPU_T" || return 1
-    fi
-    cat "$BPU_T" > "$BPU_F"; rm -f "$BPU_T"
+    BPU_R=$(bp_usb_ready "$1" "$2")
+    [ -f "$BPU_R" ] || return 1
+    cmp -s "$BPU_R" "$1" && return 2
+    cat "$BPU_R" > "$1"
     return 0
 }
 

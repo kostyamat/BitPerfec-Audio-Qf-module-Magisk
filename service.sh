@@ -114,7 +114,7 @@ esac
            else
                log_msg "USB DAC output: usb_dac=$USB_W, mode $USB_M."
            fi ;;
-        *) log_msg "USB DAC: no policy include in the module - left factory." ;;
+        *) log_msg "USB DAC: the module has no ready policy copy - policy left as it is." ;;
     esac
 
     # The USB DAC's level: full scale from Android, the DAC's own control (common/bp_usbvol.sh). One watcher.
@@ -124,9 +124,11 @@ esac
     # The user's call-microphone settings (common/bp_mic.sh, /sdcard/BitPerfectAudio/mic.conf): after a
     # reinstall the live AGDSP XML is the module's base again, so it is rebuilt once and the blob recompiled.
     . "$MODPATH/common/bp_mic.sh"
-    if bp_mic_build "$MODPATH"; then
-        log_msg "Microphone settings applied ($BP_MIC_CONF)."; AS_RESTART=1
-    fi
+    bp_mic_build "$MODPATH"
+    case $? in
+        0) log_msg "Microphone settings applied ($BP_MIC_CONF)."; AS_RESTART=1 ;;
+        1) log_msg "WARNING: microphone settings not built (awk failed) - live XML left as it was." ;;
+    esac
     if [ "$AS_RESTART" = 1 ]; then
         log_msg "Restarting audioserver for the new settings."
         setprop ctl.restart audioserver

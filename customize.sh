@@ -312,30 +312,21 @@ done < "$MODPATH/profiles/sp9863a/factory.md5"
 cp -f "$MODPATH/common/system/vendor/etc/usb_audio_policy_configuration.xml" "$MODPATH/system/vendor/etc/"
 fi
 
-# The navigator list (/system/config/NaviApp.ini) is edited from the unit's own copy (bp_naviapp.sh):
-# base = factory + ours (kept in common/ for bp_ctl.sh), live = base + the user's navigators.conf.
-# On an update /system/config/NaviApp.ini is our previous live list, so the previous base is preferred.
+# The navigator list comes ready-made with the module (bp_naviapp.sh), the unit's own is not read:
+# live = base + the user's navigators.conf.
 . "$MODPATH/common/bp_naviapp.sh"
-NAVI_SRC=/system/config/NaviApp.ini
-[ -f /data/adb/modules/BitPerfect.module/common/NaviApp.base.ini ] && NAVI_SRC=/data/adb/modules/BitPerfect.module/common/NaviApp.base.ini
-if bp_naviapp_base "$NAVI_SRC" "$MODPATH/common/NaviApp.base.ini" \
-   && bp_naviapp_live "$MODPATH/common/NaviApp.base.ini" "$MODPATH/system/config/NaviApp.ini"; then
+if bp_naviapp_live "$MODPATH/common/system/config/NaviApp.ini" "$MODPATH/system/config/NaviApp.ini"; then
     ui_print "- Navigator list: iGo and missing navigators added to music ducking"
     [ -f "$BP_NAVI_USER" ] && ui_print "- Navigator list: your own navigators added ($BP_NAVI_USER)"
 fi
 
-# USB DAC: the unit's own top-level policy with QF's USB include switched by the user's setting
-# (/sdcard/BitPerfectAudio/bitperfect.conf, usb_dac=0/1). service.sh re-applies it at every boot.
+# USB DAC: the module's ready top-level policy for the user's setting (bp_usb.sh;
+# /sdcard/BitPerfectAudio/bitperfect.conf, usb_dac=0/1). service.sh re-applies it at every boot.
 . "$MODPATH/common/bp_usb.sh"
 bp_conf_ensure
-cp -f /vendor/etc/audio_policy_configuration.xml "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" 2>/dev/null
 bp_usb_mode_set "$MODPATH/system/vendor/etc/usb_audio_policy_configuration.xml" "$(bp_usb_mode_wanted)"
 bp_usb_set "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" "$(bp_usb_wanted)"
-case $? in
-    0|2) ui_print "- USB DAC output: usb_dac=$(bp_usb_wanted), mode $(bp_usb_mode_wanted) (settings: $BP_CONF)" ;;
-    *)   ui_print "- USB DAC: this unit's policy has no USB include we know - left factory"
-         rm -f "$MODPATH/system/vendor/etc/audio_policy_configuration.xml"                "$MODPATH/system/vendor/etc/usb_audio_policy_configuration.xml" ;;
-esac
+ui_print "- USB DAC output: usb_dac=$(bp_usb_wanted), mode $(bp_usb_mode_wanted) (settings: $BP_CONF)"
 
 # Calls run only on top of BitPerfect: every audio policy and route for calls lives here, the calling
 # module ships none and refuses to work without sys.bitperfect.enabled=1 (set by service.sh).

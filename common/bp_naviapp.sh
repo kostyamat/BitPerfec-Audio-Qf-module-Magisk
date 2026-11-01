@@ -7,29 +7,15 @@
 #   - adjust (true|false): the app's own volume control (setStreamVolume) sets the prompt volume;
 #   - mix (appset|0..100): the music level under a prompt; appset = the car settings' mix.
 # A line with fewer than three fields makes the parser drop the REST of the file, so every line we
-# write is checked. The list differs per firmware, so the module never ships a fixed copy:
-#   - base = the unit's own list, the six iGo builds "false" -> "true", missing navigators appended
-#     (and Google TTS, prompts spoken through TTS);
+# write is checked. The module carries the list ready-made and never reads the unit's own:
+#   - base = common/system/config/NaviApp.ini: every firmware's entries we have seen, the six iGo builds
+#     set to true, the navigators QF left out and Google TTS (prompts spoken through TTS);
 #   - live = base + the user's own entries from $BP_NAVI_USER (they replace a base line of the same app).
 
+# For `navi list` only: which base entries are ours rather than QF's.
 BP_NAVI_ON="com.navngo.igo.javaclient com.basarsoft.igo.javaclient com.nng.igoprimoisr2013march24.javaclient com.nng.igo.primong.igoworld com.nng.igoprimo.javaclient com.nng.igoprimoisrael.javaclient"
 BP_NAVI_ADD="pl.aqurat.automapa com.sygic.aura com.tomtom.gplay.navapp com.tomtom.gplay.navapp.nds com.generalmagic.magicearth net.osmand net.osmand.plus ru.dublgis.dgismobile com.mapfactor.navigator ru.yandex.yandexmaps com.mapswithme.maps.pro app.organicmaps com.google.android.tts"
 BP_NAVI_USER=/sdcard/BitPerfectAudio/navigators.conf
-
-# $1 = the unit's list, $2 = where to write the base. Returns 0 written, 1 no source.
-bp_naviapp_base() {
-    [ -f "$1" ] || return 1
-    BPN_T=/data/local/tmp/bp_navi.$$
-    tr -d '\r' < "$1" > "$BPN_T" || return 1
-    for p in $BP_NAVI_ON; do
-        sed -i "s/^\($p[[:space:]][[:space:]]*\)false\([[:space:]]\)/\1true\2/" "$BPN_T"
-    done
-    for p in $BP_NAVI_ADD; do
-        grep -q "^$p[[:space:]]" "$BPN_T" || printf '%-44s true    appset\n' "$p" >> "$BPN_T"
-    done
-    cat "$BPN_T" > "$2"; rm -f "$BPN_T"
-    return 0
-}
 
 # 0 when "$1 $2 $3" is a line the platform parses: a package name, true|false, appset|0..100.
 bp_navi_valid() {
