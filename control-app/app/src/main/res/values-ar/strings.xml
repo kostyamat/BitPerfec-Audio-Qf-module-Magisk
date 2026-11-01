@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">المنصة</string>
+    <string name="card_path">مسار الصوت</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">جارٍ القراءة…</string>
+    <string name="status_no_root">لا يوجد صلاحيات root، أو أن BitPerfect غير مثبت.</string>
+    <string name="platform_7862">UIS7862 · وحدة كاملة</string>
+    <string name="platform_8581">UIS8581 · ملف تعريف مصغر</string>
+    <string name="platform_other">%1$s · غير مدعوم</string>
+    <string name="path_i2s_24">I²S بدقة 24 بت إلى معالج الصوت</string>
+    <string name="path_analogue">SoC DAC (تناظري)</string>
+    <string name="path_8581">16 بت / 44.1 kHz (المصنع)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S إلى معالج الصوت · %1$s</string>
+    <string name="path_internal_now">مسجل السيارة · %1$s</string>
+    <string name="fmt_desc">%1$s بت / %2$s kHz، %3$s</string>
+    <string name="ch_stereo">ستيريو</string>
+    <string name="ch_mono">أحادي</string>
+    <string name="ch_n">%1$s قنوات</string>
+    <string name="path_playing">قيد التشغيل: %1$s</string>
+    <string name="path_idle">لا يوجد تشغيل حالياً</string>
+    <string name="module_active">نشط · %1$s</string>
+    <string name="module_inactive">لم يتم التأكيد في هذا الإقلاع · %1$s</string>
+    <string name="module_disabled">معطل في Magisk</string>
+    <string name="module_nav_policy_on">تم تحميل سياسة خفض الصوت للملاحة</string>
+    <string name="module_nav_policy_off">سياسة الملاحة الافتراضية للمصنع</string>
+
+    <string name="usb_title">USB DAC خارجي</string>
+    <string name="usb_desc">مسجل السيارة: المشغلات المزودة ببرنامج تشغيل USB خاص بها فقط (USB Audio Player PRO، Neutron، HiBy) تعمل على DAC بدقة bit-perfect؛ باقي الأصوات تبقى على معالج الصوت.\nUSB DAC: يذهب كل صوت Android إلى DAC طالما أنه متصل، مع إعادة أخذ العينات بأفضل معدل وبالنطاق الكامل — اضبط مستوى الصوت من DAC أو مضخم الصوت. مكالمات SIM تبقى على مسجل السيارة.</string>
+    <string name="usb_off">مسجل السيارة</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">تم التطبيق — أُعيد تشغيل خدمة الصوت.</string>
+    <string name="usb_result_same">تم ضبطه بالفعل.</string>
+    <string name="usb_result_unsupported">لا تحتوي سياسة الصوت في هذا النظام على مفتاح USB معروف — تُركت إعدادات المصنع.</string>
+    <string name="usb_result_error">تعذر التطبيق: %1$s</string>
+    <string name="usb_dac_none">لا يوجد USB DAC متصل.</string>
+    <string name="caps_line">%1$s بت، %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">متصل: %1$s (%2$s)\nيعلن عن: %3$s</string>
+    <string name="usb_mode_btn">وضع DAC: %1$s</string>
+    <string name="usb_mode_auto">تلقائي (الأفضل لـ DAC)</string>
+    <string name="usb_mode_title">وضع DAC</string>
+    <string name="usb_mode_unplugged">قم بتوصيل DAC للاختيار من أوضاعه الخاصة.</string>
+    <string name="usb_mode_not_supported">الـ DAC المتصل لا يدعم هذا الوضع — لن يقوم Android بتشغيل الصوت عليه. اختر تلقائي.</string>
+    <string name="usb_mode_saved">تم الحفظ — يطبق عند تفعيل مفتاح USB DAC.</string>
+    <string name="usb_volume_follow">مستوى صوت DAC — يتبع مقبض مسجل السيارة</string>
+    <string name="usb_volume_none">هذا الـ DAC لا يحتوي على تحكم بمستوى الصوت — يعمل بالنطاق الكامل، اضبط المستوى من مضخم الصوت</string>
+    <string name="usb_volume_saved_follow">أصبح مستوى صوت DAC يتبع مقبض مسجل السيارة (تحكم الـ DAC نفسه). يرسل Android إشارة بالنطاق الكامل.</string>
+    <string name="usb_volume_saved_full">يعمل الـ DAC بالنطاق الكامل — اضبط المستوى من مضخم الصوت. يرسل Android إشارة بالنطاق الكامل.</string>
+    <string name="card_internal">مسجل السيارة (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">الميكروفون</string>
+    <string name="tab_navi">تطبيقات الملاحة</string>
+    <string name="tab_theme">المظهر</string>
+
+    <string name="mic_title">ميكروفون المكالمات</string>
+    <string name="mic_desc">لكل قناة على حدة، فوق إعدادات BitPerfect. يتم التطبيق بإعادة تشغيل خدمة الصوت (بضع ثوانٍ من الصمت)؛ أثناء المكالمة يتم حفظه ويطبق بعدها. التسجيل (wDSP، DVR) لا يتأثر. لأجهزة UIS7862 فقط.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">مستوى الميكروفون: %1$s dB</string>
+    <string name="mic_aec">إلغاء الصدى</string>
+    <string name="mic_nr">تقليل الضوضاء</string>
+    <string name="mic_reset">إعادة ضبط</string>
+    <string name="mic_saved_in_call">تم الحفظ — سيُطبق بعد انتهاء المكالمة.</string>
+    <string name="mic_only_7862">إعدادات الميكروفون مخصصة لأجهزة UIS7862 فقط.</string>
+    <string name="mic_nr_depth">عمق تقليل الضوضاء: %1$s dB (يسار أخف، يمين أقوى)</string>
+    <string name="mic_nr_depth_bp">عمق تقليل الضوضاء: الافتراضي لـ BitPerfect، −10.5 dB</string>
+    <string name="mic_nr_depth_off">عمق تقليل الضوضاء: تقليل الضوضاء متوقف</string>
+    <string name="mic_presets">الإعدادات المسبقة</string>
+    <string name="mic_preset_title">إعدادات الميكروفون المسبقة</string>
+    <string name="mic_preset_save">حفظ الحالي كـ…</string>
+    <string name="mic_preset_name">اسم الإعداد المسبق</string>
+    <string name="mic_preset_name_hint">يحفظ الإعداد المسبق جميع القنوات: المستوى، إلغاء الصدى، تقليل الضوضاء، والعمق. أحرف، أرقام، - و _.</string>
+    <string name="mic_preset_load">تحميل</string>
+    <string name="mic_preset_delete">حذف</string>
+    <string name="mic_preset_delete_ask">هل تريد حذف الإعداد المسبق “%1$s”؟</string>
+    <string name="mic_preset_none">لا توجد إعدادات مسبقة محفوظة بعد.</string>
+    <string name="mic_done">تم.</string>
+    <string name="mic_bad_name">هذا الاسم غير صالح: استخدم أحرفاً وأرقاماً و - و _ فقط.</string>
+    <string name="mic_no_preset">هذا الإعداد المسبق لم يعد موجوداً.</string>
+
+    <string name="navi_title">تطبيقات الملاحة</string>
+    <string name="navi_desc">التطبيقات التي تعمل تنبيهاتها الصوتية كملاحة وتقوم بخفض صوت الموسيقى. أضف تطبيقك وقم بتهيئته؛ تطبق التغييرات بعد إعادة التشغيل.</string>
+    <string name="navi_add">إضافة تطبيق ملاحة</string>
+    <string name="navi_show_all">عرض الكل (%1$d)</string>
+    <string name="navi_show_installed">المثبتة فقط</string>
+    <string name="navi_none_installed">لم يتم تثبيت أي تطبيق ملاحة من القائمة.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">المصنع</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">خاص بك</string>
+    <string name="navi_adjust_on">شريط التمرير الخاص به يتحكم بالتنبيهات</string>
+    <string name="navi_adjust_off">شريط التمرير الخاص به دون تغيير</string>
+    <string name="navi_mix_car">الموسيقى حسب إعدادات السيارة</string>
+    <string name="navi_mix_pct">الموسيقى %1$s%%</string>
+    <string name="navi_pick_title">اختر التطبيق</string>
+    <string name="navi_adjust_label">شريط صوت التطبيق الخاص يتحكم بمستوى صوت التنبيهات</string>
+    <string name="navi_mix_car_label">الموسيقى أثناء التنبيهات: كما في إعدادات السيارة</string>
+    <string name="navi_mix_label">الموسيقى أثناء التنبيهات: %1$d%%</string>
+    <string name="navi_save">حفظ</string>
+    <string name="navi_cancel">إلغاء</string>
+    <string name="navi_action_edit">تعديل</string>
+    <string name="navi_action_remove">إزالة من قائمتي</string>
+    <string name="navi_saved">تم الحفظ — يطبق بعد إعادة التشغيل.</string>
+    <string name="navi_error">تعذر الحفظ: %1$s</string>
+
+    <string name="theme_title">المظهر</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">تلقائي</string>
+    <string name="mode_day">نهار</string>
+    <string name="mode_night">ليل</string>
+    <string name="hyper_night_only">Hyper هو نمط ليلي.</string>
+    <string name="btn_refresh">تحديث</string>
+
+    <string name="btn_donate_badge">دعم المطور</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ اشترِ لي قهوة</item>
+        <item>💖 ادعم مشاريعي</item>
+        <item>🚀 استمر في تلقي التحديثات!</item>
+    </string-array>
+    <string name="support_dialog_title">دعم المطور</string>
+    <string name="support_dialog_desc">إذا كنت تقدر عملي وتريد أن تشتري لي القهوة أو تدعم التطوير:</string>
+    <string name="support_click_hint">انقر: نسخ الرابط والفتح</string>
+    <string name="support_click_hint_wallet">انقر: نسخ عنوان المحفظة والفتح</string>
+    <string name="support_click_hint_tg">انقر: نسخ والفتح في Telegram</string>
+    <string name="btn_close">إغلاق</string>
+    <string name="toast_copied">تم النسخ إلى الحافظة: %s</string>
+</resources>

@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Платформа</string>
+    <string name="card_path">Аудиотракт</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Четене…</string>
+    <string name="status_no_root">Няма root достъп или BitPerfect не е инсталиран.</string>
+    <string name="platform_7862">UIS7862 · пълен модул</string>
+    <string name="platform_8581">UIS8581 · намален профил</string>
+    <string name="platform_other">%1$s · не се поддържа</string>
+    <string name="path_i2s_24">24-битов I²S към звуковия процесор</string>
+    <string name="path_analogue">SoC DAC (аналогов)</string>
+    <string name="path_8581">16-битов / 44.1 kHz (фабричен)</string>
+    <string name="path_usb_now">USB-DAC · %1$s</string>
+    <string name="path_i2s_now">I²S към звуковия процесор · %1$s</string>
+    <string name="path_internal_now">Авторадио · %1$s</string>
+    <string name="fmt_desc">%1$s-битов / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">стерео</string>
+    <string name="ch_mono">моно</string>
+    <string name="ch_n">%1$s кан.</string>
+    <string name="path_playing">Възпроизвеждане: %1$s</string>
+    <string name="path_idle">В момента нищо не свири</string>
+    <string name="module_active">Активен · %1$s</string>
+    <string name="module_inactive">Не е потвърдено при това стартиране · %1$s</string>
+    <string name="module_disabled">Деактивиран в Magisk</string>
+    <string name="module_nav_policy_on">Заредена е политика за приглушаване при навигация</string>
+    <string name="module_nav_policy_off">Фабрична политика за навигация</string>
+
+    <string name="usb_title">Външен USB-DAC</string>
+    <string name="usb_desc">Авторадио: само плейъри със собствен USB драйвер (USB Audio Player PRO, Neutron, HiBy) възпроизвеждат към DAC бит-по-бит; останалият звук остава в звуковия процесор.\nUSB-DAC: целият звук на Android отива към DAC, докато е включен, пресемплиран до най-добрата честота, с пълна сила — задайте силата на DAC или усилвателя. SIM разговорите остават на авторадиото.</string>
+    <string name="usb_off">Авторадио</string>
+    <string name="usb_on">USB-DAC</string>
+    <string name="usb_result_changed">Приложено — аудио услугата беше рестартирана.</string>
+    <string name="usb_result_same">Вече е зададено.</string>
+    <string name="usb_result_unsupported">Аудио политиката на този фърмуер няма познат USB превключвател — оставено фабрично.</string>
+    <string name="usb_result_error">Не можа да се приложи: %1$s</string>
+    <string name="usb_dac_none">Няма включен USB-DAC.</string>
+    <string name="caps_line">%1$s-битов, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Свързан: %1$s (%2$s)\nДекларира: %3$s</string>
+    <string name="usb_mode_btn">Режим на DAC: %1$s</string>
+    <string name="usb_mode_auto">Авто (най-добрият на DAC)</string>
+    <string name="usb_mode_title">Режим на DAC</string>
+    <string name="usb_mode_unplugged">Включете DAC, за да изберете от неговите собствени режими.</string>
+    <string name="usb_mode_not_supported">Свързаният DAC не декларира този режим — Android няма да възпроизвежда към него. Изберете Авто.</string>
+    <string name="usb_mode_saved">Запазено — влиза в сила, когато превключвателят USB-DAC е включен.</string>
+    <string name="usb_volume_follow">Сила на звука на DAC — следва копчето на авторадиото</string>
+    <string name="usb_volume_none">Този DAC няма собствен регулатор на силата — възпроизвежда на пълна мощност, регулирайте от усилвателя</string>
+    <string name="usb_volume_saved_follow">Силата на звука на DAC вече следва копчето на авторадиото (собствения контрол на DAC). Android предава пълен сигнал.</string>
+    <string name="usb_volume_saved_full">DAC възпроизвежда на пълна мощност — регулирайте от усилвателя. Android предава пълен сигнал.</string>
+    <string name="card_internal">авторадио (%1$s)</string>
+    <string name="card_usb">USB-DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB-DAC</string>
+    <string name="tab_mic">Микрофон</string>
+    <string name="tab_navi">Навигатори</string>
+    <string name="tab_theme">Външен вид</string>
+
+    <string name="mic_title">Микрофон за разговори</string>
+    <string name="mic_desc">Поотделно за всеки канал, над настройките на BitPerfect. Прилага се чрез рестартиране на аудио услугата (няколко секунди тишина); по време на разговор се записва и се прилага след него. Записът (wDSP, DVR) не се засяга. Само за UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Ниво на микрофона: %1$s dB</string>
+    <string name="mic_aec">Ехопотискане</string>
+    <string name="mic_nr">Шумопотискане</string>
+    <string name="mic_reset">Нулиране</string>
+    <string name="mic_saved_in_call">Запазено — ще се приложи след разговора.</string>
+    <string name="mic_only_7862">Настройките на микрофона са само за UIS7862.</string>
+    <string name="mic_nr_depth">Дълбочина на шумопотискането: %1$s dB (наляво по-меко, надясно по-силно)</string>
+    <string name="mic_nr_depth_bp">Дълбочина на шумопотискането: по подразбиране от BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Дълбочина на шумопотискането: шумопотискането е изключено</string>
+    <string name="mic_presets">Профили</string>
+    <string name="mic_preset_title">Профили на микрофона</string>
+    <string name="mic_preset_save">Запазване на текущите като…</string>
+    <string name="mic_preset_name">Име на профила</string>
+    <string name="mic_preset_name_hint">Профилът пази всеки канал: ниво, ехопотискане, шумопотискане, дълбочина. Букви, цифри, - и _.</string>
+    <string name="mic_preset_load">Зареждане</string>
+    <string name="mic_preset_delete">Изтриване</string>
+    <string name="mic_preset_delete_ask">Изтриване на профил „%1$s“?</string>
+    <string name="mic_preset_none">Все още няма запазени профили.</string>
+    <string name="mic_done">Готово.</string>
+    <string name="mic_bad_name">Невалидно име: само букви, цифри, - и _.</string>
+    <string name="mic_no_preset">Този профил вече не съществува.</string>
+
+    <string name="navi_title">Навигатори</string>
+    <string name="navi_desc">Приложения, чиито гласови указания се възпроизвеждат като навигация и намаляват музиката. Добавете свое и го настройте; промените се прилагат след рестартиране.</string>
+    <string name="navi_add">Добавяне на навигатор</string>
+    <string name="navi_show_all">Показване на всички (%1$d)</string>
+    <string name="navi_show_installed">Само инсталирани</string>
+    <string name="navi_none_installed">Нито един навигатор от списъка не е инсталиран.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">фабричен</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">ваш</string>
+    <string name="navi_adjust_on">неговият регулатор управлява указанията</string>
+    <string name="navi_adjust_off">неговият регулатор остава непроменен</string>
+    <string name="navi_mix_car">музика според настройките на колата</string>
+    <string name="navi_mix_pct">музика %1$s%%</string>
+    <string name="navi_pick_title">Избор на приложение</string>
+    <string name="navi_adjust_label">Регулаторът на силата на приложението управлява силата на указанията</string>
+    <string name="navi_mix_car_label">Музика при указания: според настройките на колата</string>
+    <string name="navi_mix_label">Музика при указания: %1$d%%</string>
+    <string name="navi_save">Запазване</string>
+    <string name="navi_cancel">Отказ</string>
+    <string name="navi_action_edit">Промяна</string>
+    <string name="navi_action_remove">Премахване от моя списък</string>
+    <string name="navi_saved">Запазено — прилага се след рестартиране.</string>
+    <string name="navi_error">Не можа да се запази: %1$s</string>
+
+    <string name="theme_title">Външен вид</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Авто</string>
+    <string name="mode_day">Ден</string>
+    <string name="mode_night">Нощ</string>
+    <string name="hyper_night_only">Hyper е нощен стил.</string>
+    <string name="btn_refresh">Опресняване</string>
+
+    <string name="btn_donate_badge">Подкрепете</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Купете ми кафе</item>
+        <item>💖 Подкрепете моите проекти</item>
+        <item>🚀 Още актуализации!</item>
+    </string-array>
+    <string name="support_dialog_title">Подкрепете разработчика</string>
+    <string name="support_dialog_desc">Ако оценявате работата ми и искате да ме почерпите с кафе или бира:</string>
+    <string name="support_click_hint">Докоснете: копиране на връзката и отваряне</string>
+    <string name="support_click_hint_wallet">Докоснете: копиране на адреса на портфейла</string>
+    <string name="support_click_hint_tg">Докоснете: копиране и отваряне на Telegram</string>
+    <string name="btn_close">ЗАТВОРИ</string>
+    <string name="toast_copied">Копирано в клипборда: %s</string>
+</resources>

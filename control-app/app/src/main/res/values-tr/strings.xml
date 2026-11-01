@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Platform</string>
+    <string name="card_path">Ses yolu</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Okunuyor…</string>
+    <string name="status_no_root">Root erişimi yok veya BitPerfect yüklü değil.</string>
+    <string name="platform_7862">UIS7862 · tam modül</string>
+    <string name="platform_8581">UIS8581 · azaltılmış profil</string>
+    <string name="platform_other">%1$s · desteklenmiyor</string>
+    <string name="path_i2s_24">Ses işlemcisine 24-bit I²S</string>
+    <string name="path_analogue">SoC DAC (analog)</string>
+    <string name="path_8581">16-bit / 44.1 kHz (fabrika)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">Ses işlemcisine I²S · %1$s</string>
+    <string name="path_internal_now">Ana ünite · %1$s</string>
+    <string name="fmt_desc">%1$s-bit / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">stereo</string>
+    <string name="ch_mono">mono</string>
+    <string name="ch_n">%1$s kanal</string>
+    <string name="path_playing">Çalıyor: %1$s</string>
+    <string name="path_idle">Şu anda hiçbir şey çalmıyor</string>
+    <string name="module_active">Aktif · %1$s</string>
+    <string name="module_inactive">Bu başlatmada doğrulanmadı · %1$s</string>
+    <string name="module_disabled">Magisk içinde devre dışı</string>
+    <string name="module_nav_policy_on">Navigasyon ses kısma kuralı yüklendi</string>
+    <string name="module_nav_policy_off">Fabrika navigasyon kuralı</string>
+
+    <string name="usb_title">Harici USB DAC</string>
+    <string name="usb_desc">Ana ünite: yalnızca kendi USB sürücüsüne sahip oynatıcılar (USB Audio Player PRO, Neutron, HiBy) DAC\'a bit-perfect çalar; diğer tüm sesler ses işlemcisinde kalır.\nUSB DAC: bağlı olduğu sürece tüm Android sesleri DAC\'a gider, en yüksek örnekleme hızına yeniden örneklenir ve tam ölçekte iletilir — seviyeyi DAC veya amplifikatör üzerinden ayarlayın. SIM aramaları ana ünitede kalır.</string>
+    <string name="usb_off">Ana ünite</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">Uygulandı — ses hizmeti yeniden başlatıldı.</string>
+    <string name="usb_result_same">Zaten ayarlı.</string>
+    <string name="usb_result_unsupported">Bu bellenimin ses politikasında bilinen bir USB anahtarı yok — fabrika ayarında bırakıldı.</string>
+    <string name="usb_result_error">Uygulanamadı: %1$s</string>
+    <string name="usb_dac_none">Bağlı USB DAC yok.</string>
+    <string name="caps_line">%1$s-bit, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Bağlandı: %1$s (%2$s)\nDesteklenen: %3$s</string>
+    <string name="usb_mode_btn">DAC modu: %1$s</string>
+    <string name="usb_mode_auto">Otomatik (DAC\'ın en iyisi)</string>
+    <string name="usb_mode_title">DAC modu</string>
+    <string name="usb_mode_unplugged">Kendi modları arasından seçim yapmak için DAC\'ı takın.</string>
+    <string name="usb_mode_not_supported">Bağlı DAC bu modu desteklemiyor — Android bu moda ses iletmez. Otomatik\'i seçin.</string>
+    <string name="usb_mode_saved">Kaydedildi — USB DAC anahtarı açıkken geçerlidir.</string>
+    <string name="usb_volume_follow">DAC ses seviyesi — ana ünitenin düğmesini takip eder</string>
+    <string name="usb_volume_none">Bu DAC\'ın kendi ses kontrolü yoktur — tam ölçekte çalar, seviyeyi amplifikatörden ayarlayın</string>
+    <string name="usb_volume_saved_follow">DAC ses seviyesi artık ana ünitenin düğmesini takip ediyor (DAC\'ın kendi kontrolü). Android tam ölçek sinyal gönderir.</string>
+    <string name="usb_volume_saved_full">DAC tam ölçekte çalıyor — seviyeyi amplifikatörden ayarlayın. Android tam ölçek sinyal gönderir.</string>
+    <string name="card_internal">ana ünite (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">Mikrofon</string>
+    <string name="tab_navi">Navigasyon</string>
+    <string name="tab_theme">Görünüm</string>
+
+    <string name="mic_title">Arama mikrofonu</string>
+    <string name="mic_desc">BitPerfect ayarlarının üzerine, her kanal için ayrı olarak. Ses hizmeti yeniden başlatılarak uygulanır (birkaç saniye sessizlik); arama sırasında kaydedilir ve arama bittikten sonra uygulanır. Kayıt (wDSP, DVR) etkilenmez. Yalnızca UIS7862 içindir.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Mikrofon seviyesi: %1$s dB</string>
+    <string name="mic_aec">Yankı engelleme</string>
+    <string name="mic_nr">Gürültü azaltma</string>
+    <string name="mic_reset">Sıfırla</string>
+    <string name="mic_saved_in_call">Kaydedildi — aramadan sonra uygulanacak.</string>
+    <string name="mic_only_7862">Mikrofon ayarları yalnızca UIS7862 içindir.</string>
+    <string name="mic_nr_depth">Gürültü azaltma derinliği: %1$s dB (sol daha hafif, sağ daha güçlü)</string>
+    <string name="mic_nr_depth_bp">Gürültü azaltma derinliği: BitPerfect varsayılanı, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Gürültü azaltma derinliği: gürültü azaltma kapalı</string>
+    <string name="mic_presets">Profiller</string>
+    <string name="mic_preset_title">Mikrofon profilleri</string>
+    <string name="mic_preset_save">Geçerliyi farklı kaydet…</string>
+    <string name="mic_preset_name">Profil adı</string>
+    <string name="mic_preset_name_hint">Profil her kanalı saklar: seviye, yankı engelleme, gürültü azaltma, derinlik. Harfler, rakamlar, - ve _.</string>
+    <string name="mic_preset_load">Yükle</string>
+    <string name="mic_preset_delete">Sil</string>
+    <string name="mic_preset_delete_ask">“%1$s” profili silinsin mi?</string>
+    <string name="mic_preset_none">Henüz kaydedilmiş profil yok.</string>
+    <string name="mic_done">Tamamlandı.</string>
+    <string name="mic_bad_name">Bu ad uygun değil: yalnızca harfler, rakamlar, - ve _ kullanılabilir.</string>
+    <string name="mic_no_preset">Bu profil artık mevcut değil.</string>
+
+    <string name="navi_title">Navigasyon</string>
+    <string name="navi_desc">Sesli yönlendirmeleri navigasyon olarak çalan ve müziği kısan uygulamalar. Kendinizinkini ekleyin ve yapılandırın; değişiklikler yeniden başlatmanın ardından geçerli olur.</string>
+    <string name="navi_add">Navigasyon ekle</string>
+    <string name="navi_show_all">Tümünü göster (%1$d)</string>
+    <string name="navi_show_installed">Yalnızca yüklü olanlar</string>
+    <string name="navi_none_installed">Listedeki navigasyon uygulamalarından hiçbiri yüklü değil.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">fabrika</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">sizin</string>
+    <string name="navi_adjust_on">kendi kaydırıcısı yönlendirmeleri ayarlar</string>
+    <string name="navi_adjust_off">kendi kaydırıcısına dokunulmaz</string>
+    <string name="navi_mix_car">müzik araç ayarlarına göre</string>
+    <string name="navi_mix_pct">müzik %1$s%%</string>
+    <string name="navi_pick_title">Uygulamayı seçin</string>
+    <string name="navi_adjust_label">Uygulamanın kendi ses düzeyi kaydırıcısı yönlendirme sesini ayarlar</string>
+    <string name="navi_mix_car_label">Yönlendirme sırasında müzik: araç ayarlarına göre</string>
+    <string name="navi_mix_label">Yönlendirme sırasında müzik: %1$d%%</string>
+    <string name="navi_save">Kaydet</string>
+    <string name="navi_cancel">İptal</string>
+    <string name="navi_action_edit">Düzenle</string>
+    <string name="navi_action_remove">Listemden kaldır</string>
+    <string name="navi_saved">Kaydedildi — yeniden başlatmanın ardından uygulanır.</string>
+    <string name="navi_error">Kaydedilemedi: %1$s</string>
+
+    <string name="theme_title">Görünüm</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Otomatik</string>
+    <string name="mode_day">Gündüz</string>
+    <string name="mode_night">Gece</string>
+    <string name="hyper_night_only">Hyper bir gece temasıdır.</string>
+    <string name="btn_refresh">Yenile</string>
+
+    <string name="btn_donate_badge">Destek Ol</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Bana bir kahve ısmarla</item>
+        <item>💖 Projelerimi destekle</item>
+        <item>🚀 Güncellemeler devam etsin!</item>
+    </string-array>
+    <string name="support_dialog_title">Geliştiriciyi Destekleyin</string>
+    <string name="support_dialog_desc">Emeğimi takdir ediyor ve bana bir kahve ya da bira ısmarlamak istiyorsanız:</string>
+    <string name="support_click_hint">Dokunun: bağlantıyı kopyalayın ve açın</string>
+    <string name="support_click_hint_wallet">Dokunun: cüzdan adresini kopyalayın ve açın</string>
+    <string name="support_click_hint_tg">Dokunun: kopyalayın ve Telegram\'ı açın</string>
+    <string name="btn_close">KAPAT</string>
+    <string name="toast_copied">Panoya kopyalandı: %s</string>
+</resources>

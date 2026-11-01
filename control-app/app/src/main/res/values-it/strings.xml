@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Piattaforma</string>
+    <string name="card_path">Percorso audio</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Lettura in corso…</string>
+    <string name="status_no_root">Accesso root assente o BitPerfect non installato.</string>
+    <string name="platform_7862">UIS7862 · modulo completo</string>
+    <string name="platform_8581">UIS8581 · profilo ridotto</string>
+    <string name="platform_other">%1$s · non supportato</string>
+    <string name="path_i2s_24">I²S a 24 bit verso il processore audio</string>
+    <string name="path_analogue">DAC SoC (analogico)</string>
+    <string name="path_8581">16 bit / 44.1 kHz (predefinito)</string>
+    <string name="path_usb_now">DAC USB · %1$s</string>
+    <string name="path_i2s_now">I²S verso il processore audio · %1$s</string>
+    <string name="path_internal_now">Autoradio · %1$s</string>
+    <string name="fmt_desc">%1$s bit / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">stereo</string>
+    <string name="ch_mono">mono</string>
+    <string name="ch_n">%1$s can.</string>
+    <string name="path_playing">In riproduzione: %1$s</string>
+    <string name="path_idle">Nessuna riproduzione in corso</string>
+    <string name="module_active">Attivo · %1$s</string>
+    <string name="module_inactive">Non confermato a questo avvio · %1$s</string>
+    <string name="module_disabled">Disattivato in Magisk</string>
+    <string name="module_nav_policy_on">Politica di attenuazione navigazione caricata</string>
+    <string name="module_nav_policy_off">Politica di navigazione predefinita</string>
+
+    <string name="usb_title">DAC USB esterno</string>
+    <string name="usb_desc">Autoradio: solo i player con driver USB proprietario (USB Audio Player PRO, Neutron, HiBy) riproducono sul DAC in bit-perfect; tutto il resto dell\'audio rimane sul processore audio.\nDAC USB: tutto l\'audio di Android viene inviato al DAC mentre è collegato, ricampionato alla frequenza ottimale e a piena scala — regola il volume sul DAC o sull\'amplificatore. Le chiamate SIM rimangono sull\'autoradio.</string>
+    <string name="usb_off">Autoradio</string>
+    <string name="usb_on">DAC USB</string>
+    <string name="usb_result_changed">Applicato — il servizio audio è stato riavviato.</string>
+    <string name="usb_result_same">Già impostato.</string>
+    <string name="usb_result_unsupported">La politica audio di questo firmware non ha un selettore USB noto — mantenuto di fabbrica.</string>
+    <string name="usb_result_error">Impossibile applicare: %1$s</string>
+    <string name="usb_dac_none">Nessun DAC USB collegato.</string>
+    <string name="caps_line">%1$s bit, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Collegato: %1$s (%2$s)\nDichiara: %3$s</string>
+    <string name="usb_mode_btn">Modalità DAC: %1$s</string>
+    <string name="usb_mode_auto">Auto (la migliore del DAC)</string>
+    <string name="usb_mode_title">Modalità DAC</string>
+    <string name="usb_mode_unplugged">Collega il DAC per scegliere tra le sue modalità.</string>
+    <string name="usb_mode_not_supported">Il DAC collegato non dichiara questa modalità — Android non riprodurrà su di esso. Seleziona Auto.</string>
+    <string name="usb_mode_saved">Salvato — si applica quando l\'interruttore DAC USB è attivo.</string>
+    <string name="usb_volume_follow">Volume DAC — segue la manopola dell\'autoradio</string>
+    <string name="usb_volume_none">Questo DAC non ha un controllo volume proprio — riproduce a piena scala, regola il livello sull\'amplificatore</string>
+    <string name="usb_volume_saved_follow">Il volume del DAC ora segue la manopola dell\'autoradio (controllo proprio del DAC). Android invia a piena scala.</string>
+    <string name="usb_volume_saved_full">Il DAC riproduce a piena scala — regola il livello sull\'amplificatore. Android invia a piena scala.</string>
+    <string name="card_internal">autoradio (%1$s)</string>
+    <string name="card_usb">DAC USB %1$s (%2$s)</string>
+
+    <string name="tab_usb">DAC USB</string>
+    <string name="tab_mic">Microfono</string>
+    <string name="tab_navi">Navigatori</string>
+    <string name="tab_theme">Aspetto</string>
+
+    <string name="mic_title">Microfono chiamate</string>
+    <string name="mic_desc">Per canale, oltre alla calibrazione di BitPerfect. Si applica riavviando il servizio audio (pochi secondi di silenzio); durante una chiamata viene salvato e applicato al termine. La registrazione (wDSP, DVR) non viene toccata. Solo UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Livello microfono: %1$s dB</string>
+    <string name="mic_aec">Cancellazione eco</string>
+    <string name="mic_nr">Riduzione rumore</string>
+    <string name="mic_reset">Ripristina</string>
+    <string name="mic_saved_in_call">Salvato — verrà applicato dopo la chiamata.</string>
+    <string name="mic_only_7862">Le impostazioni del microfono sono solo per UIS7862.</string>
+    <string name="mic_nr_depth">Profondità riduzione rumore: %1$s dB (a sinistra più morbida, a destra più forte)</string>
+    <string name="mic_nr_depth_bp">Profondità riduzione rumore: predefinita di BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Profondità riduzione rumore: riduzione rumore disattivata</string>
+    <string name="mic_presets">Profili</string>
+    <string name="mic_preset_title">Profili microfono</string>
+    <string name="mic_preset_save">Salva corrente come…</string>
+    <string name="mic_preset_name">Nome profilo</string>
+    <string name="mic_preset_name_hint">Un profilo memorizza ogni canale: livello, cancellazione eco, riduzione rumore, profondità. Lettere, cifre, - e _.</string>
+    <string name="mic_preset_load">Carica</string>
+    <string name="mic_preset_delete">Elimina</string>
+    <string name="mic_preset_delete_ask">Eliminare il profilo “%1$s”?</string>
+    <string name="mic_preset_none">Nessun profilo salvato al momento.</string>
+    <string name="mic_done">Fatto.</string>
+    <string name="mic_bad_name">Nome non valido: solo lettere, cifre, - e _.</string>
+    <string name="mic_no_preset">Questo profilo non esiste più.</string>
+
+    <string name="navi_title">Navigatori</string>
+    <string name="navi_desc">Applicazioni i cui messaggi vocali vengono riprodotti come navigazione e abbassano la musica. Aggiungi la tua e configurala; le modifiche si applicano dopo il riavvio.</string>
+    <string name="navi_add">Aggiungi navigatore</string>
+    <string name="navi_show_all">Mostra tutti (%1$d)</string>
+    <string name="navi_show_installed">Solo installati</string>
+    <string name="navi_none_installed">Nessun navigatore dell\'elenco risulta installato.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">fabbrica</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">tuo</string>
+    <string name="navi_adjust_on">il suo cursore controlla i messaggi</string>
+    <string name="navi_adjust_off">il suo cursore non viene toccato</string>
+    <string name="navi_mix_car">musica secondo impostazioni auto</string>
+    <string name="navi_mix_pct">musica %1$s%%</string>
+    <string name="navi_pick_title">Scegli l\'applicazione</string>
+    <string name="navi_adjust_label">Il cursore volume dell\'applicazione controlla il volume dei messaggi vocali</string>
+    <string name="navi_mix_car_label">Musica durante i messaggi: come nelle impostazioni auto</string>
+    <string name="navi_mix_label">Musica durante i messaggi: %1$d%%</string>
+    <string name="navi_save">Salva</string>
+    <string name="navi_cancel">Annulla</string>
+    <string name="navi_action_edit">Modifica</string>
+    <string name="navi_action_remove">Rimuovi dal mio elenco</string>
+    <string name="navi_saved">Salvato — si applica dopo il riavvio.</string>
+    <string name="navi_error">Impossibile salvare: %1$s</string>
+
+    <string name="theme_title">Aspetto</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Auto</string>
+    <string name="mode_day">Giorno</string>
+    <string name="mode_night">Notte</string>
+    <string name="hyper_night_only">Hyper è uno stile notturno.</string>
+    <string name="btn_refresh">Aggiorna</string>
+
+    <string name="btn_donate_badge">Supporta</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Offrimi un caffè</item>
+        <item>💖 Sostieni i miei progetti</item>
+        <item>🚀 Nuovi aggiornamenti in arrivo!</item>
+    </string-array>
+    <string name="support_dialog_title">Supporta lo sviluppatore</string>
+    <string name="support_dialog_desc">Se apprezzi il mio lavoro e desideri offrirmi un caffè o una birra:</string>
+    <string name="support_click_hint">Tocca: copia link e apri</string>
+    <string name="support_click_hint_wallet">Tocca: copia indirizzo wallet</string>
+    <string name="support_click_hint_tg">Tocca: copia e apri Telegram</string>
+    <string name="btn_close">CHIUDI</string>
+    <string name="toast_copied">Copiato negli appunti: %s</string>
+</resources>

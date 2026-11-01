@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Platform</string>
+    <string name="card_path">Hangútvonal</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Olvasás…</string>
+    <string name="status_no_root">Nincs root hozzáférés, vagy a BitPerfect nincs telepítve.</string>
+    <string name="platform_7862">UIS7862 · teljes modul</string>
+    <string name="platform_8581">UIS8581 · csökkentett profil</string>
+    <string name="platform_other">%1$s · nem támogatott</string>
+    <string name="path_i2s_24">24 bites I²S a hangprocesszor felé</string>
+    <string name="path_analogue">SoC DAC (analóg)</string>
+    <string name="path_8581">16 bit / 44.1 kHz (gyári)</string>
+    <string name="path_usb_now">USB-DAC · %1$s</string>
+    <string name="path_i2s_now">I²S a hangprocesszor felé · %1$s</string>
+    <string name="path_internal_now">Fejegység · %1$s</string>
+    <string name="fmt_desc">%1$s bit / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">sztereó</string>
+    <string name="ch_mono">monó</string>
+    <string name="ch_n">%1$s csat.</string>
+    <string name="path_playing">Lejátszás: %1$s</string>
+    <string name="path_idle">Jelenleg nincs lejátszás</string>
+    <string name="module_active">Aktív · %1$s</string>
+    <string name="module_inactive">Nem megerősített ennél az indításnál · %1$s</string>
+    <string name="module_disabled">Letiltva a Magiskban</string>
+    <string name="module_nav_policy_on">Navigációs halkítási szabály betöltve</string>
+    <string name="module_nav_policy_off">Gyári navigációs szabály</string>
+
+    <string name="usb_title">Külső USB-DAC</string>
+    <string name="usb_desc">Fejegység: csak a saját USB-illesztőprogrammal rendelkező lejátszók (USB Audio Player PRO, Neutron, HiBy) játszanak le a DAC-ra bit-perfect módban; minden más hang a hangprocesszoron marad.\nUSB-DAC: az összes Android-hang a DAC-ra megy, amíg az csatlakoztatva van, a legjobb mintavételezésre újramintavételezve, teljes jelszinten — állítsa a hangerőt a DAC-on vagy az erősítőn. A SIM-hívások a fejegységen maradnak.</string>
+    <string name="usb_off">Fejegység</string>
+    <string name="usb_on">USB-DAC</string>
+    <string name="usb_result_changed">Alkalmazva — a hangszolgáltatás újraindult.</string>
+    <string name="usb_result_same">Már így van beállítva.</string>
+    <string name="usb_result_unsupported">Ennek a firmware-nek az audióirányelve nem tartalmaz ismert USB-kapcsolót — gyári állapotban hagyva.</string>
+    <string name="usb_result_error">Nem sikerült alkalmazni: %1$s</string>
+    <string name="usb_dac_none">Nincs csatlakoztatva USB-DAC.</string>
+    <string name="caps_line">%1$s bit, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Csatlakoztatva: %1$s (%2$s)\nDeklarált formátumok: %3$s</string>
+    <string name="usb_mode_btn">DAC-mód: %1$s</string>
+    <string name="usb_mode_auto">Auto (a DAC legjobbja)</string>
+    <string name="usb_mode_title">DAC-mód</string>
+    <string name="usb_mode_unplugged">Csatlakoztassa a DAC-ot a saját módjai közül való választáshoz.</string>
+    <string name="usb_mode_not_supported">A csatlakoztatott DAC nem deklarálja ezt a módot — az Android nem fog játszani rá. Válassza az Auto lehetőséget.</string>
+    <string name="usb_mode_saved">Elmentve — érvényes, ha az USB-DAC kapcsoló be van kapcsolva.</string>
+    <string name="usb_volume_follow">DAC hangerő — a fejegység tekerőgombját követi</string>
+    <string name="usb_volume_none">Ez a DAC nem rendelkezik saját hangerőszabályzóval — maximális jelszinten játszik le, a szintet az erősítőn állítsa</string>
+    <string name="usb_volume_saved_follow">A DAC hangereje mostantól a fejegység tekerőgombját követi (a DAC saját szabályzóján keresztül). Az Android teljes skálát küld.</string>
+    <string name="usb_volume_saved_full">A DAC teljes jelszinten játszik — állítsa a szintet az erősítőn. Az Android teljes skálát küld.</string>
+    <string name="card_internal">fejegység (%1$s)</string>
+    <string name="card_usb">USB-DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB-DAC</string>
+    <string name="tab_mic">Mikrofon</string>
+    <string name="tab_navi">Navigáció</string>
+    <string name="tab_theme">Kinézet</string>
+
+    <string name="mic_title">Hívásmikrofon</string>
+    <string name="mic_desc">Csatornánként külön, a BitPerfect finomhangolásán felül. A hangszolgáltatás újraindításával lép életbe (néhány másodperc csend); hívás közben elmentésre kerül, és utána alkalmazza a rendszer. A felvételt (wDSP, DVR) nem érinti. Csak UIS7862 esetén.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Mikrofonszint: %1$s dB</string>
+    <string name="mic_aec">Visszhangelnyomás</string>
+    <string name="mic_nr">Zajcsökkentés</string>
+    <string name="mic_reset">Alaphelyzet</string>
+    <string name="mic_saved_in_call">Elmentve — a hívás befejezése után lép életbe.</string>
+    <string name="mic_only_7862">A mikrofonbeállítások csak UIS7862-re vonatkoznak.</string>
+    <string name="mic_nr_depth">Zajcsökkentés mértéke: %1$s dB (balra enyhébb, jobbra erősebb)</string>
+    <string name="mic_nr_depth_bp">Zajcsökkentés mértéke: a BitPerfect értéke, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Zajcsökkentés mértéke: a zajcsökkentés ki van kapcsolva</string>
+    <string name="mic_presets">Profilok</string>
+    <string name="mic_preset_title">Mikrofonprofilok</string>
+    <string name="mic_preset_save">Jelenlegi mentése másként…</string>
+    <string name="mic_preset_name">Profil neve</string>
+    <string name="mic_preset_name_hint">A profil minden csatornát elment: szint, visszhangelnyomás, zajcsökkentés, mélység. Betűk, számok, - és _.</string>
+    <string name="mic_preset_load">Betöltés</string>
+    <string name="mic_preset_delete">Törlés</string>
+    <string name="mic_preset_delete_ask">Törli a(z) „%1$s” profilt?</string>
+    <string name="mic_preset_none">Még nincsenek mentett profilok.</string>
+    <string name="mic_done">Kész.</string>
+    <string name="mic_bad_name">Ez a név nem megfelelő: csak betűk, számok, - és _ használható.</string>
+    <string name="mic_no_preset">Ez a profil már nem létezik.</string>
+
+    <string name="navi_title">Navigáció</string>
+    <string name="navi_desc">Alkalmazások, amelyek hangutasításai navigációként szólnak és lehalkítják a zenét. Adja hozzá a sajátját, és konfigurálja; a változtatások újraindítás után lépnek életbe.</string>
+    <string name="navi_add">Navigáció hozzáadása</string>
+    <string name="navi_show_all">Összes megjelenítése (%1$d)</string>
+    <string name="navi_show_installed">Csak a telepítettek</string>
+    <string name="navi_none_installed">A listából egyetlen navigációs alkalmazás sincs telepítve.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">gyári</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">saját</string>
+    <string name="navi_adjust_on">a saját csúszkája szabályozza az utasításokat</string>
+    <string name="navi_adjust_off">a saját csúszkája változatlan</string>
+    <string name="navi_mix_car">zene az autó beállításai szerint</string>
+    <string name="navi_mix_pct">zene %1$s%%</string>
+    <string name="navi_pick_title">Válasszon alkalmazást</string>
+    <string name="navi_adjust_label">Az alkalmazás saját hangerőszabályzója állítja be az utasítások hangerejét</string>
+    <string name="navi_mix_car_label">Zene az utasítások alatt: az autó beállításai szerint</string>
+    <string name="navi_mix_label">Zene az utasítások alatt: %1$d%%</string>
+    <string name="navi_save">Mentés</string>
+    <string name="navi_cancel">Mégse</string>
+    <string name="navi_action_edit">Módosítás</string>
+    <string name="navi_action_remove">Eltávolítás a listámról</string>
+    <string name="navi_saved">Elmentve — újraindítás után lép életbe.</string>
+    <string name="navi_error">Nem sikerült menteni: %1$s</string>
+
+    <string name="theme_title">Kinézet</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Auto</string>
+    <string name="mode_day">Nappal</string>
+    <string name="mode_night">Éjszaka</string>
+    <string name="hyper_night_only">A Hyper egy éjszakai stílus.</string>
+    <string name="btn_refresh">Frissítés</string>
+
+    <string name="btn_donate_badge">Támogatás</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Hívj meg egy kávéra</item>
+        <item>💖 Támogasd a projektjeimet</item>
+        <item>🚀 Jöjjenek a frissítések!</item>
+    </string-array>
+    <string name="support_dialog_title">Fejlesztő támogatása</string>
+    <string name="support_dialog_desc">Ha értékeled a munkámat, és szeretnél meghívni egy kávéra vagy sörre:</string>
+    <string name="support_click_hint">Koppintson: hivatkozás másolása és megnyitása</string>
+    <string name="support_click_hint_wallet">Koppintson: tárcacím másolása és megnyitása</string>
+    <string name="support_click_hint_tg">Koppintson: másolás és Telegram megnyitása</string>
+    <string name="btn_close">BEZÁRÁS</string>
+    <string name="toast_copied">Vágólapra másolva: %s</string>
+</resources>

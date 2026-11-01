@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Πλατφόρμα</string>
+    <string name="card_path">Διαδρομή ήχου</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Ανάγνωση…</string>
+    <string name="status_no_root">Δεν υπάρχει πρόσβαση root ή το BitPerfect δεν είναι εγκατεστημένο.</string>
+    <string name="platform_7862">UIS7862 · πλήρης μονάδα</string>
+    <string name="platform_8581">UIS8581 · μειωμένο προφίλ</string>
+    <string name="platform_other">%1$s · δεν υποστηρίζεται</string>
+    <string name="path_i2s_24">24-bit I²S προς τον επεξεργαστή ήχου</string>
+    <string name="path_analogue">DAC SoC (αναλογικό)</string>
+    <string name="path_8581">16-bit / 44.1 kHz (εργοστασιακό)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S προς τον επεξεργαστή ήχου · %1$s</string>
+    <string name="path_internal_now">Ηχοσύστημα · %1$s</string>
+    <string name="fmt_desc">%1$s-bit / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">στέρεο</string>
+    <string name="ch_mono">μονοφωνικό</string>
+    <string name="ch_n">%1$s καν.</string>
+    <string name="path_playing">Αναπαραγωγή: %1$s</string>
+    <string name="path_idle">Δεν αναπαράγεται τίποτα τώρα</string>
+    <string name="module_active">Ενεργό · %1$s</string>
+    <string name="module_inactive">Δεν επιβεβαιώθηκε σε αυτή την εκκίνηση · %1$s</string>
+    <string name="module_disabled">Απενεργοποιημένο στο Magisk</string>
+    <string name="module_nav_policy_on">Πολιτική εξασθένησης πλοήγησης φορτώθηκε</string>
+    <string name="module_nav_policy_off">Εργοστασιακή πολιτική πλοήγησης</string>
+
+    <string name="usb_title">Εξωτερικό USB DAC</string>
+    <string name="usb_desc">Ηχοσύστημα: μόνο εφαρμογές με δικό τους πρόγραμμα οδήγησης USB (USB Audio Player PRO, Neutron, HiBy) αναπαράγουν στο DAC σε λειτουργία bit-perfect· όλοι οι υπόλοιποι ήχοι παραμένουν στον επεξεργαστή ήχου.\nUSB DAC: όλος ο ήχος του Android οδηγείται στο DAC όσο είναι συνδεδεμένο, με επαναδειγματοληψία στη βέλτιστη συχνότητά του και σε πλήρη κλίμακα — ρυθμίστε την ένταση στο DAC ή στον ενισχυτή. Οι κλήσεις SIM παραμένουν στο ηχοσύστημα.</string>
+    <string name="usb_off">Ηχοσύστημα</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">Εφαρμόστηκε — η υπηρεσία ήχου επανεκκινήθηκε.</string>
+    <string name="usb_result_same">Έχει ήδη ρυθμιστεί.</string>
+    <string name="usb_result_unsupported">Η πολιτική ήχου αυτού του υλικολογισμικού δεν διαθέτει γνωστό διακόπτη USB — διατηρήθηκε η εργοστασιακή.</string>
+    <string name="usb_result_error">Αποτυχία εφαρμογής: %1$s</string>
+    <string name="usb_dac_none">Δεν έχει συνδεθεί USB DAC.</string>
+    <string name="caps_line">%1$s-bit, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Συνδέθηκε: %1$s (%2$s)\nΔηλώνει: %3$s</string>
+    <string name="usb_mode_btn">Λειτουργία DAC: %1$s</string>
+    <string name="usb_mode_auto">Αυτόματο (η καλύτερη του DAC)</string>
+    <string name="usb_mode_title">Λειτουργία DAC</string>
+    <string name="usb_mode_unplugged">Συνδέστε το DAC για να επιλέξετε από τις δικές του λειτουργίες.</string>
+    <string name="usb_mode_not_supported">Το συνδεδεμένο DAC δεν δηλώνει αυτή τη λειτουργία — το Android δεν θα αναπαράγει σε αυτό. Επιλέξτε Αυτόματο.</string>
+    <string name="usb_mode_saved">Αποθηκεύτηκε — ισχύει όταν ο διακόπτης USB DAC είναι ενεργός.</string>
+    <string name="usb_volume_follow">Ένταση DAC — ακολουθεί το περιστροφικό κουμπί του ηχοσυστήματος</string>
+    <string name="usb_volume_none">Αυτό το DAC δεν διαθέτει δικό του έλεγχο έντασης — αναπαράγει σε πλήρη κλίμακα, ρυθμίστε το επίπεδο στον ενισχυτή</string>
+    <string name="usb_volume_saved_follow">Η ένταση του DAC ακολουθεί πλέον το περιστροφικό κουμπί του ηχοσυστήματος (μέσω του ελέγχου του ίδιου του DAC). Το Android στέλνει πλήρη κλίμακα.</string>
+    <string name="usb_volume_saved_full">Το DAC αναπαράγει σε πλήρη κλίμακα — ρυθμίστε το επίπεδο στον ενισχυτή. Το Android στέλνει πλήρη κλίμακα.</string>
+    <string name="card_internal">ηχοσύστημα (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">Μικρόφωνο</string>
+    <string name="tab_navi">Πλοηγοί</string>
+    <string name="tab_theme">Εμφάνιση</string>
+
+    <string name="mic_title">Μικρόφωνο κλήσεων</string>
+    <string name="mic_desc">Ανά κανάλι, επιπλέον των ρυθμίσεων του BitPerfect. Εφαρμόζεται με επανεκκίνηση της υπηρεσίας ήχου (λίγα δευτερόλεπτα σιγής)· κατά τη διάρκεια κλήσης αποθηκεύεται και εφαρμόζεται μετά τη λήξη της. Η εγγραφή (wDSP, DVR) δεν επηρεάζεται. Μόνο για UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Επίπεδο μικροφώνου: %1$s dB</string>
+    <string name="mic_aec">Ακύρωση ηχούς</string>
+    <string name="mic_nr">Μείωση θορύβου</string>
+    <string name="mic_reset">Επαναφορά</string>
+    <string name="mic_saved_in_call">Αποθηκεύτηκε — θα εφαρμοστεί μετά την κλήση.</string>
+    <string name="mic_only_7862">Οι ρυθμίσεις μικροφώνου είναι διαθέσιμες μόνο για το UIS7862.</string>
+    <string name="mic_nr_depth">Βάθος μείωσης θορύβου: %1$s dB (αριστερά πιο ήπιο, δεξιά πιο ισχυρό)</string>
+    <string name="mic_nr_depth_bp">Βάθος μείωσης θορύβου: του BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Βάθος μείωσης θορύβου: η μείωση θορύβου είναι ανενεργή</string>
+    <string name="mic_presets">Προφίλ</string>
+    <string name="mic_preset_title">Προφίλ μικροφώνου</string>
+    <string name="mic_preset_save">Αποθήκευση τρέχοντος ως…</string>
+    <string name="mic_preset_name">Όνομα προφίλ</string>
+    <string name="mic_preset_name_hint">Ένα προφίλ αποθηκεύει κάθε κανάλι: επίπεδο, ακύρωση ηχούς, μείωση θορύβου, βάθος. Γράμματα, ψηφία, - και _.</string>
+    <string name="mic_preset_load">Φόρτωση</string>
+    <string name="mic_preset_delete">Διαγραφή</string>
+    <string name="mic_preset_delete_ask">Διαγραφή του προφίλ «%1$s»;</string>
+    <string name="mic_preset_none">Δεν υπάρχουν ακόμη αποθηκευμένα προφίλ.</string>
+    <string name="mic_done">Ολοκληρώθηκε.</string>
+    <string name="mic_bad_name">Μη έγκυρο όνομα: μόνο γράμματα, ψηφία, - και _.</string>
+    <string name="mic_no_preset">Αυτό το προφίλ δεν υπάρχει πλέον.</string>
+
+    <string name="navi_title">Πλοηγοί</string>
+    <string name="navi_desc">Εφαρμογές των οποίων οι φωνητικές οδηγίες αναπαράγονται ως πλοήγηση και χαμηλώνουν τη μουσική. Προσθέστε τη δική σας και ρυθμίστε την· οι αλλαγές ισχύουν μετά την επανεκκίνηση.</string>
+    <string name="navi_add">Προσθήκη πλοηγού</string>
+    <string name="navi_show_all">Εμφάνιση όλων (%1$d)</string>
+    <string name="navi_show_installed">Μόνο εγκατεστημένα</string>
+    <string name="navi_none_installed">Κανένας πλοηγός από τη λίστα δεν είναι εγκατεστημένος.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">εργοστασιακός</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">δικός σας</string>
+    <string name="navi_adjust_on">το ρυθμιστικό του ελέγχει τις οδηγίες</string>
+    <string name="navi_adjust_off">το ρυθμιστικό του παραμένει ανέπαφο</string>
+    <string name="navi_mix_car">μουσική σύμφωνα με ρυθμίσεις αυτοκινήτου</string>
+    <string name="navi_mix_pct">μουσική %1$s%%</string>
+    <string name="navi_pick_title">Επιλέξτε την εφαρμογή</string>
+    <string name="navi_adjust_label">Το ρυθμιστικό έντασης της εφαρμογής ελέγχει την ένταση των οδηγιών</string>
+    <string name="navi_mix_car_label">Μουσική κατά τις οδηγίες: σύμφωνα με τις ρυθμίσεις του αυτοκινήτου</string>
+    <string name="navi_mix_label">Μουσική κατά τις οδηγίες: %1$d%%</string>
+    <string name="navi_save">Αποθήκευση</string>
+    <string name="navi_cancel">Ακύρωση</string>
+    <string name="navi_action_edit">Τροποποίηση</string>
+    <string name="navi_action_remove">Αφαίρεση από τη λίστα μου</string>
+    <string name="navi_saved">Αποθηκεύτηκε — θα εφαρμοστεί μετά την επανεκκίνηση.</string>
+    <string name="navi_error">Αποτυχία αποθήκευσης: %1$s</string>
+
+    <string name="theme_title">Εμφάνιση</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Αυτόματο</string>
+    <string name="mode_day">Ημέρα</string>
+    <string name="mode_night">Νύχτα</string>
+    <string name="hyper_night_only">Το Hyper είναι νυχτερινό στυλ.</string>
+    <string name="btn_refresh">Ανανέωση</string>
+
+    <string name="btn_donate_badge">Υποστήριξη</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Κέρασέ μου έναν καφέ</item>
+        <item>💖 Υποστηρίξτε τα έργα μου</item>
+        <item>🚀 Περισσότερες ενημερώσεις!</item>
+    </string-array>
+    <string name="support_dialog_title">Υποστήριξη προγραμματιστή</string>
+    <string name="support_dialog_desc">Εάν εκτιμάτε τη δουλειά μου και θέλετε να με κεράσετε έναν καφέ ή μπύρα:</string>
+    <string name="support_click_hint">Πατήστε: αντιγραφή συνδέσμου και άνοιγμα</string>
+    <string name="support_click_hint_wallet">Πατήστε: αντιγραφή διεύθυνσης πορτοφολιού</string>
+    <string name="support_click_hint_tg">Πατήστε: αντιγραφή και άνοιγμα Telegram</string>
+    <string name="btn_close">ΚΛΕΙΣΙΜΟ</string>
+    <string name="toast_copied">Αντιγράφηκε στο πρόχειρο: %s</string>
+</resources>

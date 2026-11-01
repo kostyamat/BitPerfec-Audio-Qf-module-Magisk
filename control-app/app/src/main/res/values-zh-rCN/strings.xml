@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">平台</string>
+    <string name="card_path">音频通路</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">正在读取…</string>
+    <string name="status_no_root">无 root 权限，或未安装 BitPerfect 模块。</string>
+    <string name="platform_7862">UIS7862 · 完整模块</string>
+    <string name="platform_8581">UIS8581 · 精简配置</string>
+    <string name="platform_other">%1$s · 不支持</string>
+    <string name="path_i2s_24">24位 I²S 至音频处理器</string>
+    <string name="path_analogue">SoC DAC (模拟)</string>
+    <string name="path_8581">16位 / 44.1 kHz (出厂)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S 至音频处理器 · %1$s</string>
+    <string name="path_internal_now">车机 · %1$s</string>
+    <string name="fmt_desc">%1$s位 / %2$s kHz，%3$s</string>
+    <string name="ch_stereo">立体声</string>
+    <string name="ch_mono">单声道</string>
+    <string name="ch_n">%1$s 声道</string>
+    <string name="path_playing">正在播放: %1$s</string>
+    <string name="path_idle">当前无音频播放</string>
+    <string name="module_active">运行中 · %1$s</string>
+    <string name="module_inactive">本次开机未确认 · %1$s</string>
+    <string name="module_disabled">已在 Magisk 中禁用</string>
+    <string name="module_nav_policy_on">导航压音策略已加载</string>
+    <string name="module_nav_policy_off">出厂导航策略</string>
+
+    <string name="usb_title">外置 USB DAC</string>
+    <string name="usb_desc">车机: 仅具备独立 USB 驱动的播放器 (USB Audio Player PRO、Neutron、HiBy) 独占 DAC 进行 bit-perfect 播放；其余声音仍走音频处理器。\nUSB DAC: 插入时所有 Android 音频均输出至 DAC，重采样至其最佳采样率并满幅输出 — 请在 DAC 或功放上调节音量。SIM 通话仍保留在车机上。</string>
+    <string name="usb_off">车机</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">已生效 — 音频服务已重启。</string>
+    <string name="usb_result_same">已是此设置。</string>
+    <string name="usb_result_unsupported">该固件的音频策略无已知 USB 开关 — 保持出厂设置。</string>
+    <string name="usb_result_error">应用失败: %1$s</string>
+    <string name="usb_dac_none">未连接 USB DAC。</string>
+    <string name="caps_line">%1$s位，%2$s: %3$s kHz</string>
+    <string name="usb_dac_info">已连接: %1$s (%2$s)\n声明参数: %3$s</string>
+    <string name="usb_mode_btn">DAC 模式: %1$s</string>
+    <string name="usb_mode_auto">自动 (DAC 最佳模式)</string>
+    <string name="usb_mode_title">DAC 模式</string>
+    <string name="usb_mode_unplugged">请连接 DAC 以选择其支持的模式。</string>
+    <string name="usb_mode_not_supported">已连接的 DAC 不支持此模式 — Android 将无法输出音频。请选择“自动”。</string>
+    <string name="usb_mode_saved">已保存 — 在开启 USB DAC 开关时生效。</string>
+    <string name="usb_volume_follow">DAC 音量 — 跟随车机旋钮</string>
+    <string name="usb_volume_none">此 DAC 无独立音量控制 — 满幅输出，请在功放上调节音量</string>
+    <string name="usb_volume_saved_follow">DAC 音量现已跟随车机旋钮 (调节 DAC 硬件音量)。Android 始终发送满幅信号。</string>
+    <string name="usb_volume_saved_full">DAC 满幅输出 — 请在功放上调节音量。Android 始终发送满幅信号。</string>
+    <string name="card_internal">车机 (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">麦克风</string>
+    <string name="tab_navi">导航应用</string>
+    <string name="tab_theme">外观</string>
+
+    <string name="mic_title">通话麦克风</string>
+    <string name="mic_desc">独立分通道调节，叠加于 BitPerfect 基础调谐之上。通过重启音频服务生效 (短暂静音几秒)；通话期间更改将保存并在挂断后生效。不影响录音 (wDSP、DVR)。仅适用于 UIS7862。</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">麦克风电平: %1$s dB</string>
+    <string name="mic_aec">回声消除</string>
+    <string name="mic_nr">降噪</string>
+    <string name="mic_reset">重置</string>
+    <string name="mic_saved_in_call">已保存 — 将在通话结束后生效。</string>
+    <string name="mic_only_7862">麦克风设置仅适用于 UIS7862。</string>
+    <string name="mic_nr_depth">降噪深度: %1$s dB (向左温和，向右强劲)</string>
+    <string name="mic_nr_depth_bp">降噪深度: BitPerfect 默认值，−10.5 dB</string>
+    <string name="mic_nr_depth_off">降噪深度: 降噪已关闭</string>
+    <string name="mic_presets">预设</string>
+    <string name="mic_preset_title">麦克风预设</string>
+    <string name="mic_preset_save">将当前设置保存为…</string>
+    <string name="mic_preset_name">预设名称</string>
+    <string name="mic_preset_name_hint">预设保存所有通道的参数: 电平、回声消除、降噪、深度。仅限字母、数字、- 和 _。</string>
+    <string name="mic_preset_load">加载</string>
+    <string name="mic_preset_delete">删除</string>
+    <string name="mic_preset_delete_ask">删除预设“%1$s”？</string>
+    <string name="mic_preset_none">暂无保存的预设。</string>
+    <string name="mic_done">完成。</string>
+    <string name="mic_bad_name">名称无效: 仅支持字母、数字、- 和 _。</string>
+    <string name="mic_no_preset">该预设已不存在。</string>
+
+    <string name="navi_title">导航应用</string>
+    <string name="navi_desc">语音播报被识别为导航并在播报时压低音乐的应用。可添加自定义应用并进行配置；修改在重启后生效。</string>
+    <string name="navi_add">添加导航</string>
+    <string name="navi_show_all">显示全部 (%1$d)</string>
+    <string name="navi_show_installed">仅已安装</string>
+    <string name="navi_none_installed">列表中未安装任何导航应用。</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">出厂</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">自定义</string>
+    <string name="navi_adjust_on">由自身滑块调节播报音量</string>
+    <string name="navi_adjust_off">保持自身滑块不变</string>
+    <string name="navi_mix_car">按车辆设置压音</string>
+    <string name="navi_mix_pct">播报时音乐 %1$s%%</string>
+    <string name="navi_pick_title">选择应用</string>
+    <string name="navi_adjust_label">由应用自身的音量滑块调节提示音量</string>
+    <string name="navi_mix_car_label">播报时音乐音量: 遵循原车设置</string>
+    <string name="navi_mix_label">播报时音乐音量: %1$d%%</string>
+    <string name="navi_save">保存</string>
+    <string name="navi_cancel">取消</string>
+    <string name="navi_action_edit">修改</string>
+    <string name="navi_action_remove">从列表中移除</string>
+    <string name="navi_saved">已保存 — 重启后生效。</string>
+    <string name="navi_error">保存失败: %1$s</string>
+
+    <string name="theme_title">外观</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">自动</string>
+    <string name="mode_day">白天</string>
+    <string name="mode_night">夜间</string>
+    <string name="hyper_night_only">Hyper 为夜间专用风格。</string>
+    <string name="btn_refresh">刷新</string>
+
+    <string name="btn_donate_badge">支持作者</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ 请作者喝杯咖啡</item>
+        <item>💖 支持开源项目</item>
+        <item>🚀 持续带来更新！</item>
+    </string-array>
+    <string name="support_dialog_title">支持开发者</string>
+    <string name="support_dialog_desc">如果您认可我的工作，欢迎赞助一杯咖啡或啤酒：</string>
+    <string name="support_click_hint">点击复制链接并打开</string>
+    <string name="support_click_hint_wallet">点击复制钱包地址并打开</string>
+    <string name="support_click_hint_tg">点击复制并打开 Telegram</string>
+    <string name="btn_close">关闭</string>
+    <string name="toast_copied">已复制到剪贴板: %s</string>
+</resources>

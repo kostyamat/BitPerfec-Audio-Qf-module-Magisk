@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">平台</string>
+    <string name="card_path">音訊通路</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">讀取中…</string>
+    <string name="status_no_root">無 root 權限，或未安裝 BitPerfect 模組。</string>
+    <string name="platform_7862">UIS7862 · 完整模組</string>
+    <string name="platform_8581">UIS8581 · 精簡設定</string>
+    <string name="platform_other">%1$s · 不支援</string>
+    <string name="path_i2s_24">24位元 I²S 至音訊處理器</string>
+    <string name="path_analogue">SoC DAC (類比)</string>
+    <string name="path_8581">16位元 / 44.1 kHz (原廠)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S 至音訊處理器 · %1$s</string>
+    <string name="path_internal_now">車機 · %1$s</string>
+    <string name="fmt_desc">%1$s位元 / %2$s kHz，%3$s</string>
+    <string name="ch_stereo">立體聲</string>
+    <string name="ch_mono">單聲道</string>
+    <string name="ch_n">%1$s 聲道</string>
+    <string name="path_playing">播放中: %1$s</string>
+    <string name="path_idle">目前無音訊播放</string>
+    <string name="module_active">執行中 · %1$s</string>
+    <string name="module_inactive">本次開機未確認 · %1$s</string>
+    <string name="module_disabled">已在 Magisk 中停用</string>
+    <string name="module_nav_policy_on">導航壓音策略已載入</string>
+    <string name="module_nav_policy_off">原廠導航策略</string>
+
+    <string name="usb_title">外接 USB DAC</string>
+    <string name="usb_desc">車機: 僅具備獨立 USB 驅動的播放器 (USB Audio Player PRO、Neutron、HiBy) 獨佔 DAC 進行 bit-perfect 播放；其餘聲音仍走音訊處理器。\nUSB DAC: 連接時所有 Android 音訊均輸出至 DAC，重新取樣至其最佳取樣率並全幅輸出 — 請在 DAC 或擴大機上調整音量。SIM 通話仍保留在車機上。</string>
+    <string name="usb_off">車機</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">已套用 — 音訊服務已重啟。</string>
+    <string name="usb_result_same">已是此設定。</string>
+    <string name="usb_result_unsupported">該韌體的音訊策略無已知 USB 開關 — 保持原廠設定。</string>
+    <string name="usb_result_error">套用失敗: %1$s</string>
+    <string name="usb_dac_none">未連接 USB DAC。</string>
+    <string name="caps_line">%1$s位元，%2$s: %3$s kHz</string>
+    <string name="usb_dac_info">已連接: %1$s (%2$s)\n宣告參數: %3$s</string>
+    <string name="usb_mode_btn">DAC 模式: %1$s</string>
+    <string name="usb_mode_auto">自動 (DAC 最佳模式)</string>
+    <string name="usb_mode_title">DAC 模式</string>
+    <string name="usb_mode_unplugged">請連接 DAC 以選擇其支援的模式。</string>
+    <string name="usb_mode_not_supported">已連接的 DAC 不支援此模式 — Android 將無法輸出音訊。請選擇「自動」。</string>
+    <string name="usb_mode_saved">已儲存 — 在開啟 USB DAC 開關時生效。</string>
+    <string name="usb_volume_follow">DAC 音量 — 跟隨車機旋鈕</string>
+    <string name="usb_volume_none">此 DAC 無獨立音量控制 — 全幅輸出，請在擴大機上調整音量</string>
+    <string name="usb_volume_saved_follow">DAC 音量現已跟隨車機旋鈕 (調整 DAC 硬體音量)。Android 始終傳送全幅訊號。</string>
+    <string name="usb_volume_saved_full">DAC 全幅輸出 — 請在擴大機上調整音量。Android 始終傳送全幅訊號。</string>
+    <string name="card_internal">車機 (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">麥克風</string>
+    <string name="tab_navi">導航應用</string>
+    <string name="tab_theme">外觀</string>
+
+    <string name="mic_title">通話麥克風</string>
+    <string name="mic_desc">獨立分聲道調整，疊加於 BitPerfect 基礎調校之上。透過重啟音訊服務生效 (短暫靜音數秒)；通話期間修改將儲存並在通話結束後生效。不影響錄音 (wDSP、DVR)。僅適用於 UIS7862。</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">麥克風電平: %1$s dB</string>
+    <string name="mic_aec">回音消除</string>
+    <string name="mic_nr">降噪</string>
+    <string name="mic_reset">重設</string>
+    <string name="mic_saved_in_call">已儲存 — 將在通話結束後生效。</string>
+    <string name="mic_only_7862">麥克風設定僅適用於 UIS7862。</string>
+    <string name="mic_nr_depth">降噪深度: %1$s dB (向左溫和，向右強勁)</string>
+    <string name="mic_nr_depth_bp">降噪深度: BitPerfect 預設值，−10.5 dB</string>
+    <string name="mic_nr_depth_off">降噪深度: 降噪已關閉</string>
+    <string name="mic_presets">預設</string>
+    <string name="mic_preset_title">麥克風預設</string>
+    <string name="mic_preset_save">將目前設定儲存為…</string>
+    <string name="mic_preset_name">預設名稱</string>
+    <string name="mic_preset_name_hint">預設儲存所有聲道的參數: 電平、回音消除、降噪、深度。僅限字母、數字、- 和 _。</string>
+    <string name="mic_preset_load">載入</string>
+    <string name="mic_preset_delete">刪除</string>
+    <string name="mic_preset_delete_ask">刪除預設「%1$s」？</string>
+    <string name="mic_preset_none">目前無儲存的預設。</string>
+    <string name="mic_done">完成。</string>
+    <string name="mic_bad_name">名稱無效: 僅支援字母、數字、- 和 _。</string>
+    <string name="mic_no_preset">該預設已不存在。</string>
+
+    <string name="navi_title">導航應用</string>
+    <string name="navi_desc">語音播報被辨識為導航並在播報時降低音樂音量的應用程式。可新增自訂應用程式並進行設定；變更於重新啟動後生效。</string>
+    <string name="navi_add">新增導航</string>
+    <string name="navi_show_all">顯示全部 (%1$d)</string>
+    <string name="navi_show_installed">僅已安裝</string>
+    <string name="navi_none_installed">清單中未安裝任何導航應用程式。</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">原廠</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">自訂</string>
+    <string name="navi_adjust_on">由自身滑桿調整播報音量</string>
+    <string name="navi_adjust_off">保持自身滑桿不變</string>
+    <string name="navi_mix_car">依車輛設定壓音</string>
+    <string name="navi_mix_pct">播報時音樂 %1$s%%</string>
+    <string name="navi_pick_title">選擇應用程式</string>
+    <string name="navi_adjust_label">由應用程式自身的音量滑桿調整提示音量</string>
+    <string name="navi_mix_car_label">播報時音樂音量: 遵循原車設定</string>
+    <string name="navi_mix_label">播報時音樂音量: %1$d%%</string>
+    <string name="navi_save">儲存</string>
+    <string name="navi_cancel">取消</string>
+    <string name="navi_action_edit">修改</string>
+    <string name="navi_action_remove">從清單中移除</string>
+    <string name="navi_saved">已儲存 — 重新啟動後生效。</string>
+    <string name="navi_error">儲存失敗: %1$s</string>
+
+    <string name="theme_title">外觀</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">自動</string>
+    <string name="mode_day">白天</string>
+    <string name="mode_night">夜間</string>
+    <string name="hyper_night_only">Hyper 為夜間專用風格。</string>
+    <string name="btn_refresh">重新整理</string>
+
+    <string name="btn_donate_badge">支持作者</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ 請作者喝杯咖啡</item>
+        <item>💖 支持開源專案</item>
+        <item>🚀 持續帶來更新！</item>
+    </string-array>
+    <string name="support_dialog_title">支持開發者</string>
+    <string name="support_dialog_desc">如果您認同我的工作，歡迎贊助一杯咖啡或啤酒：</string>
+    <string name="support_click_hint">點擊複製連結並開啟</string>
+    <string name="support_click_hint_wallet">點擊複製錢包地址並開啟</string>
+    <string name="support_click_hint_tg">點擊複製並開啟 Telegram</string>
+    <string name="btn_close">關閉</string>
+    <string name="toast_copied">已複製到剪貼簿: %s</string>
+</resources>

@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Платформа</string>
+    <string name="card_path">Аудиотракт</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Чтение…</string>
+    <string name="status_no_root">Нет root-доступа, или BitPerfect не установлен.</string>
+    <string name="platform_7862">UIS7862 · полный модуль</string>
+    <string name="platform_8581">UIS8581 · уменьшенный профиль</string>
+    <string name="platform_other">%1$s · не поддерживается</string>
+    <string name="path_i2s_24">24 бита I²S в звуковой процессор</string>
+    <string name="path_analogue">ЦАП SoC (аналог)</string>
+    <string name="path_8581">16 бит / 44.1 кГц (заводской)</string>
+    <string name="path_usb_now">USB-ЦАП · %1$s</string>
+    <string name="path_i2s_now">I²S в звуковой процессор · %1$s</string>
+    <string name="path_internal_now">Магнитола · %1$s</string>
+    <string name="fmt_desc">%1$s бит / %2$s кГц, %3$s</string>
+    <string name="ch_stereo">стерео</string>
+    <string name="ch_mono">моно</string>
+    <string name="ch_n">%1$s кан.</string>
+    <string name="path_playing">Играет: %1$s</string>
+    <string name="path_idle">Сейчас ничего не играет</string>
+    <string name="module_active">Работает · %1$s</string>
+    <string name="module_inactive">Не подтверждено на этом старте · %1$s</string>
+    <string name="module_disabled">Отключено в Magisk</string>
+    <string name="module_nav_policy_on">Политика приглушения под навигацию загружена</string>
+    <string name="module_nav_policy_off">Заводская политика навигации</string>
+
+    <string name="usb_title">Внешний USB-ЦАП</string>
+    <string name="usb_desc">Магнитола: на ЦАП играют только плееры с собственным USB-драйвером (USB Audio Player PRO, Neutron, HiBy), бит-в-бит; остальной звук остается на звуковом процессоре.\nUSB-ЦАП: пока ЦАП подключен, туда идет весь звук Android, на лучшей частоте ЦАПа, на полную шкалу — громкость на ЦАПе или усилителе. SIM-вызовы остаются на магнитоле.</string>
+    <string name="usb_off">Магнитола</string>
+    <string name="usb_on">USB-ЦАП</string>
+    <string name="usb_result_changed">Применено — аудиосервис перезапущен.</string>
+    <string name="usb_result_same">Уже так.</string>
+    <string name="usb_result_unsupported">В политике этой прошивки нет известного переключателя USB — оставлена заводская.</string>
+    <string name="usb_result_error">Не удалось применить: %1$s</string>
+    <string name="usb_dac_none">USB-ЦАП не подключен.</string>
+    <string name="caps_line">%1$s бит, %2$s: %3$s кГц</string>
+    <string name="usb_dac_info">Подключено: %1$s (%2$s)\nЗаявляет: %3$s</string>
+    <string name="usb_mode_btn">Режим ЦАП: %1$s</string>
+    <string name="usb_mode_auto">Авто (лучшее, что умеет ЦАП)</string>
+    <string name="usb_mode_title">Режим ЦАП</string>
+    <string name="usb_mode_unplugged">Подключите ЦАП, чтобы выбрать из его собственных режимов.</string>
+    <string name="usb_mode_not_supported">Подключенный ЦАП не заявляет этот режим — Android на него играть не будет. Выберите «Авто».</string>
+    <string name="usb_mode_saved">Сохранено — действует, когда переключатель USB-ЦАП включен.</string>
+    <string name="usb_volume_follow">Громкость ЦАПа — за ручкой магнитолы</string>
+    <string name="usb_volume_none">Этот ЦАП не имеет собственного регулятора громкости — играет на полную, громкость на усилителе</string>
+    <string name="usb_volume_saved_follow">Громкость ЦАПа теперь следует за ручкой магнитолы (регулятором самого ЦАПа). Android отдает полную шкалу.</string>
+    <string name="usb_volume_saved_full">ЦАП на полной громкости — уровень на усилителе. Android отдает полную шкалу.</string>
+    <string name="card_internal">магнитола (%1$s)</string>
+    <string name="card_usb">USB-ЦАП %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB-ЦАП</string>
+    <string name="tab_mic">Микрофон</string>
+    <string name="tab_navi">Навигаторы</string>
+    <string name="tab_theme">Вид</string>
+
+    <string name="mic_title">Микрофон вызовов</string>
+    <string name="mic_desc">Раздельно по каналам, поверх настроек BitPerfect. Применяется перезапуском аудиосервиса (несколько секунд тишины); во время звонка сохраняется и применяется после него. Запись (wDSP, DVR) не затрагивается. Только UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Уровень микрофона: %1$s дБ</string>
+    <string name="mic_aec">Эхоподавление</string>
+    <string name="mic_nr">Шумоподавление</string>
+    <string name="mic_reset">Сброс</string>
+    <string name="mic_saved_in_call">Сохранено — применится после звонка.</string>
+    <string name="mic_only_7862">Настройки микрофона — только для UIS7862.</string>
+    <string name="mic_nr_depth">Глубина шумоподавления: %1$s дБ (влево мягче, вправо сильнее)</string>
+    <string name="mic_nr_depth_bp">Глубина шумоподавления: как в BitPerfect, −10.5 дБ</string>
+    <string name="mic_nr_depth_off">Глубина шумоподавления: шумоподавление отключено</string>
+    <string name="mic_presets">Пресеты</string>
+    <string name="mic_preset_title">Пресеты микрофона</string>
+    <string name="mic_preset_save">Сохранить текущие как…</string>
+    <string name="mic_preset_name">Название пресета</string>
+    <string name="mic_preset_name_hint">Пресет сохраняет все каналы: уровень, эхоподавление, шумоподавление, глубину. Буквы, цифры, - и _.</string>
+    <string name="mic_preset_load">Загрузить</string>
+    <string name="mic_preset_delete">Удалить</string>
+    <string name="mic_preset_delete_ask">Удалить пресет «%1$s»?</string>
+    <string name="mic_preset_none">Сохраненных пресетов пока нет.</string>
+    <string name="mic_done">Готово.</string>
+    <string name="mic_bad_name">Такое название не подходит: только буквы, цифры, - и _.</string>
+    <string name="mic_no_preset">Этого пресета уже нет.</string>
+
+    <string name="navi_title">Навигаторы</string>
+    <string name="navi_desc">Приложения, чьи голосовые подсказки играют как навигация и приглушают музыку. Добавьте свое и настройте; изменения действуют после перезагрузки.</string>
+    <string name="navi_add">Добавить навигатор</string>
+    <string name="navi_show_all">Показать все (%1$d)</string>
+    <string name="navi_show_installed">Только установленные</string>
+    <string name="navi_none_installed">Ни один навигатор из списка не установлен.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">заводской</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">ваш</string>
+    <string name="navi_adjust_on">его регулятор управляет подсказками</string>
+    <string name="navi_adjust_off">его регулятор не трогаем</string>
+    <string name="navi_mix_car">музыка по настройкам авто</string>
+    <string name="navi_mix_pct">музыка %1$s%%</string>
+    <string name="navi_pick_title">Выберите приложение</string>
+    <string name="navi_adjust_label">Регулятор громкости приложения управляет громкостью подсказок</string>
+    <string name="navi_mix_car_label">Музыка под подсказками: как в настройках авто</string>
+    <string name="navi_mix_label">Музыка под подсказками: %1$d%%</string>
+    <string name="navi_save">Сохранить</string>
+    <string name="navi_cancel">Отмена</string>
+    <string name="navi_action_edit">Изменить</string>
+    <string name="navi_action_remove">Убрать из моего списка</string>
+    <string name="navi_saved">Сохранено — действует после перезагрузки.</string>
+    <string name="navi_error">Не удалось сохранить: %1$s</string>
+
+    <string name="theme_title">Вид</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Авто</string>
+    <string name="mode_day">День</string>
+    <string name="mode_night">Ночь</string>
+    <string name="hyper_night_only">Hyper — ночной стиль.</string>
+    <string name="btn_refresh">Обновить</string>
+
+    <string name="btn_donate_badge">Donate me</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Угостить кофе</item>
+        <item>💖 Поддержать проекты</item>
+        <item>🚀 Больше обновлений!</item>
+    </string-array>
+    <string name="support_dialog_title">Поддержка разработчика</string>
+    <string name="support_dialog_desc">Если вы цените мою работу и хотите угостить автора кофе или пивом:</string>
+    <string name="support_click_hint">Клик: скопировать ссылку и открыть</string>
+    <string name="support_click_hint_wallet">Клик: скопировать адрес и открыть кошелек</string>
+    <string name="support_click_hint_tg">Клик: скопировать и открыть в Telegram</string>
+    <string name="btn_close">ЗАКРЫТЬ</string>
+    <string name="toast_copied">Скопировано в буфер обмена: %s</string>
+</resources>

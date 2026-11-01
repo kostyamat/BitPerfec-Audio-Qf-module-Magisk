@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">プラットフォーム</string>
+    <string name="card_path">オーディオパス</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">読み込み中…</string>
+    <string name="status_no_root">root権限がないか、BitPerfectがインストールされていません。</string>
+    <string name="platform_7862">UIS7862 · フルモジュール</string>
+    <string name="platform_8581">UIS8581 · 縮小プロファイル</string>
+    <string name="platform_other">%1$s · 非対応</string>
+    <string name="path_i2s_24">サウンドプロセッサへの24ビットI²S</string>
+    <string name="path_analogue">SoC DAC (アナログ)</string>
+    <string name="path_8581">16ビット / 44.1 kHz (標準)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">サウンドプロセッサへのI²S · %1$s</string>
+    <string name="path_internal_now">車載機 · %1$s</string>
+    <string name="fmt_desc">%1$sビット / %2$s kHz、%3$s</string>
+    <string name="ch_stereo">ステレオ</string>
+    <string name="ch_mono">モノラル</string>
+    <string name="ch_n">%1$sチャンネル</string>
+    <string name="path_playing">再生中: %1$s</string>
+    <string name="path_idle">現在再生していません</string>
+    <string name="module_active">有効 · %1$s</string>
+    <string name="module_inactive">今回の起動では未確認 · %1$s</string>
+    <string name="module_disabled">Magiskで無効化されています</string>
+    <string name="module_nav_policy_on">ナビ案内時の減音ポリシー読み込み完了</string>
+    <string name="module_nav_policy_off">標準ナビゲーションポリシー</string>
+
+    <string name="usb_title">外付け USB DAC</string>
+    <string name="usb_desc">車載機: 独自のUSBドライバを持つプレーヤー (USB Audio Player PRO、Neutron、HiBy) のみがDACへビットパーフェクトで出力します。その他の音声はすべてサウンドプロセッサから出力されます。\nUSB DAC: 接続中はすべてのAndroid音声がDACに出力され、最適なレートにリサンプリングされ、フルスケールで再生されます — 音量はDACまたはアンプ側で調整してください。SIM通話は車載機から出力されます。</string>
+    <string name="usb_off">車載機</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">適用されました — オーディオサービスが再起動しました。</string>
+    <string name="usb_result_same">既に設定されています。</string>
+    <string name="usb_result_unsupported">このファームウェアのオーディオポリシーには既知のUSBスイッチがありません — 工場出荷時の状態を維持しました。</string>
+    <string name="usb_result_error">適用できませんでした: %1$s</string>
+    <string name="usb_dac_none">USB DACが接続されていません。</string>
+    <string name="caps_line">%1$sビット、%2$s: %3$s kHz</string>
+    <string name="usb_dac_info">接続中: %1$s (%2$s)\n対応仕様: %3$s</string>
+    <string name="usb_mode_btn">DACモード: %1$s</string>
+    <string name="usb_mode_auto">自動 (DACの最高設定)</string>
+    <string name="usb_mode_title">DACモード</string>
+    <string name="usb_mode_unplugged">DACを接続してモードを選択してください。</string>
+    <string name="usb_mode_not_supported">接続されたDACはこのモードに対応していません — Androidは出力しません。「自動」を選択してください。</string>
+    <string name="usb_mode_saved">保存しました — USB DACスイッチがオンのときに適用されます。</string>
+    <string name="usb_volume_follow">DAC音量 — 車載機のノブに連動</string>
+    <string name="usb_volume_none">このDACには独自の音量調節機能がありません — フルスケールで出力されるため、アンプ側で音量を調整してください</string>
+    <string name="usb_volume_saved_follow">DACの音量が車載機のノブに連動するようになりました (DACハードウェア音量)。Androidはフルスケールで出力します。</string>
+    <string name="usb_volume_saved_full">DACはフルスケールで出力されます — 音量はアンプで調整してください。Androidはフルスケールで出力します。</string>
+    <string name="card_internal">車載機 (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">マイク</string>
+    <string name="tab_navi">ナビアプリ</string>
+    <string name="tab_theme">表示設定</string>
+
+    <string name="mic_title">通話マイク</string>
+    <string name="mic_desc">BitPerfectの調整に加え、チャンネルごとに個別に設定。オーディオサービスを再起動して適用されます (数秒間の無音)；通話中に変更した場合は保存され通話終了後に適用されます。録音 (wDSP、DVR) には影響しません。UIS7862専用。</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">マイクレベル: %1$s dB</string>
+    <string name="mic_aec">エコーキャンセラー</string>
+    <string name="mic_nr">ノイズリダクション</string>
+    <string name="mic_reset">リセット</string>
+    <string name="mic_saved_in_call">保存しました — 通話終了後に適用されます。</string>
+    <string name="mic_only_7862">マイク設定はUIS7862専用です。</string>
+    <string name="mic_nr_depth">ノイズリダクション強度: %1$s dB (左: 弱、右: 強)</string>
+    <string name="mic_nr_depth_bp">ノイズリダクション強度: BitPerfect標準値、−10.5 dB</string>
+    <string name="mic_nr_depth_off">ノイズリダクション強度: オフ</string>
+    <string name="mic_presets">プリセット</string>
+    <string name="mic_preset_title">マイクプリセット</string>
+    <string name="mic_preset_save">現在の設定を保存…</string>
+    <string name="mic_preset_name">プリセット名</string>
+    <string name="mic_preset_name_hint">全チャンネルのレベル、エコーキャンセル、ノイズリダクション、強度を保持します。英数字、-、_ のみ使用可能。</string>
+    <string name="mic_preset_load">読み込み</string>
+    <string name="mic_preset_delete">削除</string>
+    <string name="mic_preset_delete_ask">プリセット「%1$s」を削除しますか？</string>
+    <string name="mic_preset_none">保存されたプリセットはまだありません。</string>
+    <string name="mic_done">完了しました。</string>
+    <string name="mic_bad_name">無効な名前です: 英数字、-、_ のみ使用できます。</string>
+    <string name="mic_no_preset">このプリセットは存在しません。</string>
+
+    <string name="navi_title">ナビアプリ</string>
+    <string name="navi_desc">音声案内がナビゲーションとして再生され、音楽を減音するアプリ。追加して設定してください；変更は再起動後に適用されます。</string>
+    <string name="navi_add">ナビアプリを追加</string>
+    <string name="navi_show_all">すべて表示 (%1$d)</string>
+    <string name="navi_show_installed">インストール済みのみ</string>
+    <string name="navi_none_installed">リスト内のナビアプリはインストールされていません。</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">標準</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">カスタム</string>
+    <string name="navi_adjust_on">アプリの音量バーで案内音量を調節</string>
+    <string name="navi_adjust_off">アプリの音量バーを変更しない</string>
+    <string name="navi_mix_car">車両設定に従い音楽を再生</string>
+    <string name="navi_mix_pct">案内中の音楽 %1$s%%</string>
+    <string name="navi_pick_title">アプリを選択</string>
+    <string name="navi_adjust_label">アプリ自体の音量調節バーで案内音量を設定</string>
+    <string name="navi_mix_car_label">案内中の音楽音量: 車両設定に従う</string>
+    <string name="navi_mix_label">案内中の音楽音量: %1$d%%</string>
+    <string name="navi_save">保存</string>
+    <string name="navi_cancel">キャンセル</string>
+    <string name="navi_action_edit">変更</string>
+    <string name="navi_action_remove">リストから削除</string>
+    <string name="navi_saved">保存しました — 再起動後に適用されます。</string>
+    <string name="navi_error">保存できませんでした: %1$s</string>
+
+    <string name="theme_title">表示設定</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">自動</string>
+    <string name="mode_day">昼間</string>
+    <string name="mode_night">夜間</string>
+    <string name="hyper_night_only">Hyperは夜間専用スタイルです。</string>
+    <string name="btn_refresh">更新</string>
+
+    <string name="btn_donate_badge">開発者を支援</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ コーヒーを奢る</item>
+        <item>💖 プロジェクトを支援</item>
+        <item>🚀 今後のアップデートを応援！</item>
+    </string-array>
+    <string name="support_dialog_title">開発者を支援</string>
+    <string name="support_dialog_desc">このアプリを気に入っていただけたら、コーヒーやビールの差し入れ、またはご支援をお願いします:</string>
+    <string name="support_click_hint">タップ: リンクをコピーして開く</string>
+    <string name="support_click_hint_wallet">タップ: アドレスをコピーして開く</string>
+    <string name="support_click_hint_tg">タップ: コピーしてTelegramを開く</string>
+    <string name="btn_close">閉じる</string>
+    <string name="toast_copied">クリップボードにコピーしました: %s</string>
+</resources>

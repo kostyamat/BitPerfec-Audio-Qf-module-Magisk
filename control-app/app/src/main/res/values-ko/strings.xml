@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">플랫폼</string>
+    <string name="card_path">오디오 경로</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">읽는 중…</string>
+    <string name="status_no_root">root 권한이 없거나 BitPerfect가 설치되지 않았습니다.</string>
+    <string name="platform_7862">UIS7862 · 전체 모듈</string>
+    <string name="platform_8581">UIS8581 · 축소 프로필</string>
+    <string name="platform_other">%1$s · 지원되지 않음</string>
+    <string name="path_i2s_24">사운드 프로세서로 24비트 I²S 출력</string>
+    <string name="path_analogue">SoC DAC (아날로그)</string>
+    <string name="path_8581">16비트 / 44.1 kHz (기본값)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">사운드 프로세서로 I²S 출력 · %1$s</string>
+    <string name="path_internal_now">헤드유닛 · %1$s</string>
+    <string name="fmt_desc">%1$s비트 / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">스테레오</string>
+    <string name="ch_mono">모노</string>
+    <string name="ch_n">%1$s채널</string>
+    <string name="path_playing">재생 중: %1$s</string>
+    <string name="path_idle">현재 재생 중인 음악 없음</string>
+    <string name="module_active">활성 · %1$s</string>
+    <string name="module_inactive">이번 부팅에서 확인되지 않음 · %1$s</string>
+    <string name="module_disabled">Magisk에서 비활성화됨</string>
+    <string name="module_nav_policy_on">내비게이션 안내 시 음량 감소 정책 적용됨</string>
+    <string name="module_nav_policy_off">기본 내비게이션 정책</string>
+
+    <string name="usb_title">외장 USB DAC</string>
+    <string name="usb_desc">헤드유닛: 자체 USB 드라이버가 있는 플레이어(USB Audio Player PRO, Neutron, HiBy)만 DAC로 비트퍼펙트 재생되며, 다른 모든 소리는 사운드 프로세서로 출력됩니다.\nUSB DAC: 연결되어 있는 동안 모든 Android 사운드가 DAC로 출력되며, 최고 샘플레이트로 리샘플링되어 최대 출력으로 재생됩니다 — 볼륨은 DAC 또는 앰프에서 조절하세요. SIM 통화는 헤드유닛으로 유지됩니다.</string>
+    <string name="usb_off">헤드유닛</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">적용됨 — 오디오 서비스가 재시작되었습니다.</string>
+    <string name="usb_result_same">이미 설정되어 있습니다.</string>
+    <string name="usb_result_unsupported">이 펌웨어의 오디오 정책에는 알려진 USB 스위치가 없습니다 — 기본값으로 유지됩니다.</string>
+    <string name="usb_result_error">적용 실패: %1$s</string>
+    <string name="usb_dac_none">연결된 USB DAC가 없습니다.</string>
+    <string name="caps_line">%1$s비트, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">연결됨: %1$s (%2$s)\n지원 사양: %3$s</string>
+    <string name="usb_mode_btn">DAC 모드: %1$s</string>
+    <string name="usb_mode_auto">자동 (DAC 최적값)</string>
+    <string name="usb_mode_title">DAC 모드</string>
+    <string name="usb_mode_unplugged">DAC를 연결하여 자체 지원 모드 중에서 선택하세요.</string>
+    <string name="usb_mode_not_supported">연결된 DAC가 이 모드를 지원하지 않습니다 — Android에서 소리가 출력되지 않습니다. \'자동\'을 선택하세요.</string>
+    <string name="usb_mode_saved">저장됨 — USB DAC 스위치가 켜져 있을 때 적용됩니다.</string>
+    <string name="usb_volume_follow">DAC 볼륨 — 헤드유닛 볼륨 노브에 연동</string>
+    <string name="usb_volume_none">이 DAC에는 자체 볼륨 조절 기능이 없습니다 — 최대 출력으로 재생되므로 앰프에서 볼륨을 조절하세요</string>
+    <string name="usb_volume_saved_follow">이제 DAC 볼륨이 헤드유닛 볼륨 노브에 연동됩니다(DAC 자체 하드웨어 볼륨). Android는 최대 출력으로 신호를 보냅니다.</string>
+    <string name="usb_volume_saved_full">DAC가 최대 출력으로 재생됩니다 — 앰프에서 음량을 조절하세요. Android는 최대 출력으로 신호를 보냅니다.</string>
+    <string name="card_internal">헤드유닛 (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">마이크</string>
+    <string name="tab_navi">내비게이션</string>
+    <string name="tab_theme">화면 설정</string>
+
+    <string name="mic_title">통화 마이크</string>
+    <string name="mic_desc">BitPerfect 기본 튜닝 외에 채널별로 개별 설정합니다. 오디오 서비스를 재시작하여 적용됩니다(몇 초간 무음); 통화 중에는 저장 후 통화 종료 시 적용됩니다. 녹음(wDSP, DVR)에는 영향을 주지 않습니다. UIS7862 전용.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">마이크 레벨: %1$s dB</string>
+    <string name="mic_aec">에코 캔슬러</string>
+    <string name="mic_nr">노이즈 리덕션</string>
+    <string name="mic_reset">초기화</string>
+    <string name="mic_saved_in_call">저장됨 — 통화 종료 후 적용됩니다.</string>
+    <string name="mic_only_7862">마이크 설정은 UIS7862 전용입니다.</string>
+    <string name="mic_nr_depth">노이즈 리덕션 강도: %1$s dB (왼쪽: 약하게, 오른쪽: 강하게)</string>
+    <string name="mic_nr_depth_bp">노이즈 리덕션 강도: BitPerfect 기본값, −10.5 dB</string>
+    <string name="mic_nr_depth_off">노이즈 리덕션 강도: 노이즈 리덕션 꺼짐</string>
+    <string name="mic_presets">프리셋</string>
+    <string name="mic_preset_title">마이크 프리셋</string>
+    <string name="mic_preset_save">현재 설정 저장…</string>
+    <string name="mic_preset_name">프리셋 이름</string>
+    <string name="mic_preset_name_hint">프리셋은 모든 채널의 레벨, 에코 캔슬러, 노이즈 리덕션, 강도를 저장합니다. 문자, 숫자, -, _ 만 사용 가능.</string>
+    <string name="mic_preset_load">불러오기</string>
+    <string name="mic_preset_delete">삭제</string>
+    <string name="mic_preset_delete_ask">프리셋 “%1$s”을(를) 삭제하시겠습니까?</string>
+    <string name="mic_preset_none">아직 저장된 프리셋이 없습니다.</string>
+    <string name="mic_done">완료.</string>
+    <string name="mic_bad_name">올바르지 않은 이름입니다: 문자, 숫자, -, _ 만 사용할 수 있습니다.</string>
+    <string name="mic_no_preset">해당 프리셋이 존재하지 않습니다.</string>
+
+    <string name="navi_title">내비게이션</string>
+    <string name="navi_desc">음성 안내가 내비게이션으로 인식되어 음악 볼륨을 줄이는 앱입니다. 앱을 추가하고 설정하세요; 변경 사항은 재부팅 후 적용됩니다.</string>
+    <string name="navi_add">내비게이션 추가</string>
+    <string name="navi_show_all">전체 표시 (%1$d)</string>
+    <string name="navi_show_installed">설치된 앱만</string>
+    <string name="navi_none_installed">목록의 내비게이션 앱 중 설치된 앱이 없습니다.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">기본</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">사용자</string>
+    <string name="navi_adjust_on">자체 슬라이더로 안내 음량 조절</string>
+    <string name="navi_adjust_off">자체 슬라이더 유지</string>
+    <string name="navi_mix_car">차량 설정에 따른 음악 재생</string>
+    <string name="navi_mix_pct">안내 중 음악 음량 %1$s%%</string>
+    <string name="navi_pick_title">앱 선택</string>
+    <string name="navi_adjust_label">앱 자체 볼륨 조절기로 안내 음량 설정</string>
+    <string name="navi_mix_car_label">안내 중 음악 음량: 차량 설정 따름</string>
+    <string name="navi_mix_label">안내 중 음악 음량: %1$d%%</string>
+    <string name="navi_save">저장</string>
+    <string name="navi_cancel">취소</string>
+    <string name="navi_action_edit">수정</string>
+    <string name="navi_action_remove">내 목록에서 제거</string>
+    <string name="navi_saved">저장됨 — 재부팅 후 적용됩니다.</string>
+    <string name="navi_error">저장 실패: %1$s</string>
+
+    <string name="theme_title">화면 설정</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">자동</string>
+    <string name="mode_day">주간</string>
+    <string name="mode_night">야간</string>
+    <string name="hyper_night_only">Hyper는 야간 전용 스타일입니다.</string>
+    <string name="btn_refresh">새로고침</string>
+
+    <string name="btn_donate_badge">개발자 후원</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ 커피 한잔 후원하기</item>
+        <item>💖 프로젝트 지원하기</item>
+        <item>🚀 지속적인 업데이트를 응원해주세요!</item>
+    </string-array>
+    <string name="support_dialog_title">개발자 지원</string>
+    <string name="support_dialog_desc">제 작업이 마음에 드셨다면 커피나 맥주 한잔을 선물해주세요:</string>
+    <string name="support_click_hint">탭: 링크 복사 및 열기</string>
+    <string name="support_click_hint_wallet">탭: 지갑 주소 복사 및 열기</string>
+    <string name="support_click_hint_tg">탭: 복사 및 Telegram 열기</string>
+    <string name="btn_close">닫기</string>
+    <string name="toast_copied">클립보드에 복사됨: %s</string>
+</resources>

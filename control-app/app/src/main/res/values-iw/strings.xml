@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">פלטפורמה</string>
+    <string name="card_path">נתיב שמע</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">קורא…</string>
+    <string name="status_no_root">אין גישת root, או ש-BitPerfect אינו מותקן.</string>
+    <string name="platform_7862">UIS7862 · מודול מלא</string>
+    <string name="platform_8581">UIS8581 · פרופיל מופחת</string>
+    <string name="platform_other">%1$s · לא נתמך</string>
+    <string name="path_i2s_24">I²S ב-24 סיביות למעבד השמע</string>
+    <string name="path_analogue">SoC DAC (אנלוגי)</string>
+    <string name="path_8581">16 סיביות / 44.1 kHz (ברירת מחדל)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S למעבד השמע · %1$s</string>
+    <string name="path_internal_now">מערכת הרכב · %1$s</string>
+    <string name="fmt_desc">%1$s סיביות / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">סטריאו</string>
+    <string name="ch_mono">מונו</string>
+    <string name="ch_n">%1$s ערוצים</string>
+    <string name="path_playing">מתנגן: %1$s</string>
+    <string name="path_idle">שום דבר אינו מתנגן כעת</string>
+    <string name="module_active">פעיל · %1$s</string>
+    <string name="module_inactive">לא אושר באתחול זה · %1$s</string>
+    <string name="module_disabled">מושבת ב-Magisk</string>
+    <string name="module_nav_policy_on">מדיניות הנמכת שמע עבור ניווט נטענה</string>
+    <string name="module_nav_policy_off">מדיניות ניווט של היצרן</string>
+
+    <string name="usb_title">USB DAC חיצוני</string>
+    <string name="usb_desc">מערכת הרכב: רק נגנים בעלי מנהל התקן USB משלהם (USB Audio Player PRO, Neutron, HiBy) מנגנים ל-DAC בצורה bit-perfect; שאר השמע נשאר במעבד השמע.\nUSB DAC: כל שמע ה-Android מועבר ל-DAC כל עוד הוא מחובר, נדגם מחדש לקצב המיטבי ובעוצמה מלאה — כוונן את העוצמה ב-DAC או במגבר. שיחות SIM נשארות במערכת הרכב.</string>
+    <string name="usb_off">מערכת הרכב</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">הוחל — שירות השמע הופעל מחדש.</string>
+    <string name="usb_result_same">כבר מוגדר כך.</string>
+    <string name="usb_result_unsupported">מדיניות השמע של קושחה זו אינה כוללת מתג USB מוכר — נשאר בברירת מחדל.</string>
+    <string name="usb_result_error">ההחלה נכשלה: %1$s</string>
+    <string name="usb_dac_none">אין USB DAC מחובר.</string>
+    <string name="caps_line">%1$s סיביות, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">מחובר: %1$s (%2$s)\nמצהיר על: %3$s</string>
+    <string name="usb_mode_btn">מצב DAC: %1$s</string>
+    <string name="usb_mode_auto">אוטומטי (המיטבי של ה-DAC)</string>
+    <string name="usb_mode_title">מצב DAC</string>
+    <string name="usb_mode_unplugged">חבר את ה-DAC כדי לבחור מבין המצבים שלו.</string>
+    <string name="usb_mode_not_supported">ה-DAC המחובר אינו מצהיר על מצב זה — Android לא ישמיע דרכו. בחר אוטומטי.</string>
+    <string name="usb_mode_saved">נשמר — חל כאשר מתג USB DAC פועל.</string>
+    <string name="usb_volume_follow">עוצמת DAC — עוקבת אחר כפתור מערכת הרכב</string>
+    <string name="usb_volume_none">ל-DAC זה אין בקרת עוצמה משלו — משמיע בעוצמה מלאה, כוונן את הרמה במגבר</string>
+    <string name="usb_volume_saved_follow">עוצמת ה-DAC עוקבת כעת אחר כפתור מערכת הרכב (השליטה הפנימית של ה-DAC). Android שולח עוצמה מלאה.</string>
+    <string name="usb_volume_saved_full">ה-DAC משמיע בעוצמה מלאה — כוונן את הרמה במגבר. Android שולח עוצמה מלאה.</string>
+    <string name="card_internal">מערכת הרכב (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">מיקרופון</string>
+    <string name="tab_navi">ניווט</string>
+    <string name="tab_theme">מראה</string>
+
+    <string name="mic_title">מיקרופון שיחות</string>
+    <string name="mic_desc">לכל ערוץ בנפרד, בנוסף לכיול של BitPerfect. מוחל על ידי הפעלה מחדש של שירות השמע (מספר שניות דממה); במהלך שיחה נשמר ומוחל לאחריה. הקלטה (wDSP, DVR) אינה מושפעת. עבור UIS7862 בלבד.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">רמת מיקרופון: %1$s dB</string>
+    <string name="mic_aec">ביטול הד</string>
+    <string name="mic_nr">הפחתת רעשים</string>
+    <string name="mic_reset">איפוס</string>
+    <string name="mic_saved_in_call">נשמר — יוחל לאחר סיום השיחה.</string>
+    <string name="mic_only_7862">הגדרות המיקרופון מיועדות ל-UIS7862 בלבד.</string>
+    <string name="mic_nr_depth">עומק הפחתת רעשים: %1$s dB (שמאלה עדין יותר, ימינה חזק יותר)</string>
+    <string name="mic_nr_depth_bp">עומק הפחתת רעשים: ברירת מחדל של BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">עומק הפחתת רעשים: הפחתת רעשים כבויה</string>
+    <string name="mic_presets">הגדרות קבועות</string>
+    <string name="mic_preset_title">הגדרות מיקרופון קבועות</string>
+    <string name="mic_preset_save">שמור נוכחי בשם…</string>
+    <string name="mic_preset_name">שם ההגדרה</string>
+    <string name="mic_preset_name_hint">הגדרה קבועה שומרת כל ערוץ: רמה, ביטול הד, הפחתת רעשים, עומק. אותיות, ספרות, - ו-_.</string>
+    <string name="mic_preset_load">טען</string>
+    <string name="mic_preset_delete">מחק</string>
+    <string name="mic_preset_delete_ask">למחוק את ההגדרה הקבועה “%1$s”?</string>
+    <string name="mic_preset_none">אין עדיין הגדרות שמורות.</string>
+    <string name="mic_done">בוצע.</string>
+    <string name="mic_bad_name">שם זה אינו תקין: אותיות, ספרות, - ו-_ בלבד.</string>
+    <string name="mic_no_preset">הגדרה קבועה זו אינה קיימת עוד.</string>
+
+    <string name="navi_title">ניווט</string>
+    <string name="navi_desc">יישומים שההנחיות הקוליות שלהם מושמעות כניווט ומנמיכות את המוזיקה. הוסף יישום והגדר אותו; השינויים יחולו לאחר הפעלה מחדש.</string>
+    <string name="navi_add">הוסף יישום ניווט</string>
+    <string name="navi_show_all">הצג הכל (%1$d)</string>
+    <string name="navi_show_installed">מותקנים בלבד</string>
+    <string name="navi_none_installed">אף יישום ניווט מהרשימה אינו מותקן.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">יצרן</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">שלך</string>
+    <string name="navi_adjust_on">המחוון שלו מכוונן את ההנחיות</string>
+    <string name="navi_adjust_off">המחוון שלו ללא שינוי</string>
+    <string name="navi_mix_car">מוזיקה לפי הגדרות הרכב</string>
+    <string name="navi_mix_pct">מוזיקה %1$s%%</string>
+    <string name="navi_pick_title">בחר יישום</string>
+    <string name="navi_adjust_label">מחוון עוצמת הקול של היישום קובע את עוצמת ההנחיות</string>
+    <string name="navi_mix_car_label">מוזיקה בזמן הנחיות: לפי הגדרות הרכב</string>
+    <string name="navi_mix_label">מוזיקה בזמן הנחיות: %1$d%%</string>
+    <string name="navi_save">שמור</string>
+    <string name="navi_cancel">ביטול</string>
+    <string name="navi_action_edit">ערוך</string>
+    <string name="navi_action_remove">הסר מהרשימה שלי</string>
+    <string name="navi_saved">נשמר — יחול לאחר הפעלה מחדש.</string>
+    <string name="navi_error">השמירה נכשלה: %1$s</string>
+
+    <string name="theme_title">מראה</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">אוטומטי</string>
+    <string name="mode_day">יום</string>
+    <string name="mode_night">לילה</string>
+    <string name="hyper_night_only">Hyper הוא סגנון לילה.</string>
+    <string name="btn_refresh">רענן</string>
+
+    <string name="btn_donate_badge">תמיכה</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ קנה לי קפה</item>
+        <item>💖 תמכו בפרויקטים שלי</item>
+        <item>🚀 עדכונים נוספים בקרוב!</item>
+    </string-array>
+    <string name="support_dialog_title">תמיכה במפתח</string>
+    <string name="support_dialog_desc">אם אתה מעריך את עבודתי ורוצה להזמין אותי לקפה או בירה:</string>
+    <string name="support_click_hint">הקש: העתק קישור ופתח</string>
+    <string name="support_click_hint_wallet">הקש: העתק כתובת ארנק ופתח</string>
+    <string name="support_click_hint_tg">הקש: העתק ופתח ב-Telegram</string>
+    <string name="btn_close">סגור</string>
+    <string name="toast_copied">הועתק ללוח: %s</string>
+</resources>

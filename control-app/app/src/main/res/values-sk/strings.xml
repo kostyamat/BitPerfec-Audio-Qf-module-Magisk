@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Platforma</string>
+    <string name="card_path">Zvuková cesta</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Načítava sa…</string>
+    <string name="status_no_root">Chýba root prístup alebo BitPerfect nie je nainštalovaný.</string>
+    <string name="platform_7862">UIS7862 · plný modul</string>
+    <string name="platform_8581">UIS8581 · redukovaný profil</string>
+    <string name="platform_other">%1$s · nepodporované</string>
+    <string name="path_i2s_24">24-bitové I²S do zvukového procesora</string>
+    <string name="path_analogue">DAC SoC (analóg)</string>
+    <string name="path_8581">16 bitov / 44.1 kHz (továrenský)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S do zvukového procesora · %1$s</string>
+    <string name="path_internal_now">Autorádio · %1$s</string>
+    <string name="fmt_desc">%1$s bitov / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">stereo</string>
+    <string name="ch_mono">mono</string>
+    <string name="ch_n">%1$s kan.</string>
+    <string name="path_playing">Prehráva sa: %1$s</string>
+    <string name="path_idle">Teraz nič nehrá</string>
+    <string name="module_active">Aktívne · %1$s</string>
+    <string name="module_inactive">Nepotvrdené pri tomto spustení · %1$s</string>
+    <string name="module_disabled">Vypnuté v Magisk</string>
+    <string name="module_nav_policy_on">Pravidlo stlmenia pre navigáciu načítané</string>
+    <string name="module_nav_policy_off">Továrenské pravidlo navigácie</string>
+
+    <string name="usb_title">Externý USB DAC</string>
+    <string name="usb_desc">Autorádio: na DAC hrajú iba prehrávače s vlastným USB ovládačom (USB Audio Player PRO, Neutron, HiBy), bit-perfect; ostatný zvuk zostáva na zvukovom procesore.\nUSB DAC: všetok zvuk Androidu smeruje do DAC, kým je pripojený, s najvyššou vzorkovacou frekvenciou a plnou hlasitosťou — úroveň nastavte na DAC alebo zosilňovači. Hovory SIM zostávajú na autorádiu.</string>
+    <string name="usb_off">Autorádio</string>
+    <string name="usb_on">USB DAC</string>
+    <string name="usb_result_changed">Použité — zvuková služba bola reštartovaná.</string>
+    <string name="usb_result_same">Už nastavené.</string>
+    <string name="usb_result_unsupported">Zvuková politika tohto firmvéru nemá známy prepínač USB — ponechané továrenské nastavenie.</string>
+    <string name="usb_result_error">Nepodarilo sa použiť: %1$s</string>
+    <string name="usb_dac_none">Nie je pripojený žiadny USB DAC.</string>
+    <string name="caps_line">%1$s bitov, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Pripojené: %1$s (%2$s)\nDeklaruje: %3$s</string>
+    <string name="usb_mode_btn">Režim DAC: %1$s</string>
+    <string name="usb_mode_auto">Auto (najlepší režim DAC)</string>
+    <string name="usb_mode_title">Režim DAC</string>
+    <string name="usb_mode_unplugged">Pripojte DAC a vyberte z jeho vlastných režimov.</string>
+    <string name="usb_mode_not_supported">Pripojený DAC nedeklaruje tento režim — Android doň nebude prehrávať. Zvoľte Auto.</string>
+    <string name="usb_mode_saved">Uložené — platí, keď je prepínač USB DAC zapnutý.</string>
+    <string name="usb_volume_follow">Hlasitosť DAC — riadi sa gombíkom autorádia</string>
+    <string name="usb_volume_none">Tento DAC nemá vlastnú reguláciu hlasitosti — hrá na plný výkon, nastavte úroveň na zosilňovači</string>
+    <string name="usb_volume_saved_follow">Hlasitosť DAC sa teraz riadi gombíkom autorádia (vlastným ovládaním DAC). Android posiela plný rozsah.</string>
+    <string name="usb_volume_saved_full">DAC hrá na plný výkon — nastavte úroveň na zosilňovači. Android posiela plný rozsah.</string>
+    <string name="card_internal">autorádio (%1$s)</string>
+    <string name="card_usb">USB DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">Mikrofón</string>
+    <string name="tab_navi">Navigácie</string>
+    <string name="tab_theme">Vzhľad</string>
+
+    <string name="mic_title">Mikrofón pre hovory</string>
+    <string name="mic_desc">Pre každý kanál zvlášť, nad rámec ladenia BitPerfect. Aplikuje sa reštartom zvukovej služby (niekoľko sekúnd ticha); počas hovoru sa uloží a použije po jeho skončení. Nahrávanie (wDSP, DVR) zostáva nedotknuté. Iba UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Úroveň mikrofónu: %1$s dB</string>
+    <string name="mic_aec">Potlačenie ozveny</string>
+    <string name="mic_nr">Potlačenie šumu</string>
+    <string name="mic_reset">Resetovať</string>
+    <string name="mic_saved_in_call">Uložené — použije sa po hovore.</string>
+    <string name="mic_only_7862">Nastavenia mikrofónu sú iba pre UIS7862.</string>
+    <string name="mic_nr_depth">Hĺbka potlačenia šumu: %1$s dB (vľavo jemnejšie, vpravo silnejšie)</string>
+    <string name="mic_nr_depth_bp">Hĺbka potlačenia šumu: predvolená z BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Hĺbka potlačenia šumu: potlačenie šumu je vypnuté</string>
+    <string name="mic_presets">Predvoľby</string>
+    <string name="mic_preset_title">Predvoľby mikrofónu</string>
+    <string name="mic_preset_save">Uložiť aktuálne ako…</string>
+    <string name="mic_preset_name">Názov predvoľby</string>
+    <string name="mic_preset_name_hint">Predvoľba uchováva každý kanál: úroveň, potlačenie ozveny, potlačenie šumu, hĺbku. Písmená, číslice, - a _.</string>
+    <string name="mic_preset_load">Načítať</string>
+    <string name="mic_preset_delete">Zmazať</string>
+    <string name="mic_preset_delete_ask">Zmazať predvoľbu „%1$s“?</string>
+    <string name="mic_preset_none">Zatiaľ žiadne uložené predvoľby.</string>
+    <string name="mic_done">Hotovo.</string>
+    <string name="mic_bad_name">Tento názov nie je vhodný: iba písmená, číslice, - a _.</string>
+    <string name="mic_no_preset">Táto predvoľba už neexistuje.</string>
+
+    <string name="navi_title">Navigácie</string>
+    <string name="navi_desc">Aplikácie, ktorých hlasové pokyny sa prehrávajú ako navigácia a stišujú hudbu. Pridajte svoju aplikáciu a nastavte ju; zmeny sa prejavia po reštarte.</string>
+    <string name="navi_add">Pridať navigáciu</string>
+    <string name="navi_show_all">Zobraziť všetky (%1$d)</string>
+    <string name="navi_show_installed">Iba nainštalované</string>
+    <string name="navi_none_installed">Nie je nainštalovaná žiadna navigácia zo zoznamu.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">továrenský</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">váš</string>
+    <string name="navi_adjust_on">jej posuvník riadi pokyny</string>
+    <string name="navi_adjust_off">jej posuvník bez zmeny</string>
+    <string name="navi_mix_car">hudba podľa nastavenia auta</string>
+    <string name="navi_mix_pct">hudba %1$s%%</string>
+    <string name="navi_pick_title">Vyberte aplikáciu</string>
+    <string name="navi_adjust_label">Posuvník hlasitosti aplikácie riadi hlasitosť pokynov</string>
+    <string name="navi_mix_car_label">Hudba pod pokynmi: podľa nastavenia auta</string>
+    <string name="navi_mix_label">Hudba pod pokynmi: %1$d%%</string>
+    <string name="navi_save">Uložiť</string>
+    <string name="navi_cancel">Zrušiť</string>
+    <string name="navi_action_edit">Zmeniť</string>
+    <string name="navi_action_remove">Odstrániť z môjho zoznamu</string>
+    <string name="navi_saved">Uložené — prejaví sa po reštarte.</string>
+    <string name="navi_error">Nepodarilo sa uložiť: %1$s</string>
+
+    <string name="theme_title">Vzhľad</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Auto</string>
+    <string name="mode_day">Deň</string>
+    <string name="mode_night">Noc</string>
+    <string name="hyper_night_only">Hyper je nočný štýl.</string>
+    <string name="btn_refresh">Obnoviť</string>
+
+    <string name="btn_donate_badge">Podporiť</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Kúp mi kávu</item>
+        <item>💖 Podporte moje projekty</item>
+        <item>🚀 Ďalšie aktualizácie!</item>
+    </string-array>
+    <string name="support_dialog_title">Podpora vývojára</string>
+    <string name="support_dialog_desc">Ak si vážite moju prácu a chcete mi kúpiť kávu alebo pivo:</string>
+    <string name="support_click_hint">Klepnutím skopírujete odkaz a otvoríte</string>
+    <string name="support_click_hint_wallet">Klepnutím skopírujete adresu peňaženky</string>
+    <string name="support_click_hint_tg">Klepnutím skopírujete a otvoríte Telegram</string>
+    <string name="btn_close">ZATVORIŤ</string>
+    <string name="toast_copied">Skopírované do schránky: %s</string>
+</resources>

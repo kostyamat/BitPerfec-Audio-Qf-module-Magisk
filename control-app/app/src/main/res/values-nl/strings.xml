@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Platform</string>
+    <string name="card_path">Audiopad</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Bezig met lezen…</string>
+    <string name="status_no_root">Geen root-toegang of BitPerfect is niet geïnstalleerd.</string>
+    <string name="platform_7862">UIS7862 · volledige module</string>
+    <string name="platform_8581">UIS8581 · gereduceerd profiel</string>
+    <string name="platform_other">%1$s · niet ondersteund</string>
+    <string name="path_i2s_24">24-bits I²S naar de geluidsprocessor</string>
+    <string name="path_analogue">SoC-DAC (analoog)</string>
+    <string name="path_8581">16-bits / 44.1 kHz (fabriek)</string>
+    <string name="path_usb_now">USB-DAC · %1$s</string>
+    <string name="path_i2s_now">I²S naar de geluidsprocessor · %1$s</string>
+    <string name="path_internal_now">Autoradio · %1$s</string>
+    <string name="fmt_desc">%1$s-bits / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">stereo</string>
+    <string name="ch_mono">mono</string>
+    <string name="ch_n">%1$s kan.</string>
+    <string name="path_playing">Speelt af: %1$s</string>
+    <string name="path_idle">Er wordt momenteel niets afgespeeld</string>
+    <string name="module_active">Actief · %1$s</string>
+    <string name="module_inactive">Niet bevestigd deze herstart · %1$s</string>
+    <string name="module_disabled">Uitgeschakeld in Magisk</string>
+    <string name="module_nav_policy_on">Beleid voor navigatiedemping geladen</string>
+    <string name="module_nav_policy_off">Fabrieksbeleid voor navigatie</string>
+
+    <string name="usb_title">Externe USB-DAC</string>
+    <string name="usb_desc">Autoradio: alleen spelers met een eigen USB-stuurprogramma (USB Audio Player PRO, Neutron, HiBy) spelen bit-perfect af naar de DAC; al het andere blijft op de geluidsprocessor.\nUSB-DAC: al het Android-geluid gaat naar de DAC zolang deze is aangesloten, herbemonsterd naar de beste samplefrequentie, op vol vermogen — stel het volume in op de DAC of de versterker. SIM-oproepen blijven op de autoradio.</string>
+    <string name="usb_off">Autoradio</string>
+    <string name="usb_on">USB-DAC</string>
+    <string name="usb_result_changed">Toegepast — audioservice is herstart.</string>
+    <string name="usb_result_same">Reeds ingesteld.</string>
+    <string name="usb_result_unsupported">Het audiobeleid van deze firmware heeft geen bekende USB-schakelaar — fabrieksinstelling behouden.</string>
+    <string name="usb_result_error">Kon niet toepassen: %1$s</string>
+    <string name="usb_dac_none">Geen USB-DAC aangesloten.</string>
+    <string name="caps_line">%1$s-bits, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Aangesloten: %1$s (%2$s)\nOndersteunt: %3$s</string>
+    <string name="usb_mode_btn">DAC-modus: %1$s</string>
+    <string name="usb_mode_auto">Automatisch (beste van de DAC)</string>
+    <string name="usb_mode_title">DAC-modus</string>
+    <string name="usb_mode_unplugged">Sluit de DAC aan om uit zijn eigen modi te kiezen.</string>
+    <string name="usb_mode_not_supported">De aangesloten DAC ondersteunt deze modus niet — Android speelt hier niet naar af. Kies Automatisch.</string>
+    <string name="usb_mode_saved">Opgeslagen — geldt wanneer de USB-DAC-schakelaar aan staat.</string>
+    <string name="usb_volume_follow">DAC-volume — volgt de draaiknop van de autoradio</string>
+    <string name="usb_volume_none">Deze DAC heeft geen eigen volumeregeling — speelt op vol vermogen, stel het niveau in op de versterker</string>
+    <string name="usb_volume_saved_follow">Het volume van de DAC volgt nu de draaiknop van de autoradio (eigen regeling van de DAC). Android stuurt vol vermogen.</string>
+    <string name="usb_volume_saved_full">DAC speelt op vol vermogen — stel het niveau in op de versterker. Android stuurt vol vermogen.</string>
+    <string name="card_internal">autoradio (%1$s)</string>
+    <string name="card_usb">USB-DAC %1$s (%2$s)</string>
+
+    <string name="tab_usb">USB-DAC</string>
+    <string name="tab_mic">Microfoon</string>
+    <string name="tab_navi">Navigatie</string>
+    <string name="tab_theme">Uiterlijk</string>
+
+    <string name="mic_title">Oproepmicrofoon</string>
+    <string name="mic_desc">Per kanaal, bovenop de afstemming van BitPerfect. Toegepast door herstart van de audioservice (enkele seconden stilte); tijdens een gesprek opgeslagen en daarna toegepast. Opname (wDSP, DVR) blijft onaangeroerd. Alleen voor UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Microfoonniveau: %1$s dB</string>
+    <string name="mic_aec">Echoverwijdering</string>
+    <string name="mic_nr">Ruisfiltering</string>
+    <string name="mic_reset">Resetten</string>
+    <string name="mic_saved_in_call">Opgeslagen — wordt na de oproep toegepast.</string>
+    <string name="mic_only_7862">Microfooninstellingen zijn alleen voor UIS7862.</string>
+    <string name="mic_nr_depth">Diepte van ruisfiltering: %1$s dB (links milder, rechts sterker)</string>
+    <string name="mic_nr_depth_bp">Diepte van ruisfiltering: van BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Diepte van ruisfiltering: ruisfiltering staat uit</string>
+    <string name="mic_presets">Voorinstellingen</string>
+    <string name="mic_preset_title">Microfoonvoorinstellingen</string>
+    <string name="mic_preset_save">Huidige opslaan als…</string>
+    <string name="mic_preset_name">Naam van voorinstelling</string>
+    <string name="mic_preset_name_hint">Een voorinstelling bewaart elk kanaal: niveau, echo-onderdrukking, ruisonderdrukking, diepte. Letters, cijfers, - en _.</string>
+    <string name="mic_preset_load">Laden</string>
+    <string name="mic_preset_delete">Verwijderen</string>
+    <string name="mic_preset_delete_ask">Voorinstelling “%1$s” verwijderen?</string>
+    <string name="mic_preset_none">Nog geen opgeslagen voorinstellingen.</string>
+    <string name="mic_done">Klaar.</string>
+    <string name="mic_bad_name">Ongeldige naam: alleen letters, cijfers, - en _.</string>
+    <string name="mic_no_preset">Die voorinstelling bestaat niet meer.</string>
+
+    <string name="navi_title">Navigatie</string>
+    <string name="navi_desc">Apps waarvan de spraakaanwijzingen als navigatie worden afgespeeld en de muziek dempen. Voeg uw eigen app toe en stel deze in; wijzigingen worden na herstart van kracht.</string>
+    <string name="navi_add">Navigatie toevoegen</string>
+    <string name="navi_show_all">Alles tonen (%1$d)</string>
+    <string name="navi_show_installed">Alleen geïnstalleerd</string>
+    <string name="navi_none_installed">Geen enkele navigatie-app uit de lijst is geïnstalleerd.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">fabriek</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">eigen</string>
+    <string name="navi_adjust_on">eigen schuifregelaar regelt aanwijzingen</string>
+    <string name="navi_adjust_off">eigen schuifregelaar onaangeroerd</string>
+    <string name="navi_mix_car">muziek volgens auto-instellingen</string>
+    <string name="navi_mix_pct">muziek %1$s%%</string>
+    <string name="navi_pick_title">Kies de app</string>
+    <string name="navi_adjust_label">Eigen volumeregelaar van de app regelt volume van de aanwijzingen</string>
+    <string name="navi_mix_car_label">Muziek tijdens aanwijzingen: zoals in auto-instellingen</string>
+    <string name="navi_mix_label">Muziek tijdens aanwijzingen: %1$d%%</string>
+    <string name="navi_save">Opslaan</string>
+    <string name="navi_cancel">Annuleren</string>
+    <string name="navi_action_edit">Bewerken</string>
+    <string name="navi_action_remove">Verwijderen uit mijn lijst</string>
+    <string name="navi_saved">Opgeslagen — van kracht na herstart.</string>
+    <string name="navi_error">Kon niet opslaan: %1$s</string>
+
+    <string name="theme_title">Uiterlijk</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Auto</string>
+    <string name="mode_day">Dag</string>
+    <string name="mode_night">Nacht</string>
+    <string name="hyper_night_only">Hyper is een nachtstijl.</string>
+    <string name="btn_refresh">Vernieuwen</string>
+
+    <string name="btn_donate_badge">Ondersteunen</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Trakteer op koffie</item>
+        <item>💖 Steun mijn projecten</item>
+        <item>🚀 Blijf updates ontvangen!</item>
+    </string-array>
+    <string name="support_dialog_title">Ontwikkelaar ondersteunen</string>
+    <string name="support_dialog_desc">Als u mijn werk waardeert en mij op koffie of bier wilt trakteren:</string>
+    <string name="support_click_hint">Tik om link te kopiëren &amp; te openen</string>
+    <string name="support_click_hint_wallet">Tik om wallet-adres te kopiëren &amp; te openen</string>
+    <string name="support_click_hint_tg">Tik om te kopiëren &amp; Telegram te openen</string>
+    <string name="btn_close">SLUITEN</string>
+    <string name="toast_copied">Gekopieerd naar klembord: %s</string>
+</resources>

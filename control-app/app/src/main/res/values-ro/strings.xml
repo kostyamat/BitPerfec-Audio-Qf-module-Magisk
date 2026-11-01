@@ -1,0 +1,131 @@
+<resources>
+    <string name="card_platform">Platformă</string>
+    <string name="card_path">Cale audio</string>
+    <string name="card_module">BitPerfect</string>
+    <string name="status_loading">Se citește…</string>
+    <string name="status_no_root">Fără acces root sau BitPerfect nu este instalat.</string>
+    <string name="platform_7862">UIS7862 · modul complet</string>
+    <string name="platform_8581">UIS8581 · profil redus</string>
+    <string name="platform_other">%1$s · neacceptat</string>
+    <string name="path_i2s_24">I²S pe 24 de biți către procesorul de sunet</string>
+    <string name="path_analogue">DAC SoC (analogic)</string>
+    <string name="path_8581">16 biți / 44.1 kHz (din fabrică)</string>
+    <string name="path_usb_now">DAC USB · %1$s</string>
+    <string name="path_i2s_now">I²S către procesorul de sunet · %1$s</string>
+    <string name="path_internal_now">Navigație auto · %1$s</string>
+    <string name="fmt_desc">%1$s biți / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">stereo</string>
+    <string name="ch_mono">mono</string>
+    <string name="ch_n">%1$s can.</string>
+    <string name="path_playing">Redare: %1$s</string>
+    <string name="path_idle">Nu se redă nimic acum</string>
+    <string name="module_active">Activ · %1$s</string>
+    <string name="module_inactive">Neconfirmat la această pornire · %1$s</string>
+    <string name="module_disabled">Dezactivat în Magisk</string>
+    <string name="module_nav_policy_on">Politica de atenuare pentru navigație încărcată</string>
+    <string name="module_nav_policy_off">Politica de navigație din fabrică</string>
+
+    <string name="usb_title">DAC USB extern</string>
+    <string name="usb_desc">Navigație auto: numai playerele cu propriul driver USB (USB Audio Player PRO, Neutron, HiBy) redau pe DAC în mod bit-perfect; restul sunetului rămâne pe procesorul de sunet.\nDAC USB: tot sunetul Android merge către DAC cât timp este conectat, reeșantionat la cea mai bună frecvență, la scară completă — reglați volumul de pe DAC sau amplificator. Apelurile SIM rămân pe navigația auto.</string>
+    <string name="usb_off">Navigație auto</string>
+    <string name="usb_on">DAC USB</string>
+    <string name="usb_result_changed">Aplicat — serviciul audio a fost repornit.</string>
+    <string name="usb_result_same">Deja setat.</string>
+    <string name="usb_result_unsupported">Politica audio a acestui firmware nu are comutator USB cunoscut — s-a păstrat cea din fabrică.</string>
+    <string name="usb_result_error">Nu s-a putut aplica: %1$s</string>
+    <string name="usb_dac_none">Niciun DAC USB conectat.</string>
+    <string name="caps_line">%1$s biți, %2$s: %3$s kHz</string>
+    <string name="usb_dac_info">Conectat: %1$s (%2$s)\nDeclară: %3$s</string>
+    <string name="usb_mode_btn">Mod DAC: %1$s</string>
+    <string name="usb_mode_auto">Auto (cel mai bun mod al DAC-ului)</string>
+    <string name="usb_mode_title">Mod DAC</string>
+    <string name="usb_mode_unplugged">Conectați DAC-ul pentru a alege dintre modurile proprii.</string>
+    <string name="usb_mode_not_supported">DAC-ul conectat nu declară acest mod — Android nu va reda pe el. Alegeți Auto.</string>
+    <string name="usb_mode_saved">Salvat — se aplică atunci când comutatorul DAC USB este activat.</string>
+    <string name="usb_volume_follow">Volum DAC — urmărește butonul navigației auto</string>
+    <string name="usb_volume_none">Acest DAC nu are control propriu de volum — redă la scară completă, reglați nivelul din amplificator</string>
+    <string name="usb_volume_saved_follow">Volumul DAC-ului urmărește acum butonul navigației auto (controlul propriu al DAC-ului). Android trimite scală completă.</string>
+    <string name="usb_volume_saved_full">DAC-ul redă la scală completă — reglați nivelul din amplificator. Android trimite scală completă.</string>
+    <string name="card_internal">navigație auto (%1$s)</string>
+    <string name="card_usb">DAC USB %1$s (%2$s)</string>
+
+    <string name="tab_usb">DAC USB</string>
+    <string name="tab_mic">Microfon</string>
+    <string name="tab_navi">Navigatoare</string>
+    <string name="tab_theme">Aspect</string>
+
+    <string name="mic_title">Microfon pentru apeluri</string>
+    <string name="mic_desc">Per canal, peste calibrarea BitPerfect. Se aplică prin repornirea serviciului audio (câteva secunde de liniște); în timpul unui apel se salvează și se aplică după acesta. Înregistrarea (wDSP, DVR) nu este afectată. Doar pentru UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Nivel microfon: %1$s dB</string>
+    <string name="mic_aec">Anulare ecou</string>
+    <string name="mic_nr">Reducere zgomot</string>
+    <string name="mic_reset">Resetare</string>
+    <string name="mic_saved_in_call">Salvat — se va aplica după apel.</string>
+    <string name="mic_only_7862">Setările de microfon sunt doar pentru UIS7862.</string>
+    <string name="mic_nr_depth">Adâncime reducere zgomot: %1$s dB (la stânga mai blând, la dreapta mai puternic)</string>
+    <string name="mic_nr_depth_bp">Adâncime reducere zgomot: valoarea BitPerfect, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Adâncime reducere zgomot: reducerea de zgomot este oprită</string>
+    <string name="mic_presets">Profiluri</string>
+    <string name="mic_preset_title">Profiluri de microfon</string>
+    <string name="mic_preset_save">Salvare curent ca…</string>
+    <string name="mic_preset_name">Nume profil</string>
+    <string name="mic_preset_name_hint">Un profil păstrează fiecare canal: nivel, anulare ecou, reducere zgomot, adâncime. Litere, cifre, - și _.</string>
+    <string name="mic_preset_load">Încărcare</string>
+    <string name="mic_preset_delete">Ștergere</string>
+    <string name="mic_preset_delete_ask">Ștergeți profilul „%1$s”?</string>
+    <string name="mic_preset_none">Niciun profil salvat încă.</string>
+    <string name="mic_done">Gata.</string>
+    <string name="mic_bad_name">Nume nevalid: doar litere, cifre, - și _.</string>
+    <string name="mic_no_preset">Acest profil nu mai există.</string>
+
+    <string name="navi_title">Navigatoare</string>
+    <string name="navi_desc">Aplicații ale căror indicații vocale sunt redate ca navigație și reduc volumul muzicii. Adăugați-o pe a dvs. și configurați-o; modificările se aplică după repornire.</string>
+    <string name="navi_add">Adăugare navigator</string>
+    <string name="navi_show_all">Afișare toate (%1$d)</string>
+    <string name="navi_show_installed">Doar instalate</string>
+    <string name="navi_none_installed">Niciun navigator din listă nu este instalat.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">din fabrică</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">al dvs.</string>
+    <string name="navi_adjust_on">cursorul său reglează indicațiile</string>
+    <string name="navi_adjust_off">cursorul său rămâne neschimbat</string>
+    <string name="navi_mix_car">muzică conform setărilor mașinii</string>
+    <string name="navi_mix_pct">muzică %1$s%%</string>
+    <string name="navi_pick_title">Alegeți aplicația</string>
+    <string name="navi_adjust_label">Cursorul de volum al aplicației reglează volumul indicațiilor</string>
+    <string name="navi_mix_car_label">Muzică sub indicații: conform setărilor mașinii</string>
+    <string name="navi_mix_label">Muzică sub indicații: %1$d%%</string>
+    <string name="navi_save">Salvare</string>
+    <string name="navi_cancel">Anulare</string>
+    <string name="navi_action_edit">Modificare</string>
+    <string name="navi_action_remove">Eliminare din lista mea</string>
+    <string name="navi_saved">Salvat — se aplică după repornire.</string>
+    <string name="navi_error">Nu s-a putut salva: %1$s</string>
+
+    <string name="theme_title">Aspect</string>
+    <string name="style_modern">Modern</string>
+    <string name="style_hyper">Hyper</string>
+    <string name="mode_auto">Auto</string>
+    <string name="mode_day">Zi</string>
+    <string name="mode_night">Noapte</string>
+    <string name="hyper_night_only">Hyper este un stil de noapte.</string>
+    <string name="btn_refresh">Reîmprospătare</string>
+
+    <string name="btn_donate_badge">Susține</string>
+    <string-array name="donate_typing_lines">
+        <item>☕ Fă-mi cinste cu o cafea</item>
+        <item>💖 Susține proiectele mele</item>
+        <item>🚀 Noi actualizări în curând!</item>
+    </string-array>
+    <string name="support_dialog_title">Susține dezvoltatorul</string>
+    <string name="support_dialog_desc">Dacă apreciezi munca mea și vrei să-mi cumperi o cafea sau o bere:</string>
+    <string name="support_click_hint">Atingeți: copiere link și deschidere</string>
+    <string name="support_click_hint_wallet">Atingeți: copiere adresă și deschidere</string>
+    <string name="support_click_hint_tg">Atingeți: copiere și deschidere Telegram</string>
+    <string name="btn_close">ÎNCHIDE</string>
+    <string name="toast_copied">Copiat în clipboard: %s</string>
+</resources>
