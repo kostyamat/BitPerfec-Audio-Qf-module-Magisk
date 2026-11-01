@@ -45,6 +45,18 @@
     <string name="card_internal">магнітола (%1$s)</string>
     <string name="card_usb">USB-ЦАП %1$s (%2$s)</string>
 
+    <string name="mic_title">Мікрофон дзвінків</string>
+    <string name="mic_desc">Окремо для кожного каналу, поверх налаштувань BitPerfect. Застосовується перезапуском аудіосервісу (кілька секунд тиші); під час дзвінка зберігається й застосовується після нього. Запис (wDSP, DVR) не чіпається. Лише UIS7862.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Рівень мікрофона: %1$s дБ</string>
+    <string name="mic_aec">Ехозаглушення</string>
+    <string name="mic_nr">Шумодав</string>
+    <string name="mic_reset">Скинути</string>
+    <string name="mic_saved_in_call">Збережено - застосується після дзвінка.</string>
+    <string name="mic_only_7862">Налаштування мікрофона - лише для UIS7862.</string>
+
     <string name="navi_title">Навігатори</string>
     <string name="navi_desc">Програми, чиї голосові підказки грають як навігація й притишують музику. Додайте свою й налаштуйте; зміни діють після перезавантаження.</string>
     <string name="navi_add">Додати навігатор</string>

@@ -204,6 +204,90 @@
                 style="@style/BpCardNote" />
         </LinearLayout>
 
+        <!-- call microphone per channel (ui/MicCard, module common/bp_mic.sh) -->
+        <LinearLayout
+            android:id="@+id/card_mic"
+            style="@style/BpCard"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                style="@style/BpCardTitle"
+                android:text="@string/mic_title" />
+
+            <TextView
+                style="@style/BpCardNote"
+                android:text="@string/mic_desc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_sim"
+                    style="@style/BpPill"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/mic_ch_sim" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_voip"
+                    style="@style/BpPill"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/mic_ch_voip" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_bt"
+                    style="@style/BpPill"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/mic_ch_bt" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_mic_gain"
+                style="@style/BpCardValue" />
+
+            <SeekBar
+                android:id="@+id/sb_mic_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:max="24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_aec"
+                    style="@style/BpPill"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/mic_aec" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_nr"
+                    style="@style/BpPill"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/mic_nr" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_reset"
+                    style="@style/BpPill"
+                    android:layout_marginStart="4dp"
+                    android:checkable="false"
+                    android:text="@string/mic_reset" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_mic_result"
+                style="@style/BpCardNote" />
+        </LinearLayout>
+
         <!-- navigators: the platform's NaviApp.ini, the user's own entries (ui/NavigatorsCard) -->
         <LinearLayout
             android:id="@+id/card_navi"

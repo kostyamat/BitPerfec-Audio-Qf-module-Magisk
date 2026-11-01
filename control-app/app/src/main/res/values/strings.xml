@@ -49,6 +49,19 @@
     <string name="card_internal">head unit (%1$s)</string>
     <string name="card_usb">USB DAC %1$s (%2$s)</string>
 
+    <!-- call microphone -->
+    <string name="mic_title">Call microphone</string>
+    <string name="mic_desc">Per channel, on top of BitPerfect\'s tuning. Applied by restarting the audio service (a few seconds of silence); during a call it is saved and applied after it. Recording (wDSP, DVR) is not touched. UIS7862 only.</string>
+    <string name="mic_ch_sim">SIM</string>
+    <string name="mic_ch_voip">VoIP</string>
+    <string name="mic_ch_bt">Bluetooth</string>
+    <string name="mic_gain">Microphone level: %1$s dB</string>
+    <string name="mic_aec">Echo cancel</string>
+    <string name="mic_nr">Noise reduction</string>
+    <string name="mic_reset">Reset</string>
+    <string name="mic_saved_in_call">Saved - applies after the call.</string>
+    <string name="mic_only_7862">Microphone settings are for UIS7862 only.</string>
+
     <!-- navigators -->
     <string name="navi_title">Navigators</string>
     <string name="navi_desc">Apps whose voice prompts play as navigation and lower the music. Add your own and set it up; changes apply after a reboot.</string>

@@ -60,6 +60,26 @@ public final class ModuleControl {
 
     private static final Pattern USB_MODE = Pattern.compile("auto|S(16|24|32)_(3)?LE/[0-9]{4,6}");
 
+    /** {@code mic} lines: "channel gain_db aec nr" (SIM, VOIP, BT; UIS7862 only). */
+    public static Result micShow() {
+        return run("mic show");
+    }
+
+    /** value "" = back to BitPerfect's. {@code mic_result}: changed|same|saved_in_call|bad_value. */
+    public static Result micSet(String channel, String control, String value) {
+        if (!MIC_CH.matcher(channel).matches() || !MIC_CTL.matcher(control).matches()
+                || !(value.isEmpty() || MIC_VAL.matcher(value).matches())) {
+            Result r = new Result();
+            r.values.put("mic_result", "bad_value");
+            return r;
+        }
+        return run("mic set " + channel + " " + control + (value.isEmpty() ? "" : " " + value));
+    }
+
+    private static final Pattern MIC_CH = Pattern.compile("SIM|VOIP|BT");
+    private static final Pattern MIC_CTL = Pattern.compile("gain_db|aec|nr");
+    private static final Pattern MIC_VAL = Pattern.compile("-?[0-9]{1,2}");
+
     /** {@code navi} lines: "package adjust mix origin" (origin factory|bitperfect|user). */
     public static Result naviList() {
         return run("navi list");
