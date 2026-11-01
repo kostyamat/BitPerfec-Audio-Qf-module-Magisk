@@ -1,40 +1,28 @@
-# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 RELEASED, repo moved to `main`
+# Slice — 02.11.2026, session `3827b401` (Claude): v5.7.6 RELEASED after the tester's complaint on v5.7.5
 
-**Release v5.7.5 is live:** tag `v5.7.5` on `97bf8cc`, asset `QF_BitPerfect.module.v5.7.5-Universal.zip`
-(1 973 218 B, md5 4f8d49b5…) + guide PDFs en/uk (`tools/build_guide_pdf.py`, `tools/gh_release_asset.py`),
-`update.json` → 5705 (`ae2b742`). Notes `docs/RELEASE_NOTES_v5.7.5.md`, guides `docs/GUIDE.en.md` / `GUIDE.uk.md`,
-screenshots `docs/img/{en,uk}/`. Both branches pushed at `8bcd2aa`. TG posts (uk + en) written, owner posts them.
-**Branches:** default is now **`main`** (owner 01.11: «з цієї версії переїзджаємо в майн»); `v5.4-repaired` is only
-fast-forwarded to `main` on each release, because v5.6.x installs ask its `update.json` (`RELEASE.md`).
-Work on `main`. Push from WSL as the default user, both branches.
+**Release v5.7.6 is live:** tag on `44ab2ec`, asset `QF_BitPerfect.module.v5.7.6-Universal.zip` (1 974 862 B, md5 e143802a…) + guide
+PDFs, `update.json` → 5706. v5.7.5 stays published as a prerelease titled DO NOT USE, with a red link to v5.7.6.
+Default branch **`main`**; `v5.4-repaired` is only fast-forwarded to it (v5.6.x installs read its `update.json`). Push from WSL as the
+default user, both branches.
 
-**Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107, PCM2704 on USB): the release zip, 📻 checked
-(bp=1, healthy, WD_24BIT, `usb_dac=0`, no `mic.conf`). System language is **en-US** (owner switched it
-for the English screenshots). Shared with QF_DVR (session 147a9dc2): talk ONLY in board room
-`qf-dvr-claude-window-7ef9`; rules `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194»
-(`svc power reboot`, `working`/`done`, own module only).
+**What changed (owner 02.11: «у модуль потрапляє ГОТОВЕ ДО ВЖИВАННЯ», `AGENTS.md` Bans):** policy and navigator list are ready files,
+nothing of the unit's is patched (sole exception: `music_volume` in `car.config`); 8581 md5 gate removed (no 8581 unit tested);
+`bp_mic_build` guarded, no awk without `mic.conf`. Red note in texts: Magisk 30.6 max (owner; not checked by me).
+Commit `f4b4d4d` has a wrong title; its real description is in `17e7506`.
 
-## What v5.7.5 holds (details in commits)
-Shared mic; own navigators; call mic per channel (level, AEC, NR + depth, presets — `.agents/MIC_CONTROL.md`);
-USB DAC: announced after a switch, full scale from Android, level on the DAC's own control (optionally the head
-unit's knob), silent with the ignition off (`.agents/USB_DAC.md`); app in tabs, 25 languages (23 by Gemini),
-APK 1.90 MB (WebP backgrounds, locale filter).
+**Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107, PCM2704 on USB): v5.7.6 by update from public v5.6.1, 📻 enabled=1, policy at
+24.3 s, WD_24BIT. `usb_dac=1`, `usb_dac_volume=follow`, no `mic.conf`; BitPerfect has no Magisk grant now: the owner sees a prompt on first
+open. Owner's earlier settings and logs: `D:/My_K706_Magisk_Modules/stand194_backup_20261101`. System language en-US. Shared with QF_DVR
+(session 147a9dc2): board room `qf-dvr-claude-window-7ef9`, rules `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194».
 
-## ⏳ First tester complaint on v5.7.5 (Marcin, 01.11): noise, YT Music crash, cured by ~8 reboots
-Cause NOT established; no logs yet. Findings and suspects: `.agents/DEBT.md`, last section. Next: tester's
-`/data/adb/BitPerfect.log` + tombstones; a test on a CLEAN unit (`RELEASE.md`): stand 194 is not clean, its pass proves nothing.
-Owner's version «scripts patch libs» checked: no on-device patching; md5 gate rejected by the owner.
-📻 01.11 23:43 stand 194 clean install of the GitHub zip (settings + log removed, copy in
-`D:/My_K706_Magisk_Modules/stand194_backup_20261101`): root prompt appeared, 24/48, no restart, no crash.
-📻 02.11 00:00 `f4b4d4d` (NOT released, unpushed, same version): the module carries policy + navigator list ready-made, awk failure guarded, 12 s gone. Stand runs it. Commit title of `f4b4d4d` is wrong, see the next commit.
-8581 md5 gate removed too (owner 02.11, dry run on the PC only): the stand's build predates it, reinstall before any release.
+## ⏳ First tester complaint (Marcin, on v5.7.5): noise, YT Music crash, cured by ~8 reboots
+Cause NOT established, not reproduced. Needs his `bp_report.tgz` (log, tombstones, settings). A second user: Magisk gave the app no root prompt;
+ask the Magisk version first (31.1+ with a Magisk 27 kernel is the owner's suspect). All findings: `.agents/DEBT.md`, last section.
 
-## 📋 Next version (`.agents/TODO.md`, rewritten for it)
-1. Testers' feedback on v5.7.5 (other DACs, mic on real calls). 2. UIS8581 with a tester. 3. «Авто» = player
-straight to the DAC + prompts elsewhere (navigation strategy move — careful, calls/radio stand on it), DTS /
-multichannel DACs, AEC calibration per mode (by day, in a car). 4. EQ for wDSP.
+## 📋 Next (`.agents/TODO.md`)
+Root-prompt UX in `ModuleControl` (DEBT: one-line error, `su` every 3 s, deadline that cannot fire); shorten `AGENTS.md` (over 8 KB);
+testers' feedback; UIS8581 with a tester; «Авто» direct DAC path; DTS / multichannel; AEC calibration; EQ for wDSP.
 
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
-- Owner: SIM call without echo (`58d9759`); SIM call silencing wDSP+DVR.
-- ❓ Forum posts (4PDA/XDA) for v5.7.5 — not asked yet. 8581: still no tester report (said so in the TG post).
+- Owner: SIM call without echo (`58d9759`); SIM call silencing wDSP+DVR. ❓ Forum posts for v5.7.6: not asked.
