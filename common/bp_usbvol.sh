@@ -13,6 +13,7 @@
 #                        does not follow: AudioFlinger never cuts the DAC's signal (owner 01.11: «об'їзжаємо для
 #                        цап флінжер повність, а якщо цап має власну систему регулювання підсилення - вішаємося на
 #                        неї, - немає - значить немає»).
+# Ignition off (sys.qf.is.acc.on=false): the DAC's switch off and control at 0 until the ignition is back.
 # The head unit's own level is not touched: that is wDSP's (AUDIO_PATH_AND_MODULE_CONTRACT).
 
 BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
@@ -70,6 +71,11 @@ bp_usbvol_watch() {
         if [ -n "$2" ] && [ "$(bp_usbvol_wanted)" = follow ]; then
             BPV_HW=$((BPV_VOL * $2 / 32)); [ "$BPV_VOL" = 0 ] && BPV_SW=0
         fi
+        # Ignition off: the DAC goes silent until it is back on. While the unit counts down to sleep, system_server
+        # plays a tick every second (stream ALARM, 📻 stand 194 01.11: QFSleepWakeup «Delay seconds before go to
+        # sleep», ten ticks) - through the DAC that is a loud beep a second (owner: «починає голосно пікати,
+        # кожну секунду, ніби таймер»). The player is stopped by the platform a few seconds later anyway.
+        if [ -n "$2" ] && [ "$(getprop sys.qf.is.acc.on)" = false ]; then BPV_HW=0; BPV_SW=0; fi
         # a new audioserver starts from its own state: apply again
         BPV_WANT="$BPV_IDX ${BPV_HW:--} ${BPV_SW:--} $(pidof audioserver)"
         if [ "$BPV_WANT" != "$BPV_LAST" ]; then
