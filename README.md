@@ -13,6 +13,8 @@ reduced profile, **UIS8581**. It takes the sound from any player at full quality
 frequency response, and hands it to the head unit's sound processor at **24 bit / 48 kHz, 0 dB**.
 Volume and effects stay where they belong: in the sound processor.
 
+📖 **User guide with pictures** — every setting, the app, the files: [English](docs/GUIDE.en.md) · [Українською](docs/GUIDE.uk.md)
+
 ⚖️ **Legal status / Right to Repair:** [LEGAL.md](LEGAL.md) (Ukrainian)
 
 ## Supported hardware
@@ -103,8 +105,8 @@ v4.18 was a single BU32107 profile. Since then:
 Install the zip in Magisk and reboot. The installer saves a snapshot of your unit's factory audio state
 to `/sdcard/QF_audio_survey/` before it changes anything — it stays on your unit unless you send it.
 
-**Updates:** from the next release on, Magisk itself shows an **Update** button for BitPerfect when a
-new release is published here (`updateJson` in `module.prop`, changelog in [CHANGELOG.md](CHANGELOG.md)).
+**Updates:** Magisk itself shows an **Update** button for BitPerfect when a new release is published here
+(`updateJson` in `module.prop`, changelog in [CHANGELOG.md](CHANGELOG.md)).
 
 Disabling or removing the module in Magisk is safe: a small guard script
 (`/data/adb/post-fs-data.d/bitperfect_guard.sh`) restores the factory default volume and audio
@@ -114,23 +116,29 @@ removes the guard.
 ## BitPerfect Control (the app)
 
 The module installs **BitPerfect Control** (`/system/priv-app`). It shows what BitPerfect is doing on your unit
-(platform, audio path, whether the module confirmed itself this boot) and switches the USB DAC output without
-editing files. It asks for root once (Magisk prompt) and changes nothing by itself - every action goes through the
-module. Two looks: **Modern** (day / night) and **Hyper** (night). More controls - navigators, microphone, echo
-cancelling and noise reduction per channel - come in the next versions.
+(platform, what is really playing and where, whether the module confirmed itself this boot) and holds every
+setting in tabs: **USB DAC**, **Microphone** (call microphone per channel: level, echo cancelling, noise reduction and
+its depth, presets), **Navigators** (your own navigators and how their prompts behave) and **Look** (Modern day/night,
+Hyper). It asks for root once (Magisk prompt) and changes nothing by itself - every action goes through the module.
+Details and pictures: [docs/GUIDE.en.md](docs/GUIDE.en.md).
+
+![BitPerfect Control](docs/img/en/01_usb_dac.png)
 
 ## USB DAC (external)
 
 QF firmware switches Android's USB audio output off (one commented-out line in the vendor audio
-policy). BitPerfect lets you choose, in **`/sdcard/BitPerfectAudio/bitperfect.conf`** (created at install,
-edit the value and reboot):
+policy). BitPerfect lets you choose — in the app (tab **USB DAC**, applied at once) or in
+**`/sdcard/BitPerfectAudio/bitperfect.conf`** (`usb_dac`, edit and reboot):
 
 | `usb_dac` | what plays on the DAC |
 |---|---|
 | `0` (default) | only players with their own USB driver — USB Audio Player PRO, Neutron, HiBy "USB exclusive" — bit-perfect at any rate; everything else stays on the head unit's sound processor |
 | `1` | all Android sound while the DAC is plugged in, resampled to the DAC's best rate; Android volume stays at full scale, so set the level on the DAC or the amplifier. SIM calls stay on the head unit |
 
-🧪 New in this version and not yet tested on a unit with a DAC — reports welcome.
+With the USB DAC output on, Android sends the DAC **full scale**; the level is set by the DAC's own volume
+control, optionally following the head unit's volume knob (`usb_dac_volume=follow`). A DAC without its own control
+plays at full level. The DAC mode (`usb_dac_mode`) is its best format or a fixed one from its own list. The DAC is
+silent while the ignition is off. Tested with a PCM2704 (16-bit); reports from other DACs welcome.
 
 ## Feedback — what to send
 
@@ -164,8 +172,8 @@ recording dump, on for about 10 seconds during that check and then off again.
 ## Repository
 
 The module payload is `META-INF`, `common`, `profiles`, `system`, `customize.sh`, `module.prop`,
-`service.sh`. `control-app/` is the companion app (work in progress) and `.agents/` holds the
-development notes — neither is part of the module.
+`service.sh`. `control-app/` is the source of BitPerfect Control, `docs/` the user guide and `.agents/` the
+development notes — none of them is part of the module zip.
 
 ## Support the developer
 
