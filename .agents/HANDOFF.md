@@ -21,8 +21,8 @@ audioserver restarted (refused in a call); service.sh re-applies after a reinsta
 📻 blob SIM `ul_dgain_volume1`: 0x1800 → +3 dB 0x21e7 → reset 0x1800.
 App card «Microphone» done (`9483cff`): SIM/VoIP/BT, level −12..+12 dB (sent on release), AEC and NR switches,
 reset. App sections are now tabs under the status cards (`b9e24d0`, owner: «не стрічкою вниз… з купою скролу»).
-Both in the v5.7.5 zip on stand 194 (`61c60f1`), installed + rebooted — ⏳ NOT yet looked at on screen (adb went
-offline after the reboot): open the app, tab «Мікрофон», check the three channels show, try one change.
+Both in the v5.7.5 zip on stand 194 (`61c60f1`). 📻 Seen on screen 01.11 18:06: tabs switch, the mic card shows
+SIM/VoIP/BT, level, AEC, NR, reset; the owner already set `BT gain_db 3`, `SIM nr 0` from it and the module applied them.
 **Next:** NR curve presets → AEC calibration per mode (fader front/centre by MCU, then ask the user to restore it
 in the EQ app).
 ❓ On a real call: SIM = Handsfree NB/WB? `POS` = noise post-filter?
