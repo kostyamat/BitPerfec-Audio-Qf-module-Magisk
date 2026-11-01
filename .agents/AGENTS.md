@@ -83,6 +83,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ## Bans
 
+- 🔴 **The module carries everything ready-made and stand-tested; nothing of the unit's is patched on the fly** (owner 02.11: «все своє несем самі»). Sole exception: the `music_volume` value in `car.config`.
 - 🔴 **Never mount a system partition rw and never write into `/system` or `/vendor` directly.** The
   module builds its own tree and Magisk overlays it. Owner's ruling, 30.09.2026.
 - 🔴 **Evidence about the module comes from the wire, never from wDSP's analyser** — it sits on the

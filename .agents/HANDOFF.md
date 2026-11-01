@@ -25,7 +25,8 @@ Cause NOT established; no logs yet. Findings and suspects: `.agents/DEBT.md`, la
 `/data/adb/BitPerfect.log` + tombstones; a test on a CLEAN unit (`RELEASE.md`): stand 194 is not clean, its pass proves nothing.
 Owner's version «scripts patch libs» checked: no on-device patching; md5 gate rejected by the owner.
 📻 01.11 23:43 stand 194 clean install of the GitHub zip (settings + log removed, copy in
-`D:/My_K706_Magisk_Modules/stand194_backup_20261101`): root prompt appeared, 24/48, no restart, no crash; 12 s awk gap stays.
+`D:/My_K706_Magisk_Modules/stand194_backup_20261101`): root prompt appeared, 24/48, no restart, no crash.
+📻 02.11 00:00 `f4b4d4d` (NOT released, unpushed, same version): the module carries policy + navigator list ready-made, awk failure guarded, 12 s gone. Stand runs it. Commit title of `f4b4d4d` is wrong, see the next commit.
 
 ## 📋 Next version (`.agents/TODO.md`, rewritten for it)
 1. Testers' feedback on v5.7.5 (other DACs, mic on real calls). 2. UIS8581 with a tester. 3. «Авто» = player

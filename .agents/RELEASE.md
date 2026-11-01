@@ -26,6 +26,7 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
    md5 of `/data/adb/modules_update/BitPerfect.module/system/vendor` with the previous live set.
 
 ## The check that counts is the user's environment
+- 🔴 Everything the module applies is a ready file in the zip, tested on the stand (`AGENTS.md`, Bans).
 - 🔴 Owner 01.11.2026: «ми не робимо іскусственно ніякого середовища… щоб воно ідеально повторювалося у юзера, в якого
   створених іскусственно пропів, всяких скриптів… і всього решту немає». A release is judged only on a unit without
   our props, scripts, settings files or helper modules. «Works on the stand» says nothing while they are there.
