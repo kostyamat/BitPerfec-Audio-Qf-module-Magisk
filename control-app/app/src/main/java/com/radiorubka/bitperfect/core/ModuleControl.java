@@ -66,6 +66,17 @@ public final class ModuleControl {
         return run("usb_volume " + (follow ? "follow" : "full"));
     }
 
+    /** Where knob 1, 8, 16, 24, 32 land on this DAC, in % of its control: "a,b,c,d,e", or "default". */
+    public static Result setUsbCurve(String curve) {
+        if (!USB_CURVE.matcher(curve).matches()) {
+            Result r = new Result();
+            r.values.put("usb_curve_result", "bad_value");
+            return r;
+        }
+        return run("usb_curve " + curve);
+    }
+
+    private static final Pattern USB_CURVE = Pattern.compile("default|[0-9]{1,3}(,[0-9]{1,3}){4}");
     private static final Pattern USB_MODE = Pattern.compile("auto|S(16|24|32)_(3)?LE/[0-9]{4,6}");
 
     /** {@code mic} lines: "channel gain_db aec nr nr_depth" (SIM, VOIP, BT; UIS7862 only; nr_depth 0 = BitPerfect's). */

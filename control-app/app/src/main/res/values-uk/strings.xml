@@ -138,4 +138,11 @@
     <string name="root_magisk_old">Програма Magisk %1$s застаріла: вона могла ще й поставити модуль не повністю. Встановіть програму Magisk 30.6, потім установіть модуль наново.</string>
     <string name="root_magisk_unknown">Програму Magisk не знайдено, або її приховано під іншою назвою. Потрібна версія 30.6.</string>
     <string name="root_retry">Спробувати ще</string>
+    <string name="dac_curve_title">Крива гучності для цього ЦАПа</string>
+    <string name="dac_curve_note">Куди на ЦАПі потрапляє кожне положення ручки магнітоли. Налаштовуйте на слух під музику: застосовується одразу. Значення дБ такі, як повідомляє ЦАП.</string>
+    <string name="dac_curve_now">Зараз: ручка %1$s, крок ЦАПа %2$s із %3$s</string>
+    <string name="dac_curve_point">Ручка %1$d: %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s дБ)</string>
+    <string name="dac_curve_default">Рівно за дБ</string>
+    <string name="dac_curve_even">Рівно за кроками</string>
 </resources>

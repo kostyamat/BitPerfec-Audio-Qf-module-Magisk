@@ -138,4 +138,11 @@
     <string name="root_magisk_old">Приложение Magisk %1$s слишком старое: оно также могло установить модуль неполно. Установите приложение Magisk 30.6, затем установите модуль снова.</string>
     <string name="root_magisk_unknown">Приложение Magisk не найдено или скрыто под другим именем. Правильная версия — 30.6.</string>
     <string name="root_retry">Повторить</string>
+    <string name="dac_curve_title">Кривая громкости для этого ЦАП</string>
+    <string name="dac_curve_note">Каждое положение регулятора магнитолы на шкале ЦАП. Настройте на слух с музыкой: применяется сразу. Значения в дБ возвращает ЦАП.</string>
+    <string name="dac_curve_now">Сейчас: ручка %1$s, шаг ЦАП %2$s из %3$s</string>
+    <string name="dac_curve_point">Ручка %1$d: %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s дБ)</string>
+    <string name="dac_curve_default">Ровно в дБ</string>
+    <string name="dac_curve_even">Ровно по шагам</string>
 </resources>

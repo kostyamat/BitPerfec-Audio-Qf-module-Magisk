@@ -138,4 +138,11 @@
     <string name="root_magisk_old">L\'application Magisk %1$s est trop ancienne : elle a peut-etre aussi installe le module de maniere incomplete. Installez l\'application Magisk 30.6, puis installez le module a nouveau.</string>
     <string name="root_magisk_unknown">Application Magisk introuvable ou cacher sous un autre nom. La bonne version est 30.6.</string>
     <string name="root_retry">Reessayer</string>
+    <string name="dac_curve_title">Courbe de volume pour ce DAC</string>
+    <string name="dac_curve_note">Où chaque position du bouton de l\'autoradio se place sur le DAC. Ajustez à l\'oreille en écoutant de la musique : cela s\'applique immédiatement. Les valeurs en dB sont celles rapportées par le DAC.</string>
+    <string name="dac_curve_now">Actuel : bouton %1$s, pas du DAC %2$s sur %3$s</string>
+    <string name="dac_curve_point">Bouton %1$d : %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s dB)</string>
+    <string name="dac_curve_default">Uniforme en dB</string>
+    <string name="dac_curve_even">Uniforme par pas</string>
 </resources>

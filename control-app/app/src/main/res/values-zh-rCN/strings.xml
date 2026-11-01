@@ -138,4 +138,11 @@
     <string name="root_magisk_old">Magisk 应用 %1$s 太旧：它也可能导致模块安装不完整。请安装 Magisk 应用 30.6，然后重新安装模块。</string>
     <string name="root_magisk_unknown">未找到 Magisk 应用，或其被隐藏在其他名称下。正确版本为 30.6。</string>
     <string name="root_retry">重试</string>
+    <string name="dac_curve_title">此DAC的音量曲线</string>
+    <string name="dac_curve_note">主机旋钮的每个档位在DAC上的对应位置。放着音乐凭耳调整：立即生效。dB值为DAC反馈的数值。</string>
+    <string name="dac_curve_now">当前：旋钮 %1$s，DAC步数 %2$s / %3$s</string>
+    <string name="dac_curve_point">旋钮 %1$d：%2$d%%</string>
+    <string name="dac_curve_db"> (%1$s dB)</string>
+    <string name="dac_curve_default">按dB均匀</string>
+    <string name="dac_curve_even">按步数均匀</string>
 </resources>

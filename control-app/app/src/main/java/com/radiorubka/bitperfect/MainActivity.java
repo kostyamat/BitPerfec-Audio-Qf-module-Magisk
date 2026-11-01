@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.radiorubka.bitperfect.core.ModuleControl;
+import com.radiorubka.bitperfect.ui.DacCurveCard;
 import com.radiorubka.bitperfect.ui.MicCard;
 import com.radiorubka.bitperfect.ui.NavigatorsCard;
 import com.radiorubka.bitperfect.ui.RootCard;
@@ -43,6 +44,7 @@ public class MainActivity extends Activity {
     private NavigatorsCard navi;
     private MicCard mic;
     private RootCard rootCard;
+    private DacCurveCard dacCurve;
     private final AtomicBoolean polling = new AtomicBoolean();
 
     // One section open at a time, picked from the tabs under the status cards (remembered between starts).
@@ -114,6 +116,7 @@ public class MainActivity extends Activity {
         }
         navi = new NavigatorsCard(this, io);
         mic = new MicCard(this, io);
+        dacCurve = new DacCurveCard(this, io, () -> refresh(true));
         rootCard = new RootCard(this, () -> {
             ModuleControl.retryRoot();
             refresh();
@@ -299,6 +302,7 @@ public class MainActivity extends Activity {
         btnUsbVolume.setEnabled(!noControl);
         btnUsbVolume.setText(noControl ? R.string.usb_volume_none : R.string.usb_volume_follow);
         ToggleStyler.apply(btnUsbVolume);
+        dacCurve.update(r, name != null && btnUsbVolume.isChecked());
     }
 
     private void applyUsbVolume(boolean follow) {
@@ -402,6 +406,7 @@ public class MainActivity extends Activity {
         if (navi != null) navi.applyTheme();
         if (mic != null) mic.applyTheme();
         if (rootCard != null) rootCard.applyTheme();
+        if (dacCurve != null) dacCurve.applyTheme();
         styleChoices();
     }
 

@@ -138,4 +138,11 @@
     <string name="root_magisk_old">אפליקציית Magisk %1$s ישנה מדי: ייתכן שהיא גם התקינה את המודול באופן חלקי. התקן את אפליקציית Magisk 30.6, ואז התקן את המודול מחדש.</string>
     <string name="root_magisk_unknown">אפליקציית Magisk לא נמצאה, או שהיא מוסתרת בשם אחר. הגרסה הנכונה היא 30.6.</string>
     <string name="root_retry">נסה שוב</string>
+    <string name="dac_curve_title">עקומת עוצמת קול עבור DAC זה</string>
+    <string name="dac_curve_note">היכן נוחת כל מיקום של כפתור יחידת הראש ב-DAC. כוונו באוזן בזמן שהמוזיקה מתנגנת: החל מיד. ערכי ה-dB הם המדווחים על ידי ה-DAC.</string>
+    <string name="dac_curve_now">כעת: כפתור %1$s, שלב DAC %2$s מתוך %3$s</string>
+    <string name="dac_curve_point">כפתור %1$d: %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s dB)</string>
+    <string name="dac_curve_default">שווה ב-dB</string>
+    <string name="dac_curve_even">שווה בשלבים</string>
 </resources>

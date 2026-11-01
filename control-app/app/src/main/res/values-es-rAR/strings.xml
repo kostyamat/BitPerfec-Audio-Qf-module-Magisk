@@ -138,4 +138,11 @@
     <string name="root_magisk_old">La aplicacion Magisk %1$s es muy vieja: puede que haya instalado mal el modulo. Instale la aplicacion Magisk 30.6 y vuelva a instalar el modulo.</string>
     <string name="root_magisk_unknown">No se encontro la aplicacion Magisk o esta oculta bajo otro nombre. La version correcta es 30.6.</string>
     <string name="root_retry">Reintentar</string>
+    <string name="dac_curve_title">Curva de volumen para este DAC</string>
+    <string name="dac_curve_note">Dónde cae cada posición de la perilla de la unidad central en el DAC. Ajustalo de oído con música sonando: se aplica al instante. Los valores en dB son los que reporta el DAC.</string>
+    <string name="dac_curve_now">Ahora: perilla %1$s, paso del DAC %2$s de %3$s</string>
+    <string name="dac_curve_point">Perilla %1$d: %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s dB)</string>
+    <string name="dac_curve_default">Uniforme en dB</string>
+    <string name="dac_curve_even">Uniforme en pasos</string>
 </resources>

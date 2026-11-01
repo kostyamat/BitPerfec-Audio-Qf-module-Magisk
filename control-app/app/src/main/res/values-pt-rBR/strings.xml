@@ -138,4 +138,11 @@
     <string name="root_magisk_old">O aplicativo Magisk %1$s e antigo demais: ele tambem pode ter instalado o modulo de forma incompleta. Instale o aplicativo Magisk 30.6 e instale o modulo novamente.</string>
     <string name="root_magisk_unknown">Aplicativo Magisk nao encontrado ou oculto com outro nome. A versao correta e 30.6.</string>
     <string name="root_retry">Tentar novamente</string>
+    <string name="dac_curve_title">Curva de volume para este DAC</string>
+    <string name="dac_curve_note">Onde cada posição do botão da central multimídia fica no DAC. Ajuste de ouvido com música tocando: aplica-se na hora. Os valores em dB são os reportados pelo DAC.</string>
+    <string name="dac_curve_now">Agora: botão %1$s, passo do DAC %2$s de %3$s</string>
+    <string name="dac_curve_point">Botão %1$d: %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s dB)</string>
+    <string name="dac_curve_default">Uniforme em dB</string>
+    <string name="dac_curve_even">Uniforme em passos</string>
 </resources>

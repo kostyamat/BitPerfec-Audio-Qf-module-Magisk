@@ -138,4 +138,11 @@
     <string name="root_magisk_old">Magisk app %1$s is te oud: deze heeft de module mogelijk ook onvolledig geïnstalleerd. Installeer Magisk app 30.6 en installeer de module daarna opnieuw.</string>
     <string name="root_magisk_unknown">Magisk app niet gevonden of verborgen onder een andere naam. De juiste versie is 30.6.</string>
     <string name="root_retry">Opnieuw proberen</string>
+    <string name="dac_curve_title">Volumecurve voor deze DAC</string>
+    <string name="dac_curve_note">Waar elke positie van de head-unitknop op de DAC terechtkomt. Stel het op gehoor af met muziek aan: werkt direct. De dB-waarden worden gerapporteerd door de DAC.</string>
+    <string name="dac_curve_now">Nu: knop %1$s, DAC-stap %2$s van %3$s</string>
+    <string name="dac_curve_point">Knop %1$d: %2$d%%</string>
+    <string name="dac_curve_db"> (%1$s dB)</string>
+    <string name="dac_curve_default">Gelijkmatig in dB</string>
+    <string name="dac_curve_even">Gelijkmatig in stappen</string>
 </resources>

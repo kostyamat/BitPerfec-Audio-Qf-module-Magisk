@@ -263,6 +263,55 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/usb_volume_follow" />
 
+            <!-- the knob's curve on this DAC's own scale (ui/DacCurveCard) -->
+            <LinearLayout
+                android:id="@+id/panel_dac_curve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/BpCardValue"
+                    android:text="@string/dac_curve_title" />
+
+                <TextView
+                    style="@style/BpCardNote"
+                    android:text="@string/dac_curve_note" />
+
+                <TextView
+                    android:id="@+id/tv_dac_curve_now"
+                    style="@style/BpCardNote" />
+
+                <LinearLayout
+                    android:id="@+id/dac_curve_rows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_dac_curve_default"
+                        style="@style/BpPill"
+                        android:layout_marginEnd="4dp"
+                        android:checkable="false"
+                        android:text="@string/dac_curve_default" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_dac_curve_even"
+                        style="@style/BpPill"
+                        android:layout_marginStart="4dp"
+                        android:checkable="false"
+                        android:text="@string/dac_curve_even" />
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_usb_result"
                 style="@style/BpCardNote" />
