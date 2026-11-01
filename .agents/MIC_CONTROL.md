@@ -44,6 +44,14 @@ So: module XML (ours) + the user's overrides → `/data/.../sprd/<name>.xml`, de
 User state: `/sdcard/BitPerfectAudio/mic.conf` — `channel field value` lines; presets — `mic.<name>.conf` beside it.
 The module (`common/bp_mic.sh`, called from `bp_ctl.sh mic …`) is the only writer; the app only asks.
 
+### Live tuning server — does not start (📻 stand 194, 01.11.2026)
+`echo -n AudioTester_enable=1 > /data/vendor/local/media/mmi.audio.ctrl`: the HAL takes it
+(`ext_contrtol_process:AudioTester_enable=1`, `start_audio_tunning_server enter/exit`) and then logs
+`E audio_hw_tester: can not create tunning server thread`; no listener on 9997. SELinux is Permissive on this unit,
+so it is not a denial. ❓ Why — reverse `start_audio_tunning_server` in `audio.primary.ums512.so`. Needed because
+a call cannot survive an audioserver restart: in-call tuning / calibration must go live, not through XML.
+`sprd_aec_on=0|1` through the same FIFO is the one live switch known to work 🔬 (not yet measured).
+
 ## 4. Order of work
 1. Module engine: read the current value of a field per channel, write overrides into the `/data` copies, rebuild
    blobs, restart; `bp_ctl.sh mic get|set|reset`. Test on stand 194 with `dumpsys`/dumps, no sound at night.
