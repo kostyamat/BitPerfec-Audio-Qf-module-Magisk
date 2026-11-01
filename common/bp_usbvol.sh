@@ -58,8 +58,11 @@ bp_usbvol_watch() {
         fi
         set -- $BPV_CARD
         if [ -z "$1" ]; then BPV_LAST=""; sleep 2; continue; fi
+        # an unset sys.media.vol (after boot, before the first knob turn) is the platform's
+        # persist.sys.main_volume, as the platform itself reads it (qf-platform 08) - never full scale
         BPV_VOL=$(getprop sys.media.vol)
-        case "$BPV_VOL" in ''|*[!0-9]*) BPV_VOL=32 ;; esac
+        case "$BPV_VOL" in ''|*[!0-9]*) BPV_VOL=$(getprop persist.sys.main_volume) ;; esac
+        case "$BPV_VOL" in ''|*[!0-9]*) BPV_VOL=0 ;; esac
         [ "$BPV_VOL" -gt 32 ] && BPV_VOL=32
         [ "$(getprop sys.mute.state)" = true ] && BPV_VOL=0
         BPV_IDX=$BPV_MAXI; BPV_HW=${2:-}; BPV_SW=""
