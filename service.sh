@@ -141,15 +141,10 @@ esac
         fi
     fi
 
-    # With our navigation policy installed (marker from the installer) it must be the one loaded;
-    # without it (UIS8581 firmware we did not recognise) a policy that answers at all is the factory one.
+    # Our navigation policy must be the one loaded.
     policy_loaded() {
-        if [ -f "$MODPATH/bp_nav_policy" ]; then
-            dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
-                | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE"
-        else
-            dumpsys media.audio_policy 2>/dev/null | grep -q "Streams: AUDIO_STREAM_SYSTEM(1)"
-        fi
+        dumpsys media.audio_policy 2>/dev/null | grep -A 10 "Streams: AUDIO_STREAM_SYSTEM(1)" \
+            | grep -q "AUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE"
     }
     # Poll for up to $1 seconds: audioserver up and answering with our policies.
     wait_policy() {

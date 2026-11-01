@@ -3,10 +3,8 @@
 
     python -I tools/build_8581_profile.py "D:/Release/update(2)" D:/Release/8581_QF005
 
-Prints every edit it ports and every one it refuses. The installer overlays a built file only on a unit
-whose own factory file has the md5 recorded next to it (profiles/sp9863a/factory.md5).
+Prints every edit it ports and every one it refuses. The installer applies the built files as they are.
 """
-import hashlib
 import os
 import sys
 import xml.etree.ElementTree as ET
@@ -103,11 +101,6 @@ def port_strategies(fname):
     return t8
 
 
-def md5(p):
-    with open(p, "rb") as f:
-        return hashlib.md5(f.read()).hexdigest()
-
-
 # A curve lives in two files (engine and legacy); port it only where BOTH allow it, so they never disagree.
 eng, eng_refused = port_curves("audio_policy_engine_stream_volumes.xml")
 leg, leg_refused = port_curves("audio_policy_volumes.xml", skip=eng_refused)
@@ -118,8 +111,6 @@ built = {
     "audio_policy_engine_stream_volumes.xml": eng,
     "audio_policy_volumes.xml": leg,
 }
-with open("profiles/sp9863a/factory.md5", "w", newline="\n") as m:
-    for name, tree in built.items():
-        tree.write(f"{OUT}/{name}", encoding="utf-8", xml_declaration=True)
-        m.write(f"{md5(os.path.join(F8, name))}  {name}\n")
+for name, tree in built.items():
+    tree.write(f"{OUT}/{name}", encoding="utf-8", xml_declaration=True)
 print("written:", ", ".join(built))

@@ -290,25 +290,16 @@ else
 # 44.1 music plays without resampling), the HAL's own audio_hw.xml / audio_para / codec_pga.xml,
 # audio_effects, calls. The 7862 libraries and vendor set (audio_pcm, audio_route, audio_config,
 # audio_params/sprd, primary policy) are NOT for this SoC - v5.3 put them here and the unit hung on
-# the logo. Applied: the navigation policy and the music curve, built from the 8581 factory files
-# (tools/build_8581_profile.py), each only over a factory file with the md5 they were built from.
+# the logo. Applied, ready-made like everything else: the navigation policy and the music curve, built
+# from the 8581 factory files (tools/build_8581_profile.py).
 # ---------------------------------------------------------------------------
 ui_print "- UIS8581: factory 16-bit / 44.1 kHz output kept (44.1 music is not resampled)"
 rm -f "$MODPATH/system/lib/libaudioclient.so" "$MODPATH/system/lib64/libaudioclient.so"       "$MODPATH/system/lib64/libaudiopolicymanager.so"
 rmdir "$MODPATH/system/lib" 2>/dev/null
 cp -f "$MODPATH/profiles/sp9863a/system/lib64/libaudiopolicyservice.so" "$MODPATH/system/lib64/"
-NAV_FILES=0
-while read -r SUM NAME; do
-    [ -n "$NAME" ] || continue
-    if [ "$(md5sum "/vendor/etc/$NAME" 2>/dev/null | cut -d' ' -f1)" = "$SUM" ]; then
-        cp -f "$MODPATH/profiles/sp9863a/system/vendor/etc/$NAME" "$MODPATH/system/vendor/etc/$NAME"
-        ui_print "- $NAME: navigation / music policy applied"
-        [ "$NAME" = "audio_policy_engine_product_strategies.xml" ] && NAV_FILES=1
-    else
-        ui_print "- $NAME: this firmware's file is not the one we know - kept factory"
-    fi
-done < "$MODPATH/profiles/sp9863a/factory.md5"
-[ "$NAV_FILES" = "1" ] && touch "$MODPATH/bp_nav_policy"
+cp -f "$MODPATH/profiles/sp9863a/system/vendor/etc/"* "$MODPATH/system/vendor/etc/"
+touch "$MODPATH/bp_nav_policy"
+ui_print "- UIS8581: navigation and music policy applied"
 cp -f "$MODPATH/common/system/vendor/etc/usb_audio_policy_configuration.xml" "$MODPATH/system/vendor/etc/"
 fi
 
