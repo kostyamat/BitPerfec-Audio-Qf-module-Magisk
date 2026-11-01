@@ -4,7 +4,7 @@
 Support: https://t.me/kostyamat_dev/3
 
 ## v5.7.6
-🔴 Magisk: version 30.6 at most, 30.6 recommended. Magisk 31.1 and later do not support a kernel patched with Magisk 27.
+🔴 Magisk app: use version 30.6. With the older app 27 the module may not install completely; with 31.1 and later, apps do not get root.
 Replaces v5.7.5: update if you installed it.
 - The module brings everything itself: audio policy and navigator list are ready files, on UIS8581 too; nothing is copied
   from the unit and edited on the fly.

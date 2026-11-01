@@ -52,8 +52,8 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   match the uploaded asset exactly.
 
 ## Texts
-- 🔴 **Every release note and the guide say it in a red block** (owner 02.11): Magisk 30.6 at most, recommended; 31.1+ do not
-  support a kernel patched with Magisk 27. GitHub has no red text: `> [!CAUTION]`.
+- 🔴 **Every release note and the guide say it in a red block** (owner 02.11): Magisk app 30.6. App 27: the module may not install
+  completely; 31.1+: apps get no root (no support for a kernel patched with Magisk 27). GitHub has no red text: `> [!CAUTION]`.
 - 🔴 **Everything the module prints is English** — installer output, logs, abort messages (owner 25.10: «тобі по
   приколу тролити іноземців логом установки українською мовою??»). Users are international; Ukrainian goes only
   into the short paragraph of the release annotation.

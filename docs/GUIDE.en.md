@@ -14,7 +14,7 @@ settings are plain text files in `/sdcard/BitPerfectAudio/`, listed at the end.
 ## 1. Install, update, disable, remove
 
 > [!CAUTION]
-> **Magisk: use version 30.6 at most; 30.6 is the recommended one.** A kernel patched with Magisk works properly only up to 30.6; Magisk 31.1 and later do not support a kernel patched with Magisk 27.
+> **Magisk app: use version 30.6.** With the older app 27 the module may not install completely; with 31.1 and later, apps do not get root (they do not support a kernel patched with Magisk 27).
 
 1. Magisk → Modules → **Install from storage** → `QF_BitPerfect.module.v5.7.6-Universal.zip` → reboot.
    The installer prints in English what it found and what it changed. Any firmware that is not QF or MG is refused

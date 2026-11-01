@@ -1,7 +1,7 @@
 > [!CAUTION]
-> **Magisk: use version 30.6 at most. 30.6 is the recommended one.** A kernel patched with Magisk works properly only up to 30.6; Magisk 31.1 and later do not support a kernel patched with Magisk 27.
+> **Magisk app: use version 30.6.** With the older app 27 the module may not install completely; with 31.1 and later, apps do not get root (they do not support a kernel patched with Magisk 27).
 >
-> **Magisk: максимум версія 30.6, саме вона рекомендована.** Ядро, патчене Magisk, нормально працює лише до 30.6; Magisk 31.1 і новіші не підтримують ядро, патчене Magisk 27.
+> **Програма Magisk: версія 30.6.** Зі старішою 27 модуль може поставитись не повністю; із 31.1 і новішими програми не отримують root (вони не підтримують ядро, патчене Magisk 27).
 
 🔴 **QF / K706 (or its MG clone) only.** UIS7862: full module. UIS8581: reduced profile 🧪 (no tester report yet). Any other firmware is refused.
 
