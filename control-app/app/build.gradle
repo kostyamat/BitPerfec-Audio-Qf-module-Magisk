@@ -19,9 +19,11 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    // Only the app's own languages: Material and AppCompat bring strings for ~80 locales (most of resources.arsc).
+    // Only the app's own languages (those of kostyamat_fmradio, owner 01.11): Material and AppCompat bring strings
+    // for ~80 locales, most of resources.arsc.
     androidResources {
-        localeFilters += ["en", "uk"]
+        localeFilters += ["en", "uk", "ar", "bg", "cs", "de", "el", "es", "es-rAR", "fr", "hu", "it", "iw", "ja", "ko",
+                          "nl", "pl", "pt", "pt-rBR", "ro", "ru", "sk", "tr", "zh-rCN", "zh-rTW"]
     }
 
     buildTypes {
