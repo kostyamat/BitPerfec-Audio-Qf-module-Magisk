@@ -11,6 +11,9 @@
 #   usb_volume <full|follow>   set usb_dac_volume: the DAC at full scale, or its own volume control following
 #                     the head unit's knob (common/bp_usbvol.sh watches it; no restart; a DAC without a control
 #                     stays at full scale) (usb_volume_result=saved|bad_value); status: usb_volume=, usb_dac_volctl=MAX|none
+#   usb_curve <a,b,c,d,e|default>   where knob 1, 8, 16, 24, 32 land on this DAC model's control, in % of its range;
+#                     applies at once (usb_curve_result=saved|bad_value|no_dac); status: usb_dac_db=<min max in 1/100 dB>,
+#                     usb_curve=<five values>, usb_dac_level=<knob step top>
 #   mic show | mic set <SIM|VOIP|BT> <gain_db|aec|nr|nr_depth> [value] | mic reset <channel>
 #   mic preset list | mic preset <save|load|del> <name>
 #                     the user's call-mic settings (UIS7862, common/bp_mic.sh); a change rebuilds the AGDSP XML
@@ -101,7 +104,15 @@ case "$1" in
         echo "usb_mode=$(bp_usb_mode_wanted)"
         echo "usb_mode_state=$(bp_usb_mode_state "$USBPOL")"
         echo "usb_volume=$(bp_usbvol_wanted)"
-        echo "usb_dac_volctl=$(bp_usbvol_card | awk '{ print ($2 == "" ? "none" : $2) }')"
+        BP_VC=$(bp_usbvol_card)
+        echo "usb_dac_volctl=$(echo "$BP_VC" | awk '{ print ($2 == "" ? "none" : $2) }')"
+        set -- $BP_VC
+        if [ -n "$2" ]; then
+            BP_VK=$(bp_usbvol_ctl "$1"); BP_VD=$(bp_usbvol_db "$1" "$BP_VK"); BP_VU=$(bp_usbvol_curve_user "$1")
+            echo "usb_dac_db=$BP_VD"
+            echo "usb_curve=${BP_VU:-$(bp_usbvol_curve_default $BP_VD)}"
+            echo "usb_dac_level=$(bp_usbvol_knob) $(tinymix -D "$1" -v "$BP_VK" 2>/dev/null | tr -d '\r' | awk '{ print $1 }') $2"
+        fi
         # What really plays now: playing=<usb|internal> <cardN/pcmMp> <format> <channels> <rate>, one per running PCM
         for s in /proc/asound/card*/pcm*p/sub0; do
             grep -q RUNNING "$s/status" 2>/dev/null || continue
@@ -125,6 +136,20 @@ case "$1" in
         case "$2" in full|follow) ;; *) echo "usb_volume_result=bad_value"; exit 1 ;; esac
         bp_conf_set_key usb_dac_volume "$2"
         echo "usb_volume_result=saved"
+        ;;
+    usb_curve)
+        BP_VN=$(bp_usbvol_cardnum)
+        [ -n "$BP_VN" ] || { echo "usb_curve_result=no_dac"; exit 1; }
+        BP_VKEY=$(bp_usbvol_curve_key "$BP_VN")
+        if [ "$2" = default ]; then
+            T=/data/local/tmp/bp_conf.$$
+            grep -v "^[[:space:]]*$BP_VKEY[[:space:]]*=" "$BP_CONF" > "$T"; cat "$T" > "$BP_CONF"; rm -f "$T"
+        elif bp_usbvol_curve_valid "$2"; then
+            bp_conf_set_key "$BP_VKEY" "$2"
+        else
+            echo "usb_curve_result=bad_value"; exit 1
+        fi
+        echo "usb_curve_result=saved"
         ;;
     usb_mode)
         bp_usb_mode_valid "$2" || { echo "usb_mode_result=bad_value"; exit 1; }
