@@ -137,6 +137,9 @@ v4.18 was a single BU32107 profile. Since then:
 
 ## Install, disable, remove
 
+> [!CAUTION]
+> **Magisk: use version 30.6 at most; 30.6 is the recommended one.** A kernel patched with Magisk works properly only up to 30.6; Magisk 31.1 and later do not support a kernel patched with Magisk 27.
+
 Install the zip in Magisk and reboot. The installer saves a snapshot of your unit's factory audio state
 to `/sdcard/QF_audio_survey/` before it changes anything — it stays on your unit unless you send it.
 

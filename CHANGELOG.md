@@ -3,6 +3,14 @@
 🔴 **QF / K706 (or its MG clone) only. UIS7862: full module. UIS8581: reduced profile. Any other firmware: refused.**
 Support: https://t.me/kostyamat_dev/3
 
+## v5.7.6
+🔴 Magisk: version 30.6 at most, 30.6 recommended. Magisk 31.1 and later do not support a kernel patched with Magisk 27.
+Replaces v5.7.5: update if you installed it.
+- The module brings everything itself: audio policy and navigator list are ready files, on UIS8581 too; nothing is copied
+  from the unit and edited on the fly.
+- A failed microphone-settings build can no longer damage the working sound parameters.
+- The microphone step runs only when you have microphone settings: the checks finish about 12 s sooner at boot.
+
 ## v5.7.5
 Guide with pictures: docs/GUIDE.en.md · docs/GUIDE.uk.md
 - BitPerfect Control, the settings app inside the module: what is playing and where, settings in tabs; 25 languages.
