@@ -1,39 +1,30 @@
-# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 on stand 194 — mic engine works, app card next
+# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 RELEASED, repo moved to `main`
 
-**v5.7.5-Universal (5705), commit `859fca7` — full zip on stand 194 (19:27, 📻 checked)** — test build, not a release (no tag, `update.json` still 5.6.1).
-🔴 Bench builds keep the version now; bump only for testers / release (`RELEASE.md`, owner 01.11).
-**Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107), shared with QF_DVR (session 147a9dc2): talk to it
-ONLY in board room `qf-dvr-claude-window-7ef9`; rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md`
-§ «Stand 194» (`svc power reboot`, `working`/`done`, own module only). If shutdown hangs on `ntfs3g` (DVR's NTFS
-stick): DVR unbinds the stick (`authorized=0`), or sysrq s→u→b.
+**Release v5.7.5 is live:** tag `v5.7.5` on `97bf8cc`, asset `QF_BitPerfect.module.v5.7.5-Universal.zip`
+(1 973 218 B, md5 4f8d49b5…), `update.json` → 5705 (`ae2b742`). Notes `docs/RELEASE_NOTES_v5.7.5.md`, guides
+`docs/GUIDE.en.md` / `GUIDE.uk.md` with screenshots `docs/img/{en,uk}/`.
+**Branches:** default is now **`main`** (owner 01.11: «з цієї версії переїзджаємо в майн»); `v5.4-repaired` is only
+fast-forwarded to `main` on each release, because v5.6.x installs ask its `update.json` (`RELEASE.md`).
+Work on `main`. Push from WSL as the default user, both branches.
 
-**Repo:** `v5.4-repaired`, ~60 commits local (origin = 23.10) — push on order. Release v5.6.1 live.
+**Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107, PCM2704 on USB): the release zip, 📻 checked
+(bp=1, healthy, WD_24BIT, USB_HEADSET 15/15, DAC 12/128 at knob 3). System language is **en-US** (owner switched it
+for the English screenshots). Shared with QF_DVR (session 147a9dc2): talk ONLY in board room
+`qf-dvr-claude-window-7ef9`; rules `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194»
+(`svc power reboot`, `working`/`done`, own module only).
 
-## In v5.7.x since the release (all on stand 194, committed)
-Shared mic (in force, DVR measured); USB switch waits for audioserver; app shows the real path and polls; own
-navigators (`navigators.conf`, card «Navigators»); DAC mode (`usb_dac_mode`, app: DAC name + id, declared modes,
-mode picker — 📻 auto 48k, `S16_LE/44100` → 44.1k). ⏳ Owner to try: navigators card, DAC mode picker.
+## What v5.7.5 holds (details in commits)
+Shared mic; own navigators; call mic per channel (level, AEC, NR + depth, presets — `.agents/MIC_CONTROL.md`);
+USB DAC: announced after a switch, full scale from Android, level on the DAC's own control (optionally the head
+unit's knob), silent with the ignition off (`.agents/USB_DAC.md`); app in tabs, 25 languages (23 by Gemini),
+APK 1.90 MB (WebP backgrounds, locale filter).
 
-## Microphone (owner 01.11: «берись за мікрофон»), plan + field map `.agents/MIC_CONTROL.md`
-Done, on stand, 📻 seen on screen: `common/bp_mic.sh` (`bp_ctl.sh mic show|set|reset|preset`, gain/AEC/NR/
-`nr_depth` → `Tx_Mono_Post/Gain_limit` 🧩), app card with tabs, depth slider, presets. Owner set BT +3, SIM nr 0.
-**Next:** AEC calibration per mode (fader front/centre by MCU, then ask the user to restore it in the EQ app) —
-by day; bench numbers do not carry to a car. ❓ real call: SIM = Handsfree NB/WB? `POS` = NR post-filter?
-In-call live tuning needs the HAL tuning server: reverse `start_audio_tunning_server` (32-bit primary HAL).
-
-## ⏳ USB DAC (owner 01.11: «Бери ЦАП»), on stand 194, PCM2704
-✅ `ddfafda` the module announces the DAC to AudioService after a switch/restart (IAudioService 60, SDK 29) — it
-used to stay silent until replugged. ✅ `ee249d0`/`27951b0` `common/bp_usbvol.sh` watcher: Android full scale on
-the USB device (index 15), level = the DAC's own control; `usb_dac_volume=follow` maps `sys.media.vol` 0..32
-(unset → `persist.sys.main_volume`) to it, no control → no follow (owner: «немає - значить немає»). App toggle
-`6a26b2b` (📻 seen on screen). 📻 knob 16→64, 32→128; after boot 12/128 with main=3. ❓ PCM2704 unit in dB.
-✅ Ignition off → the DAC's switch off (sleep countdown ticks, stream ALARM from system_server, were the beeps).
-**Next:** «Авто» (direct path) and DTS/multichannel DACs — next version (TODO §3, `.agents/USB_DAC.md` §3).
+## 📋 Next version (`.agents/TODO.md`, rewritten for it)
+1. Testers' feedback on v5.7.5 (other DACs, mic on real calls). 2. UIS8581 with a tester. 3. «Авто» = player
+straight to the DAC + prompts elsewhere (navigation strategy move — careful, calls/radio stand on it), DTS /
+multichannel DACs, AEC calibration per mode (by day, in a car). 4. EQ for wDSP.
 
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
-- Owner: SIM call without echo (`58d9759`); SIM call silencing wDSP+DVR; testers' reports.
-
-## 📋 Next (`.agents/TODO.md`)
-1. Testers' feedback. 2. UIS8581 mic via `/data` audio_para — with a tester. 3. BitPerfect Control: mic block
-(above), navigators service (TODO §3). 4. EQ for wDSP (TODO §4).
+- Owner: SIM call without echo (`58d9759`); SIM call silencing wDSP+DVR.
+- ❓ Forum posts (4PDA/XDA) for v5.7.5 — not asked yet.
