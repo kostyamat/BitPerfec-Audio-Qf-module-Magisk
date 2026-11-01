@@ -6,5 +6,3 @@ persist.audio.hifi.enable=1
 persist.vendor.audio.hifi=true
 aaudio.mmap_policy=2
 aaudio.mmap_exclusive_policy=2
-# USB DAC: no "safe headset volume" cap - with usb_dac=1 the DAC gets full scale and its own control sets the level
-audio.safemedia.bypass=true
