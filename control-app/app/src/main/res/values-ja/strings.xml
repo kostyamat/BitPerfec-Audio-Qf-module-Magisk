@@ -3,7 +3,6 @@
     <string name="card_path">オーディオパス</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">読み込み中…</string>
-    <string name="status_no_root">root権限がないか、BitPerfectがインストールされていません。</string>
     <string name="platform_7862">UIS7862 · フルモジュール</string>
     <string name="platform_8581">UIS8581 · 縮小プロファイル</string>
     <string name="platform_other">%1$s · 非対応</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">タップ: コピーしてTelegramを開く</string>
     <string name="btn_close">閉じる</string>
     <string name="toast_copied">クリップボードにコピーしました: %s</string>
+    <string name="status_root_none">rootアクセスがありません</string>
+    <string name="status_no_module">BitPerfectが有効ではありません</string>
+    <string name="status_no_answer">モジュールからの応答がありません</string>
+    <string name="root_help">BitPerfect Controlにはrootが必要です。MagiskでSuperuserを開いて許可し、やり直すをタップしてください。</string>
+    <string name="root_no_module_help">MagiskでModulesを開いてください：BitPerfectがインストールされ、有効になっている必要があります。その後、再起動してください。</string>
+    <string name="root_no_answer_help">やり直すをタップしてください。繰り返す場合は、ヘッドユニットを再起動してください。</string>
+    <string name="root_magisk_good">Magiskアプリ %1$s は正しいバージョンです。Magiskが表示されなかった場合は、Superuserリストと設定を確認してください。</string>
+    <string name="root_magisk_new">Magiskアプリ %1$s は新しすぎます：バージョン31.1以降では、Magisk 27でパッチされたカーネル上のアプリにrootが与えられません。Magiskアプリ 30.6をインストールしてください。</string>
+    <string name="root_magisk_old">Magiskアプリ %1$s は古すぎます：モジュールが不完全にインストールされた可能性もあります。Magiskアプリ 30.6をインストールしてから、モジュールを再インストールしてください。</string>
+    <string name="root_magisk_unknown">Magiskアプリが見つからないか、別の名前で隠されています。正しいバージョンは30.6です。</string>
+    <string name="root_retry">やり直す</string>
 </resources>

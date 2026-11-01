@@ -3,7 +3,6 @@
     <string name="card_path">오디오 경로</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">읽는 중…</string>
-    <string name="status_no_root">root 권한이 없거나 BitPerfect가 설치되지 않았습니다.</string>
     <string name="platform_7862">UIS7862 · 전체 모듈</string>
     <string name="platform_8581">UIS8581 · 축소 프로필</string>
     <string name="platform_other">%1$s · 지원되지 않음</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">탭: 복사 및 Telegram 열기</string>
     <string name="btn_close">닫기</string>
     <string name="toast_copied">클립보드에 복사됨: %s</string>
+    <string name="status_root_none">root 권한 없음</string>
+    <string name="status_no_module">BitPerfect가 활성화되지 않음</string>
+    <string name="status_no_answer">모듈이 응답하지 않음</string>
+    <string name="root_help">BitPerfect Control에는 root가 필요합니다. Magisk에서 Superuser를 열어 허용한 후 다시 시도를 탭하세요.</string>
+    <string name="root_no_module_help">Magisk에서 Modules를 여세요: BitPerfect가 설치되어 있고 켜져 있어야 합니다. 그 후 재부팅하세요.</string>
+    <string name="root_no_answer_help">다시 시도를 탭하세요. 반복되면 헤드 유닛을 재부팅하세요.</string>
+    <string name="root_magisk_good">Magisk 앱 %1$s은(는) 올바른 버전입니다. Magisk가 묻지 않았다면 Superuser 목록과 설정을 확인하세요.</string>
+    <string name="root_magisk_new">Magisk 앱 %1$s은(는) 너무 최신 버전입니다: 31.1 및 이후 버전은 Magisk 27로 패치된 커널에서 앱에 root를 부여하지 않습니다. Magisk 앱 30.6을 설치하세요.</string>
+    <string name="root_magisk_old">Magisk 앱 %1$s은(는) 너무 구버전입니다: 모듈이 불완전하게 설치되었을 수 있습니다. Magisk 앱 30.6을 설치한 후 모듈을 다시 설치하세요.</string>
+    <string name="root_magisk_unknown">Magisk 앱을 찾을 수 없거나 다른 이름으로 숨겨져 있습니다. 올바른 버전은 30.6입니다.</string>
+    <string name="root_retry">다시 시도</string>
 </resources>

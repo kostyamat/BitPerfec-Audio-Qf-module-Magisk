@@ -3,7 +3,6 @@
     <string name="card_path">مسار الصوت</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">جارٍ القراءة…</string>
-    <string name="status_no_root">لا يوجد صلاحيات root، أو أن BitPerfect غير مثبت.</string>
     <string name="platform_7862">UIS7862 · وحدة كاملة</string>
     <string name="platform_8581">UIS8581 · ملف تعريف مصغر</string>
     <string name="platform_other">%1$s · غير مدعوم</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">انقر: نسخ والفتح في Telegram</string>
     <string name="btn_close">إغلاق</string>
     <string name="toast_copied">تم النسخ إلى الحافظة: %s</string>
+    <string name="status_root_none">لا يوجد صلاحية root</string>
+    <string name="status_no_module">BitPerfect غير نشط</string>
+    <string name="status_no_answer">لمל يستجب الوحدة</string>
+    <string name="root_help">يحتاج BitPerfect Control إلى root. في Magisk، افتح Superuser واقْبَل الصلاحية، ثم اضغط إعادة المحاولة.</string>
+    <string name="root_no_module_help">في Magisk، افتح Modules: يجب تثبيت BitPerfect وتفعيله. ثم أعد التشغيل.</string>
+    <string name="root_no_answer_help">اضغط إعادة المحاولة. إذا تكررت المشكلة، أعد تشغيل وحدة السيارة.</string>
+    <string name="root_magisk_good">تطبيق Magisk %1$s هو الإصدار الصحيح. إذا لم يطالب Magisk، تحقق من قائمة Superuser وإعداداته.</string>
+    <string name="root_magisk_new">تطبيق Magisk %1$s حديث جداً: الإصدارات 31.1 والأحدث لا تمنح التطبيقات root على نواة معدلة بـ Magisk 27. ثبت تطبيق Magisk 30.6.</string>
+    <string name="root_magisk_old">تطبيق Magisk %1$s قديم جداً: ربما قام أيضاً بتثبيت الوحدة بشكل غير كامل. ثبت تطبيق Magisk 30.6 ثم ثبت الوحدة مرة أخرى.</string>
+    <string name="root_magisk_unknown">تعذر العثور على تطبيق Magisk، أو أنه مخفي باسم آخر. الإصدار الصحيح هو 30.6.</string>
+    <string name="root_retry">إعادة المحاولة</string>
 </resources>

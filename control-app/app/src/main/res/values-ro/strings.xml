@@ -3,7 +3,6 @@
     <string name="card_path">Cale audio</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Se citește…</string>
-    <string name="status_no_root">Fără acces root sau BitPerfect nu este instalat.</string>
     <string name="platform_7862">UIS7862 · modul complet</string>
     <string name="platform_8581">UIS8581 · profil redus</string>
     <string name="platform_other">%1$s · neacceptat</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Atingeți: copiere și deschidere Telegram</string>
     <string name="btn_close">ÎNCHIDE</string>
     <string name="toast_copied">Copiat în clipboard: %s</string>
+    <string name="status_root_none">Fara acces root</string>
+    <string name="status_no_module">BitPerfect nu este activ</string>
+    <string name="status_no_answer">Modulul nu a raspuns</string>
+    <string name="root_help">BitPerfect Control are nevoie de root. In Magisk, deschideti Superuser si permiteti accesul, apoi atingeti Reincercare.</string>
+    <string name="root_no_module_help">In Magisk, deschideti Modules: BitPerfect trebuie instalat si pornit. Apoi reporniti.</string>
+    <string name="root_no_answer_help">Atingeti Reincercare. Daca se repeta, reporniti unitatea centrala.</string>
+    <string name="root_magisk_good">Aplicatia Magisk %1$s este versiunea corecta. Daca Magisk nu a intrebat, verificati lista Superuser si setarile.</string>
+    <string name="root_magisk_new">Aplicatia Magisk %1$s este prea noua: versiunile 31.1 si ulterioare nu acorda acces root aplicatiilor pe un kernel parat cu Magisk 27. Instalati aplicatia Magisk 30.6.</string>
+    <string name="root_magisk_old">Aplicatia Magisk %1$s este prea veche: este posibil sa fi instalat modulul incomplet. Instalati aplicatia Magisk 30.6, apoi instalati modulul din nou.</string>
+    <string name="root_magisk_unknown">Aplicatia Magisk nu a fost gasita sau este ascunsa sub alt nume. Versiunea corecta este 30.6.</string>
+    <string name="root_retry">Reincercare</string>
 </resources>

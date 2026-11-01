@@ -3,7 +3,6 @@
     <string name="card_path">Διαδρομή ήχου</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Ανάγνωση…</string>
-    <string name="status_no_root">Δεν υπάρχει πρόσβαση root ή το BitPerfect δεν είναι εγκατεστημένο.</string>
     <string name="platform_7862">UIS7862 · πλήρης μονάδα</string>
     <string name="platform_8581">UIS8581 · μειωμένο προφίλ</string>
     <string name="platform_other">%1$s · δεν υποστηρίζεται</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Πατήστε: αντιγραφή και άνοιγμα Telegram</string>
     <string name="btn_close">ΚΛΕΙΣΙΜΟ</string>
     <string name="toast_copied">Αντιγράφηκε στο πρόχειρο: %s</string>
+    <string name="status_root_none">Χωρίς πρόσβαση root</string>
+    <string name="status_no_module">Το BitPerfect δεν είναι ενεργό</string>
+    <string name="status_no_answer">Η μονάδα δεν απάντησε</string>
+    <string name="root_help">Το BitPerfect Control απαιτεί root. Στο Magisk, ανοίξτε το Superuser και επιτρέψτε το, στη συνέχεια πατήστε Επανάληψη.</string>
+    <string name="root_no_module_help">Στο Magisk, ανοίξτε Modules: Το BitPerfect πρέπει να είναι εγκατεστημένο και ενεργם... ενεργοποιημένο. Μετά κάντε επανεκκίνηση.</string>
+    <string name="root_no_answer_help">Πατήστε Επανάληψη. Εάν επαναληφθεί, κάντε επανεκκίνηση στην κεντρική μονάδα.</string>
+    <string name="root_magisk_good">Η εφαρμογή Magisk %1$s είναι η σωστή έκδοση. Εάν το Magisk δεν ρώτησε, ελέγξτε τη λίστα Superuser και τις ρυθμίσεις του.</string>
+    <string name="root_magisk_new">Η εφαρμογή Magisk %1$s είναι πολύ νέα: οι εκδόσεις 31.1 και νεότερες δεν δίνουν root στις εφαρμογές σε πυρήνα που έχει γίνει patch με Magisk 27. Εγκαταστήστε την εφαρμογή Magisk 30.6.</string>
+    <string name="root_magisk_old">Η εφαρμογή Magisk %1$s είναι πολύ παλιά: μπορεί επίσης να εγκατέστησε τη μονάδα ελλιπώς. Εγκαταστήστε την εφαρμογή Magisk 30.6 και μετά εγκαταστήστε ξανά τη μονάδα.</string>
+    <string name="root_magisk_unknown">Η εφαρμογή Magisk δεν βρέθηκε ή είναι κρυμμένη με άλλο όνομα. Η σωστή έκδοση είναι 30.6.</string>
+    <string name="root_retry">Επανάληψη</string>
 </resources>

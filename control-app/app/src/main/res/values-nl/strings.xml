@@ -3,7 +3,6 @@
     <string name="card_path">Audiopad</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Bezig met lezen…</string>
-    <string name="status_no_root">Geen root-toegang of BitPerfect is niet geïnstalleerd.</string>
     <string name="platform_7862">UIS7862 · volledige module</string>
     <string name="platform_8581">UIS8581 · gereduceerd profiel</string>
     <string name="platform_other">%1$s · niet ondersteund</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Tik om te kopiëren &amp; Telegram te openen</string>
     <string name="btn_close">SLUITEN</string>
     <string name="toast_copied">Gekopieerd naar klembord: %s</string>
+    <string name="status_root_none">Geen root-toegang</string>
+    <string name="status_no_module">BitPerfect is niet actief</string>
+    <string name="status_no_answer">De module antwoordde niet</string>
+    <string name="root_help">BitPerfect Control heeft root nodig. Open Superuser in Magisk en sta dit toe, tik daarna op Opnieuw proberen.</string>
+    <string name="root_no_module_help">Open Modules in Magisk: BitPerfect moet geïnstalleerd en ingeschakeld zijn. Start daarna opnieuw op.</string>
+    <string name="root_no_answer_help">Tik op Opnieuw proberen. Als het zich herhaalt, start u de autoradio opnieuw op.</string>
+    <string name="root_magisk_good">Magisk app %1$s heeft de juiste versie. Als Magisk het niet vroeg, controleer dan de Superuser-lijst en instellingen.</string>
+    <string name="root_magisk_new">Magisk app %1$s is te nieuw: versies 31.1 en later geven apps geen root op een kernel gepatcht met Magisk 27. Installeer Magisk app 30.6.</string>
+    <string name="root_magisk_old">Magisk app %1$s is te oud: deze heeft de module mogelijk ook onvolledig geïnstalleerd. Installeer Magisk app 30.6 en installeer de module daarna opnieuw.</string>
+    <string name="root_magisk_unknown">Magisk app niet gevonden of verborgen onder een andere naam. De juiste versie is 30.6.</string>
+    <string name="root_retry">Opnieuw proberen</string>
 </resources>

@@ -3,7 +3,6 @@
     <string name="card_path">Caminho de áudio</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Lendo…</string>
-    <string name="status_no_root">Sem acesso root ou BitPerfect não instalado.</string>
     <string name="platform_7862">UIS7862 · módulo completo</string>
     <string name="platform_8581">UIS8581 · perfil reduzido</string>
     <string name="platform_other">%1$s · não suportado</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Toque: copiar e abrir Telegram</string>
     <string name="btn_close">FECHAR</string>
     <string name="toast_copied">Copiado para a área de transferência: %s</string>
+    <string name="status_root_none">Sem acesso root</string>
+    <string name="status_no_module">BitPerfect nao esta ativo</string>
+    <string name="status_no_answer">O modulo nao respondeu</string>
+    <string name="root_help">O BitPerfect Control precisa de root. No Magisk, abra o Superuser e permita, depois toque em Tentar novamente.</string>
+    <string name="root_no_module_help">No Magisk, abra o Modules: O BitPerfect deve estar instalado e ativado. Depois reinicie.</string>
+    <string name="root_no_answer_help">Toque em Tentar novamente. Se repetir, reinicie a central multimidia.</string>
+    <string name="root_magisk_good">O aplicativo Magisk %1$s e a versao correta. Se o Magisk nao perguntou, verifique sua lista Superuser e configuracoes.</string>
+    <string name="root_magisk_new">O aplicativo Magisk %1$s e novo demais: as versoes 31.1 e posteriores nao dao root para apps em um kernel modificado com Magisk 27. Instale o aplicativo Magisk 30.6.</string>
+    <string name="root_magisk_old">O aplicativo Magisk %1$s e antigo demais: ele tambem pode ter instalado o modulo de forma incompleta. Instale o aplicativo Magisk 30.6 e instale o modulo novamente.</string>
+    <string name="root_magisk_unknown">Aplicativo Magisk nao encontrado ou oculto com outro nome. A versao correta e 30.6.</string>
+    <string name="root_retry">Tentar novamente</string>
 </resources>

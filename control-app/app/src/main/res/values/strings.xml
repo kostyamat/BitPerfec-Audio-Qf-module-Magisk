@@ -6,7 +6,6 @@
     <string name="card_path">Audio path</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Reading…</string>
-    <string name="status_no_root">No root access, or BitPerfect is not installed.</string>
     <string name="platform_7862">UIS7862 · full module</string>
     <string name="platform_8581">UIS8581 · reduced profile</string>
     <string name="platform_other">%1$s · not supported</string>
@@ -137,4 +136,15 @@
     <string name="support_click_hint_tg">Tap to copy &amp; open Telegram</string>
     <string name="btn_close">CLOSE</string>
     <string name="toast_copied">Copied to clipboard: %s</string>
+    <string name="status_root_none">No root access</string>
+    <string name="status_no_module">BitPerfect is not active</string>
+    <string name="status_no_answer">The module did not answer</string>
+    <string name="root_help">BitPerfect Control needs root. In Magisk, open Superuser and allow it, then tap Try again.</string>
+    <string name="root_no_module_help">In Magisk, open Modules: BitPerfect must be installed and switched on. Then reboot.</string>
+    <string name="root_no_answer_help">Tap Try again. If it repeats, reboot the head unit.</string>
+    <string name="root_magisk_good">Magisk app %1$s is the right version. If Magisk did not ask, check its Superuser list and settings.</string>
+    <string name="root_magisk_new">Magisk app %1$s is too new: versions 31.1 and later give apps no root on a kernel patched with Magisk 27. Install Magisk app 30.6.</string>
+    <string name="root_magisk_old">Magisk app %1$s is too old: it may also have installed the module incompletely. Install Magisk app 30.6, then install the module again.</string>
+    <string name="root_magisk_unknown">Magisk app not found, or it is hidden under another name. The right version is 30.6.</string>
+    <string name="root_retry">Try again</string>
 </resources>

@@ -3,7 +3,6 @@
     <string name="card_path">Percorso audio</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Lettura in corso…</string>
-    <string name="status_no_root">Accesso root assente o BitPerfect non installato.</string>
     <string name="platform_7862">UIS7862 · modulo completo</string>
     <string name="platform_8581">UIS8581 · profilo ridotto</string>
     <string name="platform_other">%1$s · non supportato</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Tocca: copia e apri Telegram</string>
     <string name="btn_close">CHIUDI</string>
     <string name="toast_copied">Copiato negli appunti: %s</string>
+    <string name="status_root_none">Nessun accesso root</string>
+    <string name="status_no_module">BitPerfect non e attivo</string>
+    <string name="status_no_answer">Il modulo non ha risposto</string>
+    <string name="root_help">BitPerfect Control richiede root. In Magisk, apri Superuser e consenti l\'accesso, quindi toccare Riprova.</string>
+    <string name="root_no_module_help">In Magisk, apri Modules: BitPerfect deve essere installato e attivato. Quindi riavvia.</string>
+    <string name="root_no_answer_help">Tocca Riprova. Se si ripete, riavvia l\'autoradio.</string>
+    <string name="root_magisk_good">L\'app Magisk %1$s e la versione corretta. Se Magisk non ha chiesto, controlla la lista Superuser e le impostazioni.</string>
+    <string name="root_magisk_new">L\'app Magisk %1$s e troppo recente: le versioni 31.1 e successive non danno root alle app su un kernel patchato con Magisk 27. Installa l\'app Magisk 30.6.</string>
+    <string name="root_magisk_old">L\'app Magisk %1$s e troppo vecchia: potrebbe anche aver installato il modulo in modo incompleto. Installa l\'app Magisk 30.6, quindi reinstalla il modulo.</string>
+    <string name="root_magisk_unknown">App Magisk non trovata o nascosta con un altro nome. La versione corretta e 30.6.</string>
+    <string name="root_retry">Riprova</string>
 </resources>

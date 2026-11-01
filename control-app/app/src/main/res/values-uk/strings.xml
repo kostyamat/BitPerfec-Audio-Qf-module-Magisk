@@ -3,7 +3,6 @@
     <string name="card_path">Аудіотракт</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Читаю…</string>
-    <string name="status_no_root">Немає root-доступу, або BitPerfect не встановлено.</string>
     <string name="platform_7862">UIS7862 · повний модуль</string>
     <string name="platform_8581">UIS8581 · зменшений профіль</string>
     <string name="platform_other">%1$s · не підтримується</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Клік: копіювати та відкрити у Telegram</string>
     <string name="btn_close">ЗАКРИТИ</string>
     <string name="toast_copied">Скопійовано в буфер обміну: %s</string>
+    <string name="status_root_none">Немає root-доступу</string>
+    <string name="status_no_module">BitPerfect не активний</string>
+    <string name="status_no_answer">Модуль не відповів</string>
+    <string name="root_help">BitPerfect Control потрібен root. У Magisk відкрийте Суперкористувач і дозвольте, потім натисніть Спробувати ще.</string>
+    <string name="root_no_module_help">У Magisk відкрийте Модулі: BitPerfect має бути встановлений і ввімкнений. Потім перезавантажте магнітолу.</string>
+    <string name="root_no_answer_help">Натисніть Спробувати ще. Якщо повториться, перезавантажте магнітолу.</string>
+    <string name="root_magisk_good">Програма Magisk %1$s потрібної версії. Якщо Magisk нічого не запитав, перевірте його список Суперкористувач і налаштування.</string>
+    <string name="root_magisk_new">Програма Magisk %1$s занадто нова: версії 31.1 і новіші не дають програмам root на ядрі, патченому Magisk 27. Встановіть програму Magisk 30.6.</string>
+    <string name="root_magisk_old">Програма Magisk %1$s застаріла: вона могла ще й поставити модуль не повністю. Встановіть програму Magisk 30.6, потім установіть модуль наново.</string>
+    <string name="root_magisk_unknown">Програму Magisk не знайдено, або її приховано під іншою назвою. Потрібна версія 30.6.</string>
+    <string name="root_retry">Спробувати ще</string>
 </resources>

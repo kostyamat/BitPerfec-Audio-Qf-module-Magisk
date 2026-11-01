@@ -3,7 +3,6 @@
     <string name="card_path">Аудиотракт</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Четене…</string>
-    <string name="status_no_root">Няма root достъп или BitPerfect не е инсталиран.</string>
     <string name="platform_7862">UIS7862 · пълен модул</string>
     <string name="platform_8581">UIS8581 · намален профил</string>
     <string name="platform_other">%1$s · не се поддържа</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Докоснете: копиране и отваряне на Telegram</string>
     <string name="btn_close">ЗАТВОРИ</string>
     <string name="toast_copied">Копирано в клипборда: %s</string>
+    <string name="status_root_none">Няма root достъп</string>
+    <string name="status_no_module">BitPerfect не е активен</string>
+    <string name="status_no_answer">Модулът не отговори</string>
+    <string name="root_help">BitPerfect Control се нуждае от root. В Magisk отворете Superuser и разрешете, след което докоснете Опит отново.</string>
+    <string name="root_no_module_help">В Magisk отворете Modules: BitPerfect трябва да е инсталиран и включен. След това рестартирайте.</string>
+    <string name="root_no_answer_help">Докоснете Опит отново. Ако се повтаря, рестартирайте главното устройство.</string>
+    <string name="root_magisk_good">Приложението Magisk %1$s е правилната версия. Ако Magisk не попита, проверете неговия списък Superuser и настройки.</string>
+    <string name="root_magisk_new">Приложението Magisk %1$s е твърде ново: версии 31.1 и по-нови не дават root на приложения на ядро, пачнато с Magisk 27. Инсталирайте приложение Magisk 30.6.</string>
+    <string name="root_magisk_old">Приложението Magisk %1$s е твърде старо: то може също да е инсталирало модула непълно. Инсталирайте приложение Magisk 30.6, след това инсталирайте модула отново.</string>
+    <string name="root_magisk_unknown">Приложението Magisk не е намерено или е скрито под друго име. Правилната версия е 30.6.</string>
+    <string name="root_retry">Опит отново</string>
 </resources>

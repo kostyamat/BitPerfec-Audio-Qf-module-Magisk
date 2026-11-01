@@ -3,7 +3,6 @@
     <string name="card_path">音频通路</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">正在读取…</string>
-    <string name="status_no_root">无 root 权限，或未安装 BitPerfect 模块。</string>
     <string name="platform_7862">UIS7862 · 完整模块</string>
     <string name="platform_8581">UIS8581 · 精简配置</string>
     <string name="platform_other">%1$s · 不支持</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">点击复制并打开 Telegram</string>
     <string name="btn_close">关闭</string>
     <string name="toast_copied">已复制到剪贴板: %s</string>
+    <string name="status_root_none">无root权限</string>
+    <string name="status_no_module">BitPerfect 未激活</string>
+    <string name="status_no_answer">模块无响应</string>
+    <string name="root_help">BitPerfect Control 需要 root。在 Magisk 中打开 Superuser 并允许，然后点击重试。</string>
+    <string name="root_no_module_help">在 Magisk 中打开 Modules：必须安装并开启 BitPerfect。然后重启。</string>
+    <string name="root_no_answer_help">点击重试。如果重复出现，请重启车机。</string>
+    <string name="root_magisk_good">Magisk 应用 %1$s 是正确的版本。如果 Magisk 未询问，请检查其 Superuser 列表和设置。</string>
+    <string name="root_magisk_new">Magisk 应用 %1$s 太新：31.1 及更高版本在经 Magisk 27 补丁的内核上不给应用授予 root。请安装 Magisk 应用 30.6。</string>
+    <string name="root_magisk_old">Magisk 应用 %1$s 太旧：它也可能导致模块安装不完整。请安装 Magisk 应用 30.6，然后重新安装模块。</string>
+    <string name="root_magisk_unknown">未找到 Magisk 应用，或其被隐藏在其他名称下。正确版本为 30.6。</string>
+    <string name="root_retry">重试</string>
 </resources>

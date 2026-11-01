@@ -3,7 +3,6 @@
     <string name="card_path">נתיב שמע</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">קורא…</string>
-    <string name="status_no_root">אין גישת root, או ש-BitPerfect אינו מותקן.</string>
     <string name="platform_7862">UIS7862 · מודול מלא</string>
     <string name="platform_8581">UIS8581 · פרופיל מופחת</string>
     <string name="platform_other">%1$s · לא נתמך</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">הקש: העתק ופתח ב-Telegram</string>
     <string name="btn_close">סגור</string>
     <string name="toast_copied">הועתק ללוח: %s</string>
+    <string name="status_root_none">אין גישת root</string>
+    <string name="status_no_module">BitPerfect אינו פעיל</string>
+    <string name="status_no_answer">המודול לא הגיב</string>
+    <string name="root_help">BitPerfect Control דורש root. ב-Magisk, פתח את Superuser ואפשר זאת, לאחר מכן הקש על נסה שוב.</string>
+    <string name="root_no_module_help">ב-Magisk, פתח את Modules: חובה להתקין ולהפעיל את BitPerfect. לאחר מכן הפעל מחדש.</string>
+    <string name="root_no_answer_help">הקש על נסה שוב. אם זה חוזר על עצמו, הפעל מחדש את יחידת הראש.</string>
+    <string name="root_magisk_good">אפליקציית Magisk %1$s היא הגרסה הנכונה. אם Magisk לא שאל, בדוק את רשימת ה-Superuser וההגדרות שלו.</string>
+    <string name="root_magisk_new">אפליקציית Magisk %1$s חדשה מדי: גרסאות 31.1 ואילך אינות מעניקות root לאפליקציות על קרנל שעבר טלאי עם Magisk 27. התקן את אפליקציית Magisk 30.6.</string>
+    <string name="root_magisk_old">אפליקציית Magisk %1$s ישנה מדי: ייתכן שהיא גם התקינה את המודול באופן חלקי. התקן את אפליקציית Magisk 30.6, ואז התקן את המודול מחדש.</string>
+    <string name="root_magisk_unknown">אפליקציית Magisk לא נמצאה, או שהיא מוסתרת בשם אחר. הגרסה הנכונה היא 30.6.</string>
+    <string name="root_retry">נסה שוב</string>
 </resources>

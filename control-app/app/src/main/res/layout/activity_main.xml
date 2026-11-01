@@ -151,6 +151,28 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- no root, no module, no answer: why and what to do (ui/RootCard) -->
+        <LinearLayout
+            android:id="@+id/card_root"
+            style="@style/BpCard"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_root_help"
+                style="@style/BpCardValue" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_root_retry"
+                style="@style/BpPill"
+                android:layout_width="match_parent"
+                android:layout_weight="0"
+                android:layout_marginTop="8dp"
+                android:checkable="false"
+                android:text="@string/root_retry" />
+        </LinearLayout>
+
         <!-- sections: one open at a time, chosen here (owner 01.11: no long strip with a pile of scrolling) -->
         <LinearLayout
             android:layout_width="match_parent"

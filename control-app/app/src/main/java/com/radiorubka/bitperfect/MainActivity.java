@@ -12,6 +12,7 @@ import com.google.android.material.button.MaterialButton;
 import com.radiorubka.bitperfect.core.ModuleControl;
 import com.radiorubka.bitperfect.ui.MicCard;
 import com.radiorubka.bitperfect.ui.NavigatorsCard;
+import com.radiorubka.bitperfect.ui.RootCard;
 import com.radiorubka.bitperfect.ui.ShimmerBadgeLayout;
 import com.radiorubka.bitperfect.ui.ThemedDialog;
 import com.radiorubka.bitperfect.ui.SupportDialog;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The one screen of v1: what the unit is and what BitPerfect does on it, the USB DAC switch, the style.
@@ -40,6 +42,8 @@ public class MainActivity extends Activity {
     private boolean usbWanted;
     private NavigatorsCard navi;
     private MicCard mic;
+    private RootCard rootCard;
+    private final AtomicBoolean polling = new AtomicBoolean();
 
     // One section open at a time, picked from the tabs under the status cards (remembered between starts).
     private static final int[] TAB_IDS = {R.id.tab_usb, R.id.tab_mic, R.id.tab_navi, R.id.tab_theme};
@@ -110,6 +114,12 @@ public class MainActivity extends Activity {
         }
         navi = new NavigatorsCard(this, io);
         mic = new MicCard(this, io);
+        rootCard = new RootCard(this, () -> {
+            ModuleControl.retryRoot();
+            refresh();
+            navi.load();
+            mic.load();
+        });
         showSection(getPreferences(MODE_PRIVATE).getInt("section", 0));
         applyTheme();
         refresh();
@@ -152,9 +162,12 @@ public class MainActivity extends Activity {
     }
 
     private void refresh(boolean quiet) {
+        // the poll waits for its previous turn: a Magisk prompt can hold the shell for a minute
+        if (quiet && !polling.compareAndSet(false, true)) return;
         if (!quiet) tvPlatform.setText(R.string.status_loading);
         io.execute(() -> {
             ModuleControl.Result r = ModuleControl.status();
+            if (quiet) polling.set(false);
             ui.post(() -> show(r));
         });
     }
@@ -178,12 +191,15 @@ public class MainActivity extends Activity {
 
     private void show(ModuleControl.Result r) {
         if (!r.ok()) {
-            tvPlatform.setText(R.string.status_no_root);
-            tvPlatformNote.setText(r.error);
+            tvPlatform.setText("no_root".equals(r.error) ? R.string.status_root_none
+                    : "no_module".equals(r.error) ? R.string.status_no_module : R.string.status_no_answer);
+            tvPlatformNote.setText("");
+            rootCard.show(r.error);
             tvPath.setText("");
             tvModule.setText("");
             return;
         }
+        rootCard.hide();
         String platform = r.get("platform");
         boolean is7862 = "ums512".equals(platform);
         boolean is8581 = "sp9863a".equals(platform);
@@ -375,7 +391,7 @@ public class MainActivity extends Activity {
         View root = findViewById(R.id.root_scroll);
         root.setBackground(ThemeManager.wallpaperBackground(this, night));
         getWindow().setStatusBarColor(ThemeManager.background(this, night));
-        for (int id : new int[]{R.id.card_platform, R.id.card_path, R.id.card_module, R.id.card_usb, R.id.card_mic, R.id.card_navi, R.id.card_theme}) {
+        for (int id : new int[]{R.id.card_root, R.id.card_platform, R.id.card_path, R.id.card_module, R.id.card_usb, R.id.card_mic, R.id.card_navi, R.id.card_theme}) {
             findViewById(id).setBackground(ThemeManager.cardDrawable(this, night, 16f));
         }
         int primary = ThemeManager.textPrimary(this, night);
@@ -385,6 +401,7 @@ public class MainActivity extends Activity {
         tintTexts((ViewGroup) findViewById(R.id.content), primary, secondary, card);
         if (navi != null) navi.applyTheme();
         if (mic != null) mic.applyTheme();
+        if (rootCard != null) rootCard.applyTheme();
         styleChoices();
     }
 

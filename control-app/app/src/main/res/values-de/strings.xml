@@ -3,7 +3,6 @@
     <string name="card_path">Audiopfad</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Wird gelesen…</string>
-    <string name="status_no_root">Kein Root-Zugriff oder BitPerfect ist nicht installiert.</string>
     <string name="platform_7862">UIS7862 · Vollständiges Modul</string>
     <string name="platform_8581">UIS8581 · Reduziertes Profil</string>
     <string name="platform_other">%1$s · nicht unterstützt</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Tippen: Kopieren &amp; Telegram öffnen</string>
     <string name="btn_close">SCHLIESSEN</string>
     <string name="toast_copied">In die Zwischenablage kopiert: %s</string>
+    <string name="status_root_none">Kein root-Zugriff</string>
+    <string name="status_no_module">BitPerfect ist nicht aktiv</string>
+    <string name="status_no_answer">Das Modul hat nicht geantwortet</string>
+    <string name="root_help">BitPerfect Control benötigt root. Öffnen Sie in Magisk Superuser und erlauben Sie es, tippen Sie dann auf Erneut versuchen.</string>
+    <string name="root_no_module_help">Öffnen Sie in Magisk Modules: BitPerfect muss installiert und eingeschaltet sein. Starten Sie dann neu.</string>
+    <string name="root_no_answer_help">Tippen Sie auf Erneut versuchen. Wenn es sich wiederholt, starten Sie das Autoradio neu.</string>
+    <string name="root_magisk_good">Magisk App %1$s hat die richtige Version. Wenn Magisk nicht gefragt hat, überprüfen Sie die Superuser-Liste und die Einstellungen.</string>
+    <string name="root_magisk_new">Magisk App %1$s ist zu neu: Versionen 31.1 und neuer geben Apps kein root auf einem Kernel, der mit Magisk 27 gepatcht wurde. Installieren Sie Magisk App 30.6.</string>
+    <string name="root_magisk_old">Magisk App %1$s ist zu alt: Das Modul wurde möglicherweise auch unvollständig installiert. Installieren Sie Magisk App 30.6 und dann das Modul erneut.</string>
+    <string name="root_magisk_unknown">Magisk App nicht gefunden oder unter anderem Namen versteckt. Die richtige Version ist 30.6.</string>
+    <string name="root_retry">Erneut versuchen</string>
 </resources>

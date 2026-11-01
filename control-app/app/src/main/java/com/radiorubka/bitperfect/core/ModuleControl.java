@@ -7,7 +7,9 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
 /**
@@ -19,7 +21,8 @@ public final class ModuleControl {
 
     public static final String MODULE_DIR = "/data/adb/modules/BitPerfect.module";
     private static final String CTL = MODULE_DIR + "/common/bp_ctl.sh";
-    private static final long TIMEOUT_S = 20;
+    // su waits while the person answers the Magisk prompt; a microphone change also restarts audioserver.
+    private static final long TIMEOUT_S = 90;
 
     private ModuleControl() {
     }
@@ -145,35 +148,78 @@ public final class ModuleControl {
     private static Process shell;
     private static BufferedReader shellOut;
     private static OutputStreamWriter shellIn;
+    private static boolean answered; // this shell has answered at least once
+    private static volatile boolean rootRefused;
+
+    /** Ask Magisk again on the next call: only on the person's request, never from the status poll. */
+    public static void retryRoot() {
+        rootRefused = false;
+    }
 
     private static synchronized Result run(String args) {
         Result r = new Result();
+        if (rootRefused) {
+            r.error = "no_root";
+            return r;
+        }
         try {
             if (shell == null || !shell.isAlive()) open();
             shellIn.write("sh " + CTL + " " + args + " 2>&1; echo " + END + " $?\n");
             shellIn.flush();
-            long deadline = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(TIMEOUT_S);
-            String line;
-            while ((line = shellOut.readLine()) != null) {
-                if (line.startsWith(END)) {
-                    if (!line.trim().endsWith(" 0") && r.values.isEmpty()) r.error = "no_module";
-                    return r;
-                }
-                int eq = line.indexOf('=');
-                if (eq > 0) {
-                    String k = line.substring(0, eq).trim();
-                    String v = line.substring(eq + 1).trim();
-                    String prev = r.values.get(k);
-                    r.values.put(k, prev == null ? v : prev + "\n" + v); // repeated keys (playing=) are joined
-                }
-                if (System.currentTimeMillis() > deadline) break;
+            // Read on the side: a hung su blocks readLine for good, and everything else waits for this lock.
+            final BufferedReader out = shellOut;
+            FutureTask<Boolean> read = new FutureTask<>(() -> readAnswer(out, r));
+            Thread reader = new Thread(read, "bp-shell-read");
+            reader.setDaemon(true);
+            reader.start();
+            if (read.get(TIMEOUT_S, TimeUnit.SECONDS)) {
+                answered = true;
+                return r;
             }
-            close(); // the shell died (su refused) or hung
-            r.error = r.values.isEmpty() ? "no_root" : "timeout";
-        } catch (Exception e) {
+            return failed(r.values.isEmpty()); // the shell ended without the end mark: su refused, or it died
+        } catch (TimeoutException e) {
+            return failed(true);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             close();
-            r.error = "no_root";
+            Result gone = new Result();
+            gone.error = "timeout";
+            return gone;
+        } catch (Exception e) {
+            return failed(true);
         }
+    }
+
+    /** Parses one command's output into {@code r}. True at the end mark, false if the shell ended first. */
+    private static boolean readAnswer(BufferedReader out, Result r) throws IOException {
+        String line;
+        while ((line = out.readLine()) != null) {
+            if (line.startsWith(END)) {
+                if (!line.trim().endsWith(" 0") && r.values.isEmpty()) r.error = "no_module";
+                return true;
+            }
+            int eq = line.indexOf('=');
+            if (eq > 0) {
+                String k = line.substring(0, eq).trim();
+                String v = line.substring(eq + 1).trim();
+                String prev = r.values.get(k);
+                r.values.put(k, prev == null ? v : prev + "\n" + v); // repeated keys (playing=) are joined
+            }
+        }
+        return false;
+    }
+
+    /** A new Result: a timed-out reader may still be writing into the old one. */
+    private static Result failed(boolean nothingCame) {
+        Result r = new Result();
+        // A shell that never answered means no root: stop asking Magisk until the person says so.
+        if (nothingCame && !answered) {
+            rootRefused = true;
+            r.error = "no_root";
+        } else {
+            r.error = "timeout";
+        }
+        close();
         return r;
     }
 
@@ -186,5 +232,6 @@ public final class ModuleControl {
     private static void close() {
         if (shell != null) shell.destroy();
         shell = null;
+        answered = false;
     }
 }

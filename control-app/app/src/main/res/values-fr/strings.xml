@@ -3,7 +3,6 @@
     <string name="card_path">Chemin audio</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Lecture…</string>
-    <string name="status_no_root">Pas d\'accès root ou BitPerfect n\'est pas installé.</string>
     <string name="platform_7862">UIS7862 · module complet</string>
     <string name="platform_8581">UIS8581 · profil réduit</string>
     <string name="platform_other">%1$s · non pris en charge</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Appuyer : copier et ouvrir Telegram</string>
     <string name="btn_close">FERMER</string>
     <string name="toast_copied">Copié dans le presse-papiers : %s</string>
+    <string name="status_root_none">Pas d\'acces root</string>
+    <string name="status_no_module">BitPerfect n\'est pas actif</string>
+    <string name="status_no_answer">Le module n\'a pas repondu</string>
+    <string name="root_help">BitPerfect Control necessite root. Dans Magisk, ouvrez Superuser et autorisez l\'acces, puis touchez Reessayer.</string>
+    <string name="root_no_module_help">Dans Magisk, ouvrez Modules : BitPerfect doit etre installe et active. Redemarrez ensuite.</string>
+    <string name="root_no_answer_help">Touchez Reessayer. Si cela se repete, redemarrez l\'autoradio.</string>
+    <string name="root_magisk_good">L\'application Magisk %1$s est la bonne version. Si Magisk n\'a pas demande, verifiez sa liste Superuser et ses parametres.</string>
+    <string name="root_magisk_new">L\'application Magisk %1$s est trop recente : les versions 31.1 et ulterieures ne donnent pas root aux applications sur un noyau patche avec Magisk 27. Installez l\'application Magisk 30.6.</string>
+    <string name="root_magisk_old">L\'application Magisk %1$s est trop ancienne : elle a peut-etre aussi installe le module de maniere incomplete. Installez l\'application Magisk 30.6, puis installez le module a nouveau.</string>
+    <string name="root_magisk_unknown">Application Magisk introuvable ou cacher sous un autre nom. La bonne version est 30.6.</string>
+    <string name="root_retry">Reessayer</string>
 </resources>

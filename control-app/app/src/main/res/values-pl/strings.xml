@@ -3,7 +3,6 @@
     <string name="card_path">Ścieżka audio</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Odczytywanie…</string>
-    <string name="status_no_root">Brak dostępu root lub BitPerfect nie jest zainstalowany.</string>
     <string name="platform_7862">UIS7862 · pełny moduł</string>
     <string name="platform_8581">UIS8581 · profil zredukowany</string>
     <string name="platform_other">%1$s · nieobsługiwane</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Kliknij: skopiuj i otwórz Telegram</string>
     <string name="btn_close">ZAMKNIJ</string>
     <string name="toast_copied">Skopiowano do schowka: %s</string>
+    <string name="status_root_none">Brak dostępu root</string>
+    <string name="status_no_module">BitPerfect nie jest aktywny</string>
+    <string name="status_no_answer">Moduł nie odpowiedział</string>
+    <string name="root_help">BitPerfect Control wymaga dostępu root. W aplikacji Magisk otwórz Superuser i przyznaj uprawnienia, a następnie stuknij Spróbuj ponownie.</string>
+    <string name="root_no_module_help">W aplikacji Magisk otwórz Modules: BitPerfect musi być zainstalowany i włączony. Następnie wykonaj restart.</string>
+    <string name="root_no_answer_help">Stuknij Spróbuj ponownie. Jeśli to się powtórzy, zrestartuj jednostkę główną.</string>
+    <string name="root_magisk_good">Aplikacja Magisk %1$s ma właściwą wersję. Jeśli Magisk nie zapytał o uprawnienia, sprawdź jego listę Superuser i ustawienia.</string>
+    <string name="root_magisk_new">Aplikacja Magisk %1$s jest zbyt nowa: wersje 31.1 i nowsze nie przyznają aplikacjom root na jądrze spatchowanym przez Magisk 27. Zainstaluj aplikację Magisk 30.6.</string>
+    <string name="root_magisk_old">Aplikacja Magisk %1$s jest zbyt stara: mogła również zainstalować moduł niekompletnie. Zainstaluj aplikację Magisk 30.6, a następnie zainstaluj moduł ponownie.</string>
+    <string name="root_magisk_unknown">Nie znaleziono aplikacji Magisk lub jest ukryta pod inną nazwą. Właściwa wersja to 30.6.</string>
+    <string name="root_retry">Spróbuj ponownie</string>
 </resources>

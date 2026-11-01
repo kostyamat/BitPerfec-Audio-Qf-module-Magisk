@@ -3,7 +3,6 @@
     <string name="card_path">Аудиотракт</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Чтение…</string>
-    <string name="status_no_root">Нет root-доступа, или BitPerfect не установлен.</string>
     <string name="platform_7862">UIS7862 · полный модуль</string>
     <string name="platform_8581">UIS8581 · уменьшенный профиль</string>
     <string name="platform_other">%1$s · не поддерживается</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Клик: скопировать и открыть в Telegram</string>
     <string name="btn_close">ЗАКРЫТЬ</string>
     <string name="toast_copied">Скопировано в буфер обмена: %s</string>
+    <string name="status_root_none">Нет root доступа</string>
+    <string name="status_no_module">BitPerfect не активен</string>
+    <string name="status_no_answer">Модуль не отвечает</string>
+    <string name="root_help">BitPerfect Control нужен root. В Magisk откройте Superuser и разрешите доступ, затем нажмите Повторить.</string>
+    <string name="root_no_module_help">В Magisk откройте Модули: BitPerfect должен быть установлен и включен. Затем перезагрузите.</string>
+    <string name="root_no_answer_help">Нажмите Повторить. Если повторяется, перезагрузите головное устройство.</string>
+    <string name="root_magisk_good">Приложение Magisk %1$s имеет правильную версию. Если Magisk не запросил доступ, проверьте его список Superuser и настройки.</string>
+    <string name="root_magisk_new">Приложение Magisk %1$s слишком новое: версии 31.1 и новее не дают приложениям root на ядре, патченном Magisk 27. Установите приложение Magisk 30.6.</string>
+    <string name="root_magisk_old">Приложение Magisk %1$s слишком старое: оно также могло установить модуль неполно. Установите приложение Magisk 30.6, затем установите модуль снова.</string>
+    <string name="root_magisk_unknown">Приложение Magisk не найдено или скрыто под другим именем. Правильная версия — 30.6.</string>
+    <string name="root_retry">Повторить</string>
 </resources>

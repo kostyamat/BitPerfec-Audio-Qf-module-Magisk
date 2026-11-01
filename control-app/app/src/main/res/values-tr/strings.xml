@@ -3,7 +3,6 @@
     <string name="card_path">Ses yolu</string>
     <string name="card_module">BitPerfect</string>
     <string name="status_loading">Okunuyor…</string>
-    <string name="status_no_root">Root erişimi yok veya BitPerfect yüklü değil.</string>
     <string name="platform_7862">UIS7862 · tam modül</string>
     <string name="platform_8581">UIS8581 · azaltılmış profil</string>
     <string name="platform_other">%1$s · desteklenmiyor</string>
@@ -128,4 +127,15 @@
     <string name="support_click_hint_tg">Dokunun: kopyalayın ve Telegram\'ı açın</string>
     <string name="btn_close">KAPAT</string>
     <string name="toast_copied">Panoya kopyalandı: %s</string>
+    <string name="status_root_none">Root erisimi yok</string>
+    <string name="status_no_module">BitPerfect aktif degil</string>
+    <string name="status_no_answer">Modul yanit vermedi</string>
+    <string name="root_help">BitPerfect Control root gerektirir. Magisk\'te Superuser\'i acin ve izin verin, ardindan Tekrar dene\'ye dokunun.</string>
+    <string name="root_no_module_help">Magisk\'te Modules\'i acin: BitPerfect kurulu ve acik olmalidir. Ardindan yeniden baslatin.</string>
+    <string name="root_no_answer_help">Tekrar dene\'ye dokunun. Tekrarlarsa araba teybini yeniden baslatin.</string>
+    <string name="root_magisk_good">Magisk uygulamasi %1$s dogru surumdur. Magisk sormadiysa Superuser listesini ve ayarlarini kontrol edin.</string>
+    <string name="root_magisk_new">Magisk uygulamasi %1$s cok yeni: 31.1 ve sonraki surumler, Magisk 27 ile yamalanmis cekirdekte uygulamalara root vermez. Magisk uygulamasi 30.6\'yi yukleyin.</string>
+    <string name="root_magisk_old">Magisk uygulamasi %1$s cok eski: modulu eksik kurmus olabilir. Magisk uygulamasi 30.6\'yi yukleyin, ardindan modulu tekrar yukleyin.</string>
+    <string name="root_magisk_unknown">Magisk uygulamasi bulunamadi veya baska bir ad altinda gizlenmis. Dogru surum 30.6\'dir.</string>
+    <string name="root_retry">Tekrar dene</string>
 </resources>
