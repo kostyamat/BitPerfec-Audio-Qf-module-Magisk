@@ -67,6 +67,21 @@
     <string name="mic_reset">Reset</string>
     <string name="mic_saved_in_call">Saved - applies after the call.</string>
     <string name="mic_only_7862">Microphone settings are for UIS7862 only.</string>
+    <string name="mic_nr_depth">Noise reduction depth: %1$s dB (left gentler, right stronger)</string>
+    <string name="mic_nr_depth_bp">Noise reduction depth: BitPerfect\'s, −10.5 dB</string>
+    <string name="mic_nr_depth_off">Noise reduction depth: noise reduction is off</string>
+    <string name="mic_presets">Presets</string>
+    <string name="mic_preset_title">Microphone presets</string>
+    <string name="mic_preset_save">Save current as…</string>
+    <string name="mic_preset_name">Preset name</string>
+    <string name="mic_preset_name_hint">A preset keeps every channel: level, echo cancel, noise reduction, depth. Letters, digits, - and _.</string>
+    <string name="mic_preset_load">Load</string>
+    <string name="mic_preset_delete">Delete</string>
+    <string name="mic_preset_delete_ask">Delete preset “%1$s”?</string>
+    <string name="mic_preset_none">No saved presets yet.</string>
+    <string name="mic_done">Done.</string>
+    <string name="mic_bad_name">That name will not do: letters, digits, - and _ only.</string>
+    <string name="mic_no_preset">That preset is gone.</string>
 
     <!-- navigators -->
     <string name="navi_title">Navigators</string>

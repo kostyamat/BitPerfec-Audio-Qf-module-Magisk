@@ -310,12 +310,31 @@
                     android:text="@string/mic_nr" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mic_presets"
+                    style="@style/BpPill"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:checkable="false"
+                    android:text="@string/mic_presets" />
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_mic_reset"
                     style="@style/BpPill"
                     android:layout_marginStart="4dp"
                     android:checkable="false"
                     android:text="@string/mic_reset" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_mic_nr_depth"
+                style="@style/BpCardValue" />
+
+            <SeekBar
+                android:id="@+id/sb_mic_nr_depth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:max="21" />
 
             <TextView
                 android:id="@+id/tv_mic_result"

@@ -60,7 +60,7 @@ public final class ModuleControl {
 
     private static final Pattern USB_MODE = Pattern.compile("auto|S(16|24|32)_(3)?LE/[0-9]{4,6}");
 
-    /** {@code mic} lines: "channel gain_db aec nr" (SIM, VOIP, BT; UIS7862 only). */
+    /** {@code mic} lines: "channel gain_db aec nr nr_depth" (SIM, VOIP, BT; UIS7862 only; nr_depth 0 = BitPerfect's). */
     public static Result micShow() {
         return run("mic show");
     }
@@ -76,8 +76,34 @@ public final class ModuleControl {
         return run("mic set " + channel + " " + control + (value.isEmpty() ? "" : " " + value));
     }
 
+    /** The channel back to BitPerfect's tuning, one audioserver restart. */
+    public static Result micReset(String channel) {
+        if (!MIC_CH.matcher(channel).matches()) return bad("mic_result");
+        return run("mic reset " + channel);
+    }
+
+    /** {@code preset} lines: the saved names. */
+    public static Result micPresets() {
+        return run("mic preset list");
+    }
+
+    /** action save|load|del. {@code mic_result}: saved|changed|same|saved_in_call|bad_value|no_preset. */
+    public static Result micPreset(String action, String name) {
+        if (!MIC_PRESET_ACT.matcher(action).matches() || !MIC_PRESET.matcher(name).matches()) return bad("mic_result");
+        return run("mic preset " + action + " " + name);
+    }
+
+    private static Result bad(String key) {
+        Result r = new Result();
+        r.values.put(key, "bad_value");
+        return r;
+    }
+
     private static final Pattern MIC_CH = Pattern.compile("SIM|VOIP|BT");
-    private static final Pattern MIC_CTL = Pattern.compile("gain_db|aec|nr");
+    private static final Pattern MIC_CTL = Pattern.compile("gain_db|aec|nr|nr_depth");
+    private static final Pattern MIC_PRESET_ACT = Pattern.compile("save|load|del");
+    /** The module's rule too: letters of any script, digits, '-', '_' - nothing a shell or a path reads. */
+    public static final Pattern MIC_PRESET = Pattern.compile("[\\p{L}\\p{N}_-]{1,48}");
     private static final Pattern MIC_VAL = Pattern.compile("-?[0-9]{1,2}");
 
     /** {@code navi} lines: "package adjust mix origin" (origin factory|bitperfect|user). */

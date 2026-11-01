@@ -61,6 +61,21 @@
     <string name="mic_reset">Скинути</string>
     <string name="mic_saved_in_call">Збережено - застосується після дзвінка.</string>
     <string name="mic_only_7862">Налаштування мікрофона - лише для UIS7862.</string>
+    <string name="mic_nr_depth">Глибина шумодава: %1$s дБ (ліворуч м\'якше, праворуч сильніше)</string>
+    <string name="mic_nr_depth_bp">Глибина шумодава: як у BitPerfect, −10.5 дБ</string>
+    <string name="mic_nr_depth_off">Глибина шумодава: шумодав вимкнено</string>
+    <string name="mic_presets">Пресети</string>
+    <string name="mic_preset_title">Пресети мікрофона</string>
+    <string name="mic_preset_save">Зберегти поточні як…</string>
+    <string name="mic_preset_name">Назва пресета</string>
+    <string name="mic_preset_name_hint">Пресет зберігає всі канали: рівень, ехозаглушення, шумодав, глибину. Літери, цифри, - і _.</string>
+    <string name="mic_preset_load">Завантажити</string>
+    <string name="mic_preset_delete">Видалити</string>
+    <string name="mic_preset_delete_ask">Видалити пресет «%1$s»?</string>
+    <string name="mic_preset_none">Збережених пресетів ще немає.</string>
+    <string name="mic_done">Готово.</string>
+    <string name="mic_bad_name">Така назва не підходить: лише літери, цифри, - і _.</string>
+    <string name="mic_no_preset">Такого пресета вже немає.</string>
 
     <string name="navi_title">Навігатори</string>
     <string name="navi_desc">Програми, чиї голосові підказки грають як навігація й притишують музику. Додайте свою й налаштуйте; зміни діють після перезавантаження.</string>
