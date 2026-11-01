@@ -1,8 +1,9 @@
 # Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 RELEASED, repo moved to `main`
 
 **Release v5.7.5 is live:** tag `v5.7.5` on `97bf8cc`, asset `QF_BitPerfect.module.v5.7.5-Universal.zip`
-(1 973 218 B, md5 4f8d49b5…), `update.json` → 5705 (`ae2b742`). Notes `docs/RELEASE_NOTES_v5.7.5.md`, guides
-`docs/GUIDE.en.md` / `GUIDE.uk.md` with screenshots `docs/img/{en,uk}/`.
+(1 973 218 B, md5 4f8d49b5…) + guide PDFs en/uk (`tools/build_guide_pdf.py`, `tools/gh_release_asset.py`),
+`update.json` → 5705 (`ae2b742`). Notes `docs/RELEASE_NOTES_v5.7.5.md`, guides `docs/GUIDE.en.md` / `GUIDE.uk.md`,
+screenshots `docs/img/{en,uk}/`. Both branches pushed at `8bcd2aa`. TG posts (uk + en) written, owner posts them.
 **Branches:** default is now **`main`** (owner 01.11: «з цієї версії переїзджаємо в майн»); `v5.4-repaired` is only
 fast-forwarded to `main` on each release, because v5.6.x installs ask its `update.json` (`RELEASE.md`).
 Work on `main`. Push from WSL as the default user, both branches.
@@ -27,4 +28,4 @@ multichannel DACs, AEC calibration per mode (by day, in a car). 4. EQ for wDSP.
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
 - Owner: SIM call without echo (`58d9759`); SIM call silencing wDSP+DVR.
-- ❓ Forum posts (4PDA/XDA) for v5.7.5 — not asked yet.
+- ❓ Forum posts (4PDA/XDA) for v5.7.5 — not asked yet. 8581: still no tester report (said so in the TG post).
