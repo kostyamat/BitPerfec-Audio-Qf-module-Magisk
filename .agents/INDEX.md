@@ -9,6 +9,7 @@
 | `RELEASE.md` | before any release: version, 7-entry zip, bench check, push from WSL, GitHub release, README / annotation / 4PDA / XDA texts (examples in `release/`) | English |
 | `PRACTICE.md` | before driving adb, git or the mirrors. Traps that already cost time, and which mirror lives where | English |
 | `CONTROLLABLE_PARAMETERS.md` | designing the app. The register of what can be controlled on this platform, with a recommendation per row | English |
+| `MIC_CONTROL.md` | the app's microphone block: channel → AGDSP mode map, the field of each control, how a change is applied, the order of work | English |
 | `platform/09-NAVIGATION-AND-BITPERFECT.md` | navigation, ducking, prompt levels | English |
 | `platform/10-BITPERFECT-MODULE.md` | the module: routes (§7), AGDSP parameters (§12) | English |
 | `platform/22-WATCHING-PROPERTIES.md` | watching a property without polling — which method works (measured with a control) | English |
