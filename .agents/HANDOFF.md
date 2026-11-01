@@ -1,6 +1,6 @@
 # Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 on stand 194 — mic engine works, app card next
 
-**v5.7.5-Universal (5705), commit `d4cfb40`** — test build, not a release (no tag, `update.json` still 5.6.1).
+**v5.7.5-Universal (5705), commit `27951b0`** — test build, not a release (no tag, `update.json` still 5.6.1).
 🔴 Bench builds keep the version now; bump only for testers / release (`RELEASE.md`, owner 01.11).
 **Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107), shared with QF_DVR (session 147a9dc2): talk to it
 ONLY in board room `qf-dvr-claude-window-7ef9`; rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md`
@@ -14,23 +14,23 @@ Shared mic (in force, DVR measured); USB switch waits for audioserver; app shows
 navigators (`navigators.conf`, card «Navigators»); DAC mode (`usb_dac_mode`, app: DAC name + id, declared modes,
 mode picker — 📻 auto 48k, `S16_LE/44100` → 44.1k). ⏳ Owner to try: navigators card, DAC mode picker.
 
-## ⏳ In progress — microphone (owner 01.11: «берись за мікрофон»), plan + field map `.agents/MIC_CONTROL.md`
-Engine done (`2f14bff`): `common/bp_mic.sh`, `/sdcard/BitPerfectAudio/mic.conf`,
-`bp_ctl.sh mic show|set <SIM|VOIP|BT> <gain_db|aec|nr> [v]`; live XML = base (common/) + user lines, blob deleted,
-audioserver restarted (refused in a call); service.sh re-applies after a reinstall.
-📻 blob SIM `ul_dgain_volume1`: 0x1800 → +3 dB 0x21e7 → reset 0x1800.
-App card «Microphone» done (`9483cff`): SIM/VoIP/BT, level −12..+12 dB (sent on release), AEC and NR switches,
-reset. App sections are now tabs under the status cards (`b9e24d0`, owner: «не стрічкою вниз… з купою скролу»).
-📻 Seen on screen 01.11 18:06: tabs switch, the card shows SIM/VoIP/BT, level, AEC, NR, reset; the owner set
-`BT gain_db 3`, `SIM nr 0` from it himself.
-NR depth + presets done (`2b1899a` module, `20dc958` app, zip `d4cfb40` on stand 194, rebooted, 📻 seen on screen
-18:18): `nr_depth -24..-3` → `Tx_Mono_Post/Gain_limit` (🧩 the post filter's deepest cut; factory varies it
--8..-18 dB by mode, ours -10.5 everywhere); `mic reset <ch>` = one restart; `mic preset list|save|load|del`
-(`mic.preset.<name>.conf`, any-script letters, digits, - _). App: depth slider, «Пресети» dialog.
-**Next:** AEC calibration per mode (fader front/centre by MCU, then ask the user to restore it in the EQ app).
-❓ On a real call: SIM = Handsfree NB/WB? `POS` = noise post-filter?
-Live tuning server: HAL logs «can not create tunning server thread»; it is a local socket (`socket_local_server`) —
-reverse `start_audio_tunning_server` (32-bit `/vendor/lib/hw/audio.primary.ums512.so`); needed for in-call tuning.
+## Microphone (owner 01.11: «берись за мікрофон»), plan + field map `.agents/MIC_CONTROL.md`
+Done, on stand, 📻 seen on screen: `common/bp_mic.sh` (`bp_ctl.sh mic show|set|reset|preset`, gain/AEC/NR/
+`nr_depth` → `Tx_Mono_Post/Gain_limit` 🧩), app card with tabs, depth slider, presets. Owner set BT +3, SIM nr 0.
+**Next:** AEC calibration per mode (fader front/centre by MCU, then ask the user to restore it in the EQ app) —
+by day; bench numbers do not carry to a car. ❓ real call: SIM = Handsfree NB/WB? `POS` = NR post-filter?
+In-call live tuning needs the HAL tuning server: reverse `start_audio_tunning_server` (32-bit primary HAL).
+
+## ⏳ USB DAC (owner 01.11: «Бери ЦАП»), on stand 194, PCM2704
+✅ `ddfafda` the module announces the DAC to AudioService after a switch/restart (IAudioService 60, SDK 29) — it
+used to stay silent until replugged. ✅ `ee249d0`/`27951b0` `common/bp_usbvol.sh` watcher: Android full scale on
+the USB device (index 15), level = the DAC's own control; `usb_dac_volume=follow` maps `sys.media.vol` 0..32
+(unset → `persist.sys.main_volume`) to it, no control → no follow (owner: «немає - значить немає»). App toggle
+`6a26b2b`. 📻 knob 16→64, 32→128; after boot 12/128 with main=3. ❓ PCM2704 unit in dB.
+**Next:** sleep beeping — start `/data/local/tmp/dacsleep.sh` (scratchpad copy) BEFORE the owner turns ACC off.
+Then «Авто» = direct USB output for the player (patch `libaudiopolicymanager` getOutputForDevice: linear PCM →
+direct when the DAC declares its format/rate); ❓ owner: where prompts go while the player holds the DAC (I said
+head-unit speakers).
 
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
