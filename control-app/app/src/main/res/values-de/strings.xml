@@ -139,10 +139,8 @@
     <string name="root_magisk_unknown">Magisk App nicht gefunden oder unter anderem Namen versteckt. Die richtige Version ist 30.6.</string>
     <string name="root_retry">Erneut versuchen</string>
     <string name="dac_curve_title">Lautstärkekurve für diesen DAC</string>
-    <string name="dac_curve_note">Wo jede Position des Radio-Reglers auf dem DAC landet. Nach Gehör bei laufender Musik einstellen: greift sofort. Die dB-Werte werden vom DAC gemeldet.</string>
+    <string name="dac_curve_note">Wo jede Position des Radio-Knopfs auf dem DAC landent. Nach Gehör bei Musik einstellen: gilt sofort.</string>
     <string name="dac_curve_now">Aktuell: Regler %1$s, DAC-Schritt %2$s von %3$s</string>
     <string name="dac_curve_point">Regler %1$d: %2$d%%</string>
-    <string name="dac_curve_db"> (%1$s dB)</string>
-    <string name="dac_curve_default">Gleichmäßig in dB</string>
-    <string name="dac_curve_even">Gleichmäßig in Schritten</string>
+    <string name="dac_curve_default">Zurücksetzen</string>
 </resources>

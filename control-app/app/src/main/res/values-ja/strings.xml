@@ -139,10 +139,8 @@
     <string name="root_magisk_unknown">Magiskアプリが見つからないか、別の名前で隠されています。正しいバージョンは30.6です。</string>
     <string name="root_retry">やり直す</string>
     <string name="dac_curve_title">このDACのボリュームカーブ</string>
-    <string name="dac_curve_note">ヘッドユニットのノブの各位置がDACのどこに対応するか。音楽を聴きながら耳で調整してください：即座に適用されます。dB値はDACが報告する値です。</string>
+    <string name="dac_curve_note">ヘッドユニットのツマミの各位置がDACのどこに当たるか。音楽を聴きながら耳で調整：すぐに適用されます。</string>
     <string name="dac_curve_now">現在：ノブ %1$s、DACステップ %2$s / %3$s</string>
     <string name="dac_curve_point">ノブ %1$d: %2$d%%</string>
-    <string name="dac_curve_db"> (%1$s dB)</string>
-    <string name="dac_curve_default">dBで均等</string>
-    <string name="dac_curve_even">ステップで均等</string>
+    <string name="dac_curve_default">リセット</string>
 </resources>

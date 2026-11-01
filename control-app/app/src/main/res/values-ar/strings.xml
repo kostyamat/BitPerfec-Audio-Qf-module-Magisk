@@ -139,10 +139,8 @@
     <string name="root_magisk_unknown">تعذر العثور على تطبيق Magisk، أو أنه مخفي باسم آخر. الإصدار الصحيح هو 30.6.</string>
     <string name="root_retry">إعادة المحاولة</string>
     <string name="dac_curve_title">منحنى الصوت لهذا المحول الرقمي التناظري</string>
-    <string name="dac_curve_note">أين يقع كل وضع لمقبض وحدة الرأس على المحول. اضبطه بالأذن أثناء تشغيل الموسيقى: يتم تطبيق التغيير فوراً. قيم الديسبل هي ما يبلغه المحول.</string>
+    <string name="dac_curve_note">حدد مكان وصول مقبض المسجل على محول الرقم إلى تناظري (DAC). اضبطه بالأذن أثناء تشغيل الموسيقى: يتم تطبيق التغيير فوراً.</string>
     <string name="dac_curve_now">الآن: المقبض %1$s، خطوة المحول %2$s من %3$s</string>
     <string name="dac_curve_point">المقبض %1$d: %2$d%%</string>
-    <string name="dac_curve_db"> (%1$s ديسبل)</string>
-    <string name="dac_curve_default">متساوي بالديسبل</string>
-    <string name="dac_curve_even">متساوي بالخطوات</string>
+    <string name="dac_curve_default">إعادة ضبط</string>
 </resources>

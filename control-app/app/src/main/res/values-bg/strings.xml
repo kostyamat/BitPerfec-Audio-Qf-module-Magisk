@@ -139,10 +139,8 @@
     <string name="root_magisk_unknown">Приложението Magisk не е намерено или е скрито под друго име. Правилната версия е 30.6.</string>
     <string name="root_retry">Опит отново</string>
     <string name="dac_curve_title">Силова крива за този ЦАП</string>
-    <string name="dac_curve_note">Къде попада всяка позиция на копчето на плеъра върху ЦАП-а. Настройте го на слух при пусната музика: прилага се веднага. Стойностите в дБ са отчетени от ЦАП-а.</string>
+    <string name="dac_curve_note">Къде всяка позиция на копчето на радиото съответства на ЦАП. Настройте на слух с музика: прилага се веднага.</string>
     <string name="dac_curve_now">Сега: копче %1$s, стъпка на ЦАП %2$s от %3$s</string>
     <string name="dac_curve_point">Копче %1$d: %2$d%%</string>
-    <string name="dac_curve_db"> (%1$s дБ)</string>
-    <string name="dac_curve_default">Равно в дБ</string>
-    <string name="dac_curve_even">Равно в стъпки</string>
+    <string name="dac_curve_default">Нулиране</string>
 </resources>

@@ -12,7 +12,6 @@ import com.radiorubka.bitperfect.core.ModuleControl;
 import com.radiorubka.bitperfect.ui.theme.ToggleStyler;
 import com.radiorubka.bitperfect.ui.theme.TouchGlow;
 
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -24,18 +23,16 @@ import java.util.concurrent.ExecutorService;
 public final class DacCurveCard {
 
     private static final int[] KNOB = {1, 8, 16, 24, 32};
-    private static final String EVEN_STEPS = "3,25,50,75,100";
 
     private final Activity act;
     private final ExecutorService io;
     private final View panel;
     private final TextView tvNow;
-    private final MaterialButton btnDefault, btnEven;
+    private final MaterialButton btnDefault;
     private final TextView[] tvPoint = new TextView[KNOB.length];
     private final SeekBar[] sb = new SeekBar[KNOB.length];
     private final Runnable changed;
-    private int dbMin, dbMax;
-    private boolean hasDb, dragging;
+    private boolean dragging;
 
     public DacCurveCard(Activity act, ExecutorService io, Runnable changed) {
         this.act = act;
@@ -44,11 +41,8 @@ public final class DacCurveCard {
         panel = act.findViewById(R.id.panel_dac_curve);
         tvNow = act.findViewById(R.id.tv_dac_curve_now);
         btnDefault = act.findViewById(R.id.btn_dac_curve_default);
-        btnEven = act.findViewById(R.id.btn_dac_curve_even);
         btnDefault.setOnClickListener(v -> send("default"));
-        btnEven.setOnClickListener(v -> send(EVEN_STEPS));
         TouchGlow.attach(btnDefault);
-        TouchGlow.attach(btnEven);
         LinearLayout rows = act.findViewById(R.id.dac_curve_rows);
         for (int i = 0; i < KNOB.length; i++) {
             final int at = i;
@@ -84,12 +78,6 @@ public final class DacCurveCard {
     public void update(ModuleControl.Result r, boolean show) {
         panel.setVisibility(show ? View.VISIBLE : View.GONE);
         if (!show || dragging) return;
-        String[] db = r.get("usb_dac_db").trim().split("\\s+");
-        hasDb = db.length == 2;
-        if (hasDb) {
-            dbMin = Integer.parseInt(db[0]);
-            dbMax = Integer.parseInt(db[1]);
-        }
         String[] c = r.get("usb_curve").trim().split("\\s+");
         if (c.length == KNOB.length) {
             for (int i = 0; i < KNOB.length; i++) sb[i].setProgress(Integer.parseInt(c[i]));
@@ -101,7 +89,6 @@ public final class DacCurveCard {
 
     public void applyTheme() {
         ToggleStyler.apply(btnDefault);
-        ToggleStyler.apply(btnEven);
     }
 
     /** A curve never falls: a slider pushes its neighbours along. */
@@ -113,13 +100,7 @@ public final class DacCurveCard {
 
     private void label() {
         for (int i = 0; i < KNOB.length; i++) {
-            int p = sb[i].getProgress();
-            String text = act.getString(R.string.dac_curve_point, KNOB[i], p);
-            if (hasDb) {
-                double db = (dbMin + (dbMax - dbMin) * p / 100.0) / 100.0;
-                text += act.getString(R.string.dac_curve_db, String.format(Locale.US, "%.0f", db));
-            }
-            tvPoint[i].setText(text);
+            tvPoint[i].setText(act.getString(R.string.dac_curve_point, KNOB[i], sb[i].getProgress()));
         }
     }
 

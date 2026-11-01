@@ -139,10 +139,8 @@
     <string name="root_magisk_unknown">Magisk 앱을 찾을 수 없거나 다른 이름으로 숨겨져 있습니다. 올바른 버전은 30.6입니다.</string>
     <string name="root_retry">다시 시도</string>
     <string name="dac_curve_title">이 DAC의 볼륨 커브</string>
-    <string name="dac_curve_note">헤드 유닛 노브의 각 위치가 DAC의 어디에 위치하는지 설정합니다. 음악을 들으며 귀로 조절하세요: 즉시 적용됩니다. dB 값은 DAC가 보고하는 값입니다.</string>
+    <string name="dac_curve_note">헤드 유닛 노브의 각 위치가 DAC에서 어디에 해당하는지 설정합니다. 음악을 들으며 귀로 맞추세요: 즉시 적용됩니다.</string>
     <string name="dac_curve_now">현재: 노브 %1$s, DAC 단계 %2$s / %3$s</string>
     <string name="dac_curve_point">노브 %1$d: %2$d%%</string>
-    <string name="dac_curve_db"> (%1$s dB)</string>
-    <string name="dac_curve_default">dB 기준으로 균등</string>
-    <string name="dac_curve_even">단계별로 균등</string>
+    <string name="dac_curve_default">초기화</string>
 </resources>

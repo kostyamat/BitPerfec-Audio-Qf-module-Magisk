@@ -139,10 +139,8 @@
     <string name="root_magisk_unknown">Aplicatia Magisk nu a fost gasita sau este ascunsa sub alt nume. Versiunea corecta este 30.6.</string>
     <string name="root_retry">Reincercare</string>
     <string name="dac_curve_title">Curbă de volum pentru acest DAC</string>
-    <string name="dac_curve_note">Unde ajunge fiecare poziție a butonului unității centrale pe DAC. Reglați după ureche cu muzica pornită: se aplică imediat. Valorile în dB sunt cele raportate de DAC.</string>
+    <string name="dac_curve_note">Unde cade fiecare poziție a butonului radio pe DAC. Reglați după ureche cu muzică: se aplică imediat.</string>
     <string name="dac_curve_now">Acum: buton %1$s, pas DAC %2$s din %3$s</string>
     <string name="dac_curve_point">Buton %1$d: %2$d%%</string>
-    <string name="dac_curve_db"> (%1$s dB)</string>
-    <string name="dac_curve_default">Uniform în dB</string>
-    <string name="dac_curve_even">Uniform în pași</string>
+    <string name="dac_curve_default">Resetare</string>
 </resources>
