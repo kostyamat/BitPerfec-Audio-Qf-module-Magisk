@@ -233,6 +233,14 @@
                 android:layout_marginTop="8dp"
                 android:checkable="false" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_usb_volume"
+                style="@style/BpPill"
+                android:layout_width="match_parent"
+                android:layout_weight="0"
+                android:layout_marginTop="8dp"
+                android:text="@string/usb_volume_follow" />
+
             <TextView
                 android:id="@+id/tv_usb_result"
                 style="@style/BpCardNote" />

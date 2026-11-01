@@ -46,6 +46,10 @@
     <string name="usb_mode_unplugged">Plug in the DAC to choose from its own modes.</string>
     <string name="usb_mode_not_supported">The plugged DAC does not declare this mode - Android will not play to it. Choose Auto.</string>
     <string name="usb_mode_saved">Saved - applies when the USB DAC switch is on.</string>
+    <string name="usb_volume_follow">DAC volume - follows the head unit\'s knob</string>
+    <string name="usb_volume_none">This DAC has no volume control of its own - it plays at full scale, set the level on the amplifier</string>
+    <string name="usb_volume_saved_follow">The DAC\'s volume now follows the head unit\'s knob (the DAC\'s own control). Android sends full scale.</string>
+    <string name="usb_volume_saved_full">The DAC plays at full scale - set the level on the amplifier. Android sends full scale.</string>
     <string name="card_internal">head unit (%1$s)</string>
     <string name="card_usb">USB DAC %1$s (%2$s)</string>
 

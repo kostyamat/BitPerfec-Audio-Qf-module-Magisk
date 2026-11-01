@@ -42,6 +42,10 @@
     <string name="usb_mode_unplugged">Підключіть ЦАП, щоб вибрати з його власних режимів.</string>
     <string name="usb_mode_not_supported">Підключений ЦАП не заявляє цього режиму - Android на нього не гратиме. Оберіть «Авто».</string>
     <string name="usb_mode_saved">Збережено - діє, коли перемикач USB-ЦАП увімкнено.</string>
+    <string name="usb_volume_follow">Гучність ЦАПа - за ручкою магнітоли</string>
+    <string name="usb_volume_none">Цей ЦАП не має власного регулятора гучності - грає на повну, гучність на підсилювачі</string>
+    <string name="usb_volume_saved_follow">Гучність ЦАПа тепер іде за ручкою магнітоли (регулятором самого ЦАПа). Android віддає повну шкалу.</string>
+    <string name="usb_volume_saved_full">ЦАП на повній гучності - рівень на підсилювачі. Android віддає повну шкалу.</string>
     <string name="card_internal">магнітола (%1$s)</string>
     <string name="card_usb">USB-ЦАП %1$s (%2$s)</string>
 

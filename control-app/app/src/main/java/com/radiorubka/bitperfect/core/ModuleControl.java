@@ -58,6 +58,11 @@ public final class ModuleControl {
         return run("usb_mode " + mode);
     }
 
+    /** full = the DAC at its maximum; follow = its own volume control follows the head unit's knob. */
+    public static Result setUsbVolume(boolean follow) {
+        return run("usb_volume " + (follow ? "follow" : "full"));
+    }
+
     private static final Pattern USB_MODE = Pattern.compile("auto|S(16|24|32)_(3)?LE/[0-9]{4,6}");
 
     /** {@code mic} lines: "channel gain_db aec nr nr_depth" (SIM, VOIP, BT; UIS7862 only; nr_depth 0 = BitPerfect's). */

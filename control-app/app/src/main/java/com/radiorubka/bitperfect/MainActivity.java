@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
         getPreferences(MODE_PRIVATE).edit().putInt("section", s).apply();
     }
     private TextView tvUsbDac;
-    private MaterialButton btnUsbMode;
+    private MaterialButton btnUsbMode, btnUsbVolume;
     private String usbMode = "auto";
     private final List<String> usbModes = new ArrayList<>();
 
@@ -84,6 +84,9 @@ public class MainActivity extends Activity {
         btnUsbMode.setText(getString(R.string.usb_mode_btn, getString(R.string.usb_mode_auto)));
         btnUsbMode.setOnClickListener(v -> pickUsbMode());
         TouchGlow.attach(btnUsbMode);
+        btnUsbVolume = findViewById(R.id.btn_usb_volume);
+        btnUsbVolume.setOnClickListener(v -> applyUsbVolume(btnUsbVolume.isChecked()));
+        TouchGlow.attach(btnUsbVolume);
 
         btnUsbOff.setOnClickListener(v -> applyUsb(false));
         btnUsbOn.setOnClickListener(v -> applyUsb(true));
@@ -274,6 +277,26 @@ public class MainActivity extends Activity {
         if (name != null && !"auto".equals(usbMode) && !usbModes.contains(usbMode)) {
             tvUsbResult.setText(R.string.usb_mode_not_supported);
         }
+        // the DAC's own volume control or none: without one there is nothing to follow (Android never cuts it)
+        boolean noControl = name != null && "none".equals(r.get("usb_dac_volctl"));
+        btnUsbVolume.setChecked("follow".equals(r.get("usb_volume")) && !noControl);
+        btnUsbVolume.setEnabled(!noControl);
+        btnUsbVolume.setText(noControl ? R.string.usb_volume_none : R.string.usb_volume_follow);
+        ToggleStyler.apply(btnUsbVolume);
+    }
+
+    private void applyUsbVolume(boolean follow) {
+        tvUsbResult.setText(R.string.status_loading);
+        io.execute(() -> {
+            ModuleControl.Result r = ModuleControl.setUsbVolume(follow);
+            ui.post(() -> {
+                if (!r.ok()) tvUsbResult.setText(getString(R.string.usb_result_error, r.error));
+                else if ("saved".equals(r.get("usb_volume_result")))
+                    tvUsbResult.setText(follow ? R.string.usb_volume_saved_follow : R.string.usb_volume_saved_full);
+                else tvUsbResult.setText(getString(R.string.usb_result_error, r.get("usb_volume_result")));
+                refresh();
+            });
+        });
     }
 
     /** "S16_LE/44100" -> "16-bit / 44.1 kHz"; auto -> its label. */
@@ -394,6 +417,7 @@ public class MainActivity extends Activity {
         tvThemeNote.setText(hyper ? getString(R.string.hyper_night_only) : "");
         ToggleStyler.apply(btnRefresh);
         ToggleStyler.apply(btnUsbMode);
+        ToggleStyler.apply(btnUsbVolume);
         for (MaterialButton t : tabs) if (t != null) ToggleStyler.apply(t);
     }
 
