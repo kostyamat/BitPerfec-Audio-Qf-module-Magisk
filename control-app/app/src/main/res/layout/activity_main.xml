@@ -151,6 +151,40 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- sections: one open at a time, chosen here (owner 01.11: no long strip with a pile of scrolling) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tab_usb"
+                style="@style/BpPill"
+                android:layout_marginEnd="4dp"
+                android:text="@string/tab_usb" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tab_mic"
+                style="@style/BpPill"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/tab_mic" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tab_navi"
+                style="@style/BpPill"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/tab_navi" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tab_theme"
+                style="@style/BpPill"
+                android:layout_marginStart="4dp"
+                android:text="@string/tab_theme" />
+        </LinearLayout>
+
         <!-- USB DAC -->
         <LinearLayout
             android:id="@+id/card_usb"

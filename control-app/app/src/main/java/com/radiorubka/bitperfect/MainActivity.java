@@ -40,6 +40,20 @@ public class MainActivity extends Activity {
     private boolean usbWanted;
     private NavigatorsCard navi;
     private MicCard mic;
+
+    // One section open at a time, picked from the tabs under the status cards (remembered between starts).
+    private static final int[] TAB_IDS = {R.id.tab_usb, R.id.tab_mic, R.id.tab_navi, R.id.tab_theme};
+    private static final int[] SECTION_IDS = {R.id.card_usb, R.id.card_mic, R.id.card_navi, R.id.card_theme};
+    private final MaterialButton[] tabs = new MaterialButton[TAB_IDS.length];
+
+    private void showSection(int s) {
+        if (s < 0 || s >= SECTION_IDS.length) s = 0;
+        for (int i = 0; i < SECTION_IDS.length; i++) {
+            findViewById(SECTION_IDS[i]).setVisibility(i == s ? View.VISIBLE : View.GONE);
+            check(tabs[i], i == s);
+        }
+        getPreferences(MODE_PRIVATE).edit().putInt("section", s).apply();
+    }
     private TextView tvUsbDac;
     private MaterialButton btnUsbMode;
     private String usbMode = "auto";
@@ -85,8 +99,15 @@ public class MainActivity extends Activity {
         for (View v : new View[]{btnUsbOff, btnUsbOn, btnModern, btnHyper, btnAuto, btnDay, btnNight, btnRefresh}) {
             TouchGlow.attach(v);
         }
+        for (int i = 0; i < TAB_IDS.length; i++) {
+            final int s = i;
+            tabs[i] = findViewById(TAB_IDS[i]);
+            tabs[i].setOnClickListener(v -> showSection(s));
+            TouchGlow.attach(tabs[i]);
+        }
         navi = new NavigatorsCard(this, io);
         mic = new MicCard(this, io);
+        showSection(getPreferences(MODE_PRIVATE).getInt("section", 0));
         applyTheme();
         refresh();
         navi.load();
@@ -373,6 +394,7 @@ public class MainActivity extends Activity {
         tvThemeNote.setText(hyper ? getString(R.string.hyper_night_only) : "");
         ToggleStyler.apply(btnRefresh);
         ToggleStyler.apply(btnUsbMode);
+        for (MaterialButton t : tabs) if (t != null) ToggleStyler.apply(t);
     }
 
     private static void check(MaterialButton b, boolean on) {

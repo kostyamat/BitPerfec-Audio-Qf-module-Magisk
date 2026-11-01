@@ -45,6 +45,11 @@
     <string name="card_internal">магнітола (%1$s)</string>
     <string name="card_usb">USB-ЦАП %1$s (%2$s)</string>
 
+    <string name="tab_usb">USB-ЦАП</string>
+    <string name="tab_mic">Мікрофон</string>
+    <string name="tab_navi">Навігатори</string>
+    <string name="tab_theme">Вигляд</string>
+
     <string name="mic_title">Мікрофон дзвінків</string>
     <string name="mic_desc">Окремо для кожного каналу, поверх налаштувань BitPerfect. Застосовується перезапуском аудіосервісу (кілька секунд тиші); під час дзвінка зберігається й застосовується після нього. Запис (wDSP, DVR) не чіпається. Лише UIS7862.</string>
     <string name="mic_ch_sim">SIM</string>

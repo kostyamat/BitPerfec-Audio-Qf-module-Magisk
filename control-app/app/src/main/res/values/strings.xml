@@ -49,6 +49,12 @@
     <string name="card_internal">head unit (%1$s)</string>
     <string name="card_usb">USB DAC %1$s (%2$s)</string>
 
+    <!-- section tabs -->
+    <string name="tab_usb">USB DAC</string>
+    <string name="tab_mic">Microphone</string>
+    <string name="tab_navi">Navigators</string>
+    <string name="tab_theme">Look</string>
+
     <!-- call microphone -->
     <string name="mic_title">Call microphone</string>
     <string name="mic_desc">Per channel, on top of BitPerfect\'s tuning. Applied by restarting the audio service (a few seconds of silence); during a call it is saved and applied after it. Recording (wDSP, DVR) is not touched. UIS7862 only.</string>
