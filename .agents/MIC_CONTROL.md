@@ -29,7 +29,7 @@ The three AGDSP files share one mode map (🔬 `common/system/vendor/etc/audio_p
 | echo tail | `cvs.xml` `AEC_ADF_FL` (0x33) 🧩 adaptive-filter length | calibration target |
 | residual echo suppression | `cvs.xml` `TX_MODUAL/NES` + `NES_PARA1..9` (NLP gains/thresholds) 🔬 | |
 | NR on/off | `cvs.xml` `TX_MODUAL/POS` (post filter) 🧩; `audio_structure.xml` `ul_nr_modu1..3_switch` 🔬 | |
-| NR curve | `cvs.xml` `Tx_Mono_Post`: `NFloor`, `thr_cvs`, `thr_cvs_sub`, `sm_S0..2`, `sm_N0..2`, `alpha_S/N`, `Gain_limit`, `NF_fade`, `G_*` 🔬 | BitPerfect already ships its own curve in every mode (1475 fields differ from factory) |
+| NR curve | depth = `Gain_limit` (Q15 min gain 🧩: factory -8 dB Handsfree … -18 dB BTHSNREC); `cvs.xml` `Tx_Mono_Post`: `NFloor`, `thr_cvs`, `thr_cvs_sub`, `sm_S0..2`, `sm_N0..2`, `alpha_S/N`, `Gain_limit`, `NF_fade`, `G_*` 🔬 | BitPerfect already ships its own curve in every mode (1475 fields differ from factory) |
 | AGC | `audio_structure.xml` `ul_alc_*` 🔬 | 🔴 off by default — owner: «AGC тут не допомога а зло» |
 | AEC delays | `audio_structure.xml` `aec_ref_delay +0x86`, `aec_ul_delay +0x88`, `pdelay +0x62`, `fir_taps +0x68` 🔬 (Gemini's map) | calibration target |
 
@@ -56,7 +56,8 @@ a call cannot survive an audioserver restart: in-call tuning / calibration must 
 1. Module engine: read the current value of a field per channel, write overrides into the `/data` copies, rebuild
    blobs, restart; `bp_ctl.sh mic get|set|reset`. Test on stand 194 with `dumpsys`/dumps, no sound at night.
 2. App: card «Microphone» — channel tabs; gain slider (ADC2+ADC3 together), AEC and NR switches; reset to BitPerfect.
-3. NR curve presets (gentle / BitPerfect / strong + user-saved).
+3. ✅ NR depth (`nr_depth` → `Tx_Mono_Post/Gain_limit`, 🧩) + named presets of the whole set (`mic preset …`). The
+   other NR engine — `audio_structure` ANR (`ul_nr_*`, `ul_min/max_psne`) — is untouched, as factory.
 4. AEC auto-calibration per channel (TODO §3): fader front + balance centre by MCU, sweep, correlation →
    `aec_ref_delay` / ref level / `AEC_ADF_FL`; afterwards ask the user to restore the fader in the EQ app.
    Only in the car, by day, with the owner's permission. Verified only by a real call.
