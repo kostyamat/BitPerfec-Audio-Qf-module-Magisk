@@ -20,6 +20,11 @@ USB DAC: announced after a switch, full scale from Android, level on the DAC's o
 unit's knob), silent with the ignition off (`.agents/USB_DAC.md`); app in tabs, 25 languages (23 by Gemini),
 APK 1.90 MB (WebP backgrounds, locale filter).
 
+## ⏳ First tester complaint on v5.7.5 (Marcin, 01.11): noise, YT Music crash, cured by ~8 reboots
+Cause NOT established; no logs yet. Findings and suspects: `.agents/DEBT.md`, last section. Next: tester's
+`/data/adb/BitPerfect.log` + tombstones; seek test on stand 194 with `usb_dac=0` (needs sound: ask the owner).
+Owner's version «scripts patch libs» checked: no on-device patching, but no firmware md5 gate either.
+
 ## 📋 Next version (`.agents/TODO.md`, rewritten for it)
 1. Testers' feedback on v5.7.5 (other DACs, mic on real calls). 2. UIS8581 with a tester. 3. «Авто» = player
 straight to the DAC + prompts elsewhere (navigation strategy move — careful, calls/radio stand on it), DTS /
