@@ -29,6 +29,8 @@ th, td { border: 1px solid #d0d7de; padding: 4px 6px; vertical-align: top; text-
 th { background: #eef6f8; }
 code { font-family: Consolas, 'DejaVu Sans Mono', monospace; font-size: 9pt; background: #f2f4f6; padding: 0 3px;
        border-radius: 3px; }
+blockquote { border-left: 4px solid #d1242f; background: #fff5f5; color: #82071e; margin: 6pt 0 10pt;
+             padding: 4pt 8pt; page-break-inside: avoid; }
 hr { border: 0; border-top: 1px solid #d0d7de; margin: 12pt 0; }
 a { color: #0b7285; text-decoration: none; }
 .cover { color: #57606a; font-size: 9pt; margin-bottom: 10pt; }
@@ -39,6 +41,7 @@ for lang in ("en", "uk"):
     src = open(os.path.join(DOCS, f"GUIDE.{lang}.md"), encoding="utf-8").read()
     # the other guide is a separate file: point at GitHub instead of a local path
     src = re.sub(r"\]\((GUIDE\.(en|uk)\.md)\)", lambda m: f"]({GH}{m.group(1)})", src)
+    src = src.replace("> [!CAUTION]\n> ", "> ")  # GitHub's red alert: the blockquote style above
     body = markdown.markdown(src, extensions=["tables", "sane_lists"])
     base = "file:///" + DOCS.replace("\\", "/") + "/"
     html = (f"<!doctype html><html lang='{lang}'><head><meta charset='utf-8'><base href='{base}'>"
