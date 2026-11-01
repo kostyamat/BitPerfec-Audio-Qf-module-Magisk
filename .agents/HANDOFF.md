@@ -1,6 +1,6 @@
-# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.4 on stand 194 — DAC mode in app, own navigators, shared mic in force
+# Slice — 01.11.2026, session `3827b401` (Claude): v5.7.5 on stand 194 — mic engine, DAC mode in app, own navigators
 
-**v5.7.4-Universal (5704), commit `b6e75c2`** — test build, not a release (no tag, `update.json` still 5.6.1).
+**v5.7.5-Universal (5705), commit `2f14bff`** — test build, not a release (no tag, `update.json` still 5.6.1).
 Installed on **stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107). Stand is shared with QF_DVR
 (session 147a9dc2) — talk to it ONLY in board room `qf-dvr-claude-window-7ef9` (owner set it 01.11, #2031; not Gemini's
 `50b5 ↔ MCU patch` room); rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194» —
@@ -30,7 +30,15 @@ auto → 48000 (conf left `auto`). App part in **v5.7.4** (`90bfacd`, `b6e75c2`)
 «declares» line is raw — make it human (16-bit stereo: 32 / 44.1 / 48 kHz) if he wants.
 📻 01.11 04:34 stand hung half-shut: DVR's ACTION_SHUTDOWN receiver timed out (25 s), lowLevelReboot failed, init in
 D state with `ntfs3g` (NTFS stick) — `svc`/`adb reboot` useless; recovered by sysrq s→u→b. DVR told (#2037).
-Then the mic block (TODO §3): per-mode gain, NR/AEC switches, AEC auto-calibration per mode, NR curve presets.
+## ⏳ In progress — microphone (owner 01.11: «берись за мікрофон»), plan + field map `.agents/MIC_CONTROL.md`
+Engine done (`2f14bff`, on stand 194 as v5.7.5 — version NOT bumped for bench builds now, `RELEASE.md`):
+`common/bp_mic.sh`, `/sdcard/BitPerfectAudio/mic.conf`, `bp_ctl.sh mic show|set <SIM|VOIP|BT> <gain_db|aec|nr>
+[v]`; live XML = base (common/) + user lines, blob deleted, audioserver restarted (refused in a call);
+service.sh re-applies after a reinstall. 📻 blob field SIM ul_dgain_volume1: 0x1800 → +3 dB 0x21e7 → reset 0x1800.
+Next: app card «Microphone» (channels, gain slider, AEC / NR switches, reset), then NR curve presets, then AEC
+calibration. ❓ verify on a real call that SIM = Handsfree NB/WB and that POS is the noise post-filter.
+Live tuning server: HAL fails «can not create tunning server thread»; it is a local socket (`socket_local_server`),
+reverse `start_audio_tunning_server` (32-bit `/vendor/lib/hw/audio.primary.ums512.so`) — needed for in-call tuning.
 
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
