@@ -312,10 +312,16 @@ done < "$MODPATH/profiles/sp9863a/factory.md5"
 cp -f "$MODPATH/common/system/vendor/etc/usb_audio_policy_configuration.xml" "$MODPATH/system/vendor/etc/"
 fi
 
-# The navigator list (/system/config/NaviApp.ini) is edited from the unit's own copy (bp_naviapp.sh).
+# The navigator list (/system/config/NaviApp.ini) is edited from the unit's own copy (bp_naviapp.sh):
+# base = factory + ours (kept in common/ for bp_ctl.sh), live = base + the user's navigators.conf.
+# On an update /system/config/NaviApp.ini is our previous live list, so the previous base is preferred.
 . "$MODPATH/common/bp_naviapp.sh"
-if bp_naviapp_build /system/config/NaviApp.ini "$MODPATH/system/config/NaviApp.ini"; then
+NAVI_SRC=/system/config/NaviApp.ini
+[ -f /data/adb/modules/BitPerfect.module/common/NaviApp.base.ini ] && NAVI_SRC=/data/adb/modules/BitPerfect.module/common/NaviApp.base.ini
+if bp_naviapp_base "$NAVI_SRC" "$MODPATH/common/NaviApp.base.ini" \
+   && bp_naviapp_live "$MODPATH/common/NaviApp.base.ini" "$MODPATH/system/config/NaviApp.ini"; then
     ui_print "- Navigator list: iGo and missing navigators added to music ducking"
+    [ -f "$BP_NAVI_USER" ] && ui_print "- Navigator list: your own navigators added ($BP_NAVI_USER)"
 fi
 
 # USB DAC: the unit's own top-level policy with QF's USB include switched by the user's setting

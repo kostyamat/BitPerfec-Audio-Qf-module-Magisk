@@ -6,9 +6,16 @@
 #   status            print key=value lines: what the unit is and what the module is doing
 #   usb <0|1>         set usb_dac in /sdcard/BitPerfectAudio/bitperfect.conf, switch the policy include,
 #                     restart audioserver when it changed (prints usb_result=changed|same|unsupported)
+#   navi list         navi=<package> <adjust> <mix> <factory|bitperfect|user>, one per navigator
+#   navi set <pkg> <true|false> <appset|0-100>   / navi del <pkg>
+#                     edit the user's navigators.conf and rebuild the live list (prints
+#                     navi_result=saved|bad_value|no_base); the platform reads it at boot - reboot
 
 MODDIR=/data/adb/modules/BitPerfect.module
 . "$MODDIR/common/bp_usb.sh"
+. "$MODDIR/common/bp_naviapp.sh"
+NAVI_BASE="$MODDIR/common/NaviApp.base.ini"
+NAVI_LIVE="$MODDIR/system/config/NaviApp.ini"
 APC="$MODDIR/system/vendor/etc/audio_policy_configuration.xml"
 
 # Rewrite usb_dac=<v> in the settings file (created with its explanation if missing). In place, so the
@@ -71,8 +78,33 @@ case "$1" in
             *) echo "usb_result=unsupported" ;;
         esac
         ;;
+    navi)
+        case "$2" in
+            list)
+                USERS=" $( [ -f "$BP_NAVI_USER" ] && tr -d '\r' < "$BP_NAVI_USER" | awk '$1 !~ /^#/ && NF >= 3 {print $1}' | tr '\n' ' ') "
+                OURS=" $BP_NAVI_ON $BP_NAVI_ADD "
+                tr -d '\r' < "$NAVI_LIVE" | awk '$1 !~ /^#/ && NF >= 3 {print $1, $2, $3}' | while read -r p a m; do
+                    O=factory
+                    case "$OURS" in *" $p "*) O=bitperfect ;; esac
+                    case "$USERS" in *" $p "*) O=user ;; esac
+                    echo "navi=$p $a $m $O"
+                done
+                ;;
+            set|del)
+                [ -f "$NAVI_BASE" ] || { echo "navi_result=no_base"; exit 1; }
+                if [ "$2" = set ]; then
+                    bp_navi_user_set "$3" "$4" "$5" || { echo "navi_result=bad_value"; exit 1; }
+                else
+                    bp_navi_user_set "$3" ""
+                fi
+                bp_naviapp_live "$NAVI_BASE" "$NAVI_LIVE"
+                echo "navi_result=saved"
+                ;;
+            *) echo "navi_result=bad_value"; exit 1 ;;
+        esac
+        ;;
     *)
-        echo "usage: bp_ctl.sh status | usb <0|1>"
+        echo "usage: bp_ctl.sh status | usb <0|1> | navi list|set|del"
         exit 1
         ;;
 esac
