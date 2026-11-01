@@ -106,17 +106,27 @@ esac
     USB_MRC=$?
     bp_usb_set "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" "$USB_W"
     USB_RC=$?
+    AS_RESTART=0
     case $USB_RC in
-        0) log_msg "USB DAC output changed to usb_dac=$USB_W, mode $USB_M ($BP_CONF). Restarting audioserver."
-           setprop ctl.restart audioserver ;;
+        0) log_msg "USB DAC output changed to usb_dac=$USB_W, mode $USB_M ($BP_CONF)."; AS_RESTART=1 ;;
         2) if [ "$USB_MRC" = 0 ] && [ "$USB_W" = 1 ]; then
-               log_msg "USB DAC mode changed to $USB_M ($BP_CONF). Restarting audioserver."
-               setprop ctl.restart audioserver
+               log_msg "USB DAC mode changed to $USB_M ($BP_CONF)."; AS_RESTART=1
            else
                log_msg "USB DAC output: usb_dac=$USB_W, mode $USB_M."
            fi ;;
         *) log_msg "USB DAC: no policy include in the module - left factory." ;;
     esac
+
+    # The user's call-microphone settings (common/bp_mic.sh, /sdcard/BitPerfectAudio/mic.conf): after a
+    # reinstall the live AGDSP XML is the module's base again, so it is rebuilt once and the blob recompiled.
+    . "$MODPATH/common/bp_mic.sh"
+    if bp_mic_build "$MODPATH"; then
+        log_msg "Microphone settings applied ($BP_MIC_CONF)."; AS_RESTART=1
+    fi
+    if [ "$AS_RESTART" = 1 ]; then
+        log_msg "Restarting audioserver for the new settings."
+        setprop ctl.restart audioserver
+    fi
 
     # With our navigation policy installed (marker from the installer) it must be the one loaded;
     # without it (UIS8581 firmware we did not recognise) a policy that answers at all is the factory one.

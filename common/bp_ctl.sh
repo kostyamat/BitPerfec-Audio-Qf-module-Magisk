@@ -8,6 +8,9 @@
 #                     restart audioserver when it changed (prints usb_result=changed|same|unsupported)
 #   usb_mode <auto|FORMAT/RATE>   set usb_dac_mode (e.g. S16_LE/44100, as the DAC declares it) and the USB
 #                     policy; restarts audioserver when USB is on (usb_mode_result=changed|saved|same|bad_value)
+#   mic show | mic set <SIM|VOIP|BT> <gain_db|aec|nr> [value]   the user's call-mic settings (UIS7862,
+#                     common/bp_mic.sh); set rebuilds the AGDSP XML and restarts audioserver, never during a
+#                     call (mic_result=changed|same|saved_in_call|bad_value)
 #   navi list         navi=<package> <adjust> <mix> <factory|bitperfect|user>, one per navigator
 #   navi set <pkg> <true|false> <appset|0-100>   / navi del <pkg>
 #                     edit the user's navigators.conf and rebuild the live list (prints
@@ -16,6 +19,7 @@
 MODDIR=/data/adb/modules/BitPerfect.module
 . "$MODDIR/common/bp_usb.sh"
 . "$MODDIR/common/bp_naviapp.sh"
+. "$MODDIR/common/bp_mic.sh"
 USBPOL="$MODDIR/system/vendor/etc/usb_audio_policy_configuration.xml"
 NAVI_BASE="$MODDIR/common/NaviApp.base.ini"
 NAVI_LIVE="$MODDIR/system/config/NaviApp.ini"
@@ -104,6 +108,23 @@ case "$1" in
                else echo "usb_mode_result=saved"; fi ;;
             2) echo "usb_mode_result=same" ;;
             *) echo "usb_mode_result=unsupported" ;;
+        esac
+        ;;
+    mic)
+        # mic show: mic=<channel> <gain_db> <aec> <nr>   mic set <channel> <control> [value]  (no value = default)
+        case "$2" in
+            show) bp_mic_show | while read -r l; do echo "mic=$l"; done ;;
+            set)
+                bp_mic_set "$3" "$4" "$5" || { echo "mic_result=bad_value"; exit 1; }
+                # a call would not survive the restart: keep the setting, apply after the call / at boot
+                if [ "$(getprop sys.qf.call_state)" = true ]; then echo "mic_result=saved_in_call"; exit 0; fi
+                bp_mic_build "$MODDIR"
+                case $? in
+                    0) bp_restart_audioserver; echo "mic_result=changed" ;;
+                    *) echo "mic_result=same" ;;
+                esac
+                ;;
+            *) echo "mic_result=bad_value"; exit 1 ;;
         esac
         ;;
     navi)
