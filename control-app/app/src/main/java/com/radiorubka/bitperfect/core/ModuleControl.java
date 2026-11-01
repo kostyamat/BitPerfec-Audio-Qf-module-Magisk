@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 /**
  * Talks to the BitPerfect module through its one control entry point, {@code common/bp_ctl.sh}, as root.
@@ -46,6 +47,35 @@ public final class ModuleControl {
     public static Result setUsbDac(boolean on) {
         return run("usb " + (on ? "1" : "0"));
     }
+
+    /** {@code navi} lines: "package adjust mix origin" (origin factory|bitperfect|user). */
+    public static Result naviList() {
+        return run("navi list");
+    }
+
+    /** Add or change the user's entry; mix = "appset" or 0..100. {@code navi_result}: saved|bad_value|no_base. */
+    public static Result naviSet(String pkg, boolean adjust, String mix) {
+        if (!PKG.matcher(pkg).matches() || !MIX.matcher(mix).matches()) {
+            Result r = new Result();
+            r.values.put("navi_result", "bad_value");
+            return r;
+        }
+        return run("navi set " + pkg + " " + adjust + " " + mix);
+    }
+
+    /** Remove the user's entry (a factory or BitPerfect line comes back as it was). */
+    public static Result naviDel(String pkg) {
+        if (!PKG.matcher(pkg).matches()) {
+            Result r = new Result();
+            r.values.put("navi_result", "bad_value");
+            return r;
+        }
+        return run("navi del " + pkg);
+    }
+
+    // Checked here as well as in the module: these strings go into a root shell command line.
+    private static final Pattern PKG = Pattern.compile("[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z0-9_]+)+");
+    private static final Pattern MIX = Pattern.compile("appset|[0-9]{1,2}|100");
 
     // One root shell for the app's lifetime: Magisk asks (and toasts) once, not on every status poll.
     private static final String END = "__BP_END__";

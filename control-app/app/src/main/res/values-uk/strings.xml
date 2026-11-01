@@ -34,6 +34,31 @@
     <string name="usb_result_unsupported">Політика цієї прошивки не має відомого нам перемикача USB - лишено заводську.</string>
     <string name="usb_result_error">Не вдалося застосувати: %1$s</string>
 
+    <string name="navi_title">Навігатори</string>
+    <string name="navi_desc">Програми, чиї голосові підказки грають як навігація й притишують музику. Додайте свою й налаштуйте; зміни діють після перезавантаження.</string>
+    <string name="navi_add">Додати навігатор</string>
+    <string name="navi_show_all">Показати всі (%1$d)</string>
+    <string name="navi_show_installed">Лише встановлені</string>
+    <string name="navi_none_installed">Жоден навігатор зі списку не встановлено.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">заводський</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">ваш</string>
+    <string name="navi_adjust_on">його повзунок керує підказками</string>
+    <string name="navi_adjust_off">його повзунок не чіпаємо</string>
+    <string name="navi_mix_car">музика за налаштуваннями авто</string>
+    <string name="navi_mix_pct">музика %1$s%%</string>
+    <string name="navi_pick_title">Оберіть програму</string>
+    <string name="navi_adjust_label">Повзунок гучності програми керує гучністю підказок</string>
+    <string name="navi_mix_car_label">Музика під підказкою: як у налаштуваннях авто</string>
+    <string name="navi_mix_label">Музика під підказкою: %1$d%%</string>
+    <string name="navi_save">Зберегти</string>
+    <string name="navi_cancel">Скасувати</string>
+    <string name="navi_action_edit">Змінити</string>
+    <string name="navi_action_remove">Прибрати з мого списку</string>
+    <string name="navi_saved">Збережено - діє після перезавантаження.</string>
+    <string name="navi_error">Не вдалося зберегти: %1$s</string>
+
     <string name="theme_title">Вигляд</string>
     <string name="style_modern">Modern</string>
     <string name="style_hyper">Hyper</string>

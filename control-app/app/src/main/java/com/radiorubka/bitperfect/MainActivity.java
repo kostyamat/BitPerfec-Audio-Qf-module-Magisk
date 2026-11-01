@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.radiorubka.bitperfect.core.ModuleControl;
+import com.radiorubka.bitperfect.ui.NavigatorsCard;
 import com.radiorubka.bitperfect.ui.ShimmerBadgeLayout;
 import com.radiorubka.bitperfect.ui.SupportDialog;
 import com.radiorubka.bitperfect.ui.theme.ThemeManager;
@@ -31,6 +32,7 @@ public class MainActivity extends Activity {
     private TextView tvPlatform, tvPlatformNote, tvPath, tvPathNote, tvModule, tvModuleNote, tvUsbResult, tvThemeNote;
     private MaterialButton btnUsbOff, btnUsbOn, btnModern, btnHyper, btnAuto, btnDay, btnNight, btnRefresh;
     private boolean usbWanted;
+    private NavigatorsCard navi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +69,10 @@ public class MainActivity extends Activity {
         for (View v : new View[]{btnUsbOff, btnUsbOn, btnModern, btnHyper, btnAuto, btnDay, btnNight, btnRefresh}) {
             TouchGlow.attach(v);
         }
+        navi = new NavigatorsCard(this, io);
         applyTheme();
         refresh();
+        navi.load();
     }
 
     @Override
@@ -225,7 +229,7 @@ public class MainActivity extends Activity {
         View root = findViewById(R.id.root_scroll);
         root.setBackground(ThemeManager.wallpaperBackground(this, night));
         getWindow().setStatusBarColor(ThemeManager.background(this, night));
-        for (int id : new int[]{R.id.card_platform, R.id.card_path, R.id.card_module, R.id.card_usb, R.id.card_theme}) {
+        for (int id : new int[]{R.id.card_platform, R.id.card_path, R.id.card_module, R.id.card_usb, R.id.card_navi, R.id.card_theme}) {
             findViewById(id).setBackground(ThemeManager.cardDrawable(this, night, 16f));
         }
         int primary = ThemeManager.textPrimary(this, night);
@@ -233,6 +237,7 @@ public class MainActivity extends Activity {
         int card = ThemeManager.cardBackground(this, night);
         ((TextView) findViewById(R.id.tv_title)).setTextColor(ThemeManager.contrastText(primary, ThemeManager.background(this, night)));
         tintTexts((ViewGroup) findViewById(R.id.content), primary, secondary, card);
+        if (navi != null) navi.applyTheme();
         styleChoices();
     }
 

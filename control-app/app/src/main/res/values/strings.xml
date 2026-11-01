@@ -38,6 +38,32 @@
     <string name="usb_result_unsupported">This firmware\'s audio policy has no USB switch we know - left factory.</string>
     <string name="usb_result_error">Could not apply: %1$s</string>
 
+    <!-- navigators -->
+    <string name="navi_title">Navigators</string>
+    <string name="navi_desc">Apps whose voice prompts play as navigation and lower the music. Add your own and set it up; changes apply after a reboot.</string>
+    <string name="navi_add">Add navigator</string>
+    <string name="navi_show_all">Show all (%1$d)</string>
+    <string name="navi_show_installed">Installed only</string>
+    <string name="navi_none_installed">No navigator from the list is installed.</string>
+    <string name="navi_row">%1$s\n%2$s · %3$s · %4$s · %5$s</string>
+    <string name="navi_origin_factory">factory</string>
+    <string name="navi_origin_bitperfect">BitPerfect</string>
+    <string name="navi_origin_user">yours</string>
+    <string name="navi_adjust_on">its volume control sets prompts</string>
+    <string name="navi_adjust_off">its volume control untouched</string>
+    <string name="navi_mix_car">music by car settings</string>
+    <string name="navi_mix_pct">music %1$s%%</string>
+    <string name="navi_pick_title">Choose the app</string>
+    <string name="navi_adjust_label">The app\'s own volume control sets the prompt volume</string>
+    <string name="navi_mix_car_label">Music under prompts: as in the car settings</string>
+    <string name="navi_mix_label">Music under prompts: %1$d%%</string>
+    <string name="navi_save">Save</string>
+    <string name="navi_cancel">Cancel</string>
+    <string name="navi_action_edit">Change</string>
+    <string name="navi_action_remove">Remove from my list</string>
+    <string name="navi_saved">Saved - applies after a reboot.</string>
+    <string name="navi_error">Could not save: %1$s</string>
+
     <!-- appearance -->
     <string name="theme_title">Appearance</string>
     <string name="style_modern">Modern</string>

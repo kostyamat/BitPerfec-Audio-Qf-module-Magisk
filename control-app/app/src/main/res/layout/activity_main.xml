@@ -192,6 +192,55 @@
                 style="@style/BpCardNote" />
         </LinearLayout>
 
+        <!-- navigators: the platform's NaviApp.ini, the user's own entries (ui/NavigatorsCard) -->
+        <LinearLayout
+            android:id="@+id/card_navi"
+            style="@style/BpCard"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/tv_navi_title"
+                style="@style/BpCardTitle"
+                android:text="@string/navi_title" />
+
+            <TextView
+                android:id="@+id/tv_navi_desc"
+                style="@style/BpCardNote"
+                android:text="@string/navi_desc" />
+
+            <LinearLayout
+                android:id="@+id/ll_navi_rows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_navi_add"
+                    style="@style/BpPill"
+                    android:layout_marginEnd="8dp"
+                    android:checkable="false"
+                    android:text="@string/navi_add" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_navi_all"
+                    style="@style/BpPill"
+                    android:layout_marginStart="8dp"
+                    android:checkable="false" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_navi_result"
+                style="@style/BpCardNote" />
+        </LinearLayout>
+
         <!-- appearance: Modern (day / night) and Hyper (night-only cyber) -->
         <LinearLayout
             android:id="@+id/card_theme"
