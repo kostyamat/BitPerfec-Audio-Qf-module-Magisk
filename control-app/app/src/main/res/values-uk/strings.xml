@@ -10,6 +10,13 @@
     <string name="path_i2s_24">24 біти I²S у звуковий процесор</string>
     <string name="path_analogue">ЦАП SoC (аналог)</string>
     <string name="path_8581">16 біт / 44.1 кГц (заводський)</string>
+    <string name="path_usb_now">USB-ЦАП · %1$s</string>
+    <string name="path_i2s_now">I²S у звуковий процесор · %1$s</string>
+    <string name="path_internal_now">Магнітола · %1$s</string>
+    <string name="fmt_desc">%1$s біт / %2$s кГц, %3$s</string>
+    <string name="ch_stereo">стерео</string>
+    <string name="ch_mono">моно</string>
+    <string name="ch_n">%1$s кан.</string>
     <string name="path_playing">Грає: %1$s</string>
     <string name="path_idle">Зараз нічого не грає</string>
     <string name="module_active">Працює · %1$s</string>

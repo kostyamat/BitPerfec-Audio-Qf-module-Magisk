@@ -13,6 +13,13 @@
     <string name="path_i2s_24">24-bit I²S to the sound processor</string>
     <string name="path_analogue">SoC DAC (analogue)</string>
     <string name="path_8581">16-bit / 44.1 kHz (factory)</string>
+    <string name="path_usb_now">USB DAC · %1$s</string>
+    <string name="path_i2s_now">I²S to the sound processor · %1$s</string>
+    <string name="path_internal_now">Head unit · %1$s</string>
+    <string name="fmt_desc">%1$s-bit / %2$s kHz, %3$s</string>
+    <string name="ch_stereo">stereo</string>
+    <string name="ch_mono">mono</string>
+    <string name="ch_n">%1$s ch</string>
     <string name="path_playing">Playing: %1$s</string>
     <string name="path_idle">Nothing is playing now</string>
     <string name="module_active">Active · %1$s</string>

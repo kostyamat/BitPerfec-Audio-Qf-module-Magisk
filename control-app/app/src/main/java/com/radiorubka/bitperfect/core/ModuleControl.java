@@ -1,7 +1,9 @@
 package com.radiorubka.bitperfect.core;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,33 +47,51 @@ public final class ModuleControl {
         return run("usb " + (on ? "1" : "0"));
     }
 
-    private static Result run(String args) {
+    // One root shell for the app's lifetime: Magisk asks (and toasts) once, not on every status poll.
+    private static final String END = "__BP_END__";
+    private static Process shell;
+    private static BufferedReader shellOut;
+    private static OutputStreamWriter shellIn;
+
+    private static synchronized Result run(String args) {
         Result r = new Result();
-        Process p = null;
         try {
-            p = new ProcessBuilder("su", "-c", "sh " + CTL + " " + args).redirectErrorStream(true).start();
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = in.readLine()) != null) {
-                    int eq = line.indexOf('=');
-                    if (eq > 0) {
-                        String k = line.substring(0, eq).trim();
-                        String v = line.substring(eq + 1).trim();
-                        String prev = r.values.get(k);
-                        r.values.put(k, prev == null ? v : prev + "\n" + v); // repeated keys (playing=) are joined
-                    }
+            if (shell == null || !shell.isAlive()) open();
+            shellIn.write("sh " + CTL + " " + args + " 2>&1; echo " + END + " $?\n");
+            shellIn.flush();
+            long deadline = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(TIMEOUT_S);
+            String line;
+            while ((line = shellOut.readLine()) != null) {
+                if (line.startsWith(END)) {
+                    if (!line.trim().endsWith(" 0") && r.values.isEmpty()) r.error = "no_module";
+                    return r;
                 }
+                int eq = line.indexOf('=');
+                if (eq > 0) {
+                    String k = line.substring(0, eq).trim();
+                    String v = line.substring(eq + 1).trim();
+                    String prev = r.values.get(k);
+                    r.values.put(k, prev == null ? v : prev + "\n" + v); // repeated keys (playing=) are joined
+                }
+                if (System.currentTimeMillis() > deadline) break;
             }
-            if (!p.waitFor(TIMEOUT_S, TimeUnit.SECONDS)) {
-                r.error = "timeout";
-            } else if (p.exitValue() != 0 && r.values.isEmpty()) {
-                r.error = "no_root_or_module"; // su refused, or the module is not installed
-            }
+            close(); // the shell died (su refused) or hung
+            r.error = r.values.isEmpty() ? "no_root" : "timeout";
         } catch (Exception e) {
+            close();
             r.error = "no_root";
-        } finally {
-            if (p != null) p.destroy();
         }
         return r;
+    }
+
+    private static void open() throws IOException {
+        shell = new ProcessBuilder("su").redirectErrorStream(true).start();
+        shellOut = new BufferedReader(new InputStreamReader(shell.getInputStream(), StandardCharsets.UTF_8));
+        shellIn = new OutputStreamWriter(shell.getOutputStream(), StandardCharsets.UTF_8);
+    }
+
+    private static void close() {
+        if (shell != null) shell.destroy();
+        shell = null;
     }
 }

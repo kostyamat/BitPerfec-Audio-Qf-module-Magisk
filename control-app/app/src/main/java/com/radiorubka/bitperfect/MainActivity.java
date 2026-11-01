@@ -79,12 +79,55 @@ public class MainActivity extends Activity {
 
     // ---------------------------------------------------------------- state
 
+    // While the screen is visible the state follows the unit by itself (one root shell, no prompt per poll).
+    private static final long POLL_MS = 3000;
+    private final Runnable poll = new Runnable() {
+        @Override
+        public void run() {
+            refresh(true);
+            ui.postDelayed(this, POLL_MS);
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ui.postDelayed(poll, POLL_MS);
+    }
+
+    @Override
+    protected void onPause() {
+        ui.removeCallbacks(poll);
+        super.onPause();
+    }
+
     private void refresh() {
-        tvPlatform.setText(R.string.status_loading);
+        refresh(false);
+    }
+
+    private void refresh(boolean quiet) {
+        if (!quiet) tvPlatform.setText(R.string.status_loading);
         io.execute(() -> {
             ModuleControl.Result r = ModuleControl.status();
             ui.post(() -> show(r));
         });
+    }
+
+    /** "usb card1/pcm0p S16_LE 2 48000" -> {kind, "16-bit / 48 kHz, stereo"}; null when unreadable. */
+    private String[] describePlaying(String line) {
+        String[] f = line.trim().split("\\s+");
+        if (f.length < 5) return null;
+        String bits = f[2].replaceAll("^[SU](\\d+).*$", "$1");
+        int rate;
+        try {
+            rate = Integer.parseInt(f[4]);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        String khz = rate % 1000 == 0 ? String.valueOf(rate / 1000) : String.valueOf(rate / 1000.0);
+        String ch = "2".equals(f[3]) ? getString(R.string.ch_stereo) : "1".equals(f[3]) ? getString(R.string.ch_mono)
+                : getString(R.string.ch_n, f[3]);
+        return new String[]{f[0], getString(R.string.fmt_desc, bits, khz, ch)};
     }
 
     private void show(ModuleControl.Result r) {
@@ -102,15 +145,30 @@ public class MainActivity extends Activity {
                 : is8581 ? getString(R.string.platform_8581) : getString(R.string.platform_other, platform));
         tvPlatformNote.setText(r.get("mcu"));
 
-        if (is8581) {
+        // The title is what really plays now (USB first: when the DAC plays, that is where the sound goes);
+        // idle, it is the path the unit is set up for.
+        String[] usb = null, internal = null;
+        StringBuilder pcms = new StringBuilder();
+        for (String line : r.get("playing").split("\n")) {
+            String[] d = describePlaying(line);
+            if (d == null) continue;
+            if ("usb".equals(d[0]) && usb == null) usb = d;
+            else if (internal == null) internal = d;
+            if (pcms.length() > 0) pcms.append(", ");
+            pcms.append(line.trim().split("\\s+")[1]);
+        }
+        if (usb != null) {
+            tvPath.setText(getString(R.string.path_usb_now, usb[1]));
+        } else if (internal != null) {
+            tvPath.setText(getString(is8581 ? R.string.path_internal_now : R.string.path_i2s_now, internal[1]));
+        } else if (is8581) {
             tvPath.setText(R.string.path_8581);
         } else {
             tvPath.setText(r.get("i2s_width").contains(">WD_24BIT") || "true".equals(r.get("i2s"))
                     ? R.string.path_i2s_24 : R.string.path_analogue);
         }
-        String playing = r.get("playing");
-        tvPathNote.setText(playing.isEmpty() ? getString(R.string.path_idle)
-                : getString(R.string.path_playing, playing.replace("/proc/asound/", "")));
+        tvPathNote.setText(pcms.length() == 0 ? getString(R.string.path_idle)
+                : getString(R.string.path_playing, pcms.toString()));
 
         String version = r.get("module_version");
         if ("1".equals(r.get("module_disabled"))) {
