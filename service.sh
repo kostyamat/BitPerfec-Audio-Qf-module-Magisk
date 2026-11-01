@@ -101,11 +101,20 @@ esac
     N=0; while [ ! -d /sdcard/Android ] && [ $N -lt 30 ]; do sleep 1; N=$((N + 1)); done
     bp_conf_ensure
     USB_W=$(bp_usb_wanted)
+    USB_M=$(bp_usb_mode_wanted)
+    bp_usb_mode_set "$MODPATH/system/vendor/etc/usb_audio_policy_configuration.xml" "$USB_M"
+    USB_MRC=$?
     bp_usb_set "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" "$USB_W"
-    case $? in
-        0) log_msg "USB DAC output changed to usb_dac=$USB_W ($BP_CONF). Restarting audioserver."
+    USB_RC=$?
+    case $USB_RC in
+        0) log_msg "USB DAC output changed to usb_dac=$USB_W, mode $USB_M ($BP_CONF). Restarting audioserver."
            setprop ctl.restart audioserver ;;
-        2) log_msg "USB DAC output: usb_dac=$USB_W." ;;
+        2) if [ "$USB_MRC" = 0 ] && [ "$USB_W" = 1 ]; then
+               log_msg "USB DAC mode changed to $USB_M ($BP_CONF). Restarting audioserver."
+               setprop ctl.restart audioserver
+           else
+               log_msg "USB DAC output: usb_dac=$USB_W, mode $USB_M."
+           fi ;;
         *) log_msg "USB DAC: no policy include in the module - left factory." ;;
     esac
 

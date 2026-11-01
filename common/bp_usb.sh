@@ -40,6 +40,11 @@ bp_conf_ensure() {
 #       rate, Android volume at full scale - set the level on the DAC or the amplifier.
 #       SIM calls stay on the head unit.
 usb_dac=0
+
+# usb_dac_mode - the format and rate Android plays to the DAC (with usb_dac=1)
+#   auto = the DAC's best. Or FORMAT/RATE exactly as the DAC declares it, e.g. S16_LE/44100 (44.1 kHz
+#   music without resampling). A DAC that cannot do it plays nothing from Android - use auto then.
+usb_dac_mode=auto
 EOF
     chmod 0666 "$BP_CONF" 2>/dev/null
     return 0
@@ -79,4 +84,84 @@ bp_usb_set() {
     fi
     cat "$BPU_T" > "$BPU_F"; rm -f "$BPU_T"
     return 0
+}
+
+# ---- DAC mode: usb_dac_mode=auto | <ALSA format>/<rate>, e.g. S16_LE/44100 -------------------------
+# auto: the "usb_device output" mixPort has no profile - the USB HAL takes the DAC's best rate.
+# Fixed: one stereo profile, exactly what the DAC itself declares in /proc/asound/cardN/stream0 (the
+# app offers only those). A DAC that cannot do the fixed mode gets no Android sound - status says so.
+
+# ALSA format -> policy format (the USB HAL maps them back one to one).
+bp_usb_fmt() {
+    case "$1" in
+        S16_LE) echo AUDIO_FORMAT_PCM_16_BIT ;;
+        S24_3LE) echo AUDIO_FORMAT_PCM_24_BIT_PACKED ;;
+        S24_LE) echo AUDIO_FORMAT_PCM_8_24_BIT ;;
+        S32_LE) echo AUDIO_FORMAT_PCM_32_BIT ;;
+        *) return 1 ;;
+    esac
+}
+
+# 0 when $1 is "auto" or FORMAT/RATE we can write.
+bp_usb_mode_valid() {
+    [ "$1" = auto ] && return 0
+    bp_usb_fmt "${1%/*}" >/dev/null || return 1
+    echo "${1#*/}" | grep -qE '^[0-9]{4,6}$'
+}
+
+# Wanted mode from the settings file (anything unreadable = auto).
+bp_usb_mode_wanted() {
+    BPU_M=$(grep -m1 '^[[:space:]]*usb_dac_mode[[:space:]]*=' "$BP_CONF" 2>/dev/null | cut -d= -f2 | tr -d ' \r\t')
+    bp_usb_mode_valid "$BPU_M" && [ -n "$BPU_M" ] && echo "$BPU_M" || echo auto
+}
+
+# Mode written in the USB policy file $1: auto or FORMAT/RATE.
+bp_usb_mode_state() {
+    BPU_L=$(grep -A1 'mixPort name="usb_device output"' "$1" 2>/dev/null | tr -d '\n')
+    case "$BPU_L" in *'role="source"/>'*|'') echo auto; return ;; esac
+    BPU_PF=$(echo "$BPU_L" | sed -n 's/.*format="\([A-Z0-9_]*\)".*/\1/p')
+    BPU_PR=$(echo "$BPU_L" | sed -n 's/.*samplingRates="\([0-9]*\)".*/\1/p')
+    for f in S16_LE S24_3LE S24_LE S32_LE; do
+        [ "$(bp_usb_fmt $f)" = "$BPU_PF" ] && { echo "$f/$BPU_PR"; return; }
+    done
+    echo auto
+}
+
+# Write mode $2 into the USB policy file $1, in place. Returns 0 changed, 2 already so, 1 bad.
+bp_usb_mode_set() {
+    [ -f "$1" ] && bp_usb_mode_valid "$2" || return 1
+    [ "$(bp_usb_mode_state "$1")" = "$2" ] && return 2
+    BPU_T=/data/local/tmp/bp_usbpol.$$
+    if [ "$2" = auto ]; then
+        BPU_P=""
+    else
+        BPU_P="$(bp_usb_fmt "${2%/*}") ${2#*/}"
+    fi
+    awk -v p="$BPU_P" '
+        /mixPort name="usb_device output"/ {
+            skip = ($0 !~ /\/>/)
+            if (p == "") print "        <mixPort name=\"usb_device output\" role=\"source\"/>"
+            else {
+                split(p, a, " ")
+                print "        <mixPort name=\"usb_device output\" role=\"source\">"
+                print "            <profile name=\"\" format=\"" a[1] "\" samplingRates=\"" a[2] "\" channelMasks=\"AUDIO_CHANNEL_OUT_STEREO\"/>"
+                print "        </mixPort>"
+            }
+            next
+        }
+        skip { if ($0 ~ /<\/mixPort>/) skip = 0; next }
+        { print }' "$1" > "$BPU_T" || return 1
+    cat "$BPU_T" > "$1"; rm -f "$BPU_T"
+    return 0
+}
+
+# What the plugged USB DACs declare: one "cardN FORMAT CHANNELS RATE,RATE" line per playback altset.
+bp_usb_caps() {
+    for s in /proc/asound/card*/stream0; do
+        BPU_C=${s#/proc/asound/}; BPU_C=${BPU_C%%/*}
+        tr -d '\r' < "$s" | awk -v c="$BPU_C" '
+            /^Playback:/ { on = 1 } /^Capture:/ { on = 0 }
+            on && /Format:/ { f = $2 } on && /Channels:/ { ch = $2 }
+            on && /Rates:/ { sub(/.*Rates: */, ""); gsub(/ /, ""); print c, f, ch, $0 }'
+    done
 }

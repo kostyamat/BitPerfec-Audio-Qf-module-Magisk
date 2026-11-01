@@ -329,9 +329,10 @@ fi
 . "$MODPATH/common/bp_usb.sh"
 bp_conf_ensure
 cp -f /vendor/etc/audio_policy_configuration.xml "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" 2>/dev/null
+bp_usb_mode_set "$MODPATH/system/vendor/etc/usb_audio_policy_configuration.xml" "$(bp_usb_mode_wanted)"
 bp_usb_set "$MODPATH/system/vendor/etc/audio_policy_configuration.xml" "$(bp_usb_wanted)"
 case $? in
-    0|2) ui_print "- USB DAC output: usb_dac=$(bp_usb_wanted) (settings: $BP_CONF)" ;;
+    0|2) ui_print "- USB DAC output: usb_dac=$(bp_usb_wanted), mode $(bp_usb_mode_wanted) (settings: $BP_CONF)" ;;
     *)   ui_print "- USB DAC: this unit's policy has no USB include we know - left factory"
          rm -f "$MODPATH/system/vendor/etc/audio_policy_configuration.xml"                "$MODPATH/system/vendor/etc/usb_audio_policy_configuration.xml" ;;
 esac

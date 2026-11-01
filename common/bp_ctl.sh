@@ -6,6 +6,8 @@
 #   status            print key=value lines: what the unit is and what the module is doing
 #   usb <0|1>         set usb_dac in /sdcard/BitPerfectAudio/bitperfect.conf, switch the policy include,
 #                     restart audioserver when it changed (prints usb_result=changed|same|unsupported)
+#   usb_mode <auto|FORMAT/RATE>   set usb_dac_mode (e.g. S16_LE/44100, as the DAC declares it) and the USB
+#                     policy; restarts audioserver when USB is on (usb_mode_result=changed|saved|same|bad_value)
 #   navi list         navi=<package> <adjust> <mix> <factory|bitperfect|user>, one per navigator
 #   navi set <pkg> <true|false> <appset|0-100>   / navi del <pkg>
 #                     edit the user's navigators.conf and rebuild the live list (prints
@@ -14,19 +16,20 @@
 MODDIR=/data/adb/modules/BitPerfect.module
 . "$MODDIR/common/bp_usb.sh"
 . "$MODDIR/common/bp_naviapp.sh"
+USBPOL="$MODDIR/system/vendor/etc/usb_audio_policy_configuration.xml"
 NAVI_BASE="$MODDIR/common/NaviApp.base.ini"
 NAVI_LIVE="$MODDIR/system/config/NaviApp.ini"
 APC="$MODDIR/system/vendor/etc/audio_policy_configuration.xml"
 
-# Rewrite usb_dac=<v> in the settings file (created with its explanation if missing). In place, so the
-# file keeps the owner's other lines and comments.
-bp_conf_set_usb() {
+# Rewrite <key>=<value> in the settings file (created with its explanation if missing). In place, so
+# the file keeps the owner's other lines and comments. Values are checked by the caller.
+bp_conf_set_key() {
     bp_conf_ensure
     T=/data/local/tmp/bp_conf.$$
-    if grep -q '^[[:space:]]*usb_dac[[:space:]]*=' "$BP_CONF"; then
-        sed "s/^[[:space:]]*usb_dac[[:space:]]*=.*/usb_dac=$1/" "$BP_CONF" > "$T" && cat "$T" > "$BP_CONF"
+    if grep -q "^[[:space:]]*$1[[:space:]]*=" "$BP_CONF"; then
+        sed "s#^[[:space:]]*$1[[:space:]]*=.*#$1=$2#" "$BP_CONF" > "$T" && cat "$T" > "$BP_CONF"
     else
-        cat "$BP_CONF" > "$T" && echo "usb_dac=$1" >> "$T" && cat "$T" > "$BP_CONF"
+        cat "$BP_CONF" > "$T" && echo "$1=$2" >> "$T" && cat "$T" > "$BP_CONF"
     fi
     rm -f "$T"
 }
@@ -59,6 +62,20 @@ case "$1" in
         echo "usb_state=$(bp_usb_state "$APC")"
         W=$(tinymix VBC_IIS_MST_WIDTH_SET 2>/dev/null | tail -1)
         echo "i2s_width=$W"
+        # Every sound card as it names itself: card=<cardN> <usb|internal> <usbid|-> <name>
+        # (a USB DAC's name and id are its own descriptors; the internal one is the kernel driver's)
+        tr -d '\r' < /proc/asound/cards | awk '
+            /^ *[0-9]+ \[/ { n = $1; next }
+            n != "" { sub(/^ +/, ""); sub(/ at usb-.*/, ""); print n "\t" $0; n = "" }' | while IFS="$(printf '\t')" read -r n name; do
+            if [ -f "/proc/asound/card$n/usbid" ]; then
+                echo "card=card$n usb $(cat /proc/asound/card$n/usbid) $name"
+            else
+                echo "card=card$n internal - $name"
+            fi
+        done
+        bp_usb_caps | while read -r c f ch r; do echo "usb_caps=$c $f $ch $r"; done
+        echo "usb_mode=$(bp_usb_mode_wanted)"
+        echo "usb_mode_state=$(bp_usb_mode_state "$USBPOL")"
         # What really plays now: playing=<usb|internal> <cardN/pcmMp> <format> <channels> <rate>, one per running PCM
         for s in /proc/asound/card*/pcm*p/sub0; do
             grep -q RUNNING "$s/status" 2>/dev/null || continue
@@ -70,12 +87,23 @@ case "$1" in
         ;;
     usb)
         case "$2" in 0|1) ;; *) echo "usb_result=bad_value"; exit 1 ;; esac
-        bp_conf_set_usb "$2"
+        bp_conf_set_key usb_dac "$2"
         bp_usb_set "$APC" "$2"
         case $? in
             0) bp_restart_audioserver; echo "usb_result=changed" ;;
             2) echo "usb_result=same" ;;
             *) echo "usb_result=unsupported" ;;
+        esac
+        ;;
+    usb_mode)
+        bp_usb_mode_valid "$2" || { echo "usb_mode_result=bad_value"; exit 1; }
+        bp_conf_set_key usb_dac_mode "$2"
+        bp_usb_mode_set "$USBPOL" "$2"
+        case $? in
+            0) if [ "$(bp_usb_state "$APC")" = 1 ]; then bp_restart_audioserver; echo "usb_mode_result=changed"
+               else echo "usb_mode_result=saved"; fi ;;
+            2) echo "usb_mode_result=same" ;;
+            *) echo "usb_mode_result=unsupported" ;;
         esac
         ;;
     navi)
