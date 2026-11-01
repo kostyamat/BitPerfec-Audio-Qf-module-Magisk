@@ -28,9 +28,7 @@ the USB device (index 15), level = the DAC's own control; `usb_dac_volume=follow
 (unset → `persist.sys.main_volume`) to it, no control → no follow (owner: «немає - значить немає»). App toggle
 `6a26b2b`. 📻 knob 16→64, 32→128; after boot 12/128 with main=3. ❓ PCM2704 unit in dB.
 **Next:** sleep beeping — start `/data/local/tmp/dacsleep.sh` (scratchpad copy) BEFORE the owner turns ACC off.
-Then «Авто» = direct USB output for the player (patch `libaudiopolicymanager` getOutputForDevice: linear PCM →
-direct when the DAC declares its format/rate); ❓ owner: where prompts go while the player holds the DAC (I said
-head-unit speakers).
+«Авто» (direct path) and DTS/multichannel DACs — next version (TODO §3, `.agents/USB_DAC.md` §3).
 
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
