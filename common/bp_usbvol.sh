@@ -14,7 +14,9 @@
 #                        повність, а якщо цап має власну систему регулювання підсилення - вішаємося на неї,
 #                        - немає - значить немає»).
 # usb_dac_curve_<vid>_<pid>=a,b,c,d,e  per DAC model: where knob 1, 8, 16, 24, 32 land, in % of the control's
-#                        range; straight lines between them. Unset: even in steps, the knob as it always was.
+#                        range, with decimals; a smooth rising line through them (monotone cubic, in float). Unset:
+#                        even in steps, the knob as it always was. The person tunes it by ear; nothing is measured
+#                        (owner 02.11: «Ми дали інструмент, - юзер бавиться»).
 #                        Owner 02.11: «шкала Дб у кожного своя, у мене початок не чутливий, у гось таке буде в
 #                        кінці. А в когось лінія.» The dB range the driver reports is NOT what comes out: 📻 PCM2704
 #                        reports -128..0 dB in 128 steps, yet step 4 ("-124 dB", below the 16-bit floor) is an audible
@@ -27,7 +29,7 @@ BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
 # IAudioService 10 = setStreamVolume(stream, index, flags, caller) on every QF Android 10 build we have
 # (🔬 framework.jar of stand 194, 7862 update(2), 8581 QF005 + BMW).
 BP_USBVOL_TX=10
-BP_USBVOL_CURVE_DEFAULT="3 25 50 75 100"
+BP_USBVOL_CURVE_DEFAULT="3.125 25 50 75 100"
 
 bp_usbvol_wanted() {
     BPV_V=$(grep -m1 '^[[:space:]]*usb_dac_volume[[:space:]]*=' "$BP_CONF" 2>/dev/null | cut -d= -f2 | tr -d ' \r\t')
@@ -82,26 +84,53 @@ bp_usbvol_curve_user() {
     grep -m1 "^[[:space:]]*$(bp_usbvol_curve_key "$1")[[:space:]]*=" "$BP_CONF" 2>/dev/null | cut -d= -f2 | tr -d ' \r\t' | tr ',' ' '
 }
 
-# Control value for knob $1 (1..32), control top $2, curve $3 (five values).
+# Control value for knob $1 (1..32), control top $2, curve $3 (five values): a Fritsch-Carlson monotone cubic
+# through knob 1, 8, 16, 24, 32 - it never overshoots between points, and even points give a straight line.
 bp_usbvol_level() {
-    BPV_KN=$1; BPV_TOP=$2
-    set -- $3
-    if [ "$BPV_KN" -le 8 ]; then BPV_LO=1; BPV_HI=8; BPV_A=$1; BPV_B=$2
-    elif [ "$BPV_KN" -le 16 ]; then BPV_LO=8; BPV_HI=16; BPV_A=$2; BPV_B=$3
-    elif [ "$BPV_KN" -le 24 ]; then BPV_LO=16; BPV_HI=24; BPV_A=$3; BPV_B=$4
-    else BPV_LO=24; BPV_HI=32; BPV_A=$4; BPV_B=$5
-    fi
-    BPV_PC=$(( BPV_A * 100 + (BPV_B - BPV_A) * 100 * (BPV_KN - BPV_LO) / (BPV_HI - BPV_LO) ))
-    echo $(( (BPV_PC * BPV_TOP + 5000) / 10000 ))
+    echo "$1 $2 $3" | awk '{
+        n = 5; split("1 8 16 24 32", x, " ")
+        k = $1; top = $2
+        for (i = 1; i <= n; i++) y[i] = $(i + 2)
+        for (i = 1; i < n; i++) { h[i] = x[i + 1] - x[i]; d[i] = (y[i + 1] - y[i]) / h[i] }
+        m[1] = d[1]; m[n] = d[n - 1]
+        for (i = 2; i < n; i++) {
+            if (d[i - 1] * d[i] <= 0) m[i] = 0
+            else {
+                a = 2 * h[i] + h[i - 1]; b = h[i] + 2 * h[i - 1]
+                m[i] = (a + b) / (a / d[i - 1] + b / d[i])
+            }
+        }
+        i = 1; while (i < n - 1 && k > x[i + 1]) i++
+        t = (k - x[i]) / h[i]; t2 = t * t; t3 = t2 * t
+        p = (2 * t3 - 3 * t2 + 1) * y[i] + (t3 - 2 * t2 + t) * h[i] * m[i] + (3 * t2 - 2 * t3) * y[i + 1] + (t3 - t2) * h[i] * m[i + 1]
+        v = int(p * top / 100 + 0.5)
+        if (v < 0) v = 0
+        if (v > top) v = top
+        print v
+    }'
 }
 
-# 0 when "$1" is a curve we can use: five whole percents, none below the one before it.
+# 0 when "$1" is a curve we can use: five percents, each above the one before it (two points on one level would
+# flatten the knob there), the last at most 100.
 bp_usbvol_curve_valid() {
-    echo "$1" | grep -qE '^[0-9]{1,3}(,[0-9]{1,3}){4}$' || return 1
-    BPV_PREV=0
-    for BPV_X in $(echo "$1" | tr ',' ' '); do
-        [ "$BPV_X" -le 100 ] && [ "$BPV_X" -ge "$BPV_PREV" ] || return 1
-        BPV_PREV=$BPV_X
+    echo "$1" | grep -qE '^[0-9]{1,3}(\.[0-9]{1,3})?(,[0-9]{1,3}(\.[0-9]{1,3})?){4}$' || return 1
+    echo "$1" | tr ',' ' ' | awk '{ for (i = 2; i <= 5; i++) if ($i + 0 <= $(i - 1) + 0) exit 1; exit !($5 + 0 <= 100) }'
+}
+
+# Control $2 of card $1 from value $3 to $4 without a jump: about a second, whatever the distance. The ear gets no
+# hit when a curve or a knob changes (owner 02.11: «я получив удар по вухам»).
+bp_usbvol_ramp() {
+    BPV_D=$(( $4 - $3 ))
+    [ "$BPV_D" = 0 ] && return 0
+    BPV_I=1; BPV_PV=$3
+    while [ "$BPV_I" -le 16 ]; do
+        BPV_NV=$(( $3 + BPV_D * BPV_I / 16 ))
+        if [ "$BPV_NV" != "$BPV_PV" ]; then
+            tinymix -D "$1" "$2" "$BPV_NV" >/dev/null 2>&1
+            BPV_PV=$BPV_NV
+            sleep 0.03
+        fi
+        BPV_I=$((BPV_I + 1))
     done
 }
 
@@ -126,7 +155,7 @@ bp_usbvol_knob() {
 
 bp_usbvol_watch() {
     echo $$ > "$BP_USBVOL_PID"
-    BPV_LAST=""; BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""
+    BPV_LAST=""; BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_NOW=""; BPV_LK=""; BPV_LV=""
     while [ "$(cat "$BP_USBVOL_PID" 2>/dev/null)" = $$ ]; do
         if [ "$(bp_usb_wanted)" != 1 ]; then BPV_LAST=""; sleep 3; continue; fi
         # the card is looked up again only when /proc/asound changes (plug, unplug)
@@ -137,6 +166,7 @@ bp_usbvol_watch() {
             if [ -n "$BPV_NUM" ]; then
                 BPV_CTL=$(bp_usbvol_ctl "$BPV_NUM")
                 [ -n "$BPV_CTL" ] && BPV_TOP_HW=$(bp_usbvol_max "$BPV_NUM" "$BPV_CTL")
+                [ -n "$BPV_TOP_HW" ] && BPV_NOW=$(tinymix -D "$BPV_NUM" -v "$BPV_CTL" 2>/dev/null | tr -d '\r' | awk '{ print $1 }')
             fi
             BPV_MAXI=$(service call audio 17 i32 3 2>/dev/null | sed -n 's/.*Parcel(00000000 \([0-9a-f]*\).*/\1/p')
             BPV_MAXI=$((0x${BPV_MAXI:-f}))
@@ -150,7 +180,13 @@ bp_usbvol_watch() {
                 BPV_HW=0; BPV_SW=0
             else
                 BPV_CUR=$(bp_usbvol_curve_user "$BPV_NUM")
-                BPV_HW=$(bp_usbvol_level "$BPV_VOL" "$BPV_TOP_HW" "${BPV_CUR:-$BP_USBVOL_CURVE_DEFAULT}")
+                # awk only when the knob or the curve moved
+                BPV_K2="$BPV_VOL $BPV_TOP_HW $BPV_CUR"
+                if [ "$BPV_K2" != "$BPV_LK" ]; then
+                    BPV_LK=$BPV_K2
+                    BPV_LV=$(bp_usbvol_level "$BPV_VOL" "$BPV_TOP_HW" "${BPV_CUR:-$BP_USBVOL_CURVE_DEFAULT}")
+                fi
+                BPV_HW=$BPV_LV
             fi
         fi
         # Ignition off: the DAC goes silent until it is back on. While the unit counts down to sleep, system_server
@@ -161,8 +197,15 @@ bp_usbvol_watch() {
         # a new audioserver starts from its own state: apply again
         BPV_WANT="$BPV_MAXI ${BPV_HW:--} ${BPV_SW:--} $(pidof audioserver)"
         if [ "$BPV_WANT" != "$BPV_LAST" ]; then
-            [ -n "$BPV_HW" ] && tinymix -D "$BPV_NUM" "$BPV_CTL" "$BPV_HW" >/dev/null 2>&1
-            [ -n "$BPV_SW" ] && tinymix -D "$BPV_NUM" "${BPV_CTL%Volume}Switch" "$BPV_SW" >/dev/null 2>&1
+            # silence comes at once, sound comes up gently: switch off first, or on before the ramp
+            if [ "$BPV_SW" = 0 ]; then
+                tinymix -D "$BPV_NUM" "${BPV_CTL%Volume}Switch" 0 >/dev/null 2>&1
+                tinymix -D "$BPV_NUM" "$BPV_CTL" "$BPV_HW" >/dev/null 2>&1
+            elif [ -n "$BPV_HW" ]; then
+                tinymix -D "$BPV_NUM" "${BPV_CTL%Volume}Switch" 1 >/dev/null 2>&1
+                bp_usbvol_ramp "$BPV_NUM" "$BPV_CTL" "${BPV_NOW:-$BPV_HW}" "$BPV_HW"
+            fi
+            BPV_NOW=$BPV_HW
             if bp_usbvol_index "$BPV_MAXI"; then BPV_LAST=$BPV_WANT; else BPV_LAST=""; sleep 3; fi
         fi
         sleep 0.5
