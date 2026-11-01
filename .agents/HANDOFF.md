@@ -9,7 +9,7 @@ fast-forwarded to `main` on each release, because v5.6.x installs ask its `updat
 Work on `main`. Push from WSL as the default user, both branches.
 
 **Stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107, PCM2704 on USB): the release zip, 📻 checked
-(bp=1, healthy, WD_24BIT, USB_HEADSET 15/15, DAC 12/128 at knob 3). System language is **en-US** (owner switched it
+(bp=1, healthy, WD_24BIT, `usb_dac=0`, no `mic.conf`). System language is **en-US** (owner switched it
 for the English screenshots). Shared with QF_DVR (session 147a9dc2): talk ONLY in board room
 `qf-dvr-claude-window-7ef9`; rules `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194»
 (`svc power reboot`, `working`/`done`, own module only).
@@ -23,7 +23,9 @@ APK 1.90 MB (WebP backgrounds, locale filter).
 ## ⏳ First tester complaint on v5.7.5 (Marcin, 01.11): noise, YT Music crash, cured by ~8 reboots
 Cause NOT established; no logs yet. Findings and suspects: `.agents/DEBT.md`, last section. Next: tester's
 `/data/adb/BitPerfect.log` + tombstones; a test on a CLEAN unit (`RELEASE.md`): stand 194 is not clean, its pass proves nothing.
-Owner's version «scripts patch libs» checked: no on-device patching, but no firmware md5 gate either.
+Owner's version «scripts patch libs» checked: no on-device patching; md5 gate rejected by the owner.
+📻 01.11 23:43 stand 194 clean install of the GitHub zip (settings + log removed, copy in
+`D:/My_K706_Magisk_Modules/stand194_backup_20261101`): root prompt appeared, 24/48, no restart, no crash; 12 s awk gap stays.
 
 ## 📋 Next version (`.agents/TODO.md`, rewritten for it)
 1. Testers' feedback on v5.7.5 (other DACs, mic on real calls). 2. UIS8581 with a tester. 3. «Авто» = player
