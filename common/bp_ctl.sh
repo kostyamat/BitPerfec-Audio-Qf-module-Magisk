@@ -41,7 +41,8 @@ bp_conf_set_key() {
 }
 
 # Restart audioserver and return only when the new one serves the policy again (<= 15 s), so the
-# caller's next status already shows the new routing.
+# caller's next status already shows the new routing. With the USB DAC output on, a plugged DAC the new
+# policy does not list is announced again (bp_usb_announce) - else it stays silent until replugged.
 bp_restart_audioserver() {
     OLD=$(pidof audioserver)
     setprop ctl.restart audioserver
@@ -52,6 +53,7 @@ bp_restart_audioserver() {
         [ -n "$NEW" ] && [ "$NEW" != "$OLD" ] && service check media.audio_policy | grep -q ': found' && break
     done
     sleep 1
+    [ "$(bp_usb_state "$APC")" = 1 ] && bp_usb_announce | while read -r l; do echo "usb_announced=$l"; done
 }
 
 # Rebuild the call-mic XML from mic.conf and restart audioserver - but a call would not survive the restart:

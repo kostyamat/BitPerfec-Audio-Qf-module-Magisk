@@ -126,6 +126,13 @@ esac
     if [ "$AS_RESTART" = 1 ]; then
         log_msg "Restarting audioserver for the new settings."
         setprop ctl.restart audioserver
+        # a DAC announced while the old policy had no USB output is not announced again by Android
+        if [ "$USB_W" = 1 ]; then
+            ( sleep 3; i=0
+              while [ $i -lt 30 ] && ! service check media.audio_policy | grep -q ': found'; do sleep 1; i=$((i + 1)); done
+              sleep 2
+              bp_usb_announce | while read -r l; do log_msg "USB DAC announced to the new policy: $l"; done ) &
+        fi
     fi
 
     # With our navigation policy installed (marker from the installer) it must be the one loaded;

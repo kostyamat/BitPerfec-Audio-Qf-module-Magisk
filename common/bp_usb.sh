@@ -165,3 +165,31 @@ bp_usb_caps() {
             on && /Rates:/ { sub(/.*Rates: */, ""); gsub(/ /, ""); print c, f, ch, $0 }'
     done
 }
+
+# Android announces a USB DAC to the audio policy once, when it is plugged in (UsbAlsaManager ->
+# AudioService.setWiredDeviceConnectionState). With usb_dac=0 the policy has no USB module, refuses it, and
+# AudioService forgets it - so after usb_dac=1 and an audioserver restart nobody announces it again and Android
+# keeps playing to the head unit until the DAC is replugged or the unit rebooted (📻 stand 194, 01.11.2026).
+# This repeats that call for every plugged USB card the policy does not list: same type, address and name as
+# UsbAlsaManager's last one (dumpsys audio), else AUDIO_DEVICE_OUT_USB_DEVICE with AOSP's address format.
+# IAudioService transaction 60 = setWiredDeviceConnectionState on every QF Android 10 build we have
+# (🔬 stand 194, 7862 update(2), 8581 QF005 + BMW framework.jar), so only on SDK 29. Echoes what it announced.
+bp_usb_announce() {
+    [ "$(getprop ro.build.version.sdk)" = 29 ] || return 1
+    BPU_AP=$(dumpsys media.audio_policy 2>/dev/null | awk '/Available output devices/ { on = 1; next }
+        /Available input devices/ { on = 0 } on && /type: AUDIO_DEVICE_OUT_USB/')
+    [ -n "$BPU_AP" ] && return 0
+    BPU_EV=$(dumpsys audio 2>/dev/null | grep 'setWiredDeviceConnectionState(' | grep 'from UsbAlsaDevice')
+    for BPU_U in /proc/asound/card*/usbid; do
+        [ -f "$BPU_U" ] || continue
+        BPU_C=${BPU_U#/proc/asound/card}; BPU_C=${BPU_C%%/*}
+        BPU_A="card=$BPU_C;device=0;"
+        BPU_L=$(echo "$BPU_EV" | grep "addr:$BPU_A " | tail -1)
+        BPU_T=$(echo "$BPU_L" | sed -n 's/.* type:\([0-9a-f]*\) .*/\1/p')
+        BPU_N=$(echo "$BPU_L" | sed -n 's/.* name:\(.*\)) from UsbAlsaDevice.*/\1/p')
+        [ -n "$BPU_T" ] || BPU_T=4000
+        [ -n "$BPU_N" ] || BPU_N=$(awk -v c="$BPU_C" '$1 == c { sub(/^[^:]*: /, ""); print; exit }' /proc/asound/cards)
+        service call audio 60 i32 $((0x$BPU_T)) i32 1 s16 "$BPU_A" s16 "$BPU_N" s16 BitPerfect >/dev/null 2>&1 &&
+            echo "$BPU_A 0x$BPU_T $BPU_N"
+    done
+}
