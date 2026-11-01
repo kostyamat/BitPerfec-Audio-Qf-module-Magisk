@@ -21,6 +21,12 @@ reboot only `svc power reboot`, `working`/`done` on the board, each line touches
   ceiling; the earlier GeneralPlus dongle: S16, 44.1/48. Hot-plug of the PCM2704 worked without a reboot this time
   (UsbAlsaManager → APM USB_HEADSET); if the owner sees it fail again, capture `logcat` at that plug.
 
+## ⏳ In progress — DAC mode (owner 01.11: DAC first, then mic)
+Module side done, not on the stand yet (`33f09b8`): `usb_dac_mode=auto|FORMAT/RATE`, `bp_ctl.sh usb_mode`, status
+`card=` / `usb_caps=` / `usb_mode=` / `usb_mode_state=`. Next: the app — the USB card shows the DAC's own name + id,
+a mode picker from `usb_caps` (stereo only), the path note names the card (internal / USB); then v5.7.3 to stand 194.
+Then the mic block (TODO §3): per-mode gain, NR/AEC switches, AEC auto-calibration per mode, NR curve presets.
+
 ## Waiting
 - Gemini #2009 correction still owed (PGA step ≈5–6 dB at the top, not 3; with BitPerfect source 9 passes).
 - Owner: SIM call without echo (v5.6.1 `58d9759`); testers: BD37xxx survey, engine hum, navigator reports.
