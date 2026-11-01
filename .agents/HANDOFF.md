@@ -22,7 +22,7 @@ APK 1.90 MB (WebP backgrounds, locale filter).
 
 ## ⏳ First tester complaint on v5.7.5 (Marcin, 01.11): noise, YT Music crash, cured by ~8 reboots
 Cause NOT established; no logs yet. Findings and suspects: `.agents/DEBT.md`, last section. Next: tester's
-`/data/adb/BitPerfect.log` + tombstones; seek test on stand 194 with `usb_dac=0` (needs sound: ask the owner).
+`/data/adb/BitPerfect.log` + tombstones; a test on a CLEAN unit (`RELEASE.md`): stand 194 is not clean, its pass proves nothing.
 Owner's version «scripts patch libs» checked: no on-device patching, but no firmware md5 gate either.
 
 ## 📋 Next version (`.agents/TODO.md`, rewritten for it)

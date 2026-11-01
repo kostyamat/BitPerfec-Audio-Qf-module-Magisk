@@ -25,6 +25,15 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
    `VBC_IIS_MST_WIDTH_SET` WD_24BIT (BU), log «Audio path is healthy». When the module layout changed, compare
    md5 of `/data/adb/modules_update/BitPerfect.module/system/vendor` with the previous live set.
 
+## The check that counts is the user's environment
+- 🔴 Owner 01.11.2026: «ми не робимо іскусственно ніякого середовища… щоб воно ідеально повторювалося у юзера, в якого
+  створених іскусственно пропів, всяких скриптів… і всього решту немає». A release is judged only on a unit without
+  our props, scripts, settings files or helper modules. «Works on the stand» says nothing while they are there.
+- Before calling a build good, list what the stand has and a user does not (v5.7.5, stand 194: `mic.conf`,
+  `navigators.conf`, `usb_dac_volume`, `/data/local/tmp` scripts, `truthcheck_*` in post-fs-data.d, helper modules,
+  17 installs over itself), then test both ways a user arrives: a first install and an update from the last public release.
+- Default settings get tested too: a stand kept on `usb_dac=1` is not a test of the standard path.
+
 ## Publish (only on the owner's order: «пуш», «реліз»)
 - The GitHub default branch is **`main`** (owner 01.11.2026: «вистачить мучати гілку 5.4 репацред, з цієї версії
   переїзджаємо в майн»). v5.6.x installs ask `v5.4-repaired/update.json`, v5.7.5+ ask `main/update.json`: push
