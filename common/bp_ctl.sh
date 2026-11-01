@@ -8,6 +8,9 @@
 #                     restart audioserver when it changed (prints usb_result=changed|same|unsupported)
 #   usb_mode <auto|FORMAT/RATE>   set usb_dac_mode (e.g. S16_LE/44100, as the DAC declares it) and the USB
 #                     policy; restarts audioserver when USB is on (usb_mode_result=changed|saved|same|bad_value)
+#   usb_volume <full|follow>   set usb_dac_volume: the DAC at full scale, or its own volume control following
+#                     the head unit's knob (common/bp_usbvol.sh watches it; no restart; a DAC without a control
+#                     stays at full scale) (usb_volume_result=saved|bad_value); status: usb_volume=, usb_dac_volctl=MAX|none
 #   mic show | mic set <SIM|VOIP|BT> <gain_db|aec|nr|nr_depth> [value] | mic reset <channel>
 #   mic preset list | mic preset <save|load|del> <name>
 #                     the user's call-mic settings (UIS7862, common/bp_mic.sh); a change rebuilds the AGDSP XML
@@ -22,6 +25,7 @@ MODDIR=/data/adb/modules/BitPerfect.module
 . "$MODDIR/common/bp_usb.sh"
 . "$MODDIR/common/bp_naviapp.sh"
 . "$MODDIR/common/bp_mic.sh"
+. "$MODDIR/common/bp_usbvol.sh"
 USBPOL="$MODDIR/system/vendor/etc/usb_audio_policy_configuration.xml"
 NAVI_BASE="$MODDIR/common/NaviApp.base.ini"
 NAVI_LIVE="$MODDIR/system/config/NaviApp.ini"
@@ -95,6 +99,8 @@ case "$1" in
         bp_usb_caps | while read -r c f ch r; do echo "usb_caps=$c $f $ch $r"; done
         echo "usb_mode=$(bp_usb_mode_wanted)"
         echo "usb_mode_state=$(bp_usb_mode_state "$USBPOL")"
+        echo "usb_volume=$(bp_usbvol_wanted)"
+        echo "usb_dac_volctl=$(bp_usbvol_card | awk '{ print ($2 == "" ? "none" : $2) }')"
         # What really plays now: playing=<usb|internal> <cardN/pcmMp> <format> <channels> <rate>, one per running PCM
         for s in /proc/asound/card*/pcm*p/sub0; do
             grep -q RUNNING "$s/status" 2>/dev/null || continue
@@ -113,6 +119,11 @@ case "$1" in
             2) echo "usb_result=same" ;;
             *) echo "usb_result=unsupported" ;;
         esac
+        ;;
+    usb_volume)
+        case "$2" in full|follow) ;; *) echo "usb_volume_result=bad_value"; exit 1 ;; esac
+        bp_conf_set_key usb_dac_volume "$2"
+        echo "usb_volume_result=saved"
         ;;
     usb_mode)
         bp_usb_mode_valid "$2" || { echo "usb_mode_result=bad_value"; exit 1; }

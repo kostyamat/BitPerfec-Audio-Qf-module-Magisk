@@ -117,6 +117,10 @@ esac
         *) log_msg "USB DAC: no policy include in the module - left factory." ;;
     esac
 
+    # The USB DAC's level: full scale from Android, the DAC's own control (common/bp_usbvol.sh). One watcher.
+    nohup sh "$MODPATH/common/bp_usbvol.sh" watch >/dev/null 2>&1 &
+    log_msg "USB DAC level watcher started (usb_dac_volume=$(grep -m1 '^usb_dac_volume=' "$BP_CONF" 2>/dev/null | cut -d= -f2 || echo full))."
+
     # The user's call-microphone settings (common/bp_mic.sh, /sdcard/BitPerfectAudio/mic.conf): after a
     # reinstall the live AGDSP XML is the module's base again, so it is rebuilt once and the blob recompiled.
     . "$MODPATH/common/bp_mic.sh"
