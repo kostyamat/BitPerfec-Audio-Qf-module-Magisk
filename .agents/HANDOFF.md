@@ -1,6 +1,6 @@
 # Slice — 01.11.2026, session `3827b401` (Claude): v5.7.4 on stand 194 — DAC mode in app, own navigators, shared mic in force
 
-**v5.7.2-Universal (5702), commit `cea3c59`** — test build, not a release (no tag, `update.json` still 5.6.1).
+**v5.7.4-Universal (5704), commit `b6e75c2`** — test build, not a release (no tag, `update.json` still 5.6.1).
 Installed on **stand 194 `192.168.1.194:9876`** (QF05 004121, ums512, BU32107). Stand is shared with QF_DVR
 (session 147a9dc2) — talk to it ONLY in board room `qf-dvr-claude-window-7ef9` (owner set it 01.11, #2031; not Gemini's
 `50b5 ↔ MCU patch` room); rules in `C:\APPS_Contacts\BitPerfect--DVR\MIC_CLIENT_CONTRACT.md` § «Stand 194» —
