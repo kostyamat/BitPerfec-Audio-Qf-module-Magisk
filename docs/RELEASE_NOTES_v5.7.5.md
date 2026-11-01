@@ -1,6 +1,6 @@
 🔴 **QF / K706 (or its MG clone) only.** UIS7862: full module. UIS8581: reduced profile 🧪 (no tester report yet). Any other firmware is refused and nothing is changed.
 
-📖 **Guide with pictures:** [English](https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/blob/main/docs/GUIDE.en.md) · [Українською](https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/blob/main/docs/GUIDE.uk.md)
+📖 **Guide with pictures:** [English](https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/blob/main/docs/GUIDE.en.md) · [Українською](https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/blob/main/docs/GUIDE.uk.md) — also as PDF in the assets below
 
 **BitPerfect Control — the settings app inside the module**
 - Status: the chip, what is really playing and where (head unit or USB DAC, bits, rate), whether the module confirmed itself this boot. Settings in tabs: USB DAC, Microphone, Navigators, Look.

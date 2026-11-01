@@ -33,6 +33,9 @@ Rules in force, from the v5.6 release (owner, 15.10.2026). Examples of every tex
   root has none («Host key verification failed»). Check `git rev-list --left-right --count` = `0 0` after fetch.
 - GitHub release from Windows: `python -I tools/gh_release.py <tag> <FULL sha> <body.md> <zip>` (token from
   `git credential fill`, never printed; a short sha is rejected). Tag on the pushed HEAD.
+- Guide PDFs (owner 01.11: «Збери та прикріпи»): `python tools/build_guide_pdf.py <tag> <out dir>` (no `-I`: it needs
+  the user-site `markdown`; prints with Edge headless), then `python -I tools/gh_release_asset.py <tag> <pdf> <pdf>`.
+  The PDFs are release assets only, never committed.
 - **Magisk update** (`updateJson` in `module.prop` → `update.json` on the default branch): only AFTER the
   release asset is live, set `update.json` version / versionCode / zipUrl to it, add the release to
   `CHANGELOG.md`, commit, push. Pushed earlier, Magisk offers a zip that 404s. The zip name in `zipUrl` must
