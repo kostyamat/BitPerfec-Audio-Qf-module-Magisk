@@ -1,19 +1,49 @@
+<h1 align="center">BitPerfect</h1>
+<p align="center"><b>Bit-perfect audio engine for QF / Roco K706 head units</b><br>
+a Magisk module + its settings app, BitPerfect Control</p>
+
 <p align="center">
-  <a href="https://www.paypal.com/paypalme/kostyamat">
-    <img src="https://thumbs.dreamstime.com/b/cute-kawaii-coffee-mug-character-smiling-steam-isolated-white-adorable-cartoon-happy-face-decorative-lace-pattern-401912575.jpg" alt="Buy me a coffee" width="200"/>
-    <br>
-    <strong>If you found my work helpful, buy me a coffee! It keeps me motivated ☕</strong>
-  </a>
+  <a href="https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/releases/latest"><img src="https://img.shields.io/github/v/release/kostyamat/BitPerfec-Audio-Qf-module-Magisk?label=release&color=00b4d8" alt="Latest release"></a>
+  <img src="https://img.shields.io/badge/Magisk-module-00af9c" alt="Magisk module">
+  <img src="https://img.shields.io/badge/Android-10-3ddc84" alt="Android 10">
+  <img src="https://img.shields.io/badge/Unisoc-UIS7862%20%7C%20UIS8581-6c63ff" alt="UIS7862 | UIS8581">
+  <img src="https://img.shields.io/badge/firmware-QF%20%2F%20MG%20only-e5352b" alt="QF / MG firmware only">
 </p>
 
-# BitPerfect — audio engine for QF / Roco K706 head units
+<p align="center">
+  <a href="https://github.com/kostyamat/BitPerfec-Audio-Qf-module-Magisk/releases/latest"><b>⬇️ Download</b></a> ·
+  <a href="docs/GUIDE.en.md"><b>📖 Guide</b></a> ·
+  <a href="docs/GUIDE.uk.md"><b>📖 Посібник</b></a> ·
+  <a href="CHANGELOG.md"><b>📝 Changelog</b></a> ·
+  <a href="https://t.me/kostyamat_dev/3"><b>💬 Support group</b></a>
+</p>
 
 A Magisk module for QF / Roco K706 head units (and their MG clone) on **Unisoc UIS7862** — and, with a
 reduced profile, **UIS8581**. It takes the sound from any player at full quality, with no attenuation and no change to the
 frequency response, and hands it to the head unit's sound processor at **24 bit / 48 kHz, 0 dB**.
 Volume and effects stay where they belong: in the sound processor.
 
-📖 **User guide with pictures** — every setting, the app, the files: [English](docs/GUIDE.en.md) · [Українською](docs/GUIDE.uk.md)
+<table>
+  <tr>
+    <td width="50%"><img src="docs/img/en/01_usb_dac.png" alt="Status and USB DAC"></td>
+    <td width="50%"><img src="docs/img/en/03_microphone.png" alt="Call microphone"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/img/en/06_navigators.png" alt="Navigators"></td>
+    <td width="50%"><img src="docs/img/en/05_microphone_presets.png" alt="Microphone presets"></td>
+  </tr>
+</table>
+
+## At a glance
+
+| | |
+|---|---|
+| 🎚️ **Bit-perfect path** | one 24-bit / 48 kHz output at 0 dB into the sound processor (UIS7862); volume and effects on the chip |
+| 🔌 **USB DAC** | switch at once, full scale from Android, level on the DAC's own control — optionally on the head unit's knob |
+| 🎤 **Call microphone** | per channel (SIM, VoIP, Bluetooth): level, echo cancelling, noise reduction and its depth, presets |
+| 🎙️ **Shared microphone** | several apps record at once — a dashcam next to wDSP Pro |
+| 🧭 **Navigation** | prompts duck the music; add your own navigators |
+| 📱 **BitPerfect Control** | what is really playing and where; every setting in one app |
 
 ⚖️ **Legal status / Right to Repair:** [LEGAL.md](LEGAL.md) (Ukrainian)
 
@@ -53,6 +83,9 @@ Topway owner needed a reflash). The installer accepts only a QF MCU string / har
 - Everything is overlaid by Magisk; no system partition is ever written.
 
 ## What changed since the classic v4.18
+
+<details>
+<summary>v4.18 was a single BU32107 profile — the full list of what changed since then</summary>
 
 v4.18 was a single BU32107 profile. Since then:
 
@@ -99,6 +132,8 @@ v4.18 was a single BU32107 profile. Since then:
 - Disable / remove is safe: a guard script restores the factory volume and audio parameters on the same
   boot, and redoes ours when the module is enabled again.
 - On install a snapshot of the factory audio state is saved to `/sdcard/QF_audio_survey/`.
+
+</details>
 
 ## Install, disable, remove
 
@@ -176,6 +211,15 @@ The module payload is `META-INF`, `common`, `profiles`, `system`, `customize.sh`
 development notes — none of them is part of the module zip.
 
 ## Support the developer
+
+<p align="center">
+  <a href="https://www.paypal.com/paypalme/kostyamat">
+    <img src="https://thumbs.dreamstime.com/b/cute-kawaii-coffee-mug-character-smiling-steam-isolated-white-adorable-cartoon-happy-face-decorative-lace-pattern-401912575.jpg" alt="Buy me a coffee" width="200"/>
+    <br>
+    <strong>If you found my work helpful, buy me a coffee! It keeps me motivated ☕</strong>
+  </a>
+</p>
+
 
 🏆 If you appreciate my work and want to buy me coffee/beer - your choice, or purchase licenses for some paid products that I offer, here is a link to some of my payment details.
 👇

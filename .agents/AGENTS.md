@@ -45,7 +45,7 @@ Two things under one name, **in one repository** — the app ships inside the mo
 released together. The repo is public by intent; the owner, 30.09.2026: *«бітперфект — моя візитка»*.
 
 ```
-BitPerfec-Audio-Qf-module-Magisk/        branch v5.4-repaired
+BitPerfec-Audio-Qf-module-Magisk/        branch main (default; v5.4-repaired kept in step for old updateJson)
 ├─ .agents/            these notes — they cover BOTH halves
 ├─ control-app/        the Android app, com.radiorubka.bitperfect
 ├─ META-INF/  common/  profiles/  system/    ┐
