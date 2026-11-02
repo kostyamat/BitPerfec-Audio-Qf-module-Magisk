@@ -22,9 +22,11 @@ ask the Magisk version first (31.1+ with a Magisk 27 kernel is the owner's suspe
 ## ⏳ Local, NOT released (owner: «Випустимо пізніше, після відгуків на 576»), on stand 194, version still 5.7.6
 - DAC volume curve per model (5 sliders, knob 1/8/16/24/32 in % of the DAC control, monotone cubic in float, right side stretches, left stays), applied at once,
   `common/bp_propwait` instead of polling, index restored at once. 📻 Owner 02.11: «все працює чудово, реакція швидка». The owner's own curve is on the stand: DO NOT overwrite it.
-- Installer warns about the Magisk app; `RootCard` no-root screen, one `su`, real timeout: not yet seen on the unit (owner must revoke root in Magisk).
+- Installer warns about the Magisk app. `RootCard`: red status, sections hidden, button opens Magisk on Superuser / Modules, root asked again on return; one `su`, real timeout.
+  📻 Owner 02.11: «після надання доступу, програма зразу перечитала всі потрібні змінні». A running app keeps its open su shell after a revoke: expected.
+- Watcher: `bp_propwait` + `inotifyd` (`/dev/snd`, settings folder), 5 s tick; 📻 DAC replug restored the level before sound. Manual edit of the settings file not tried.
 - The driver's dB scale is false (`.agents/USB_DAC.md`); nothing is measured automatically (owner: «юзер бавиться»).
-- Release needs: guide + notes for the curve, a version bump, a clean install and an update from v5.7.6.
+- Release needs: listening on the speakers (`usb_dac=0`), guide + notes for the curve and the root screen, a version bump, a clean install and an update from v5.7.6.
 
 ## 📋 Next (`.agents/TODO.md`)
 Shorten `AGENTS.md` (over 8 KB);
