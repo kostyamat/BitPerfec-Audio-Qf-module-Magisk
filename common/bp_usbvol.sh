@@ -23,7 +23,8 @@
 #                        whisper and half the knob ("-64 dB") is normal listening (owner by ear). So no default may be
 #                        derived from it: a curve computed from those dB put knob 3 above normal listening.
 # Ignition off (sys.qf.is.acc.on=false): the DAC's switch off and control at 0 until the ignition is back.
-# The knob is read ten times a second, every change applied at once.
+# No polling of the knob: common/bp_propwait (native, __system_property_wait, 0 % CPU, source tools/native/) wakes
+# this at the change, and the change is applied at once. A slow tick looks after the card and the settings.
 # The head unit's own level is not touched: that is wDSP's (AUDIO_PATH_AND_MODULE_CONTRACT).
 
 BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
@@ -31,6 +32,8 @@ BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
 # (🔬 framework.jar of stand 194, 7862 update(2), 8581 QF005 + BMW).
 BP_USBVOL_TX=10
 BP_USBVOL_CURVE_DEFAULT="3.125 25 50 75 100"
+# bp_ctl.sh changes this after writing the settings: the watcher reads them now, not at the next tick.
+BP_USBVOL_POKE=sys.bitperfect.usbvol_poke
 
 bp_usbvol_wanted() {
     BPV_V=$(grep -m1 '^[[:space:]]*usb_dac_volume[[:space:]]*=' "$BP_CONF" 2>/dev/null | cut -d= -f2 | tr -d ' \r\t')
@@ -131,30 +134,60 @@ bp_usbvol_index() {
     service call audio $BP_USBVOL_TX i32 3 i32 "$1" i32 0 s16 com.radiorubka.bitperfect >/dev/null 2>&1
 }
 
-# The knob as the platform reads it: an unset sys.media.vol (after boot, before the first turn) is
-# persist.sys.main_volume (qf-platform 08), never full scale. 0 when muted.
-bp_usbvol_knob() {
-    BPV_VOL=$(getprop sys.media.vol)
-    case "$BPV_VOL" in ''|*[!0-9]*) BPV_VOL=$(getprop persist.sys.main_volume) ;; esac
-    case "$BPV_VOL" in ''|*[!0-9]*) BPV_VOL=0 ;; esac
+# Puts the index back only if it is not at full scale. IAudioService 15 = getStreamVolume (same builds as above).
+bp_usbvol_index_fix() {
+    BPV_IX=$(service call audio 15 i32 3 2>/dev/null | sed -n 's/.*Parcel(00000000 \([0-9a-f]*\).*/\1/p')
+    [ -n "$BPV_IX" ] && [ $((0x$BPV_IX)) != "$1" ] && bp_usbvol_index "$1"
+}
+
+# The knob: sys.media.vol $1, sys.mute.state $2, persist.sys.main_volume $3. An unset sys.media.vol (after boot, before
+# the first turn) is the main volume (qf-platform 08), never full scale. 0 when muted.
+bp_usbvol_knob_of() {
+    BPV_VOL=$1
+    case "$BPV_VOL" in ''|-|*[!0-9]*) BPV_VOL=$3 ;; esac
+    case "$BPV_VOL" in ''|-|*[!0-9]*) BPV_VOL=0 ;; esac
     [ "$BPV_VOL" -gt 32 ] && BPV_VOL=32
-    [ "$(getprop sys.mute.state)" = true ] && BPV_VOL=0
+    [ "$2" = true ] && BPV_VOL=0
     echo "$BPV_VOL"
+}
+
+bp_usbvol_knob() {
+    bp_usbvol_knob_of "$(getprop sys.media.vol)" "$(getprop sys.mute.state)" "$(getprop persist.sys.main_volume)"
+}
+
+# One line per change of these properties, a "T" line on a quiet tick: "C|T vol mute acc main poke".
+bp_usbvol_events() {
+    BPV_PROPS="sys.media.vol sys.mute.state sys.qf.is.acc.on persist.sys.main_volume $BP_USBVOL_POKE"
+    BPV_BIN="${0%/*}/bp_propwait"
+    [ -x "$BPV_BIN" ] && "$BPV_BIN" 500 $BPV_PROPS
+    # no native helper (or it could not run): the same lines, every half second
+    while :; do
+        BPV_L="T"
+        for BPV_PN in $BPV_PROPS; do BPV_PV=$(getprop "$BPV_PN"); BPV_L="$BPV_L ${BPV_PV:--}"; done
+        echo "$BPV_L"
+        sleep 0.5
+    done
 }
 
 bp_usbvol_watch() {
     echo $$ > "$BP_USBVOL_PID"
-    BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_LK=""; BPV_LV=""; BPV_AS=""; BPV_N=0
-    BPV_LASTHW=""; BPV_LASTIDX=""; BPV_LISTED=""; BPV_ON=0; BPV_FOLLOW=full; BPV_CUR=""; BPV_ACC=""
-    while [ "$(cat "$BP_USBVOL_PID" 2>/dev/null)" = $$ ]; do
-        # every 0.5 s: the settings, the plugged card, the ignition; the knob below goes round faster
-        if [ $((BPV_N % 5)) = 0 ]; then
+    BPV_ME=$$
+    bp_usbvol_events | {
+    BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_LK=""; BPV_LV=""; BPV_AS=""; BPV_T=0; BPV_POKE=""
+    BPV_LASTHW=""; BPV_LASTVOL=""; BPV_LISTED=""; BPV_ON=""; BPV_FOLLOW=full; BPV_CUR=""; BPV_MAXI=15
+    while read -r BPV_E BPV_PV BPV_PM BPV_ACC BPV_PMAIN BPV_PP; do
+        # On a tick, on a poke from bp_ctl.sh, and at the start: the settings, the card, audioserver. With usb_dac=0
+        # only every few seconds.
+        BPV_T=$((BPV_T + 1))
+        if [ "$BPV_PP" != "$BPV_POKE" ] || [ -z "$BPV_ON" ] || { [ "$BPV_E" = T ] && { [ "$BPV_ON" = 1 ] || [ $((BPV_T % 6)) = 0 ]; }; }; then
+            BPV_POKE=$BPV_PP
+            [ "$(cat "$BP_USBVOL_PID" 2>/dev/null)" = "$BPV_ME" ] || exit 0
             BPV_ON=$(bp_usb_wanted)
-            if [ "$BPV_ON" != 1 ]; then BPV_LASTHW=""; BPV_LASTIDX=""; BPV_N=0; sleep 3; continue; fi
+            if [ "$BPV_ON" != 1 ]; then BPV_LASTHW=""; BPV_LASTVOL=""; continue; fi
             # the card is looked up again only when /proc/asound changes (plug, unplug)
             BPV_S=$(ls /proc/asound 2>/dev/null | tr '\n' ' ')
             if [ "$BPV_S" != "$BPV_STAMP" ]; then
-                BPV_STAMP=$BPV_S; BPV_LASTHW=""; BPV_LASTIDX=""; BPV_LISTED=""; BPV_TOP_HW=""; BPV_CTL=""
+                BPV_STAMP=$BPV_S; BPV_LASTHW=""; BPV_LASTVOL=""; BPV_LISTED=""; BPV_TOP_HW=""; BPV_CTL=""
                 BPV_NUM=$(bp_usbvol_cardnum)
                 if [ -n "$BPV_NUM" ]; then
                     BPV_CTL=$(bp_usbvol_ctl "$BPV_NUM")
@@ -165,15 +198,14 @@ bp_usbvol_watch() {
             fi
             BPV_FOLLOW=$(bp_usbvol_wanted)
             [ -n "$BPV_NUM" ] && BPV_CUR=$(bp_usbvol_curve_user "$BPV_NUM")
-            BPV_ACC=$(getprop sys.qf.is.acc.on)
             # a new audioserver starts from its own state: the index again
             BPV_A=$(pidof audioserver)
-            if [ "$BPV_A" != "$BPV_AS" ]; then BPV_AS=$BPV_A; BPV_LASTIDX=""; BPV_LISTED=""; fi
-            if [ -z "$BPV_LISTED" ] && [ -n "$BPV_NUM" ] && bp_usbvol_usb_listed; then BPV_LISTED=1; BPV_LASTIDX=""; fi
+            if [ "$BPV_A" != "$BPV_AS" ]; then BPV_AS=$BPV_A; BPV_LASTVOL=""; BPV_LISTED=""; fi
+            if [ -z "$BPV_LISTED" ] && [ -n "$BPV_NUM" ] && bp_usbvol_usb_listed; then BPV_LISTED=1; BPV_LASTVOL=""; fi
+            [ -n "$BPV_LISTED" ] && [ "$BPV_E" = T ] && bp_usbvol_index_fix "$BPV_MAXI"
         fi
-        BPV_N=$((BPV_N + 1))
-        if [ -z "$BPV_NUM" ]; then sleep 0.1; continue; fi
-        BPV_VOL=$(bp_usbvol_knob)
+        [ "$BPV_ON" = 1 ] && [ -n "$BPV_NUM" ] || continue
+        BPV_VOL=$(bp_usbvol_knob_of "$BPV_PV" "$BPV_PM" "$BPV_PMAIN")
         BPV_HW=$BPV_TOP_HW; BPV_SW=1
         if [ -n "$BPV_TOP_HW" ] && [ "$BPV_FOLLOW" = follow ]; then
             if [ "$BPV_VOL" = 0 ]; then
@@ -206,12 +238,15 @@ bp_usbvol_watch() {
             fi
             BPV_LASTHW="$BPV_HW $BPV_SW"
         fi
-        # the framework rewrites the index on every knob turn, in either mode
-        if [ -n "$BPV_LISTED" ] && [ "$BPV_VOL" != "$BPV_LASTIDX" ]; then
-            bp_usbvol_index "$BPV_MAXI" && BPV_LASTIDX=$BPV_VOL
+        # The framework rewrites the index on every knob turn, in either mode, and may do so just after the property
+        # changed: now, and twice more shortly after. The tick above catches anything later.
+        if [ -n "$BPV_LISTED" ] && [ "$BPV_VOL" != "$BPV_LASTVOL" ]; then
+            BPV_LASTVOL=$BPV_VOL
+            bp_usbvol_index "$BPV_MAXI"
+            ( sleep 0.15; bp_usbvol_index_fix "$BPV_MAXI"; sleep 0.3; bp_usbvol_index_fix "$BPV_MAXI" ) &
         fi
-        sleep 0.1
     done
+    }
 }
 
 case "$1" in

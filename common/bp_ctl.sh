@@ -135,6 +135,7 @@ case "$1" in
     usb_volume)
         case "$2" in full|follow) ;; *) echo "usb_volume_result=bad_value"; exit 1 ;; esac
         bp_conf_set_key usb_dac_volume "$2"
+        setprop "$BP_USBVOL_POKE" "$$"
         echo "usb_volume_result=saved"
         ;;
     usb_curve)
@@ -149,6 +150,7 @@ case "$1" in
         else
             echo "usb_curve_result=bad_value"; exit 1
         fi
+        setprop "$BP_USBVOL_POKE" "$$"
         echo "usb_curve_result=saved"
         ;;
     usb_mode)

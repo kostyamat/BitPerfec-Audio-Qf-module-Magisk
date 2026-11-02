@@ -398,6 +398,7 @@ ui_print "- Setting permissions..."
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/config" 0 0 0755 0644
 set_perm "$MODPATH/service.sh" 0 0 0755
+set_perm "$MODPATH/common/bp_propwait" 0 0 0755
 
 # The Magisk app decides whether this works at all (owner 02.11.2026): said loudly, never refused. A hidden app
 # (another package name) says nothing here. The BitPerfect Control app says the same when it has no root.
