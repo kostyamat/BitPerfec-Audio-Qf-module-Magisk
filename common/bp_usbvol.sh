@@ -23,6 +23,7 @@
 #                        whisper and half the knob ("-64 dB") is normal listening (owner by ear). So no default may be
 #                        derived from it: a curve computed from those dB put knob 3 above normal listening.
 # Ignition off (sys.qf.is.acc.on=false): the DAC's switch off and control at 0 until the ignition is back.
+# The knob is read ten times a second, every change applied at once.
 # The head unit's own level is not touched: that is wDSP's (AUDIO_PATH_AND_MODULE_CONTRACT).
 
 BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
@@ -117,28 +118,16 @@ bp_usbvol_curve_valid() {
     echo "$1" | tr ',' ' ' | awk '{ for (i = 2; i <= 5; i++) if ($i + 0 <= $(i - 1) + 0) exit 1; exit !($5 + 0 <= 100) }'
 }
 
-# Control $2 of card $1 from value $3 to $4 without a jump: about a second, whatever the distance. The ear gets no
-# hit when a curve or a knob changes (owner 02.11: «я получив удар по вухам»).
-bp_usbvol_ramp() {
-    BPV_D=$(( $4 - $3 ))
-    [ "$BPV_D" = 0 ] && return 0
-    BPV_I=1; BPV_PV=$3
-    while [ "$BPV_I" -le 16 ]; do
-        BPV_NV=$(( $3 + BPV_D * BPV_I / 16 ))
-        if [ "$BPV_NV" != "$BPV_PV" ]; then
-            tinymix -D "$1" "$2" "$BPV_NV" >/dev/null 2>&1
-            BPV_PV=$BPV_NV
-            sleep 0.03
-        fi
-        BPV_I=$((BPV_I + 1))
-    done
+# Android's music index at full scale on the USB device. com.qf.framework sets it to the knob's number on every turn
+# (📻 stand 194 02.11: index 5, 6 between our 15s), a digital dip until this puts it back, so it goes at once.
+# setStreamVolume acts on the device the stream plays to, so it is sent only while the policy lists a USB output
+# (media then goes there); that is asked once per audioserver. Flags 0 = no volume panel.
+bp_usbvol_usb_listed() {
+    dumpsys media.audio_policy 2>/dev/null | awk '/Available output devices/ { on = 1; next }
+        /Available input devices/ { on = 0 } on && /type: AUDIO_DEVICE_OUT_USB/ { f = 1 } END { exit !f }'
 }
 
-# Android's music index on the USB device. setStreamVolume acts on the device the stream plays to, so it is
-# sent only while the policy lists a USB output (media then goes there); flags 0 = no volume panel.
 bp_usbvol_index() {
-    dumpsys media.audio_policy 2>/dev/null | awk '/Available output devices/ { on = 1; next }
-        /Available input devices/ { on = 0 } on && /type: AUDIO_DEVICE_OUT_USB/ { f = 1 } END { exit !f }' || return 1
     service call audio $BP_USBVOL_TX i32 3 i32 "$1" i32 0 s16 com.radiorubka.bitperfect >/dev/null 2>&1
 }
 
@@ -155,31 +144,41 @@ bp_usbvol_knob() {
 
 bp_usbvol_watch() {
     echo $$ > "$BP_USBVOL_PID"
-    BPV_LAST=""; BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_NOW=""; BPV_LK=""; BPV_LV=""
+    BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_LK=""; BPV_LV=""; BPV_AS=""; BPV_N=0
+    BPV_LASTHW=""; BPV_LASTIDX=""; BPV_LISTED=""; BPV_ON=0; BPV_FOLLOW=full; BPV_CUR=""; BPV_ACC=""
     while [ "$(cat "$BP_USBVOL_PID" 2>/dev/null)" = $$ ]; do
-        if [ "$(bp_usb_wanted)" != 1 ]; then BPV_LAST=""; sleep 3; continue; fi
-        # the card is looked up again only when /proc/asound changes (plug, unplug)
-        BPV_S=$(ls /proc/asound 2>/dev/null | tr '\n' ' ')
-        if [ "$BPV_S" != "$BPV_STAMP" ]; then
-            BPV_STAMP=$BPV_S; BPV_LAST=""; BPV_TOP_HW=""; BPV_CTL=""
-            BPV_NUM=$(bp_usbvol_cardnum)
-            if [ -n "$BPV_NUM" ]; then
-                BPV_CTL=$(bp_usbvol_ctl "$BPV_NUM")
-                [ -n "$BPV_CTL" ] && BPV_TOP_HW=$(bp_usbvol_max "$BPV_NUM" "$BPV_CTL")
-                [ -n "$BPV_TOP_HW" ] && BPV_NOW=$(tinymix -D "$BPV_NUM" -v "$BPV_CTL" 2>/dev/null | tr -d '\r' | awk '{ print $1 }')
+        # every 0.5 s: the settings, the plugged card, the ignition; the knob below goes round faster
+        if [ $((BPV_N % 5)) = 0 ]; then
+            BPV_ON=$(bp_usb_wanted)
+            if [ "$BPV_ON" != 1 ]; then BPV_LASTHW=""; BPV_LASTIDX=""; BPV_N=0; sleep 3; continue; fi
+            # the card is looked up again only when /proc/asound changes (plug, unplug)
+            BPV_S=$(ls /proc/asound 2>/dev/null | tr '\n' ' ')
+            if [ "$BPV_S" != "$BPV_STAMP" ]; then
+                BPV_STAMP=$BPV_S; BPV_LASTHW=""; BPV_LASTIDX=""; BPV_LISTED=""; BPV_TOP_HW=""; BPV_CTL=""
+                BPV_NUM=$(bp_usbvol_cardnum)
+                if [ -n "$BPV_NUM" ]; then
+                    BPV_CTL=$(bp_usbvol_ctl "$BPV_NUM")
+                    [ -n "$BPV_CTL" ] && BPV_TOP_HW=$(bp_usbvol_max "$BPV_NUM" "$BPV_CTL")
+                fi
+                BPV_MAXI=$(service call audio 17 i32 3 2>/dev/null | sed -n 's/.*Parcel(00000000 \([0-9a-f]*\).*/\1/p')
+                BPV_MAXI=$((0x${BPV_MAXI:-f}))
             fi
-            BPV_MAXI=$(service call audio 17 i32 3 2>/dev/null | sed -n 's/.*Parcel(00000000 \([0-9a-f]*\).*/\1/p')
-            BPV_MAXI=$((0x${BPV_MAXI:-f}))
+            BPV_FOLLOW=$(bp_usbvol_wanted)
+            [ -n "$BPV_NUM" ] && BPV_CUR=$(bp_usbvol_curve_user "$BPV_NUM")
+            BPV_ACC=$(getprop sys.qf.is.acc.on)
+            # a new audioserver starts from its own state: the index again
+            BPV_A=$(pidof audioserver)
+            if [ "$BPV_A" != "$BPV_AS" ]; then BPV_AS=$BPV_A; BPV_LASTIDX=""; BPV_LISTED=""; fi
+            if [ -z "$BPV_LISTED" ] && [ -n "$BPV_NUM" ] && bp_usbvol_usb_listed; then BPV_LISTED=1; BPV_LASTIDX=""; fi
         fi
-        if [ -z "$BPV_NUM" ]; then BPV_LAST=""; sleep 2; continue; fi
+        BPV_N=$((BPV_N + 1))
+        if [ -z "$BPV_NUM" ]; then sleep 0.1; continue; fi
         BPV_VOL=$(bp_usbvol_knob)
-        BPV_HW=$BPV_TOP_HW; BPV_SW=""
-        [ -n "$BPV_TOP_HW" ] && BPV_SW=1
-        if [ -n "$BPV_TOP_HW" ] && [ "$(bp_usbvol_wanted)" = follow ]; then
+        BPV_HW=$BPV_TOP_HW; BPV_SW=1
+        if [ -n "$BPV_TOP_HW" ] && [ "$BPV_FOLLOW" = follow ]; then
             if [ "$BPV_VOL" = 0 ]; then
                 BPV_HW=0; BPV_SW=0
             else
-                BPV_CUR=$(bp_usbvol_curve_user "$BPV_NUM")
                 # awk only when the knob or the curve moved
                 BPV_K2="$BPV_VOL $BPV_TOP_HW $BPV_CUR"
                 if [ "$BPV_K2" != "$BPV_LK" ]; then
@@ -193,22 +192,25 @@ bp_usbvol_watch() {
         # plays a tick every second (stream ALARM, 📻 stand 194 01.11: QFSleepWakeup «Delay seconds before go to
         # sleep», ten ticks) - through the DAC that is a loud beep a second (owner: «починає голосно пікати,
         # кожну секунду, ніби таймер»). The player is stopped by the platform a few seconds later anyway.
-        if [ -n "$BPV_TOP_HW" ] && [ "$(getprop sys.qf.is.acc.on)" = false ]; then BPV_HW=0; BPV_SW=0; fi
-        # a new audioserver starts from its own state: apply again
-        BPV_WANT="$BPV_MAXI ${BPV_HW:--} ${BPV_SW:--} $(pidof audioserver)"
-        if [ "$BPV_WANT" != "$BPV_LAST" ]; then
-            # silence comes at once, sound comes up gently: switch off first, or on before the ramp
+        if [ -n "$BPV_TOP_HW" ] && [ "$BPV_ACC" = false ]; then BPV_HW=0; BPV_SW=0; fi
+        # At once, no ramp (owner 02.11: «хотілося б максимально оперативно»). 📻 The DAC gets power only when
+        # QFSleepWakeup sets USB host mode (+22 s on stand 194), first sound +44 s: this is in place before it.
+        if [ -n "$BPV_TOP_HW" ] && [ "$BPV_HW $BPV_SW" != "$BPV_LASTHW" ]; then
+            [ -z "$BPV_LASTHW" ] && echo "[$(date '+%Y-%m-%d %H:%M:%S')] [up:$(cut -d' ' -f1 /proc/uptime)s] USB DAC level set: knob $BPV_VOL, $BPV_CTL $BPV_HW of $BPV_TOP_HW." >> /data/adb/BitPerfect.log
             if [ "$BPV_SW" = 0 ]; then
                 tinymix -D "$BPV_NUM" "${BPV_CTL%Volume}Switch" 0 >/dev/null 2>&1
                 tinymix -D "$BPV_NUM" "$BPV_CTL" "$BPV_HW" >/dev/null 2>&1
-            elif [ -n "$BPV_HW" ]; then
+            else
+                tinymix -D "$BPV_NUM" "$BPV_CTL" "$BPV_HW" >/dev/null 2>&1
                 tinymix -D "$BPV_NUM" "${BPV_CTL%Volume}Switch" 1 >/dev/null 2>&1
-                bp_usbvol_ramp "$BPV_NUM" "$BPV_CTL" "${BPV_NOW:-$BPV_HW}" "$BPV_HW"
             fi
-            BPV_NOW=$BPV_HW
-            if bp_usbvol_index "$BPV_MAXI"; then BPV_LAST=$BPV_WANT; else BPV_LAST=""; sleep 3; fi
+            BPV_LASTHW="$BPV_HW $BPV_SW"
         fi
-        sleep 0.5
+        # the framework rewrites the index on every knob turn, in either mode
+        if [ -n "$BPV_LISTED" ] && [ "$BPV_VOL" != "$BPV_LASTIDX" ]; then
+            bp_usbvol_index "$BPV_MAXI" && BPV_LASTIDX=$BPV_VOL
+        fi
+        sleep 0.1
     done
 }
 

@@ -21,7 +21,10 @@ Measured on stand 194 (UIS7862, PCM2704 `08bb:2704`), 01.11.2026, unless marked 
   `/proc/asound/cardN/usbmixer`: `dBmin=-12800, dBmax=0` (1/100 dB), 1 dB a step on paper. 🔴 Not what comes out: owner by ear, step 4
   («−124 dB») is a whisper, half the knob (step 64) normal listening. Never derive a level from it. Nothing is measured automatically (owner 02.11: «Ми дали інструмент, - юзер бавиться»).
 - `common/bp_usbvol.sh`: index = max on the USB device; `usb_dac_volume=follow` → control from `sys.media.vol` through a
-  curve per DAC model (`usb_dac_curve_<vid>_<pid>=a,b,c,d,e`: knob 1, 8, 16, 24, 32 in % of the range, strictly rising, monotone cubic in float; default even in steps; every level change is a ~1 s ramp)
+  curve per DAC model (`usb_dac_curve_<vid>_<pid>=a,b,c,d,e`: knob 1, 8, 16, 24, 32 in % of the range, strictly rising, monotone cubic in float; default even in steps; applied at once, no ramp: owner 02.11)
+- 📻 Boot, stand 194 02.11: QFSleepWakeup sets USB host mode at +22 s (the DAC only then has power), announced to the policy +24.5 s, first
+  player +44 s. `com.qf.framework` writes STREAM_MUSIC index = the knob on every turn (`setStreamVolume index:5, flags 0x40`), a digital dip on USB
+  until the watcher puts 15 back (it was up to ~0.9 s; now read at 0.1 s). ❓ In full mode nothing restored it before this fix.
   (unset → `persist.sys.main_volume`), mute → switch off. No control → no follow (owner: «немає - значить немає»).
 
 ## 3. «Auto» = the player straight to the DAC (not done — design notes)
