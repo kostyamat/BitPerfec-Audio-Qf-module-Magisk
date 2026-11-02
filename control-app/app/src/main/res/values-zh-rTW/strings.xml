@@ -130,7 +130,7 @@
     <string name="status_root_none">無root權限</string>
     <string name="status_no_module">BitPerfect 未啟用</string>
     <string name="status_no_answer">模組無回應</string>
-    <string name="root_help">BitPerfect Control 需要 root。在 Magisk 中打開 Superuser 並允許，然後點擊重試。</string>
+    <string name="root_help">BitPerfect Control 需要 root 權限。點擊 開啟 Magisk，在 Superuser 中將其啟用並返回。</string>
     <string name="root_no_module_help">在 Magisk 中打開 Modules：必須安裝並開啟 BitPerfect。然後重新開機。</string>
     <string name="root_no_answer_help">點擊重試。如果重複發生，請重啟車機。</string>
     <string name="root_magisk_good">Magisk 應用程式 %1$s 是正確的版本。如果 Magisk 未詢問，請檢查其 Superuser 列表和設定。</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">當前：旋鈕 %1$s，DAC 步數 %2$s / %3$s</string>
     <string name="dac_curve_point">旋鈕 %1$d：%2$s%%</string>
     <string name="dac_curve_default">重設</string>
+    <string name="root_open_magisk">開啟 Magisk</string>
 </resources>

@@ -163,6 +163,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        rootCard.onResume();
         ui.postDelayed(poll, POLL_MS);
     }
 

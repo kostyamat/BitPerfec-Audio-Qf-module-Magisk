@@ -130,7 +130,7 @@
     <string name="status_root_none">Немає root-доступу</string>
     <string name="status_no_module">BitPerfect не активний</string>
     <string name="status_no_answer">Модуль не відповів</string>
-    <string name="root_help">BitPerfect Control потрібен root. У Magisk відкрийте Суперкористувач і дозвольте, потім натисніть Спробувати ще.</string>
+    <string name="root_help">BitPerfect Control потрібен root. Натисніть Відкрити Magisk, увімкніть його у списку Суперкористувач і поверніться.</string>
     <string name="root_no_module_help">У Magisk відкрийте Модулі: BitPerfect має бути встановлений і ввімкнений. Потім перезавантажте магнітолу.</string>
     <string name="root_no_answer_help">Натисніть Спробувати ще. Якщо повториться, перезавантажте магнітолу.</string>
     <string name="root_magisk_good">Програма Magisk %1$s потрібної версії. Якщо Magisk нічого не запитав, перевірте його список Суперкористувач і налаштування.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Зараз: ручка %1$s, крок ЦАПа %2$s із %3$s</string>
     <string name="dac_curve_point">Ручка %1$d: %2$s%%</string>
     <string name="dac_curve_default">Скинути</string>
+    <string name="root_open_magisk">Відкрити Magisk</string>
 </resources>

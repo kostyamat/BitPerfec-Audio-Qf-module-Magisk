@@ -130,7 +130,7 @@
     <string name="status_root_none">Нет root доступа</string>
     <string name="status_no_module">BitPerfect не активен</string>
     <string name="status_no_answer">Модуль не отвечает</string>
-    <string name="root_help">BitPerfect Control нужен root. В Magisk откройте Superuser и разрешите доступ, затем нажмите Повторить.</string>
+    <string name="root_help">Для BitPerfect Control нужны права root. Нажмите Открыть Magisk, включите его в Superuser и вернитесь.</string>
     <string name="root_no_module_help">В Magisk откройте Модули: BitPerfect должен быть установлен и включен. Затем перезагрузите.</string>
     <string name="root_no_answer_help">Нажмите Повторить. Если повторяется, перезагрузите головное устройство.</string>
     <string name="root_magisk_good">Приложение Magisk %1$s имеет правильную версию. Если Magisk не запросил доступ, проверьте его список Superuser и настройки.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Сейчас: ручка %1$s, шаг ЦАП %2$s из %3$s</string>
     <string name="dac_curve_point">Ручка %1$d: %2$s%%</string>
     <string name="dac_curve_default">Сброс</string>
+    <string name="root_open_magisk">Открыть Magisk</string>
 </resources>

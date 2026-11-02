@@ -130,7 +130,7 @@
     <string name="status_root_none">Sin acceso root</string>
     <string name="status_no_module">BitPerfect no esta activo</string>
     <string name="status_no_answer">El modulo no respondio</string>
-    <string name="root_help">BitPerfect Control necesita root. En Magisk, abra Superuser y permitaselo, luego toque Reintentar.</string>
+    <string name="root_help">BitPerfect Control necesita root. Toca Abrir Magisk, actívalo en Superuser y vuelve.</string>
     <string name="root_no_module_help">En Magisk, abra Modules: BitPerfect debe estar instalado y encendido. Luego reinicie.</string>
     <string name="root_no_answer_help">Toque Reintentar. Si se repite, reinicie la unidad principal.</string>
     <string name="root_magisk_good">La aplicacion Magisk %1$s es la version correcta. Si Magisk no pregunto, verifique su lista de Superuser y su configuracion.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Ahora: mando %1$s, paso del DAC %2$s de %3$s</string>
     <string name="dac_curve_point">Mando %1$d: %2$s%%</string>
     <string name="dac_curve_default">Restablecer</string>
+    <string name="root_open_magisk">Abrir Magisk</string>
 </resources>

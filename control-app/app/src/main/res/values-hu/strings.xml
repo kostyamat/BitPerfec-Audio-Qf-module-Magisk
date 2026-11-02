@@ -130,7 +130,7 @@
     <string name="status_root_none">Nincs root hozzaferes</string>
     <string name="status_no_module">A BitPerfect nem aktiv</string>
     <string name="status_no_answer">A modul nem válaszolt</string>
-    <string name="root_help">A BitPerfect Control root jogosultsagot igenyel. A Magisk alkalmazasban nyissa meg a Superuser fület es engedelyezze, majd koppintson az Ujra probalas lehetosegre.</string>
+    <string name="root_help">A BitPerfect Control root jogosultságot igényel. Koppintson a Magisk megnyitása lehetőségre, kapcsolja be a Superuser menüben, majd térjen vissza.</string>
     <string name="root_no_module_help">A Magisk alkalmazasban nyissa meg a Modules fület: a BitPerfect telepitese es bekapcsolasa szukseges. Utana inditsa ujjra.</string>
     <string name="root_no_answer_help">Koppintson az Ujra probalas lehetosegre. Ha megismetlodik, inditsa ujjra a fejegyseget.</string>
     <string name="root_magisk_good">A Magisk %1$s alkalmazas a megfelelo verzio. Ha a Magisk nem kerdezte meg, ellenorizze a Superuser listat es a beallitasokat.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Most: gomb %1$s, DAC lépés %2$s / %3$s</string>
     <string name="dac_curve_point">Gomb %1$d: %2$s%%</string>
     <string name="dac_curve_default">Alaphelyzet</string>
+    <string name="root_open_magisk">Magisk megnyitása</string>
 </resources>

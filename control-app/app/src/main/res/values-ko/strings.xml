@@ -130,7 +130,7 @@
     <string name="status_root_none">root 권한 없음</string>
     <string name="status_no_module">BitPerfect가 활성화되지 않음</string>
     <string name="status_no_answer">모듈이 응답하지 않음</string>
-    <string name="root_help">BitPerfect Control에는 root가 필요합니다. Magisk에서 Superuser를 열어 허용한 후 다시 시도를 탭하세요.</string>
+    <string name="root_help">BitPerfect Control에는 root가 필요합니다. Magisk 열기를 탭하고 Superuser에서 켠 후 돌아오세요.</string>
     <string name="root_no_module_help">Magisk에서 Modules를 여세요: BitPerfect가 설치되어 있고 켜져 있어야 합니다. 그 후 재부팅하세요.</string>
     <string name="root_no_answer_help">다시 시도를 탭하세요. 반복되면 헤드 유닛을 재부팅하세요.</string>
     <string name="root_magisk_good">Magisk 앱 %1$s은(는) 올바른 버전입니다. Magisk가 묻지 않았다면 Superuser 목록과 설정을 확인하세요.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">현재: 노브 %1$s, DAC 단계 %2$s / %3$s</string>
     <string name="dac_curve_point">노브 %1$d: %2$s%%</string>
     <string name="dac_curve_default">초기화</string>
+    <string name="root_open_magisk">Magisk 열기</string>
 </resources>

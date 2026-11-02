@@ -130,7 +130,7 @@
     <string name="status_root_none">Žádný root přístup</string>
     <string name="status_no_module">BitPerfect není aktivní</string>
     <string name="status_no_answer">Modul neodpověděl</string>
-    <string name="root_help">BitPerfect Control vyžaduje root. V aplikaci Magisk otevřete Superuser a povolte jej, poté klepněte na Zkusit znovu.</string>
+    <string name="root_help">BitPerfect Control vyžaduje root. Klepněte na Otevřít Magisk, zapněte jej v Superuser a vraťte se.</string>
     <string name="root_no_module_help">V aplikaci Magisk otevřete Modules: BitPerfect musí být nainstalován a zapnut. Poté proveďte restart.</string>
     <string name="root_no_answer_help">Klepněte na Zkusit znovu. Pokud se to opakuje, restartujte hlavní jednotku.</string>
     <string name="root_magisk_good">Aplikace Magisk %1$s je správná verze. Pokud se Magisk nezeptal, zkontrolujte jeho seznam Superuser a nastavení.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Nyní: knoflík %1$s, krok DAC %2$s z %3$s</string>
     <string name="dac_curve_point">Knoflík %1$d: %2$s%%</string>
     <string name="dac_curve_default">Obnovit</string>
+    <string name="root_open_magisk">Otevřít Magisk</string>
 </resources>

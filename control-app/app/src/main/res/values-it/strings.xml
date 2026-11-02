@@ -130,7 +130,7 @@
     <string name="status_root_none">Nessun accesso root</string>
     <string name="status_no_module">BitPerfect non e attivo</string>
     <string name="status_no_answer">Il modulo non ha risposto</string>
-    <string name="root_help">BitPerfect Control richiede root. In Magisk, apri Superuser e consenti l\'accesso, quindi toccare Riprova.</string>
+    <string name="root_help">BitPerfect Control richiede i permessi di root. Tocca Apri Magisk, attivalo in Superuser e torna indietro.</string>
     <string name="root_no_module_help">In Magisk, apri Modules: BitPerfect deve essere installato e attivato. Quindi riavvia.</string>
     <string name="root_no_answer_help">Tocca Riprova. Se si ripete, riavvia l\'autoradio.</string>
     <string name="root_magisk_good">L\'app Magisk %1$s e la versione corretta. Se Magisk non ha chiesto, controlla la lista Superuser e le impostazioni.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Ora: manopola %1$s, passo DAC %2$s di %3$s</string>
     <string name="dac_curve_point">Manopola %1$d: %2$s%%</string>
     <string name="dac_curve_default">Ripristina</string>
+    <string name="root_open_magisk">Apri Magisk</string>
 </resources>

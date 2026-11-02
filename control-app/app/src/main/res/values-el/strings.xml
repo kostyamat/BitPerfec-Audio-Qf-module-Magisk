@@ -130,7 +130,7 @@
     <string name="status_root_none">Χωρίς πρόσβαση root</string>
     <string name="status_no_module">Το BitPerfect δεν είναι ενεργό</string>
     <string name="status_no_answer">Η μονάδα δεν απάντησε</string>
-    <string name="root_help">Το BitPerfect Control απαιτεί root. Στο Magisk, ανοίξτε το Superuser και επιτρέψτε το, στη συνέχεια πατήστε Επανάληψη.</string>
+    <string name="root_help">Το BitPerfect Control χρειάζεται root. Πατήστε Άνοιγμα Magisk, ενεργοποιήστε το στο Superuser και επιστρέψτε.</string>
     <string name="root_no_module_help">Στο Magisk, ανοίξτε Modules: Το BitPerfect πρέπει να είναι εγκατεστημένο και ενεργם... ενεργοποιημένο. Μετά κάντε επανεκκίνηση.</string>
     <string name="root_no_answer_help">Πατήστε Επανάληψη. Εάν επαναληφθεί, κάντε επανεκκίνηση στην κεντρική μονάδα.</string>
     <string name="root_magisk_good">Η εφαρμογή Magisk %1$s είναι η σωστή έκδοση. Εάν το Magisk δεν ρώτησε, ελέγξτε τη λίστα Superuser και τις ρυθμίσεις του.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Τώρα: κουμπί %1$s, βήμα DAC %2$s από %3$s</string>
     <string name="dac_curve_point">Κουμπί %1$d: %2$s%%</string>
     <string name="dac_curve_default">Επαναφορά</string>
+    <string name="root_open_magisk">Άνοιγμα Magisk</string>
 </resources>

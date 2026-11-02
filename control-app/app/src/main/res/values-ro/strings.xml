@@ -130,7 +130,7 @@
     <string name="status_root_none">Fara acces root</string>
     <string name="status_no_module">BitPerfect nu este activ</string>
     <string name="status_no_answer">Modulul nu a raspuns</string>
-    <string name="root_help">BitPerfect Control are nevoie de root. In Magisk, deschideti Superuser si permiteti accesul, apoi atingeti Reincercare.</string>
+    <string name="root_help">BitPerfect Control necesită root. Atinge Deschide Magisk, activează-l în Superuser și revino.</string>
     <string name="root_no_module_help">In Magisk, deschideti Modules: BitPerfect trebuie instalat si pornit. Apoi reporniti.</string>
     <string name="root_no_answer_help">Atingeti Reincercare. Daca se repeta, reporniti unitatea centrala.</string>
     <string name="root_magisk_good">Aplicatia Magisk %1$s este versiunea corecta. Daca Magisk nu a intrebat, verificati lista Superuser si setarile.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Acum: buton %1$s, pas DAC %2$s din %3$s</string>
     <string name="dac_curve_point">Buton %1$d: %2$s%%</string>
     <string name="dac_curve_default">Resetare</string>
+    <string name="root_open_magisk">Deschide Magisk</string>
 </resources>

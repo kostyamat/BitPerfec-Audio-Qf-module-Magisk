@@ -130,7 +130,7 @@
     <string name="status_root_none">rootアクセスがありません</string>
     <string name="status_no_module">BitPerfectが有効ではありません</string>
     <string name="status_no_answer">モジュールからの応答がありません</string>
-    <string name="root_help">BitPerfect Controlにはrootが必要です。MagiskでSuperuserを開いて許可し、やり直すをタップしてください。</string>
+    <string name="root_help">BitPerfect Controlにはrootが必要です。「Magiskを開く」をタップし、Superuserで有効にしてから戻ってください。</string>
     <string name="root_no_module_help">MagiskでModulesを開いてください：BitPerfectがインストールされ、有効になっている必要があります。その後、再起動してください。</string>
     <string name="root_no_answer_help">やり直すをタップしてください。繰り返す場合は、ヘッドユニットを再起動してください。</string>
     <string name="root_magisk_good">Magiskアプリ %1$s は正しいバージョンです。Magiskが表示されなかった場合は、Superuserリストと設定を確認してください。</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">現在：ノブ %1$s、DACステップ %2$s / %3$s</string>
     <string name="dac_curve_point">ノブ %1$d: %2$s%%</string>
     <string name="dac_curve_default">リセット</string>
+    <string name="root_open_magisk">Magiskを開く</string>
 </resources>

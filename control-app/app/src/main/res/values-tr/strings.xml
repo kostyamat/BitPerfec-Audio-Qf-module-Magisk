@@ -130,7 +130,7 @@
     <string name="status_root_none">Root erisimi yok</string>
     <string name="status_no_module">BitPerfect aktif degil</string>
     <string name="status_no_answer">Modul yanit vermedi</string>
-    <string name="root_help">BitPerfect Control root gerektirir. Magisk\'te Superuser\'i acin ve izin verin, ardindan Tekrar dene\'ye dokunun.</string>
+    <string name="root_help">BitPerfect Control root erişimi gerektirir. Magisk\'i Aç öğesine dokunun, Superuser\'da etkinleştirin ve geri dönün.</string>
     <string name="root_no_module_help">Magisk\'te Modules\'i acin: BitPerfect kurulu ve acik olmalidir. Ardindan yeniden baslatin.</string>
     <string name="root_no_answer_help">Tekrar dene\'ye dokunun. Tekrarlarsa araba teybini yeniden baslatin.</string>
     <string name="root_magisk_good">Magisk uygulamasi %1$s dogru surumdur. Magisk sormadiysa Superuser listesini ve ayarlarini kontrol edin.</string>
@@ -143,4 +143,5 @@
     <string name="dac_curve_now">Şimdi: düğme %1$s, DAC adımı %2$s / %3$s</string>
     <string name="dac_curve_point">Düğme %1$d: %2$s%%</string>
     <string name="dac_curve_default">Sıfırla</string>
+    <string name="root_open_magisk">Magisk\'i Aç</string>
 </resources>

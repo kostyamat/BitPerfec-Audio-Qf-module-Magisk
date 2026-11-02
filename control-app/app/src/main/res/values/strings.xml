@@ -139,7 +139,7 @@
     <string name="status_root_none">No root access</string>
     <string name="status_no_module">BitPerfect is not active</string>
     <string name="status_no_answer">The module did not answer</string>
-    <string name="root_help">BitPerfect Control needs root. In Magisk, open Superuser and allow it, then tap Try again.</string>
+    <string name="root_help">BitPerfect Control needs root. Tap Open Magisk, switch it on in Superuser and come back.</string>
     <string name="root_no_module_help">In Magisk, open Modules: BitPerfect must be installed and switched on. Then reboot.</string>
     <string name="root_no_answer_help">Tap Try again. If it repeats, reboot the head unit.</string>
     <string name="root_magisk_good">Magisk app %1$s is the right version. If Magisk did not ask, check its Superuser list and settings.</string>
@@ -152,4 +152,5 @@
     <string name="dac_curve_now">Now: knob %1$s, DAC step %2$s of %3$s</string>
     <string name="dac_curve_point">Knob %1$d: %2$s%%</string>
     <string name="dac_curve_default">Reset</string>
+    <string name="root_open_magisk">Open Magisk</string>
 </resources>
