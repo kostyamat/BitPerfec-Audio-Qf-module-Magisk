@@ -15,7 +15,8 @@ System language en-US. Shared with QF_DVR (session 147a9dc2): board room `qf-dvr
 
 ## ⏳ Open
 - Marcin's complaint on v5.7.5 (noise, YT Music crash, ~8 reboots): cause NOT established. Needs his log + tombstones and Magisk version.
-- Recurring on the stand: `system_server` SIGSEGV in JIT (`Jit thread pool`, pc 0) early in boots, also with BitPerfect removed. ❓ Suspect: helper module `com_v7878_pmpatch_3` hooks; not checked.
+- Stand: `system_server` SIGSEGV in JIT at boot, also with BitPerfect removed. 🧩 Suspect PMPatch3, ❓ or QF DVR (owner). `DEBT.md`; test = disable PMPatch3 for a few boots, needs the owner's yes.
+- Owner's toggle idea (head unit path while the DAC is off): top of `TODO.md`.
 - `usb_dac_volume` default is `full`: a person switching to USB DAC gets it at full scale until the knob toggle is on. Owner has not decided.
 
 ## 📋 Next (`.agents/TODO.md`)

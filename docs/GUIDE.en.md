@@ -86,7 +86,10 @@ inside the DAC by its own volume control, after the full 16/24-bit word has arri
 **Volume curve.** With the knob following on, the tab shows five sliders: where knob positions 1, 8, 16, 24 and 32 land on this DAC's own
 scale, in percent. DACs differ (steps, range, what is audible where), so tune it by ear with music on:
 
-- it applies as soon as you let go of the slider, and it is kept per DAC model: plug another DAC and it has its own curve;
+![Volume curve for this DAC](img/en/08_dac_curve.png)
+
+- it applies as soon as you let go of the slider;
+- **each DAC model keeps its own saved curve.** Plug another DAC and it starts with its own curve (even steps until you change it); plug the first one back and its curve returns by itself;
 - moving a slider stretches the ones to its right; those to its left stay, so build the curve from left to right;
 - two sliders never share a level, and **Reset** returns to even steps;
 - the line above the sliders shows where the knob is now and which DAC step that gives.
