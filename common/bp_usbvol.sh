@@ -24,7 +24,8 @@
 #                        derived from it: a curve computed from those dB put knob 3 above normal listening.
 # Ignition off (sys.qf.is.acc.on=false): the DAC's switch off and control at 0 until the ignition is back.
 # No polling of the knob: common/bp_propwait (native, __system_property_wait, 0 % CPU, source tools/native/) wakes
-# this at the change, and the change is applied at once. A slow tick looks after the card and the settings.
+# this at the change, and the change is applied at once. inotifyd watches /dev/snd (a DAC plugged, 📻 stand 194: ~45 ms;
+# /proc gives no such events) and the settings folder; init.svc.audioserver tells of a restart. A 5 s tick is the safety net.
 # The head unit's own level is not touched: that is wDSP's (AUDIO_PATH_AND_MODULE_CONTRACT).
 
 BP_USBVOL_PID=/data/local/tmp/bp_usbvol.pid
@@ -155,11 +156,26 @@ bp_usbvol_knob() {
     bp_usbvol_knob_of "$(getprop sys.media.vol)" "$(getprop sys.mute.state)" "$(getprop persist.sys.main_volume)"
 }
 
-# One line per change of these properties, a "T" line on a quiet tick: "C|T vol mute acc main poke".
+# inotifyd, Magisk's busybox first. Watching one file on /sdcard fails here (📻 Invalid argument), the folder works.
+bp_usbvol_inotify() {
+    BPV_NT=""
+    [ -x /data/adb/magisk/busybox ] && BPV_NT="/data/adb/magisk/busybox inotifyd"
+    [ -z "$BPV_NT" ] && command -v inotifyd >/dev/null 2>&1 && BPV_NT=inotifyd
+    [ -n "$BPV_NT" ] && [ -d /dev/snd ] || return 1
+    BPV_NW="/dev/snd:nd"
+    [ -d "$BP_CONF_DIR" ] && BPV_NW="$BPV_NW $BP_CONF_DIR:w"
+    $BPV_NT - $BPV_NW 2>/dev/null &
+    return 0
+}
+
+# One line per event: "C|T vol mute acc main poke audioserver" from the properties (T = a quiet tick), anything else
+# from inotifyd ("n<TAB>/dev/snd<TAB>pcmC1D0p").
 bp_usbvol_events() {
-    BPV_PROPS="sys.media.vol sys.mute.state sys.qf.is.acc.on persist.sys.main_volume $BP_USBVOL_POKE"
+    BPV_PROPS="sys.media.vol sys.mute.state sys.qf.is.acc.on persist.sys.main_volume $BP_USBVOL_POKE init.svc.audioserver"
     BPV_BIN="${0%/*}/bp_propwait"
-    [ -x "$BPV_BIN" ] && "$BPV_BIN" 500 $BPV_PROPS
+    BPV_TICK=500
+    bp_usbvol_inotify && BPV_TICK=5000
+    [ -x "$BPV_BIN" ] && "$BPV_BIN" "$BPV_TICK" $BPV_PROPS
     # no native helper (or it could not run): the same lines, every half second
     while :; do
         BPV_L="T"
@@ -174,20 +190,29 @@ bp_usbvol_watch() {
     BPV_ME=$$
     bp_usbvol_events | {
     BPV_STAMP=""; BPV_NUM=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_LK=""; BPV_LV=""; BPV_AS=""; BPV_T=0; BPV_POKE=""
-    BPV_LASTHW=""; BPV_LASTVOL=""; BPV_LISTED=""; BPV_ON=""; BPV_FOLLOW=full; BPV_CUR=""; BPV_MAXI=15
-    while read -r BPV_E BPV_PV BPV_PM BPV_ACC BPV_PMAIN BPV_PP; do
-        # On a tick, on a poke from bp_ctl.sh, and at the start: the settings, the card, audioserver. With usb_dac=0
-        # only every few seconds.
-        BPV_T=$((BPV_T + 1))
-        if [ "$BPV_PP" != "$BPV_POKE" ] || [ -z "$BPV_ON" ] || { [ "$BPV_E" = T ] && { [ "$BPV_ON" = 1 ] || [ $((BPV_T % 6)) = 0 ]; }; }; then
-            BPV_POKE=$BPV_PP
+    BPV_LASTHW=""; BPV_LASTVOL=""; BPV_LISTED=""; BPV_ON=""; BPV_FOLLOW=full; BPV_CUR=""; BPV_MAXI=15; BPV_SVC=""
+    BPV_PV=-; BPV_PM=-; BPV_ACC=-; BPV_PMAIN=-; BPV_PP=-; BPV_PS=-; BPV_SLOW=1
+    while read -r BPV_E BPV_F1 BPV_F2 BPV_F3 BPV_F4 BPV_F5 BPV_F6; do
+        case "$BPV_E" in
+            C|T) BPV_PV=$BPV_F1; BPV_PM=$BPV_F2; BPV_ACC=$BPV_F3; BPV_PMAIN=$BPV_F4; BPV_PP=$BPV_F5; BPV_PS=$BPV_F6 ;;
+            *) BPV_SLOW=1
+               # a new card node can come a moment before its /proc entry: look once more just after
+               BPV_T=$((BPV_T + 1))
+               ( sleep 0.5; setprop "$BP_USBVOL_POKE" "d$BPV_T" ) & ;;
+        esac
+        # The settings, the card, audioserver: on an event from inotifyd, a poke from bp_ctl.sh, an audioserver state
+        # change, a tick, and at the start.
+        [ "$BPV_PP" != "$BPV_POKE" ] || [ "$BPV_PS" != "$BPV_SVC" ] || [ "$BPV_E" = T ] && BPV_SLOW=1
+        if [ "$BPV_SLOW" = 1 ]; then
+            BPV_SLOW=0
+            BPV_POKE=$BPV_PP; BPV_SVC=$BPV_PS
             [ "$(cat "$BP_USBVOL_PID" 2>/dev/null)" = "$BPV_ME" ] || exit 0
             BPV_ON=$(bp_usb_wanted)
             if [ "$BPV_ON" != 1 ]; then BPV_LASTHW=""; BPV_LASTVOL=""; continue; fi
             # the card is looked up again only when /proc/asound changes (plug, unplug)
             BPV_S=$(ls /proc/asound 2>/dev/null | tr '\n' ' ')
             if [ "$BPV_S" != "$BPV_STAMP" ]; then
-                BPV_STAMP=$BPV_S; BPV_LASTHW=""; BPV_LASTVOL=""; BPV_LISTED=""; BPV_TOP_HW=""; BPV_CTL=""
+                BPV_STAMP=$BPV_S; BPV_LASTHW=""; BPV_LASTVOL=""; BPV_LISTED=""; BPV_TOP_HW=""; BPV_CTL=""; BPV_TRY=0
                 BPV_NUM=$(bp_usbvol_cardnum)
                 if [ -n "$BPV_NUM" ]; then
                     BPV_CTL=$(bp_usbvol_ctl "$BPV_NUM")
@@ -200,8 +225,16 @@ bp_usbvol_watch() {
             [ -n "$BPV_NUM" ] && BPV_CUR=$(bp_usbvol_curve_user "$BPV_NUM")
             # a new audioserver starts from its own state: the index again
             BPV_A=$(pidof audioserver)
-            if [ "$BPV_A" != "$BPV_AS" ]; then BPV_AS=$BPV_A; BPV_LASTVOL=""; BPV_LISTED=""; fi
-            if [ -z "$BPV_LISTED" ] && [ -n "$BPV_NUM" ] && bp_usbvol_usb_listed; then BPV_LISTED=1; BPV_LASTVOL=""; fi
+            if [ "$BPV_A" != "$BPV_AS" ]; then BPV_AS=$BPV_A; BPV_LASTVOL=""; BPV_LISTED=""; BPV_TRY=0; fi
+            if [ -z "$BPV_LISTED" ] && [ -n "$BPV_NUM" ]; then
+                if bp_usbvol_usb_listed; then
+                    BPV_LISTED=1; BPV_LASTVOL=""; BPV_TRY=0
+                elif [ "${BPV_TRY:-0}" -lt 30 ]; then
+                    # Android announces the DAC a few seconds after it appears: ask each second, for a while
+                    BPV_TRY=$((${BPV_TRY:-0} + 1))
+                    ( sleep 1; setprop "$BP_USBVOL_POKE" "l$BPV_TRY" ) &
+                fi
+            fi
             [ -n "$BPV_LISTED" ] && [ "$BPV_E" = T ] && bp_usbvol_index_fix "$BPV_MAXI"
         fi
         [ "$BPV_ON" = 1 ] && [ -n "$BPV_NUM" ] || continue

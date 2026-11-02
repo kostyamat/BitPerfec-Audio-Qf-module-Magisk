@@ -26,7 +26,8 @@ Measured on stand 194 (UIS7862, PCM2704 `08bb:2704`), 01.11.2026, unless marked 
   player +44 s. `com.qf.framework` writes STREAM_MUSIC index = the knob on every turn (`setStreamVolume index:5, flags 0x40`), a digital dip on USB
   until the watcher puts 15 back (it was up to ~0.9 s). In full mode nothing restored it before.
 - `common/bp_propwait` (native, `tools/native/`, `.agents/platform/22-WATCHING-PROPERTIES.md`) wakes the watcher on a change of the knob, mute,
-  ignition or `sys.bitperfect.usbvol_poke` (bp_ctl.sh after writing settings); 📻 stand 194: seen <60 ms after `setprop`, 0 CPU ticks. Tick 500 ms for the card.
+  ignition, `init.svc.audioserver` or `sys.bitperfect.usbvol_poke` (bp_ctl.sh after writing settings); 📻 stand 194: seen <60 ms after `setprop`, 0 CPU ticks.
+  `inotifyd` (Magisk's busybox, else toybox): `/dev/snd` for a plugged DAC, 📻 ~45 ms; the settings folder (a single file on /sdcard: Invalid argument). Tick 5 s, 500 ms without inotifyd.
   (unset → `persist.sys.main_volume`), mute → switch off. No control → no follow (owner: «немає - значить немає»).
 
 ## 3. «Auto» = the player straight to the DAC (not done — design notes)
