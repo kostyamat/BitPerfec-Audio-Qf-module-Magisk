@@ -3,6 +3,12 @@
 🔴 **QF / K706 (or its MG clone) only. UIS7862: full module. UIS8581: reduced profile. Any other firmware: refused.**
 Support: https://t.me/kostyamat_dev/3
 
+## v5.7.7
+🔴 Magisk app: use version 30.6. With the older app 27 the module may not install completely; with 31.1 and later, apps do not get root.
+- USB DAC: a volume curve tuned by ear, five sliders, kept per DAC model. The module finds the DAC's own control and its steps by itself.
+- The knob, mute and ignition act at once; a plugged DAC gets its level before the first sound.
+- No root: the app says so in red and opens Magisk on the right screen; the installer warns when the Magisk app is not 30.6.
+
 ## v5.7.6
 🔴 Magisk app: use version 30.6. With the older app 27 the module may not install completely; with 31.1 and later, apps do not get root.
 Replaces v5.7.5: update if you installed it.

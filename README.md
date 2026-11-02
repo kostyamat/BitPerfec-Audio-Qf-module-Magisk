@@ -62,8 +62,7 @@ The installer reads the MCU code and picks the profile by itself.
 different, so the module does far less there. Kept factory: the 16-bit / 44.1 kHz output (most music is
 44.1, so it plays without resampling), the HAL's own sound parameters, effects and calls. Applied:
 navigation prompts duck the music (also iGo and the navigators the factory list misses), the louder music
-curve, the USB DAC setting. Each policy file is replaced only when the unit's factory file is exactly the
-one the profile was built from; anything else stays factory. The "default volume" slider in car settings
+curve, the USB DAC setting, as ready files built from the 8581 factory ones. The "default volume" slider in car settings
 stays yours — set it to **15 for 0 dB**. The UIS7862 patched libraries are never installed there. Reports
 from 8581 owners (the snapshot plus `/data/adb/BitPerfect.log`) are what turns 🧪 into ✅.
 
@@ -174,9 +173,9 @@ policy). BitPerfect lets you choose — in the app (tab **USB DAC**, applied at 
 | `1` | all Android sound while the DAC is plugged in, resampled to the DAC's best rate; Android volume stays at full scale, so set the level on the DAC or the amplifier. SIM calls stay on the head unit |
 
 With the USB DAC output on, Android sends the DAC **full scale**; the level is set by the DAC's own volume
-control, optionally following the head unit's volume knob (`usb_dac_volume=follow`). A DAC without its own control
+control, optionally following the head unit's volume knob (`usb_dac_volume=follow`) through a curve you tune by ear, kept per DAC model. A DAC without its own control
 plays at full level. The DAC mode (`usb_dac_mode`) is its best format or a fixed one from its own list. The DAC is
-silent while the ignition is off. Tested with a PCM2704 (16-bit); reports from other DACs welcome.
+silent while the ignition is off. Tested with a PCM2704 and a GeneralPlus USB DAC (both 16-bit); reports from other DACs welcome.
 
 ## Feedback — what to send
 
