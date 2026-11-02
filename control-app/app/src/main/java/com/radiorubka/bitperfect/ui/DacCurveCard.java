@@ -20,7 +20,8 @@ import java.util.concurrent.ExecutorService;
  * its own feel (owner 02.11: «у мене початок не чутливий, у гось таке буде в кінці. А в когось лінія»), so the module
  * keeps a curve per DAC model ({@code bp_ctl.sh usb_curve}, common/bp_usbvol.sh). A change applies at once, nothing
  * restarts, so the person can tune it by ear with music on; a slider is sent when it is let go. Moving one point
- * carries the others along smoothly, and two points never share a level (owner 02.11).
+ * stretches the points to its right like rubber; those to its left stay, so a curve is built from left to right, and
+ * two points never share a level (owner 02.11).
  */
 public final class DacCurveCard {
 
@@ -99,21 +100,20 @@ public final class DacCurveCard {
     }
 
     /**
-     * Point {@code at} dragged to {@code to}: the points on each side keep their shape, squeezed or stretched between
-     * it and the far end, measured from where they stood when the finger came down. Neighbours stay at least one
-     * step of this DAC apart.
+     * Point {@code at} dragged to {@code to}, measured from where all stood when the finger came down: the points to its
+     * right stretch or squeeze between it and the last point, the last stays unless it is the one dragged. The points to
+     * its left stay, and give way only when pushed. Neighbours stay at least one step of this DAC apart.
      */
     private void carry(int at, int to) {
         int n = sb.length, last = n - 1;
         int gap = Math.max(SCALE / top + 1, 5);
-        int first = atStart[0], end = atStart[last];
-        int lo = at == 0 ? 0 : first + at * gap;
+        int end = atStart[last];
+        int lo = at * gap;
         int hi = at == last ? SCALE : end - (last - at) * gap;
         int p = Math.max(lo, Math.min(hi, to));
         int[] v = new int[n];
         for (int i = 0; i < n; i++) {
-            if (i == at) v[i] = p;
-            else if (i < at) v[i] = first + Math.round((atStart[i] - first) * (float) (p - first) / (atStart[at] - first));
+            if (i <= at) v[i] = i == at ? p : atStart[i];
             else v[i] = p + Math.round((atStart[i] - atStart[at]) * (float) (end - p) / (end - atStart[at]));
         }
         for (int i = at + 1; i < n; i++) v[i] = Math.max(v[i], v[i - 1] + gap);
