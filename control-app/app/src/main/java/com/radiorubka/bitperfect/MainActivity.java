@@ -208,6 +208,8 @@ public class MainActivity extends Activity {
         if (!r.ok()) {
             tvPlatform.setText("no_root".equals(r.error) ? R.string.status_root_none
                     : "no_module".equals(r.error) ? R.string.status_no_module : R.string.status_no_answer);
+            // red, readable on both the night and the day card
+            tvPlatform.setTextColor(ThemeManager.isNight(this) ? ThemeManager.HYPER_RED : 0xFFC62828);
             tvPlatformNote.setText("");
             rootCard.show(r.error);
             showSections(false);
@@ -217,6 +219,8 @@ public class MainActivity extends Activity {
         }
         rootCard.hide();
         showSections(true);
+        boolean night = ThemeManager.isNight(this);
+        tvPlatform.setTextColor(ThemeManager.contrastText(ThemeManager.textPrimary(this, night), ThemeManager.cardBackground(this, night)));
         String platform = r.get("platform");
         boolean is7862 = "ums512".equals(platform);
         boolean is8581 = "sp9863a".equals(platform);
