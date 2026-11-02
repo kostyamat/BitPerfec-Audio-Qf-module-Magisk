@@ -52,6 +52,18 @@ public class MainActivity extends Activity {
     private static final int[] SECTION_IDS = {R.id.card_usb, R.id.card_mic, R.id.card_navi, R.id.card_theme};
     private final MaterialButton[] tabs = new MaterialButton[TAB_IDS.length];
 
+    /** Without the module nothing below the status is known: a switch would show a state it never read. */
+    private void showSections(boolean on) {
+        View row = findViewById(R.id.row_tabs);
+        if (on == (row.getVisibility() == View.VISIBLE)) return;
+        row.setVisibility(on ? View.VISIBLE : View.GONE);
+        if (on) {
+            showSection(getPreferences(MODE_PRIVATE).getInt("section", 0));
+        } else {
+            for (int id : SECTION_IDS) findViewById(id).setVisibility(View.GONE);
+        }
+    }
+
     private void showSection(int s) {
         if (s < 0 || s >= SECTION_IDS.length) s = 0;
         for (int i = 0; i < SECTION_IDS.length; i++) {
@@ -198,11 +210,13 @@ public class MainActivity extends Activity {
                     : "no_module".equals(r.error) ? R.string.status_no_module : R.string.status_no_answer);
             tvPlatformNote.setText("");
             rootCard.show(r.error);
+            showSections(false);
             tvPath.setText("");
             tvModule.setText("");
             return;
         }
         rootCard.hide();
+        showSections(true);
         String platform = r.get("platform");
         boolean is7862 = "ums512".equals(platform);
         boolean is8581 = "sp9863a".equals(platform);

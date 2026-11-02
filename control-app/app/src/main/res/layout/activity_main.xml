@@ -175,6 +175,7 @@
 
         <!-- sections: one open at a time, chosen here (owner 01.11: no long strip with a pile of scrolling) -->
         <LinearLayout
+            android:id="@+id/row_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
