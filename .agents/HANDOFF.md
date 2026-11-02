@@ -20,9 +20,11 @@ Cause NOT established, not reproduced. Needs his `bp_report.tgz` (log, tombstone
 ask the Magisk version first (31.1+ with a Magisk 27 kernel is the owner's suspect). All findings: `.agents/DEBT.md`, last section.
 
 ## ⏳ Local, NOT released (owner: «Випустимо пізніше, після відгуків на 576»), on stand 194, version still 5.7.6
-Installer warns about the Magisk app; `RootCard` no-root screen, one `su`, real timeout (`3f13028`, not yet seen on the unit: needs the owner
-to revoke root in Magisk); DAC curve per model, knob 1/8/16/24/32 in % of the control (`5b06d5c`, default = old even steps, command tested).
-Psychoacoustic default needs a REAL step→dB table: the driver's dB scale is false (`.agents/USB_DAC.md`). Owner by ear: step 4 whisper, half knob normal.
+- DAC volume curve per model (5 sliders, knob 1/8/16/24/32 in % of the DAC control, monotone cubic in float, right side stretches, left stays), applied at once,
+  `common/bp_propwait` instead of polling, index restored at once. 📻 Owner 02.11: «все працює чудово, реакція швидка». The owner's own curve is on the stand: DO NOT overwrite it.
+- Installer warns about the Magisk app; `RootCard` no-root screen, one `su`, real timeout: not yet seen on the unit (owner must revoke root in Magisk).
+- The driver's dB scale is false (`.agents/USB_DAC.md`); nothing is measured automatically (owner: «юзер бавиться»).
+- Release needs: guide + notes for the curve, a version bump, a clean install and an update from v5.7.6.
 
 ## 📋 Next (`.agents/TODO.md`)
 Shorten `AGENTS.md` (over 8 KB);
